@@ -4,6 +4,7 @@ import { BOND, add, angleGap, angleOf, dist, fromAngle, mid, mul, norm, perp, su
 import { adjacency, type Adjacency } from '../chem/chem'
 import type { ParsedMol } from '../chem/molfile'
 import { newId } from './store'
+import { freeValence } from '../chem/valence'
 
 export function addAtom(d: Doc, x: number, y: number, element = 'C', charge = 0): ID {
   const id = newId('a')
@@ -124,7 +125,10 @@ export function applyBondStyle(d: Doc, bondId: ID, order: BondOrder, stereo: Bon
   } else if (b.stereo !== 'none') {
     b.stereo = 'none'; b.order = order
   } else if (b.order === order) {
-    b.order = (order === 3 ? 1 : order + 1) as BondOrder
+    // cycle 1 → 2 → 3 → 1, skipping orders the atoms have no room for
+    const room = Math.min(freeValence(d, b.a1), freeValence(d, b.a2)) + b.order
+    const next = (order === 3 ? 1 : order + 1) as BondOrder
+    b.order = next <= room ? next : 1
   } else {
     b.order = order
   }
@@ -188,7 +192,8 @@ export function addRing(d: Doc, size: number, aromatic: boolean, target: RingTar
       Object.values(d.bonds).some(b => (b.a1 === atomId || b.a2 === atomId) && b.order > 1)
     for (const bid of ringBonds) {
       const b = d.bonds[bid]
-      if (b.order === 1 && !hasMultiple(b.a1) && !hasMultiple(b.a2)) b.order = 2
+      if (b.order === 1 && !hasMultiple(b.a1) && !hasMultiple(b.a2)
+        && freeValence(d, b.a1) >= 1 && freeValence(d, b.a2) >= 1) b.order = 2
     }
   }
   return ids

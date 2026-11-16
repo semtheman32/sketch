@@ -4,6 +4,7 @@ import type { BondOrder, Doc, ID } from './model/types'
 import { emptyDoc, kindOf } from './model/types'
 import { canRedo, canUndo, commit, getDoc, redo, replaceDoc, undo, useDoc } from './model/store'
 import { applyBondStyle, contentBounds, growBond, removeItems, straightenTriple } from './model/ops'
+import { ValenceError } from './chem/valence'
 import { adjacency, components, formulaOf } from './chem/chem'
 import { writeMolfile } from './chem/molfile'
 import { Canvas, type EditTarget, type View } from './render/Canvas'
@@ -49,6 +50,15 @@ export default function App() {
   const setOpts = useCallback((o: Partial<ToolOptions>) => setOptsState(s => ({ ...s, ...o })), [])
 
   useEffect(() => { startBridge() }, [])
+
+  // Edits that would over-bond an atom are refused in commit(); explain why instead of failing silently.
+  useEffect(() => {
+    const onError = (e: ErrorEvent) => {
+      if (e.error instanceof ValenceError) { e.preventDefault(); setToast(e.error.message) }
+    }
+    window.addEventListener('error', onError)
+    return () => window.removeEventListener('error', onError)
+  }, [])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme

@@ -4,7 +4,7 @@ import { kindOf } from '../model/types'
 import { BOND, add, angleOf, dist, fromAngle, inRect, len, mid, mul, norm, perp, sub, type P, type Rect } from '../model/geometry'
 import { commit, finishLive, getDoc, newId, setLive, useDoc } from '../model/store'
 import {
-  addAtom, addBond, addRing, applyBondStyle, atomNear, growBond, moveItems, removeItems,
+  addAtom, addBond, addRing, applyBondStyle, atomNear, bondBetween, growBond, moveItems, removeItems,
 } from '../model/ops'
 import { adjacency, components } from '../chem/chem'
 import { anchorPoint, hitTest, type Hit } from './layout'
@@ -35,7 +35,7 @@ type Mode =
   | { m: 'arrowEnd'; base: Doc; id: ID; end: 1 | 2 }
   | { m: 'bend'; base: Doc; id: ID }
   | { m: 'marquee'; start: P; add: boolean }
-  | { m: 'bond'; from: ID | null; start: P; sx: number; sy: number }
+  | { m: 'bond'; from: ID | null; start: P; sx: number; sy: number; chain: P[]; dirs: number[] }
   | { m: 'arrow'; start: P }
   | { m: 'curly'; from: ID; sx: number; sy: number }
   | { m: 'erase'; base: Doc }
@@ -112,6 +112,33 @@ export function Canvas(p: Props) {
     return existing ? { p: d.atoms[existing], atom: existing } : { p: end, atom: null }
   }
 
+  /**
+   * Drag-to-draw chain: grows a zigzag skeleton that follows the pointer.
+   * Each new bond turns ±60° from the previous one, whichever points closer to the pointer,
+   * so a straight drag gives a zigzag and a curved drag bends with it. Moving back removes bonds.
+   */
+  const followChain = (md: Extract<Mode, { m: 'bond' }>, w: P) => {
+    const { chain, dirs } = md
+    for (let guard = 0; guard < 50; guard++) {
+      const n = chain.length
+      if (n >= 2 && dist(w, chain[n - 2]) < BOND * 0.5) { chain.pop(); dirs.pop(); continue }
+      const last = chain[n - 1]
+      if (dist(w, last) < BOND * 0.85) return
+      const want = angleOf(sub(w, last))
+      let ang: number
+      if (!dirs.length) {
+        ang = Math.round(want / SNAP) * SNAP - SNAP
+      } else {
+        const prev = dirs[dirs.length - 1]
+        const turn = Math.PI / 3
+        const diff = (a: number) => Math.abs(Math.atan2(Math.sin(a - want), Math.cos(a - want)))
+        ang = diff(prev + turn) <= diff(prev - turn) ? prev + turn : prev - turn
+      }
+      chain.push(add(last, mul(fromAngle(ang), BOND)))
+      dirs.push(ang)
+    }
+  }
+
   const createCurly = (from: ID, to: ID) => {
     commit(d => {
       const id = newId('c')
@@ -166,7 +193,8 @@ export function Canvas(p: Props) {
       case 'bond': {
         if (hit?.kind === 'bond') { commit(dd => applyBondStyle(dd, hit.id, o.bondOrder, o.bondStereo)); return }
         const from = hit?.kind === 'atom' ? hit.id : null
-        mode.current = { m: 'bond', from, start: from ? d.atoms[from] : w, sx: e.clientX, sy: e.clientY }
+        const start = from ? d.atoms[from] : w
+        mode.current = { m: 'bond', from, start, sx: e.clientX, sy: e.clientY, chain: [start], dirs: [] }
         setPointer(w)
         return
       }
@@ -281,7 +309,11 @@ export function Canvas(p: Props) {
       case 'marquee':
         setMarquee({ x1: md.start.x, y1: md.start.y, x2: w.x, y2: w.y })
         return
-      case 'bond': case 'arrow': case 'curly':
+      case 'bond':
+        followChain(md, w)
+        setPointer(w)
+        return
+      case 'arrow': case 'curly':
         setPointer(w)
         return
       case 'erase': {
@@ -319,6 +351,19 @@ export function Canvas(p: Props) {
         const o = p.opts
         const clicked = Math.hypot(e.clientX - md.sx, e.clientY - md.sy) < 6
         setPointer(null)
+        if (!clicked && md.chain.length > 2) {
+          commit(d => {
+            let prev = md.from ?? (atomNear(d, md.start, tol()) || addAtom(d, md.start.x, md.start.y))
+            md.chain.slice(1).forEach((pt, i) => {
+              const isLast = i === md.chain.length - 2
+              const near = atomNear(d, pt, isLast ? tol() * 1.5 : BOND * 0.2, prev)
+              const next = near ?? addAtom(d, pt.x, pt.y)
+              if (next !== prev && !bondBetween(d, prev, next)) addBond(d, prev, next, 1, 'none')
+              prev = next
+            })
+          })
+          break
+        }
         commit(d => {
           if (clicked) {
             if (md.from) growBond(d, md.from, o.bondOrder, o.bondStereo)
@@ -371,7 +416,15 @@ export function Canvas(p: Props) {
   let preview: ReactNode = null
   if (md.m === 'bond' && pointer) {
     const moved = dist(pointer, md.start) * k > 6
-    if (moved) {
+    if (md.chain.length > 2) {
+      preview = (
+        <g>
+          <polyline points={md.chain.map(q => `${q.x},${q.y}`).join(' ')} fill="none" stroke="var(--accent)" strokeWidth={2} strokeLinejoin="round" />
+          {md.chain.map((q, i) => <circle key={i} cx={q.x} cy={q.y} r={2.5} fill="var(--accent)" />)}
+          <text x={pointer.x + 12} y={pointer.y - 10} fontSize={12} fill="var(--accent)">{md.chain.length - 1}</text>
+        </g>
+      )
+    } else if (moved) {
       const s = snapEnd(md.start, pointer, md.from)
       preview = <line x1={md.start.x} y1={md.start.y} x2={s.p.x} y2={s.p.y} stroke="var(--accent)" strokeWidth={2} strokeDasharray="4 3" />
     }

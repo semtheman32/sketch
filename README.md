@@ -11,12 +11,14 @@ npm run dev
 
 Open http://localhost:5173. Your drawing autosaves in the browser.
 
+**Desktop shortcut (Windows):** run `powershell -ExecutionPolicy Bypass -File scripts/make-shortcut.ps1` once. The "Sketch" shortcut starts the server in the background if needed and opens the app in its own window.
+
 ## Using it
 
 | Tool | Key | What it does |
 |---|---|---|
 | Select | V | Click a molecule to select it, drag to move. Alt+drag moves one atom. Drag on empty space to box-select. Double-click an atom, label or arrow to edit it. |
-| Bond | B | Click empty space for a bond, click an atom to grow a chain, drag from an atom to aim. Click a bond to change its order. |
+| Bond | B | Click empty space for a bond, click an atom to grow a chain. Drag to draw a zigzag chain that follows the mouse (move back to remove bonds). Click a bond to change its order. Atoms can't be given more bonds than their valence allows. |
 | Atom | A | Pick an element, charge, lone pair or radical, then click atoms. |
 | Ring | R | Click empty space, an atom (spiro) or a bond (fused). Keys 3–8 pick a ring size. |
 | Reaction arrow | W | Drag to draw: reaction, equilibrium, resonance or retrosynthesis. |
