@@ -21,20 +21,58 @@ const log = (...a) => console.error('[sketch-bridge]', ...a)
 
 // ---------------------------------------------------------------- WebSocket side
 
+const RETRY_MS = 3_000
+const APP_WAIT_MS = 5_000 // the app retries its connection every 3 s
+
 let app = null
 let wsError = null
+let listening = false
+let binding = null // in-flight listen() promise
 let nextId = 1
 const pending = new Map()
 
-const wss = new WebSocketServer({ host: '127.0.0.1', port: PORT })
-wss.on('listening', () => log(`waiting for the app on ws://127.0.0.1:${PORT}`))
-wss.on('error', err => {
-  wsError = err.code === 'EADDRINUSE'
-    ? `Port ${PORT} is already in use, probably by another Claude session's bridge. Close it, then restart this MCP server.`
-    : String(err)
-  log(wsError)
-})
-wss.on('connection', socket => {
+// Try to take the port. If another session's bridge holds it, keep retrying in the
+// background (and on every tool call), so freeing the port is enough: no restart needed.
+function listen() {
+  if (listening) return Promise.resolve()
+  if (binding) return binding
+  binding = new Promise(resolve => {
+    const wss = new WebSocketServer({ host: '127.0.0.1', port: PORT })
+    wss.once('listening', () => {
+      listening = true
+      wsError = null
+      log(`waiting for the app on ws://127.0.0.1:${PORT}`)
+      resolve()
+    })
+    wss.once('error', err => {
+      const msg = err.code === 'EADDRINUSE'
+        ? `Port ${PORT} is in use, probably by another Claude session's bridge. Close that session (or stop its bridge); this one will take over the port automatically.`
+        : String(err)
+      if (msg !== wsError) log(msg)
+      wsError = msg
+      wss.close()
+      resolve()
+    })
+    wss.on('connection', onConnection)
+  }).finally(() => { binding = null })
+  return binding
+}
+
+setInterval(() => { if (!listening) listen() }, RETRY_MS).unref()
+listen()
+
+function waitForApp(ms) {
+  return new Promise(resolve => {
+    const start = Date.now()
+    const tick = () => {
+      if ((app && app.readyState === 1) || Date.now() - start >= ms) return resolve()
+      setTimeout(tick, 200)
+    }
+    tick()
+  })
+}
+
+function onConnection(socket) {
   if (app && app !== socket) app.close()
   app = socket
   log('app connected')
@@ -51,13 +89,17 @@ wss.on('connection', socket => {
   socket.on('close', () => {
     if (app === socket) { app = null; log('app disconnected') }
   })
-})
+}
 
-function call(method, params = {}) {
-  if (wsError) return Promise.reject(new Error(wsError))
+async function call(method, params = {}) {
+  if (!listening) {
+    await listen()
+    if (!listening) throw new Error(wsError)
+  }
+  if (!app || app.readyState !== 1) await waitForApp(APP_WAIT_MS)
   if (!app || app.readyState !== 1) {
-    return Promise.reject(new Error(
-      'The Sketch app is not connected. Ask the user to start it with `npm run dev` in the project folder and open http://localhost:5173 in a browser.'))
+    throw new Error(
+      'The Sketch app is not connected. Ask the user to start it with `npm run dev` in the project folder and open http://localhost:5173 in a browser.')
   }
   const id = nextId++
   return new Promise((resolve, reject) => {
