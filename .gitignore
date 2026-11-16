@@ -26,3 +26,4 @@ dist-ssr
 # Copied from node_modules by scripts/copy-rdkit.mjs
 public/rdkit
 sn2.png
+.claude/settings.local.json

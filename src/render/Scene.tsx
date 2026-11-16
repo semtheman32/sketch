@@ -4,7 +4,7 @@ import { add, mul, norm, perp, sub, type P } from '../model/geometry'
 import { adjacency, chargeLabel, type Adjacency } from '../chem/chem'
 import { elementColor } from '../chem/elements'
 import {
-  FONT, arrowLabelPositions, atomVisual, curlyGeometry, doubleBondSide, electronDots, textWidth,
+  FONT, arrowLabelPositions, atomVisual, curlyGeometry, doubleBondSide, electronDots, labelWidth, textWidth,
   type AtomVisual,
 } from './layout'
 
@@ -80,7 +80,7 @@ function BondView({ b, doc, adj, vis, pal, hl }: {
       parts.push(line(sub(p1, mul(n, 2.8)), sub(p2, mul(n, 2.8)), 1))
     } else {
       const off = mul(n, 6 * side)
-      const s1 = vA.showLabel ? 0 : 5, s2 = vB.showLabel ? 0 : 5
+      const s1 = vA.showLabel ? 0 : 6, s2 = vB.showLabel ? 0 : 6
       parts.push(line(p1, p2, 0))
       parts.push(line(add(add(p1, off), mul(dir, s1)), sub(add(p2, off), mul(dir, s2)), 1))
     }
@@ -208,11 +208,16 @@ function CurlyView({ c, doc, adj, pal, hl }: { c: Curly; doc: Doc; adj: Adjacenc
 }
 
 function TextView({ t, pal, hl }: { t: TextItem; pal: Palette; hl: string | null }) {
-  const w = textWidth(t.text || ' ')
+  const w = labelWidth(t)
+  const size = t.size ?? FONT
   return (
     <g>
-      {hl && <rect x={t.x - 3} y={t.y - FONT} width={w + 6} height={FONT + 6} rx={3} fill={hl} />}
-      <text x={t.x} y={t.y} fontSize={FONT} fill={pal.ink} style={{ whiteSpace: 'pre' }}>{t.text}</text>
+      {hl && <rect x={t.x - 3} y={t.y - size} width={w + 6} height={size * 1.4} rx={3} fill={hl} />}
+      <text
+        x={t.x} y={t.y} fontSize={size} fill={t.color || pal.ink}
+        fontWeight={t.bold ? 700 : undefined} fontStyle={t.italic ? 'italic' : undefined}
+        style={{ whiteSpace: 'pre' }}
+      >{t.text}</text>
     </g>
   )
 }

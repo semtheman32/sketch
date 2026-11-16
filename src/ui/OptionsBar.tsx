@@ -1,9 +1,18 @@
 import { useState, type ReactNode } from 'react'
-import type { ArrowKind, BondOrder, BondStereo } from '../model/types'
+import type { ArrowKind, BondOrder, BondStereo, Doc, ID, TextStyle } from '../model/types'
+import { kindOf } from '../model/types'
+import { commit } from '../model/store'
+import { TextStyleBar } from './TextStyleBar'
 import { normaliseSymbol } from '../chem/elements'
 import type { AtomMode, Tool, ToolOptions } from './tools'
 
-interface Props { tool: Tool; opts: ToolOptions; setOpts: (o: Partial<ToolOptions>) => void }
+interface Props {
+  tool: Tool
+  opts: ToolOptions
+  setOpts: (o: Partial<ToolOptions>) => void
+  doc: Doc
+  selection: ID[]
+}
 
 function Seg<T>({ items, value, onPick }: { items: { v: T; label: string; title?: string }[]; value: T; onPick: (v: T) => void }) {
   return (
@@ -22,9 +31,10 @@ function Seg<T>({ items, value, onPick }: { items: { v: T; label: string; title?
 
 const ELEMENTS = ['C', 'H', 'N', 'O', 'S', 'P', 'F', 'Cl', 'Br', 'I']
 
-export function OptionsBar({ tool, opts, setOpts }: Props) {
+export function OptionsBar({ tool, opts, setOpts, doc, selection }: Props) {
   const [custom, setCustom] = useState('')
   let body: ReactNode = null
+  const selectedTexts = (tool === 'select' || tool === 'text') ? selection.filter(id => kindOf(id) === 'text' && doc.texts[id]) : []
 
   if (tool === 'bond') {
     const bondKey = opts.bondStereo !== 'none' ? opts.bondStereo : String(opts.bondOrder)
@@ -99,6 +109,23 @@ export function OptionsBar({ tool, opts, setOpts }: Props) {
           { v: 'retro', label: '⇒', title: 'Retrosynthesis' },
         ]}
       />
+    )
+  } else if (selectedTexts.length) {
+    // Restyle selected labels (with any tool except those that have their own options above)
+    const first = doc.texts[selectedTexts[0]]
+    const style: TextStyle = { color: first.color, bold: first.bold, italic: first.italic, size: first.size }
+    body = (
+      <>
+        <span className="muted small" style={{ padding: '0 6px' }}>{selectedTexts.length === 1 ? 'Label' : `${selectedTexts.length} labels`}</span>
+        <TextStyleBar style={style} onChange={s => commit(d => { for (const id of selectedTexts) Object.assign(d.texts[id], s) })} />
+      </>
+    )
+  } else if (tool === 'text') {
+    body = (
+      <>
+        <span className="muted small" style={{ padding: '0 6px' }}>New labels</span>
+        <TextStyleBar style={opts.textStyle} onChange={s => setOpts({ textStyle: s })} />
+      </>
     )
   } else if (tool === 'curly') {
     body = (

@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
-import type { BondOrder, Doc, ID } from './model/types'
+import type { BondOrder, Doc, ID, TextStyle } from './model/types'
 import { emptyDoc, kindOf } from './model/types'
-import { canRedo, canUndo, commit, getDoc, redo, replaceDoc, undo, useDoc } from './model/store'
+import { canRedo, canUndo, commit, getDoc, newId, redo, replaceDoc, undo, useDoc } from './model/store'
+import { TextStyleBar } from './ui/TextStyleBar'
 import { applyBondStyle, contentBounds, growBond, removeItems, straightenTriple } from './model/ops'
 import { ValenceError } from './chem/valence'
 import { adjacency, components, formulaOf } from './chem/chem'
@@ -273,7 +274,7 @@ export default function App() {
         </nav>
 
         <main className="stage" ref={stageRef}>
-          <OptionsBar tool={tool} opts={opts} setOpts={setOpts} />
+          {!editing && <OptionsBar tool={tool} opts={opts} setOpts={setOpts} doc={doc} selection={selection} />}
           <Canvas
             tool={tool} opts={opts} view={view} setView={setView}
             selection={selection} setSelection={setSelection}
@@ -286,7 +287,12 @@ export default function App() {
               <p>Click anywhere with the Bond tool, or type a molecule name above.</p>
             </div>
           )}
-          {editing && <Editor target={editing} view={view} onDone={() => setEditing(null)} />}
+          {editing && (
+            <Editor
+              key={editing.kind === 'newText' ? `new-${editing.x}-${editing.y}` : editing.id}
+              target={editing} view={view} newTextStyle={opts.textStyle} onDone={() => setEditing(null)}
+            />
+          )}
           {toast && <div className="toast">{toast}</div>}
           <footer className="status">
             <span className="hint">{toolInfo.hint}</span>
@@ -304,27 +310,64 @@ export default function App() {
   )
 }
 
-function Editor({ target, view, onDone }: { target: EditTarget; view: View; onDone: () => void }) {
+/** Typing box for a new or existing label, with its style controls above it. */
+function TextEditor({ target, view, newTextStyle, onDone }: {
+  target: { kind: 'text'; id: ID } | { kind: 'newText'; x: number; y: number }; view: View; newTextStyle: TextStyle; onDone: () => void
+}) {
+  const existing = target.kind === 'text' ? getDoc().texts[target.id] : null
+  const [style, setStyle] = useState<TextStyle>(() =>
+    existing ? { color: existing.color, bold: existing.bold, italic: existing.italic, size: existing.size } : { ...newTextStyle })
+  const done = useRef(false)
+  if (target.kind === 'text' && !existing) return null
+  const x = existing ? existing.x : (target as { x: number }).x
+  const y = existing ? existing.y : (target as { y: number }).y
+
+  const finish = (value: string, save: boolean) => {
+    if (done.current) return
+    done.current = true
+    if (save) {
+      const text = value.replace(/\s+$/, '')
+      commit(d => {
+        if (existing) {
+          if (text.trim()) Object.assign(d.texts[existing.id], { text }, style)
+          else delete d.texts[existing.id]
+        } else if (text.trim()) {
+          const id = newId('t')
+          d.texts[id] = { id, x, y, text, ...style }
+        }
+      })
+    }
+    onDone()
+  }
+
+  const size = (style.size ?? 14) * view.k
+  return (
+    <div className="text-editor" style={{ left: x * view.k + view.x - 8, top: y * view.k + view.y - size - 10 }}>
+      <div className="options text-style"><TextStyleBar style={style} onChange={setStyle} /></div>
+      <input
+        autoFocus defaultValue={existing?.text ?? ''} placeholder="Type a label, then Enter"
+        style={{
+          fontSize: Math.max(12, size), fontWeight: style.bold ? 700 : 400, fontStyle: style.italic ? 'italic' : 'normal',
+          color: style.color || 'var(--text)',
+        }}
+        onBlur={e => finish(e.target.value, true)}
+        onKeyDown={e => {
+          if (e.key === 'Enter') finish(e.currentTarget.value, true)
+          else if (e.key === 'Escape') finish('', false)
+          else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') { e.preventDefault(); setStyle(s => ({ ...s, bold: !s.bold })) }
+          else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'i') { e.preventDefault(); setStyle(s => ({ ...s, italic: !s.italic })) }
+        }}
+      />
+    </div>
+  )
+}
+
+function Editor({ target, view, newTextStyle, onDone }: { target: EditTarget; view: View; newTextStyle: TextStyle; onDone: () => void }) {
   const doc = getDoc()
   const screen = (x: number, y: number) => ({ left: x * view.k + view.x, top: y * view.k + view.y })
 
-  if (target.kind === 'text') {
-    const t = doc.texts[target.id]
-    if (!t) return null
-    const finish = (value: string) => {
-      commit(d => { if (value.trim()) d.texts[t.id].text = value; else delete d.texts[t.id] })
-      onDone()
-    }
-    const pos = screen(t.x, t.y)
-    return (
-      <input
-        className="editor" autoFocus defaultValue={t.text} placeholder="Label"
-        style={{ left: pos.left - 6, top: pos.top - 22 }}
-        onBlur={e => finish(e.target.value)}
-        onKeyDown={e => { if (e.key === 'Enter') (e.target as HTMLInputElement).blur(); if (e.key === 'Escape') { if (target.isNew) finish(''); else onDone() } }}
-      />
-    )
-  }
+  if (target.kind === 'newText') return <TextEditor target={target} view={view} newTextStyle={newTextStyle} onDone={onDone} />
+  if (target.kind === 'text') return <TextEditor target={{ kind: 'text', id: target.id }} view={view} newTextStyle={newTextStyle} onDone={onDone} />
 
   if (target.kind === 'atom') {
     const a = doc.atoms[target.id]

@@ -49,7 +49,15 @@ export interface TextItem {
   x: number
   y: number
   text: string
+  /** Hex colour; empty or missing means the normal ink colour. */
+  color?: string
+  bold?: boolean
+  italic?: boolean
+  /** Font size in canvas units (default 14). */
+  size?: number
 }
+
+export type TextStyle = Pick<TextItem, 'color' | 'bold' | 'italic' | 'size'>
 
 export interface Doc {
   atoms: Record<ID, Atom>

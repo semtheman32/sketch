@@ -171,8 +171,18 @@ tool('add_curly_arrow',
     bend: z.number().min(-3).max(3).optional().describe('Curvature; 1 curves left of the from→to direction, -1 right. Default 1.'),
   }, 'add_curly_arrow')
 
-tool('add_text', 'Add a text label (e.g. "+", "Step 1", "δ+") with its left baseline at x,y.',
-  { text: z.string(), x: num.optional(), y: num.optional() }, 'add_text')
+const textStyle = {
+  color: z.string().optional().describe('Hex colour like #d64545; omit for the normal ink colour'),
+  bold: z.boolean().optional(),
+  italic: z.boolean().optional(),
+  size: num.optional().describe('Font size in canvas units; default 14'),
+}
+
+tool('add_text', 'Add a text label (e.g. "+", "Step 1", "δ+") with its left baseline at x,y. Optional colour, bold, italic and size.',
+  { text: z.string(), x: num.optional(), y: num.optional(), ...textStyle }, 'add_text')
+
+tool('set_text', 'Change a text label: its words, position or style.',
+  { id, text: z.string().optional(), x: num.optional(), y: num.optional(), ...textStyle }, 'set_text')
 
 tool('clean_structure', 'Recompute tidy 2D coordinates for the molecules containing atom_ids (or every molecule).',
   { atom_ids: z.array(id).optional() }, 'clean')

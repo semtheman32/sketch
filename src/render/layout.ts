@@ -135,8 +135,14 @@ export function curlyGeometry(doc: Doc, c: Curly, adj: Adjacency): CurlyGeom | n
   }
 }
 
+/** Width of a text label, allowing for its size and boldness. */
+export function labelWidth(t: TextItem): number {
+  return textWidth(t.text || ' ', t.size ?? FONT) * (t.bold ? 1.08 : 1)
+}
+
 export function textBox(t: TextItem) {
-  return { x1: t.x - 2, y1: t.y - FONT, x2: t.x + Math.max(textWidth(t.text || ' '), 10) + 2, y2: t.y + 5 }
+  const size = t.size ?? FONT
+  return { x1: t.x - 2, y1: t.y - size, x2: t.x + Math.max(labelWidth(t), 10) + 2, y2: t.y + size * 0.35 }
 }
 
 export type Hit =
@@ -198,6 +204,48 @@ export function arrowLabelPositions(r: Arrow) {
 }
 
 /** Which side a double bond's inner line goes: 1 = left of a1→a2, -1 = right, 0 = centred. */
+/** Rings (up to 8 atoms) that contain bond `b`: one shortest ring per neighbour of b.a1. */
+function ringsThroughBond(adj: Adjacency, b: Bond, maxSize = 8): ID[][] {
+  const rings: ID[][] = []
+  for (const start of adj.get(b.a1) ?? []) {
+    if (start.other === b.a2) continue
+    // shortest path start → a2 that avoids a1
+    const prev = new Map<ID, ID | null>([[start.other, null]])
+    let frontier = [start.other]
+    for (let depth = 2; depth < maxSize && frontier.length && !prev.has(b.a2); depth++) {
+      const next: ID[] = []
+      for (const cur of frontier) {
+        for (const nb of adj.get(cur) ?? []) {
+          if (nb.other === b.a1 || prev.has(nb.other)) continue
+          prev.set(nb.other, cur)
+          next.push(nb.other)
+        }
+      }
+      frontier = next
+    }
+    if (!prev.has(b.a2)) continue
+    const path: ID[] = []
+    for (let cur: ID | null = b.a2; cur; cur = prev.get(cur) ?? null) path.push(cur)
+    rings.push([b.a1, ...path.reverse()])
+  }
+  return rings
+}
+
+function bestRing(adj: Adjacency, b: Bond): ID[] | null {
+  let best: ID[] | null = null, bestScore = -Infinity
+  for (const ring of ringsThroughBond(adj, b)) {
+    let doubles = 0
+    for (let i = 0; i < ring.length; i++) {
+      const x = ring[i], y = ring[(i + 1) % ring.length]
+      const nb = (adj.get(x) ?? []).find(n => n.other === y)
+      if (nb && nb.bond.order === 2) doubles++
+    }
+    const score = doubles * 10 - ring.length
+    if (score > bestScore) { bestScore = score; best = ring }
+  }
+  return best
+}
+
 export function doubleBondSide(doc: Doc, b: Bond, adj: Adjacency, visA: AtomVisual, visB: AtomVisual): number {
   const A = doc.atoms[b.a1], B = doc.atoms[b.a2]
   const n = perp(norm(sub(B, A)))
@@ -205,6 +253,16 @@ export function doubleBondSide(doc: Doc, b: Bond, adj: Adjacency, visA: AtomVisu
   const nsA = (adj.get(A.id) ?? []).filter(x => x.other !== B.id)
   const nsB = (adj.get(B.id) ?? []).filter(x => x.other !== A.id)
   if ((nsA.length === 0 && visA.showLabel) || (nsB.length === 0 && visB.showLabel)) return 0
+  // In a ring, the second line goes inside it. For a bond shared by two rings, prefer the ring
+  // with more double bonds (so benzene's lines stay inside benzene), then the smaller ring.
+  const ring = bestRing(adj, b)
+  if (ring) {
+    let c: P = { x: 0, y: 0 }
+    for (const id of ring) c = add(c, doc.atoms[id])
+    c = mul(c, 1 / ring.length)
+    const s = (c.x - A.x) * n.x + (c.y - A.y) * n.y
+    if (Math.abs(s) > 0.5) return s > 0 ? 1 : -1
+  }
   for (const nb of [...nsA, ...nsB]) {
     const o = doc.atoms[nb.other]
     const s = (o.x - A.x) * n.x + (o.y - A.y) * n.y

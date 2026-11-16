@@ -1,4 +1,4 @@
-import type { ArrowKind, BondOrder, BondStereo } from '../model/types'
+import type { ArrowKind, BondOrder, BondStereo, TextStyle } from '../model/types'
 
 export type Tool = 'select' | 'bond' | 'atom' | 'ring' | 'arrow' | 'curly' | 'text' | 'eraser'
 
@@ -13,6 +13,8 @@ export interface ToolOptions {
   ringAromatic: boolean
   arrowKind: ArrowKind
   curlyHalf: boolean
+  /** Style for new text labels. */
+  textStyle: TextStyle
 }
 
 export const defaultOptions: ToolOptions = {
@@ -24,6 +26,7 @@ export const defaultOptions: ToolOptions = {
   ringAromatic: true,
   arrowKind: 'forward',
   curlyHalf: false,
+  textStyle: {},
 }
 
 export interface ToolInfo { id: Tool; label: string; key: string; icon: string; hint: string }
@@ -35,6 +38,6 @@ export const TOOLS: ToolInfo[] = [
   { id: 'ring', label: 'Ring', key: 'R', icon: 'ring', hint: 'Click empty space to place a ring. Click a bond to fuse, or an atom to attach.' },
   { id: 'arrow', label: 'Reaction arrow', key: 'W', icon: 'arrow', hint: 'Drag to draw a reaction arrow. Double-click it with Select to add conditions.' },
   { id: 'curly', label: 'Curly arrow', key: 'M', icon: 'curly', hint: 'Click where electrons come from (atom, lone pair or bond), then where they go. Click an arrow to flip its curve.' },
-  { id: 'text', label: 'Text', key: 'T', icon: 'text', hint: 'Click to add a label. Click a label to edit it.' },
+  { id: 'text', label: 'Text', key: 'T', icon: 'text', hint: 'Click to add a label, then type and press Enter. Click a label to edit it. Select labels to restyle them.' },
   { id: 'eraser', label: 'Eraser', key: 'E', icon: 'eraser', hint: 'Click or drag over anything to delete it.' },
 ]

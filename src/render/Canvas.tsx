@@ -13,7 +13,9 @@ import type { Tool, ToolOptions } from '../ui/tools'
 
 export interface View { x: number; y: number; k: number }
 
-export type EditTarget = { kind: 'text' | 'arrow' | 'atom'; id: ID; isNew?: boolean }
+export type EditTarget =
+  | { kind: 'text' | 'arrow' | 'atom'; id: ID }
+  | { kind: 'newText'; x: number; y: number }
 
 interface Props {
   tool: Tool
@@ -39,6 +41,7 @@ type Mode =
   | { m: 'arrow'; start: P }
   | { m: 'curly'; from: ID; sx: number; sy: number }
   | { m: 'erase'; base: Doc }
+  | { m: 'text'; target: EditTarget }
 
 const SNAP = Math.PI / 6
 
@@ -244,13 +247,11 @@ export function Canvas(p: Props) {
         return
       }
       case 'text': {
-        if (hit?.kind === 'text') { p.onEdit({ kind: 'text', id: hit.id }); return }
-        const id = commit(dd => {
-          const nid = newId('t')
-          dd.texts[nid] = { id: nid, x: w.x, y: w.y + 5, text: '' }
-          return nid
-        })
-        p.onEdit({ kind: 'text', id, isNew: true })
+        // Open the editor on pointer-up: opening it now would lose focus to this same click.
+        mode.current = {
+          m: 'text',
+          target: hit?.kind === 'text' ? { kind: 'text', id: hit.id } : { kind: 'newText', x: w.x, y: w.y + 5 },
+        }
         return
       }
       case 'eraser': {
@@ -332,6 +333,11 @@ export function Canvas(p: Props) {
       case 'move': case 'arrowEnd': case 'bend': case 'erase':
         finishLive(md.base)
         break
+      case 'text': {
+        const target = md.target
+        setTimeout(() => p.onEdit(target), 0)
+        break
+      }
       case 'marquee': {
         const r = { x1: md.start.x, y1: md.start.y, x2: w.x, y2: w.y }
         setMarquee(null)

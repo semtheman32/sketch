@@ -262,7 +262,10 @@ export function contentBounds(d: Doc): Rect | null {
   const xs: number[] = [], ys: number[] = []
   for (const a of Object.values(d.atoms)) { xs.push(a.x); ys.push(a.y) }
   for (const a of Object.values(d.arrows)) { xs.push(a.x1, a.x2); ys.push(a.y1, a.y2) }
-  for (const t of Object.values(d.texts)) { xs.push(t.x, t.x + t.text.length * 8); ys.push(t.y) }
+  for (const t of Object.values(d.texts)) {
+    const size = t.size ?? 14
+    xs.push(t.x, t.x + t.text.length * size * 0.6); ys.push(t.y - size, t.y)
+  }
   if (!xs.length) return null
   return { x1: Math.min(...xs), y1: Math.min(...ys), x2: Math.max(...xs), y2: Math.max(...ys) }
 }

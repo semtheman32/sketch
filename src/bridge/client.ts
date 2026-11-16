@@ -3,7 +3,7 @@
  * The bridge forwards MCP tool calls from Claude; each call runs here as one undoable edit.
  */
 import { useSyncExternalStore } from 'react'
-import type { ArrowKind, BondOrder, BondStereo, Doc, ID } from '../model/types'
+import type { ArrowKind, BondOrder, BondStereo, Doc, ID, TextStyle } from '../model/types'
 import { emptyDoc, kindOf } from '../model/types'
 import { BOND } from '../model/geometry'
 import { commit, getDoc, newId, redo, replaceDoc, undo } from '../model/store'
@@ -46,6 +46,15 @@ function need<T>(v: T | undefined, what: string): T {
 }
 
 type Params = Record<string, any>
+
+function pickStyle(p: Params): TextStyle {
+  const s: TextStyle = {}
+  if (p.color !== undefined) s.color = String(p.color)
+  if (p.bold !== undefined) s.bold = !!p.bold
+  if (p.italic !== undefined) s.italic = !!p.italic
+  if (p.size !== undefined) s.size = Math.max(6, Math.min(72, Number(p.size)))
+  return s
+}
 
 const handlers: Record<string, (p: Params) => unknown> = {
   get_document: () => describe(),
@@ -177,8 +186,19 @@ const handlers: Record<string, (p: Params) => unknown> = {
     return commit(d => {
       const id = newId('t')
       const b = contentBounds(d)
-      d.texts[id] = { id, text: String(p.text ?? ''), x: p.x ?? (b ? b.x1 : 0), y: p.y ?? (b ? b.y2 + 40 : 0) }
+      d.texts[id] = { id, text: String(p.text ?? ''), x: p.x ?? (b ? b.x1 : 0), y: p.y ?? (b ? b.y2 + 40 : 0), ...pickStyle(p) }
       return { id }
+    })
+  },
+
+  set_text(p) {
+    return commit(d => {
+      const t = need(d.texts[p.id], `Text ${p.id}`)
+      if (p.text !== undefined) t.text = String(p.text)
+      if (p.x !== undefined) t.x = p.x
+      if (p.y !== undefined) t.y = p.y
+      Object.assign(t, pickStyle(p))
+      return { ...t }
     })
   },
 
