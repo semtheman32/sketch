@@ -3,11 +3,11 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import type { Doc, ID } from './model/types'
 import { commit, getDoc } from './model/store'
 import { addAtom, contentBounds, copyItems, insertMolecule, nextFreeSpot } from './model/ops'
-import { add, angleOf, norm, rotate, sub, type P } from './model/geometry'
+import { add, angleOf, BOND, norm, rotate, sub, type P } from './model/geometry'
 import { abbrevOf, findAbbrev } from './chem/abbrev'
 import { STYLES, type DrawStyle } from './render/styles'
 import { adjacency, components, formulaOf } from './chem/chem'
-import { parseMolfile, writeMolfile } from './chem/molfile'
+import { arrangeFragments, bondScale, parseMolfile, writeMolfile } from './chem/molfile'
 import { cleanMolblock, molblockToSmiles, nameToMolblock, smilesToMolblock } from './chem/rdkit'
 import { Scene, PRINT } from './render/Scene'
 import { newId } from './model/store'
@@ -43,17 +43,31 @@ const molWidth = (atoms: { x: number }[]) => {
 /** Recompute 2D layout for the molecules containing the given atoms (all molecules if none given). */
 export async function cleanStructures(atomIds?: ID[]): Promise<number> {
   const doc = getDoc()
-  const comps = components(doc).filter(c => c.length > 1 && (!atomIds?.length || c.some(id => atomIds.includes(id))))
+  const all = components(doc)
+  const comps = all.filter(c => c.length > 1 && (!atomIds?.length || c.some(id => atomIds.includes(id))))
+  // Lone ions (Na+, Cl-…) sitting near a molecule are its counter-ions: clean them with it so they end up beside it.
+  const ions = all.filter(c => c.length === 1 && doc.atoms[c[0]].charge)
+  const near = (id: ID, comp: ID[]) => comp.some(o => Math.hypot(doc.atoms[o].x - doc.atoms[id].x, doc.atoms[o].y - doc.atoms[id].y) < BOND * 3)
+  const taken = new Set<ID>()
   const updates: { ids: ID[]; coords: P[] }[] = []
   for (const comp of comps) {
-    const out = await cleanMolblock(writeMolfile(doc, comp))
+    const extra = ions.map(c => c[0]).filter(id => !taken.has(id) && near(id, comp))
+    extra.forEach(id => taken.add(id))
+    const ids = [...comp, ...extra]
+    const out = await cleanMolblock(writeMolfile(doc, ids))
     if (!out) continue
     const parsed = parseMolfileKeepAll(out)
-    if (parsed.length !== comp.length) continue
+    if (parsed.length !== ids.length) continue
+    const index = new Map(ids.map((id, i) => [id, i]))
+    const bonds = Object.values(doc.bonds).filter(b => index.has(b.a1) && index.has(b.a2)).map(b => ({ i: index.get(b.a1)!, j: index.get(b.a2)! }))
+    const k = bondScale(parsed, bonds)
+    for (const p of parsed) { p.x *= k; p.y *= k }
+    arrangeFragments(parsed.map((p, i) => Object.assign(p, { charge: doc.atoms[ids[i]].charge })), bonds)
+    // keep the molecule's centre where it was
     let ox = 0, oy = 0, nx = 0, ny = 0
     comp.forEach((id, i) => { ox += doc.atoms[id].x; oy += doc.atoms[id].y; nx += parsed[i].x; ny += parsed[i].y })
-    const k = comp.length
-    updates.push({ ids: comp, coords: parsed.map(p => ({ x: p.x - nx / k + ox / k, y: p.y - ny / k + oy / k })) })
+    const n = comp.length
+    updates.push({ ids, coords: parsed.map(p => ({ x: p.x - nx / n + ox / n, y: p.y - ny / n + oy / n })) })
   }
   if (updates.length) {
     commit(d => {

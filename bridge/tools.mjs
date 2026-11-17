@@ -28,6 +28,14 @@ Good workflow:
 4. add_reaction_arrow between reactants and products, with reagents in "above" and conditions in "below".
    Use add_text for "+" signs between species.
 5. Call screenshot to look at the result and fix overlaps or awkward arrows before telling the user it's done.
+
+Getting the chemistry right:
+- Draw every species (reactant, intermediate, product, resonance form) with add_molecule from a complete SMILES.
+  Don't build a new structure by editing a copy atom by atom: that is where wrong structures come from.
+- Resonance forms keep exactly the same atoms and connections; only bond orders, charges and lone pairs move.
+  Write the SMILES of each form, check the atoms match, and draw the curly arrows on the first form.
+- Before replying, call get_document and compare each molecule's SMILES and formula with what you meant to draw.
+  Delete failed attempts and leftovers. Your reply must describe what is actually on the canvas.
 Every tool call is one undo step for the user.
 `.trim()
 

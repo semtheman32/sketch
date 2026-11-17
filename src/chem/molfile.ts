@@ -78,7 +78,7 @@ export function parseMolfile(text: string): ParsedMol {
       }
     }
   }
-  return stripHydrogens({ atoms, bonds })
+  return separateFragments(normalizeBondLength(stripHydrogens({ atoms, bonds })))
 }
 
 /** Remove explicit hydrogens on a single heavy atom; the renderer shows implicit H instead. */
@@ -99,4 +99,73 @@ function stripHydrogens(m: ParsedMol): ParsedMol {
     .filter(b => !drop[b.i] && !drop[b.j])
     .map(b => ({ ...b, i: remap[b.i], j: remap[b.j] }))
   return { atoms, bonds }
+}
+
+/**
+ * Rescale so the typical (median) bond is exactly BOND long. Molfiles disagree on units: RDKit and PubChem
+ * use ~1.0 Å bonds, other programs ~1.5, so a fixed factor drew some molecules at two-thirds size.
+ */
+export function bondScale(pts: { x: number; y: number }[], bonds: { i: number; j: number }[]): number {
+  const lens = bonds.map(b => Math.hypot(pts[b.i].x - pts[b.j].x, pts[b.i].y - pts[b.j].y)).filter(l => l > 1e-6).sort((a, b) => a - b)
+  if (!lens.length) return 1
+  return BOND / lens[Math.floor(lens.length / 2)]
+}
+
+function normalizeBondLength(m: ParsedMol): ParsedMol {
+  const k = bondScale(m.atoms, m.bonds)
+  for (const a of m.atoms) { a.x *= k; a.y *= k }
+  return m
+}
+
+/**
+ * Salts and mixtures (sodium dodecyl sulfate, hydrochlorides…) come in as several unbonded pieces. Layout
+ * engines either drop a counter-ion on top of the main structure or leave it far away, so: keep the largest
+ * piece where it is and line the others up to its right, one bond apart, centred on it.
+ */
+function separateFragments(m: ParsedMol): ParsedMol {
+  arrangeFragments(m.atoms, m.bonds)
+  return m
+}
+
+/**
+ * Move the unbonded pieces of `pts` (mutated in place) next to the largest one. A charged piece goes beside
+ * the oppositely charged atom of the main piece (Na+ next to the O-), on whichever side that atom is nearer;
+ * the rest line up to the right. Returns the indices of the largest piece.
+ */
+export function arrangeFragments(pts: { x: number; y: number; charge?: number }[], bonds: { i: number; j: number }[]): number[] {
+  const n = pts.length
+  const parent = Array.from({ length: n }, (_, i) => i)
+  const find = (i: number): number => (parent[i] === i ? i : (parent[i] = find(parent[i])))
+  for (const b of bonds) parent[find(b.i)] = find(b.j)
+  const groups = new Map<number, number[]>()
+  for (let i = 0; i < n; i++) { const r = find(i); if (!groups.has(r)) groups.set(r, []); groups.get(r)!.push(i) }
+  const frags = [...groups.values()].sort((a, b) => b.length - a.length)
+  if (frags.length < 2) return frags[0] ?? []
+
+  const box = (ids: number[]) => {
+    const xs = ids.map(i => pts[i].x), ys = ids.map(i => pts[i].y)
+    return { x1: Math.min(...xs), y1: Math.min(...ys), x2: Math.max(...xs), y2: Math.max(...ys) }
+  }
+  const main = box(frags[0])
+  const charge = (ids: number[]) => ids.reduce((s, i) => s + (pts[i].charge ?? 0), 0)
+  const partners = frags[0].filter(i => pts[i].charge)
+  const used = new Set<number>()
+  let right = main.x2, left = main.x1
+  for (const f of frags.slice(1)) {
+    const b = box(f), q = charge(f)
+    const p = q ? partners.find(i => !used.has(i) && Math.sign(pts[i].charge!) === -Math.sign(q)) : undefined
+    let dx: number, dy: number
+    if (p !== undefined) {
+      used.add(p)
+      const toLeft = pts[p].x - main.x1 < main.x2 - pts[p].x
+      dx = toLeft ? left - BOND - b.x2 : right + BOND - b.x1
+      dy = pts[p].y - (b.y1 + b.y2) / 2
+    } else {
+      dx = right + BOND - b.x1
+      dy = (main.y1 + main.y2) / 2 - (b.y1 + b.y2) / 2
+    }
+    for (const i of f) { pts[i].x += dx; pts[i].y += dy }
+    right = Math.max(right, b.x2 + dx); left = Math.min(left, b.x1 + dx)
+  }
+  return frags[0]
 }

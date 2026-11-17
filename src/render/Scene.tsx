@@ -181,6 +181,23 @@ function BondView({ b, doc, adj, vis, pal, st, hl, fl, cls }: {
   )
 }
 
+/**
+ * Which corner of the label the charge goes in: top-right unless a bond or lone pair points that way,
+ * then the other corners, then straight right, left, above or below: the first one that is clear.
+ */
+function chargeCorner(doc: Doc, a: Atom, adj: Adjacency, pairs: { x: number; y: number }[]): { x: number; y: number } {
+  const dirs = [
+    ...(adj.get(a.id) ?? []).map(n => doc.atoms[n.other]).filter(Boolean).map(o => Math.atan2(o.y - a.y, o.x - a.x)),
+    ...pairs.map(p => Math.atan2(p.y - a.y, p.x - a.x)),
+  ]
+  const corners = [{ x: 1, y: -1 }, { x: -1, y: -1 }, { x: 1, y: 1 }, { x: -1, y: 1 }, { x: 1, y: 0 }, { x: -1, y: 0 }, { x: 0, y: -1 }, { x: 0, y: 1 }]
+  const clearance = (c: { x: number; y: number }) => {
+    const ang = Math.atan2(c.y, c.x)
+    return Math.min(Math.PI, ...dirs.map(d => { const t = Math.abs(d - ang) % (2 * Math.PI); return Math.min(t, 2 * Math.PI - t) }))
+  }
+  return corners.find(c => clearance(c) >= Math.PI / 3) ?? corners.reduce((b, c) => (clearance(c) > clearance(b) ? c : b))
+}
+
 function AtomView({ a, doc, adj, v, pal, st, scale, hl, fl, cls }: {
   a: Atom; doc: Doc; adj: Adjacency; v: AtomVisual; pal: Palette; st: DrawStyle; scale: number; hl: string | null; fl: number; cls?: string
 }) {
@@ -193,7 +210,7 @@ function AtomView({ a, doc, adj, v, pal, st, scale, hl, fl, cls }: {
   const textProps = { fontSize: font, fill: color, fontWeight: st.fontWeight }
 
   let label: ReactNode = null
-  let rightEdge = a.x // where a charge goes
+  let rightEdge = a.x, leftEdge = a.x // where a charge goes
   if (v.showLabel && ab) {
     // Group label: the first letter sits on the atom; it reads away from the bond.
     const reversed = v.hSide === 'left'
@@ -209,6 +226,7 @@ function AtomView({ a, doc, adj, v, pal, st, scale, hl, fl, cls }: {
       </text>
     )
     rightEdge = reversed ? a.x + firstW / 2 : x + textWidth(text, font)
+    leftEdge = reversed ? a.x + firstW / 2 - textWidth(text, font) : x
   } else if (v.showLabel) {
     const w = textWidth(a.element, font)
     const hText = v.h > 0 ? 'H' : ''
@@ -230,20 +248,24 @@ function AtomView({ a, doc, adj, v, pal, st, scale, hl, fl, cls }: {
       </>
     )
     rightEdge = a.x + w / 2 + (v.hSide === 'right' ? hWidth : 0)
+    leftEdge = a.x - w / 2 - (v.hSide === 'left' ? hWidth : 0)
   }
+  const corner = charge ? chargeCorner(doc, a, adj, dots.centers) : null
   return (
     <g className={cls}>
       {hl && <circle cx={a.x} cy={a.y} r={v.showLabel ? 12 * scale : 6} fill={hl} />}
       <Flash k={fl}><circle cx={a.x} cy={a.y} r={v.showLabel ? 14 * scale : 9} /></Flash>
       {label}
-      {charge && (
-        <text
-          x={v.showLabel ? rightEdge + (dots.pairs.length ? 5 : 1.5) * scale : a.x + 6}
-          y={v.showLabel ? a.y - (dots.pairs.length ? 9 : 6) * scale : a.y - 6}
-          fontSize={11 * scale}
-          fill={pal.ink}
-        >{charge}</text>
-      )}
+      {charge && corner && (() => {
+        const gap = (dots.pairs.length ? 5 : 1.5) * scale
+        const x = corner.x === 0 ? a.x
+          : v.showLabel ? (corner.x > 0 ? rightEdge + gap : leftEdge - gap) : a.x + corner.x * 6
+        const y = corner.y < 0
+          ? (v.showLabel ? a.y - (corner.x === 0 ? 11 : dots.pairs.length ? 9 : 6) * scale : a.y - 6)
+          : corner.y > 0 ? (v.showLabel ? a.y + (corner.x === 0 ? 19 : 14) * scale : a.y + 13)
+          : a.y + 4 * scale
+        return <text x={x} y={y} textAnchor={corner.x > 0 ? 'start' : corner.x < 0 ? 'end' : 'middle'} fontSize={11 * scale} fill={pal.ink}>{charge}</text>
+      })()}
       {dots.pairs.map((pair, i) => pair.map((p, j) => <circle key={`${i}-${j}`} cx={p.x} cy={p.y} r={1.6 * Math.max(1, scale * 0.8)} fill={pal.ink} />))}
       {dots.radical && <circle cx={dots.radical.x} cy={dots.radical.y} r={2 * Math.max(1, scale * 0.8)} fill={pal.ink} />}
     </g>
