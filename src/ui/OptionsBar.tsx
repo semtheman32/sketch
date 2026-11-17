@@ -3,7 +3,10 @@ import type { ArrowKind, BondOrder, BondStereo, Doc, ID, TextStyle } from '../mo
 import { kindOf } from '../model/types'
 import { commit } from '../model/store'
 import { TextStyleBar } from './TextStyleBar'
-import { normaliseSymbol } from '../chem/elements'
+import { normaliseLabel } from '../chem/elements'
+import { isAbbrev } from '../chem/abbrev'
+import { bracketAround, flipItems, rotateItems, selectionBounds } from '../model/ops'
+import { Icon } from './Icons'
 import type { AtomMode, Tool, ToolOptions } from './tools'
 
 interface Props {
@@ -12,6 +15,8 @@ interface Props {
   setOpts: (o: Partial<ToolOptions>) => void
   doc: Doc
   selection: ID[]
+  setSelection: (ids: ID[]) => void
+  onExpand: (ids: ID[]) => void
 }
 
 function Seg<T>({ items, value, onPick }: { items: { v: T; label: string; title?: string }[]; value: T; onPick: (v: T) => void }) {
@@ -31,7 +36,7 @@ function Seg<T>({ items, value, onPick }: { items: { v: T; label: string; title?
 
 const ELEMENTS = ['C', 'H', 'N', 'O', 'S', 'P', 'F', 'Cl', 'Br', 'I']
 
-export function OptionsBar({ tool, opts, setOpts, doc, selection }: Props) {
+export function OptionsBar({ tool, opts, setOpts, doc, selection, setSelection, onExpand }: Props) {
   const [custom, setCustom] = useState('')
   let body: ReactNode = null
   const selectedTexts = (tool === 'select' || tool === 'text') ? selection.filter(id => kindOf(id) === 'text' && doc.texts[id]) : []
@@ -65,10 +70,11 @@ export function OptionsBar({ tool, opts, setOpts, doc, selection }: Props) {
           className="seg-input"
           placeholder="Other"
           value={custom}
-          maxLength={2}
+          maxLength={6}
+          title="Any element, or a group such as Ph, Boc, OMe"
           onChange={e => {
             setCustom(e.target.value)
-            const sym = normaliseSymbol(e.target.value)
+            const sym = normaliseLabel(e.target.value)
             if (sym) pick('element', sym)
           }}
         />
@@ -109,6 +115,51 @@ export function OptionsBar({ tool, opts, setOpts, doc, selection }: Props) {
           { v: 'retro', label: '⇒', title: 'Retrosynthesis' },
         ]}
       />
+    )
+  } else if (tool === 'select' && selection.length && selection.some(id => kindOf(id) === 'bracket') && selection.every(id => kindOf(id) === 'bracket')) {
+    const ks = selection.filter(id => doc.brackets?.[id])
+    const first = ks.length ? doc.brackets[ks[0]] : null
+    if (first) {
+      const set = (patch: Partial<typeof first>) => commit(d => { for (const id of ks) Object.assign(d.brackets[id], patch) })
+      body = (
+        <>
+          <span className="muted small" style={{ padding: '0 6px' }}>Bracket</span>
+          <Seg value={first.shape} onPick={v => set({ shape: v })} items={[{ v: 'square' as const, label: '[ ]', title: 'Square brackets' }, { v: 'round' as const, label: '( )', title: 'Round brackets' }]} />
+          <span className="divider" />
+          <Seg value={first.label} onPick={v => set({ label: v })} items={[
+            { v: '', label: 'No label' }, { v: '‡', label: '‡', title: 'Transition state' }, { v: 'n', label: 'n', title: 'Repeat unit' },
+            { v: '+', label: '+' }, { v: '−', label: '−' },
+          ]} />
+        </>
+      )
+    }
+  } else if (tool === 'select' && selection.some(id => kindOf(id) !== 'text') && selectionBounds(doc, selection)) {
+    // Arrange the selection
+    const groups = selection.filter(id => kindOf(id) === 'atom' && doc.atoms[id] && isAbbrev(doc.atoms[id].element))
+    const turn = (deg: number) => commit(d => {
+      const r = selectionBounds(d, selection)!
+      rotateItems(d, selection, { x: (r.x1 + r.x2) / 2, y: (r.y1 + r.y2) / 2 }, (deg * Math.PI) / 180)
+    })
+    const wrap = (label: string) => {
+      const id = commit(d => bracketAround(d, selection, label))
+      if (id) setSelection([id])
+    }
+    body = (
+      <>
+        <button className="seg icon" title="Rotate left 15° (or drag the handle above the selection)" onClick={() => turn(-15)}><Icon name="rotl" size={16} /></button>
+        <button className="seg icon" title="Rotate right 15°" onClick={() => turn(15)}><Icon name="rotr" size={16} /></button>
+        <button className="seg icon" title="Flip left to right" onClick={() => commit(d => flipItems(d, selection, 'h'))}><Icon name="fliph" size={16} /></button>
+        <button className="seg icon" title="Flip top to bottom" onClick={() => commit(d => flipItems(d, selection, 'v'))}><Icon name="flipv" size={16} /></button>
+        <span className="divider" />
+        <button className="seg" title="Put brackets around the selection" onClick={() => wrap('')}><Icon name="bracket" size={16} /></button>
+        <button className="seg" title="Transition state: brackets with ‡" onClick={() => wrap('‡')}>[ ]‡</button>
+        {groups.length > 0 && (
+          <>
+            <span className="divider" />
+            <button className="seg" title="Replace group labels with full structures" onClick={() => onExpand(groups)}>Expand {groups.length > 1 ? `${groups.length} groups` : 'group'}</button>
+          </>
+        )}
+      </>
     )
   } else if (selectedTexts.length) {
     // Restyle selected labels (with any tool except those that have their own options above)

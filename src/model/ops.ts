@@ -1,6 +1,6 @@
 import type { Atom, BondOrder, BondStereo, Doc, ID } from './types'
-import { kindOf } from './types'
-import { BOND, add, angleGap, angleOf, dist, fromAngle, mid, mul, norm, perp, sub, type P, type Rect } from './geometry'
+import { emptyDoc, kindOf } from './types'
+import { BOND, add, angleGap, angleOf, dist, fromAngle, mid, mul, norm, perp, rotate, sub, type P, type Rect } from './geometry'
 import { adjacency, type Adjacency } from '../chem/chem'
 import type { ParsedMol } from '../chem/molfile'
 import { newId } from './store'
@@ -213,6 +213,7 @@ export function removeItems(d: Doc, ids: ID[]) {
       case 'arrow': delete d.arrows[id]; break
       case 'curly': delete d.curlies[id]; break
       case 'text': delete d.texts[id]; break
+      case 'bracket': delete d.brackets[id]; break
     }
   }
   for (const c of Object.values(d.curlies)) if (gone.has(c.from) || gone.has(c.to)) delete d.curlies[c.id]
@@ -228,6 +229,10 @@ export function moveItems(d: Doc, ids: ID[], dx: number, dy: number) {
       const a = d.arrows[id]
       a.x1 += dx; a.x2 += dx; a.y1 += dy; a.y2 += dy
     } else if (k === 'text' && d.texts[id]) { d.texts[id].x += dx; d.texts[id].y += dy }
+    else if (k === 'bracket' && d.brackets[id]) {
+      const b = d.brackets[id]
+      b.x1 += dx; b.x2 += dx; b.y1 += dy; b.y2 += dy
+    }
   }
   for (const id of atoms) { const a = d.atoms[id]; if (a) { a.x += dx; a.y += dy } }
 }
@@ -266,6 +271,7 @@ export function contentBounds(d: Doc): Rect | null {
     const size = t.size ?? 14
     xs.push(t.x, t.x + t.text.length * size * 0.6); ys.push(t.y - size, t.y)
   }
+  for (const k of Object.values(d.brackets ?? {})) { xs.push(k.x1, k.x2 + (k.label ? 14 : 0)); ys.push(k.y1 - (k.label ? 8 : 0), k.y2) }
   if (!xs.length) return null
   return { x1: Math.min(...xs), y1: Math.min(...ys), x2: Math.max(...xs), y2: Math.max(...ys) }
 }
@@ -275,4 +281,160 @@ export function nextFreeSpot(d: Doc, width = BOND * 2): P {
   const b = contentBounds(d)
   if (!b) return { x: 0, y: 0 }
   return { x: b.x2 + 50 + width / 2, y: (b.y1 + b.y2) / 2 }
+}
+
+// ------------------------------------------------------------------ selections
+
+/** Atom ids covered by a selection: selected atoms plus both ends of selected bonds. */
+export function selectedAtoms(d: Doc, ids: ID[]): Set<ID> {
+  const atoms = new Set<ID>()
+  for (const id of ids) {
+    const k = kindOf(id)
+    if (k === 'atom' && d.atoms[id]) atoms.add(id)
+    else if (k === 'bond' && d.bonds[id]) { atoms.add(d.bonds[id].a1); atoms.add(d.bonds[id].a2) }
+  }
+  return atoms
+}
+
+/** Bounding box of the selected items (atoms, arrows, texts, brackets). */
+export function selectionBounds(d: Doc, ids: ID[]): Rect | null {
+  const xs: number[] = [], ys: number[] = []
+  for (const id of selectedAtoms(d, ids)) { xs.push(d.atoms[id].x); ys.push(d.atoms[id].y) }
+  for (const id of ids) {
+    const k = kindOf(id)
+    if (k === 'arrow' && d.arrows[id]) { const a = d.arrows[id]; xs.push(a.x1, a.x2); ys.push(a.y1, a.y2) }
+    else if (k === 'text' && d.texts[id]) { const t = d.texts[id]; const s = t.size ?? 14; xs.push(t.x, t.x + t.text.length * s * 0.6); ys.push(t.y - s, t.y) }
+    else if (k === 'bracket' && d.brackets[id]) { const b = d.brackets[id]; xs.push(b.x1, b.x2); ys.push(b.y1, b.y2) }
+  }
+  if (!xs.length) return null
+  return { x1: Math.min(...xs), y1: Math.min(...ys), x2: Math.max(...xs), y2: Math.max(...ys) }
+}
+
+/** Rotate the selection by `ang` radians around `c` (screen y-down, so positive is clockwise). */
+export function rotateItems(d: Doc, ids: ID[], c: P, ang: number) {
+  const turn = (p: P) => add(c, rotate(sub(p, c), ang))
+  for (const id of selectedAtoms(d, ids)) Object.assign(d.atoms[id], turn(d.atoms[id]))
+  for (const id of ids) {
+    const k = kindOf(id)
+    if (k === 'arrow' && d.arrows[id]) {
+      const a = d.arrows[id]
+      const p1 = turn({ x: a.x1, y: a.y1 }), p2 = turn({ x: a.x2, y: a.y2 })
+      a.x1 = p1.x; a.y1 = p1.y; a.x2 = p2.x; a.y2 = p2.y
+    } else if (k === 'text' && d.texts[id]) {
+      Object.assign(d.texts[id], turn(d.texts[id]))
+    } else if (k === 'bracket' && d.brackets[id]) {
+      // brackets stay upright: move their centre
+      const b = d.brackets[id]
+      const m = turn(mid({ x: b.x1, y: b.y1 }, { x: b.x2, y: b.y2 }))
+      const hw = (b.x2 - b.x1) / 2, hh = (b.y2 - b.y1) / 2
+      b.x1 = m.x - hw; b.x2 = m.x + hw; b.y1 = m.y - hh; b.y2 = m.y + hh
+    }
+  }
+}
+
+/** Mirror the selection left-right ('h') or top-bottom ('v') about its own centre. */
+export function flipItems(d: Doc, ids: ID[], axis: 'h' | 'v') {
+  const r = selectionBounds(d, ids)
+  if (!r) return
+  const cx = (r.x1 + r.x2) / 2, cy = (r.y1 + r.y2) / 2
+  const fx = (x: number) => (axis === 'h' ? 2 * cx - x : x)
+  const fy = (y: number) => (axis === 'v' ? 2 * cy - y : y)
+  const atoms = selectedAtoms(d, ids)
+  for (const id of atoms) { const a = d.atoms[id]; a.x = fx(a.x); a.y = fy(a.y) }
+  for (const id of ids) {
+    const k = kindOf(id)
+    if (k === 'arrow' && d.arrows[id]) {
+      const a = d.arrows[id]
+      a.x1 = fx(a.x1); a.x2 = fx(a.x2); a.y1 = fy(a.y1); a.y2 = fy(a.y2)
+    } else if (k === 'text' && d.texts[id]) {
+      const t = d.texts[id]
+      const w = t.text.length * (t.size ?? 14) * 0.6
+      if (axis === 'h') t.x = 2 * cx - t.x - w
+      else t.y = fy(t.y) + (t.size ?? 14) * 0.7
+    } else if (k === 'bracket' && d.brackets[id]) {
+      const b = d.brackets[id]
+      const xs = [fx(b.x1), fx(b.x2)].sort((p, q) => p - q), ys = [fy(b.y1), fy(b.y2)].sort((p, q) => p - q)
+      b.x1 = xs[0]; b.x2 = xs[1]; b.y1 = ys[0]; b.y2 = ys[1]
+    }
+  }
+  // A mirrored curly arrow bends the other way.
+  const inSel = (anchor: ID) => atoms.has(anchor) || (kindOf(anchor) === 'bond' && !!d.bonds[anchor] && atoms.has(d.bonds[anchor].a1) && atoms.has(d.bonds[anchor].a2))
+  for (const c of Object.values(d.curlies)) if (inSel(c.from) && inSel(c.to)) c.bend *= -1
+}
+
+/** Wrap the selection in a bracket. Returns the new bracket id. */
+export function bracketAround(d: Doc, ids: ID[], label = '', pad = 14): ID | null {
+  const r = selectionBounds(d, ids)
+  if (!r) return null
+  const id = newId('k')
+  d.brackets[id] = { id, x1: r.x1 - pad, y1: r.y1 - pad, x2: r.x2 + pad, y2: r.y2 + pad, shape: 'square', label }
+  return id
+}
+
+// ------------------------------------------------------------------ copy and paste
+
+/**
+ * The selected items as a stand-alone document: the atoms and every bond between them,
+ * plus selected arrows, texts and brackets, and curly arrows whose both ends are copied.
+ */
+export function copyItems(d: Doc, ids: ID[]): Doc {
+  const out = emptyDoc()
+  const atoms = selectedAtoms(d, ids)
+  for (const id of atoms) out.atoms[id] = structuredClone(d.atoms[id])
+  for (const b of Object.values(d.bonds)) if (atoms.has(b.a1) && atoms.has(b.a2)) out.bonds[b.id] = structuredClone(b)
+  for (const id of ids) {
+    const k = kindOf(id)
+    if (k === 'arrow' && d.arrows[id]) out.arrows[id] = structuredClone(d.arrows[id])
+    else if (k === 'text' && d.texts[id]) out.texts[id] = structuredClone(d.texts[id])
+    else if (k === 'bracket' && d.brackets[id]) out.brackets[id] = structuredClone(d.brackets[id])
+  }
+  const has = (anchor: ID) => !!out.atoms[anchor] || !!out.bonds[anchor]
+  for (const c of Object.values(d.curlies)) if (has(c.from) && has(c.to)) out.curlies[c.id] = structuredClone(c)
+  return out
+}
+
+/** Add a copied fragment to `d`, shifted by (dx, dy), with fresh ids. Returns the new ids. */
+export function pasteFragment(d: Doc, frag: Doc, dx: number, dy: number): ID[] {
+  const map = new Map<ID, ID>()
+  const added: ID[] = []
+  for (const a of Object.values(frag.atoms)) {
+    const id = newId('a'); map.set(a.id, id)
+    d.atoms[id] = { ...a, id, x: a.x + dx, y: a.y + dy }; added.push(id)
+  }
+  for (const b of Object.values(frag.bonds)) {
+    const a1 = map.get(b.a1), a2 = map.get(b.a2)
+    if (!a1 || !a2) continue
+    const id = newId('b'); map.set(b.id, id)
+    d.bonds[id] = { ...b, id, a1, a2 }; added.push(id)
+  }
+  for (const r of Object.values(frag.arrows ?? {})) {
+    const id = newId('r')
+    d.arrows[id] = { ...r, id, x1: r.x1 + dx, x2: r.x2 + dx, y1: r.y1 + dy, y2: r.y2 + dy }; added.push(id)
+  }
+  for (const t of Object.values(frag.texts ?? {})) {
+    const id = newId('t')
+    d.texts[id] = { ...t, id, x: t.x + dx, y: t.y + dy }; added.push(id)
+  }
+  for (const k of Object.values(frag.brackets ?? {})) {
+    const id = newId('k')
+    d.brackets[id] = { ...k, id, x1: k.x1 + dx, x2: k.x2 + dx, y1: k.y1 + dy, y2: k.y2 + dy }; added.push(id)
+  }
+  for (const c of Object.values(frag.curlies ?? {})) {
+    const from = map.get(c.from), to = map.get(c.to)
+    if (!from || !to) continue
+    const id = newId('c')
+    d.curlies[id] = { ...c, id, from, to }; added.push(id)
+  }
+  return added
+}
+
+/** Ids of items that are new or different in `after` compared with `before`. */
+export function changedIds(before: Doc, after: Doc): ID[] {
+  const out: ID[] = []
+  const groups = ['atoms', 'bonds', 'arrows', 'curlies', 'texts', 'brackets'] as const
+  for (const g of groups) {
+    const a = (before[g] ?? {}) as Record<ID, unknown>, b = (after[g] ?? {}) as Record<ID, unknown>
+    for (const id of Object.keys(b)) if (a[id] !== b[id] && JSON.stringify(a[id]) !== JSON.stringify(b[id])) out.push(id)
+  }
+  return out
 }

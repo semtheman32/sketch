@@ -1,4 +1,4 @@
-import type { Arrow, Atom, Bond, Curly, Doc, ID, TextItem } from '../model/types'
+import type { Arrow, Atom, Bond, Bracket, Curly, Doc, ID, TextItem } from '../model/types'
 import { kindOf } from '../model/types'
 import { add, angleGap, angleOf, dist, distToSeg, fromAngle, len, mid, mul, norm, perp, quadPoint, sub, type P } from '../model/geometry'
 import { hCount, type Adjacency } from '../chem/chem'
@@ -21,9 +21,14 @@ export interface AtomVisual {
 
 const H_LEFT_WHEN_ALONE = new Set(['O', 'S', 'Se', 'F', 'Cl', 'Br', 'I'])
 
-export function atomVisual(doc: Doc, a: Atom, adj: Adjacency): AtomVisual {
+/**
+ * How an atom is drawn. `font`/`margin` come from the drawing style, so bonds stop the right
+ * distance short of bigger labels (ACS) or smaller ones.
+ */
+export function atomVisual(doc: Doc, a: Atom, adj: Adjacency, font = FONT, margin = 4): AtomVisual {
   const ns = adj.get(a.id) ?? []
-  const showLabel = a.element !== 'C' || ns.length === 0
+  // Carbon is a bare vertex, unless it stands alone or has lone pairs to show (a carbanion in a mechanism).
+  const showLabel = a.element !== 'C' || ns.length === 0 || a.lonePairs > 0
   const h = showLabel ? hCount(a, adj) : 0
   let hSide: 'left' | 'right' = 'right'
   if (ns.length === 0) hSide = H_LEFT_WHEN_ALONE.has(a.element) ? 'left' : 'right'
@@ -32,7 +37,7 @@ export function atomVisual(doc: Doc, a: Atom, adj: Adjacency): AtomVisual {
     for (const n of ns) sx += norm(sub(doc.atoms[n.other], a)).x
     if (sx > 0.1) hSide = 'left'
   }
-  return { showLabel, h, hSide, trim: showLabel ? 9 : 0 }
+  return { showLabel, h, hSide, trim: showLabel ? font * 0.36 + margin : 0 }
 }
 
 /** Free directions around an atom (for lone pairs and radicals), most open first. */
@@ -64,17 +69,17 @@ export function freeAngles(doc: Doc, a: Atom, adj: Adjacency, vis: AtomVisual, c
 
 export interface ElectronDots { pairs: P[][]; radical: P | null; centers: P[] }
 
-export function electronDots(doc: Doc, a: Atom, adj: Adjacency, vis: AtomVisual): ElectronDots {
+export function electronDots(doc: Doc, a: Atom, adj: Adjacency, vis: AtomVisual, scale = 1): ElectronDots {
   const n = a.lonePairs + (a.radical ? 1 : 0)
   if (!n) return { pairs: [], radical: null, centers: [] }
   const angles = freeAngles(doc, a, adj, vis, n)
-  const r = vis.showLabel ? 13 : 9
+  const r = vis.showLabel ? 13 * scale : 9
   const pairs: P[][] = [], centers: P[] = []
   let radical: P | null = null
   angles.forEach((ang, i) => {
     const dir = fromAngle(ang)
     // dots sit a bit further out horizontally because labels are wider than tall
-    const rr = r + (Math.abs(dir.x) > 0.5 ? 2 : 0)
+    const rr = r + (Math.abs(dir.x) > 0.5 ? 2 * scale : 0)
     const c = add(a, mul(dir, rr))
     const t = mul(perp(dir), 3)
     if (i < a.lonePairs) { pairs.push([add(c, t), sub(c, t)]); centers.push(c) }
@@ -95,7 +100,7 @@ export function anchorPoint(doc: Doc, id: ID): P | null {
 
 export interface CurlyGeom { p0: P; ctrl: P; p1: P }
 
-export function curlyGeometry(doc: Doc, c: Curly, adj: Adjacency): CurlyGeom | null {
+export function curlyGeometry(doc: Doc, c: Curly, adj: Adjacency, scale = 1): CurlyGeom | null {
   let s = anchorPoint(doc, c.from)
   const e = anchorPoint(doc, c.to)
   if (!s || !e) return null
@@ -103,7 +108,7 @@ export function curlyGeometry(doc: Doc, c: Curly, adj: Adjacency): CurlyGeom | n
   if (kindOf(c.from) === 'atom') {
     const a = doc.atoms[c.from]
     if (a.lonePairs > 0) {
-      const dots = electronDots(doc, a, adj, atomVisual(doc, a, adj))
+      const dots = electronDots(doc, a, adj, atomVisual(doc, a, adj), scale)
       let best = dots.centers[0]
       for (const p of dots.centers) if (dist(p, e) < dist(best, e)) best = p
       s = best
@@ -114,14 +119,15 @@ export function curlyGeometry(doc: Doc, c: Curly, adj: Adjacency): CurlyGeom | n
   let e2: P = e
   if (kindOf(c.to) === 'atom') {
     const toVis = atomVisual(doc, doc.atoms[c.to], adj)
-    trimE = toVis.showLabel ? 13 : 7
+    trimE = toVis.showLabel ? 13 * scale : 7
     // Bond breaking toward one of its own atoms: aim past the atom so the arrow has room to curve.
     const b = kindOf(c.from) === 'bond' ? doc.bonds[c.from] : undefined
     if (b && (b.a1 === c.to || b.a2 === c.to)) {
       const other = doc.atoms[b.a1 === c.to ? b.a2 : b.a1]
       const out = norm(sub(e, other))
-      e2 = add(add(e, mul(out, toVis.showLabel ? 6 : 4)), mul(perp(out), -c.bend * 14))
-      trimE = toVis.showLabel ? 9 : 5
+      // Land just outside the label, on the side the arrow arcs, so the head points down onto the atom.
+      e2 = add(add(e, mul(out, (toVis.showLabel ? 3 : 2) * scale)), mul(perp(out), Math.sign(c.bend || 1) * (toVis.showLabel ? 12 : 8) * scale))
+      trimE = toVis.showLabel ? 5 * scale : 2
     }
   }
   const dv = sub(e2, s)
@@ -146,7 +152,7 @@ export function textBox(t: TextItem) {
 }
 
 export type Hit =
-  | { kind: 'atom' | 'bond' | 'curly' | 'text'; id: ID }
+  | { kind: 'atom' | 'bond' | 'curly' | 'text' | 'bracket'; id: ID }
   | { kind: 'arrow'; id: ID; end?: 1 | 2 }
 
 export function hitTest(doc: Doc, p: P, tol: number, adj: Adjacency): Hit | null {
@@ -186,6 +192,9 @@ export function hitTest(doc: Doc, p: P, tol: number, adj: Adjacency): Hit | null
     for (const [txt, q] of [[r.above, lab.above], [r.below, lab.below]] as const) {
       if (txt && Math.abs(p.y - (q.y - 4)) < 9 && Math.abs(p.x - q.x) < textWidth(txt, 12) / 2 + 4) return { kind: 'arrow', id: r.id }
     }
+  }
+  for (const k of Object.values(doc.brackets ?? {})) {
+    if (bracketHit(k, p, tol)) return { kind: 'bracket', id: k.id }
   }
   for (const t of Object.values(doc.texts)) {
     const b = textBox(t)
@@ -272,4 +281,17 @@ export function doubleBondSide(doc: Doc, b: Bond, adj: Adjacency, visA: AtomVisu
   if (left > right) return 1
   if (right > left) return -1
   return 0
+}
+
+/** Width of a bracket's top/bottom ticks (or the bulge of a round bracket). */
+export const bracketTick = (k: Bracket) => Math.min(10, Math.abs(k.y2 - k.y1) * 0.12 + 4)
+
+/** Is p on the left or right side of a bracket (or its label)? */
+export function bracketHit(k: Bracket, p: P, tol: number): boolean {
+  const x1 = Math.min(k.x1, k.x2), x2 = Math.max(k.x1, k.x2), y1 = Math.min(k.y1, k.y2), y2 = Math.max(k.y1, k.y2)
+  const tick = bracketTick(k)
+  const inY = p.y >= y1 - tol && p.y <= y2 + tol
+  if (inY && p.x >= x1 - tol && p.x <= x1 + tick + tol) return true
+  if (inY && p.x >= x2 - tick - tol && p.x <= x2 + tol) return true
+  return !!k.label && p.x >= x2 && p.x <= x2 + 16 && p.y >= y1 - 16 && p.y <= y1 + 4
 }

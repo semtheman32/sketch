@@ -1,5 +1,6 @@
 import type { Doc, ID } from '../model/types'
 import { ELEMENTS } from './elements'
+import { isAbbrev } from './abbrev'
 
 /** Thrown when an edit would give an atom more bonds than it can have. The UI shows the message. */
 export class ValenceError extends Error {}
@@ -8,6 +9,7 @@ const ELECTRON_RICH = new Set(['N', 'P', 'O', 'S', 'Se', 'F', 'Cl', 'Br', 'I'])
 
 /** Most bonds (sum of bond orders) an atom may have. Metals and unknown elements are not limited. */
 export function maxBonds(element: string, charge: number, radical: boolean): number {
+  if (isAbbrev(element)) return 1 // a group like Ph or Boc has one attachment point
   const info = ELEMENTS[element]
   if (!info || info.valence.length === 0) return Infinity
   const shift = ELECTRON_RICH.has(element) ? charge : -Math.abs(charge)

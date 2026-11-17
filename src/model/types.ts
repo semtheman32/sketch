@@ -57,6 +57,20 @@ export interface TextItem {
   size?: number
 }
 
+/**
+ * Square or round brackets around part of a scheme (an intermediate, a transition state),
+ * with an optional label such as ‡ at the top right.
+ */
+export interface Bracket {
+  id: ID
+  x1: number
+  y1: number
+  x2: number
+  y2: number
+  shape: 'square' | 'round'
+  label: string
+}
+
 export type TextStyle = Pick<TextItem, 'color' | 'bold' | 'italic' | 'size'>
 
 export interface Doc {
@@ -65,11 +79,29 @@ export interface Doc {
   arrows: Record<ID, Arrow>
   curlies: Record<ID, Curly>
   texts: Record<ID, TextItem>
+  brackets: Record<ID, Bracket>
 }
 
-export const emptyDoc = (): Doc => ({ atoms: {}, bonds: {}, arrows: {}, curlies: {}, texts: {} })
+export const emptyDoc = (): Doc => ({ atoms: {}, bonds: {}, arrows: {}, curlies: {}, texts: {}, brackets: {} })
 
-export type ItemKind = 'atom' | 'bond' | 'arrow' | 'curly' | 'text'
+export type ItemKind = 'atom' | 'bond' | 'arrow' | 'curly' | 'text' | 'bracket'
+
+/** Every item id in a document. */
+export function allIds(d: Doc): ID[] {
+  return [d.atoms, d.bonds, d.arrows, d.curlies, d.texts, d.brackets].flatMap(g => Object.keys(g ?? {}))
+}
+
+/** Whether an item with this id exists. */
+export function exists(d: Doc, id: ID): boolean {
+  switch (kindOf(id)) {
+    case 'atom': return !!d.atoms[id]
+    case 'bond': return !!d.bonds[id]
+    case 'arrow': return !!d.arrows[id]
+    case 'curly': return !!d.curlies[id]
+    case 'bracket': return !!d.brackets?.[id]
+    default: return !!d.texts[id]
+  }
+}
 
 export function kindOf(id: ID): ItemKind {
   switch (id[0]) {
@@ -77,6 +109,7 @@ export function kindOf(id: ID): ItemKind {
     case 'b': return 'bond'
     case 'r': return 'arrow'
     case 'c': return 'curly'
+    case 'k': return 'bracket'
     default: return 'text'
   }
 }

@@ -1,51 +1,223 @@
+/*
+ * Themes. Every colour, font and texture the app uses is a token here, so a theme is one block.
+ * The theme id is set on <html data-theme="…"> (see src/ui/themes.ts).
+ * Exports never use these: they always use the publication palette in render/Scene.tsx.
+ */
 :root {
-  --bg: #f7f7f5;
+  --bg: #f4f6f8;
+  --app-bg: var(--bg);
   --panel: #ffffff;
   --canvas: #ffffff;
-  --ink: #1b1b1b;
-  --text: #2a2a28;
-  --muted: #7a7a74;
-  --line: rgba(0, 0, 0, 0.09);
-  --line-strong: rgba(0, 0, 0, 0.16);
-  --soft: rgba(0, 0, 0, 0.045);
+  --ink: #1c2230;
+  --text: #2a3140;
+  --muted: #747d8c;
+  --line: rgba(20, 30, 50, 0.09);
+  --line-strong: rgba(20, 30, 50, 0.17);
+  --soft: rgba(20, 30, 50, 0.045);
   --accent: #2f6fe0;
   --accent-soft: rgba(47, 111, 224, 0.12);
+  --on-accent: #ffffff;
   --select: rgba(47, 111, 224, 0.18);
   --hover: rgba(47, 111, 224, 0.12);
+  --flash: rgba(47, 111, 224, 0.42);
   --curly: #d0482a;
   --ok: #2e9e5b;
   --danger: #c43c3c;
   --radius: 8px;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.06);
+  --radius-lg: 12px;
+  --shadow: 0 1px 2px rgba(15, 25, 45, 0.06), 0 6px 20px rgba(15, 25, 45, 0.08);
+  --font-ui: Inter, 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-notes: inherit;
+  --panel-blur: none;
+  --canvas-glow: none;
+  --stage-overlay: none;
+  --topbar-accent: none;
+  /* Canvas grid, in canvas units (40 = one bond). Colours transparent = no grid. */
+  --grid-major: 40;
+  --grid-minor: 8;
+  --grid-major-color: transparent;
+  --grid-minor-color: transparent;
+
+  /* Motion: one vocabulary for the whole app */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --dur-1: 110ms;
+  --dur-2: 180ms;
+  --dur-3: 260ms;
+
   color-scheme: light;
-  font-family: Inter, 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-ui);
   font-size: 14px;
   color: var(--text);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
 }
 
+/* Refined Lab, dark */
 :root[data-theme='dark'] {
-  --bg: #1a1a19;
-  --panel: #222221;
-  --canvas: #1f1f1e;
-  --ink: #ececea;
-  --text: #e4e4e1;
-  --muted: #9a9a94;
+  --bg: #17191d;
+  --panel: #1f2126;
+  --canvas: #1b1d21;
+  --ink: #eceef2;
+  --text: #e2e5ea;
+  --muted: #979eaa;
   --line: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.16);
   --soft: rgba(255, 255, 255, 0.06);
-  --accent: #6b9cf2;
-  --accent-soft: rgba(107, 156, 242, 0.16);
-  --select: rgba(107, 156, 242, 0.25);
-  --hover: rgba(107, 156, 242, 0.16);
+  --accent: #6f9ff4;
+  --accent-soft: rgba(111, 159, 244, 0.16);
+  --on-accent: #0d1424;
+  --select: rgba(111, 159, 244, 0.26);
+  --hover: rgba(111, 159, 244, 0.16);
+  --flash: rgba(111, 159, 244, 0.5);
   --curly: #f0775a;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.35);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.38);
+  --el-O: #f07070; --el-N: #7ea4ff; --el-S: #e2c04a; --el-Cl: #5ccb87; --el-F: #5ccb87; --el-Br: #e07a6a; --el-P: #f09a4a; --el-I: #b48af0;
+  color-scheme: dark;
+}
+
+/* Cyanotype: Prussian-blue paper, chalk-white lines, blueprint grid */
+:root[data-theme='cyanotype'] {
+  --bg: #0f2c54;
+  --panel: #12335f;
+  --canvas: #16407a;
+  --ink: #edf4ff;
+  --text: #dce8fb;
+  --muted: #93b3df;
+  --line: rgba(255, 255, 255, 0.14);
+  --line-strong: rgba(255, 255, 255, 0.26);
+  --soft: rgba(255, 255, 255, 0.08);
+  --accent: #ffd36b;
+  --accent-soft: rgba(255, 211, 107, 0.16);
+  --on-accent: #1b2a44;
+  --select: rgba(255, 211, 107, 0.22);
+  --hover: rgba(255, 255, 255, 0.12);
+  --flash: rgba(255, 211, 107, 0.5);
+  --curly: #ffd36b;
+  --ok: #8ee3b0;
+  --danger: #ffb4a8;
+  --radius: 3px;
+  --radius-lg: 4px;
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 24px rgba(3, 12, 30, 0.45);
+  --font-ui: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+  --grid-major-color: rgba(255, 255, 255, 0.075);
+  --grid-minor-color: rgba(255, 255, 255, 0.035);
+  --el-O: #ffb4a8; --el-N: #bfe0ff; --el-S: #ffe7a0; --el-Cl: #b8f0c8; --el-F: #b8f0c8; --el-Br: #ffc9b8; --el-P: #ffd2a0; --el-I: #e0c8ff;
+  color-scheme: dark;
+}
+
+/* Lab Notebook: green quadrille paper, navy ink, handwritten notes */
+:root[data-theme='notebook'] {
+  --bg: #e6ede3;
+  --panel: #f5f8f2;
+  --canvas: #f2f7ee;
+  --ink: #1d2c5b;
+  --text: #24304f;
+  --muted: #6b7a68;
+  --line: rgba(60, 95, 60, 0.16);
+  --line-strong: rgba(60, 95, 60, 0.28);
+  --soft: rgba(60, 95, 60, 0.07);
+  --accent: #1d4fa8;
+  --accent-soft: rgba(29, 79, 168, 0.12);
+  --select: rgba(29, 79, 168, 0.16);
+  --hover: rgba(29, 79, 168, 0.1);
+  --flash: rgba(196, 48, 43, 0.35);
+  --curly: #c4302b;
+  --radius: 5px;
+  --shadow: 0 1px 2px rgba(40, 60, 40, 0.08), 0 6px 18px rgba(40, 60, 40, 0.1);
+  --font-notes: Caveat, 'Segoe Print', 'Comic Sans MS', cursive;
+  --grid-major: 20;
+  --grid-major-color: rgba(70, 120, 80, 0.14);
+  --stage-overlay: linear-gradient(90deg, transparent 46px, rgba(196, 48, 43, 0.32) 46px, rgba(196, 48, 43, 0.32) 47.5px, transparent 47.5px);
+  --el-O: #c4302b; --el-N: #1d4fa8; --el-S: #9a7a12; --el-Cl: #2f7a45; --el-F: #2f7a45; --el-Br: #9a3a2a;
+  color-scheme: light;
+}
+
+/* Fume Hood: frosted safety glass over brushed steel */
+:root[data-theme='fumehood'] {
+  --bg: #cbd5dc;
+  --app-bg: linear-gradient(135deg, #c3cfd7 0%, #dfe6ea 45%, #bccad3 100%);
+  --panel: rgba(255, 255, 255, 0.52);
+  --canvas: #e9eef1;
+  --ink: #1d282f;
+  --text: #24313a;
+  --muted: #627480;
+  --line: rgba(255, 255, 255, 0.75);
+  --line-strong: rgba(40, 60, 75, 0.2);
+  --soft: rgba(255, 255, 255, 0.55);
+  --accent: #0d8587;
+  --accent-soft: rgba(13, 133, 135, 0.14);
+  --select: rgba(13, 133, 135, 0.18);
+  --hover: rgba(13, 133, 135, 0.12);
+  --flash: rgba(13, 133, 135, 0.4);
+  --curly: #df5f37;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset, 0 10px 30px rgba(30, 50, 65, 0.16);
+  --panel-blur: blur(14px) saturate(1.4);
+  --stage-overlay: radial-gradient(120% 80% at 85% 0%, rgba(13, 133, 135, 0.08), transparent 60%), radial-gradient(80% 60% at 0% 100%, rgba(255, 255, 255, 0.6), transparent 60%);
+  color-scheme: light;
+}
+
+/* CPK: the atom colours chemists already know, bright and friendly */
+:root[data-theme='cpk'] {
+  --bg: #f7f7f8;
+  --panel: #ffffff;
+  --canvas: #ffffff;
+  --ink: #202124;
+  --text: #2a2b2e;
+  --muted: #7d7f85;
+  --accent: #3050f8;
+  --accent-soft: rgba(48, 80, 248, 0.1);
+  --select: rgba(48, 80, 248, 0.15);
+  --hover: rgba(48, 80, 248, 0.1);
+  --flash: rgba(232, 160, 0, 0.45);
+  --curly: #e8a000;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --font-ui: 'Space Grotesk', Inter, 'Segoe UI', sans-serif;
+  --topbar-accent: linear-gradient(90deg, #ff2a1a 0 25%, #3050f8 25% 50%, #e8c400 50% 75%, #1fd01f 75% 100%);
+  --el-O: #ff2a1a; --el-N: #3050f8; --el-S: #d6b400; --el-Cl: #1fb81f; --el-F: #69c94a; --el-Br: #a62929; --el-P: #ff8000; --el-I: #940094;
+  color-scheme: light;
+}
+
+/* Spectrometer: amber phosphor on charcoal, like an old instrument readout */
+:root[data-theme='spectrometer'] {
+  --bg: #12100e;
+  --panel: #181512;
+  --canvas: #0f0d0b;
+  --ink: #ffb547;
+  --text: #f2d3a0;
+  --muted: #a08868;
+  --line: rgba(255, 181, 71, 0.14);
+  --line-strong: rgba(255, 181, 71, 0.26);
+  --soft: rgba(255, 181, 71, 0.08);
+  --accent: #ffb547;
+  --accent-soft: rgba(255, 181, 71, 0.14);
+  --on-accent: #1a1208;
+  --select: rgba(255, 181, 71, 0.2);
+  --hover: rgba(255, 181, 71, 0.12);
+  --flash: rgba(255, 220, 140, 0.5);
+  --curly: #ff6b4a;
+  --ok: #c8e07a;
+  --danger: #ff7a5c;
+  --radius: 3px;
+  --radius-lg: 4px;
+  --shadow: 0 0 0 1px rgba(255, 181, 71, 0.1), 0 10px 30px rgba(0, 0, 0, 0.55);
+  --font-ui: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+  --canvas-glow: drop-shadow(0 0 1.5px rgba(255, 181, 71, 0.75));
+  --stage-overlay: repeating-linear-gradient(0deg, rgba(255, 181, 71, 0.03) 0 1px, transparent 1px 3px);
+  --el-O: #ff8a5c; --el-N: #ffe08a; --el-S: #ffd36b; --el-Cl: #d9f08a; --el-F: #d9f08a; --el-Br: #ff9a6a; --el-P: #ffc070; --el-I: #ffb0c0;
   color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 html, body, #root { height: 100%; margin: 0; }
 body { background: var(--bg); overflow: hidden; }
-button, input { font: inherit; color: inherit; }
+button, input, textarea, select { font: inherit; color: inherit; }
 code { font-family: ui-monospace, Consolas, monospace; font-size: 12px; background: var(--soft); padding: 1px 4px; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; }
+}

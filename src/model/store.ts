@@ -15,7 +15,7 @@ syncCounters(doc)
 function load(): Doc {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) return { ...emptyDoc(), ...JSON.parse(raw) }
+    if (raw) return { ...emptyDoc(), ...JSON.parse(raw) } // older saves have no brackets: emptyDoc fills them in
   } catch { /* storage unavailable */ }
   return emptyDoc()
 }
@@ -30,7 +30,7 @@ function emit() {
 }
 
 function syncCounters(d: Doc) {
-  for (const group of [d.atoms, d.bonds, d.arrows, d.curlies, d.texts]) {
+  for (const group of [d.atoms, d.bonds, d.arrows, d.curlies, d.texts, d.brackets ?? {}]) {
     for (const id of Object.keys(group)) {
       const prefix = id[0], n = parseInt(id.slice(1))
       if (Number.isFinite(n)) counters[prefix] = Math.max(counters[prefix] ?? 0, n)
@@ -38,9 +38,15 @@ function syncCounters(d: Doc) {
   }
 }
 
-export function newId(prefix: 'a' | 'b' | 'r' | 'c' | 't'): string {
+export function newId(prefix: 'a' | 'b' | 'r' | 'c' | 't' | 'k'): string {
   counters[prefix] = (counters[prefix] ?? 0) + 1
   return prefix + counters[prefix]
+}
+
+/** Run `fn` on a scratch copy (previews) without using up ids: counters are restored afterwards. */
+export function scratch<T>(fn: () => T): T {
+  const saved = { ...counters }
+  try { return fn() } finally { for (const k of Object.keys(counters)) delete counters[k]; Object.assign(counters, saved) }
 }
 
 export const getDoc = () => doc
@@ -62,6 +68,24 @@ export function commit<T>(fn: (d: Doc) => T): T {
   doc = draft
   emit()
   return result
+}
+
+/**
+ * Run several edits (which may be async, like inserting molecules) as ONE undo step.
+ * Whatever `fn` commits is collapsed into a single history entry when it finishes.
+ */
+export async function batch<T>(fn: () => Promise<T>): Promise<T> {
+  const base = doc
+  const before = past.length
+  try {
+    return await fn()
+  } finally {
+    if (doc !== base && past.length >= before) {
+      past.length = before
+      pushPast(base)
+      emit()
+    }
+  }
 }
 
 /** Show a document without recording history (used while dragging). */

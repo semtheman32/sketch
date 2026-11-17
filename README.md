@@ -26,12 +26,25 @@ Open http://localhost:5173. Your drawing autosaves in the browser.
 | Text | T | Click to add a label like `+` or `Step 1`. |
 | Eraser | E | Click or drag over anything. |
 
-**Shortcuts while hovering an atom:** `C N O S P F H I B` change the element, `L` gives Cl, `R` gives Br, `+`/`-` change the charge, `1 2 3` grow a bond. **While hovering a bond:** `1 2 3` set the order, `W` wedge, `D` dash.
-**Everywhere:** Ctrl+Z / Ctrl+Y undo and redo, Delete removes, Ctrl+A selects all, Ctrl+S saves, Space+drag or right-drag pans, scroll zooms.
+**Shortcuts while hovering an atom:** `C N O S P F H I B` change the element, `L` gives Cl, `R` gives Br, `+`/`-` change the charge, `1 2 3` grow a bond. Type a group name quickly to replace the atom with that group: `Me`, `Et`, `Ph`, `Boc`, `OMe`, `CO2Me`, `NO2`, `OTf` and about 30 more. **While hovering a bond:** `1 2 3` set the order, `W` wedge, `D` dash.
+**Everywhere:** Ctrl+K opens the command bar (every tool, action, theme and template, or type a molecule name or a question for Claude). Ctrl+Z / Ctrl+Y undo and redo, Ctrl+C / Ctrl+X / Ctrl+V copy, cut and paste, Ctrl+D duplicates, Ctrl+Shift+C copies the drawing as an image, Ctrl+E exports, Ctrl+T opens templates, Delete removes, Ctrl+A selects all, Ctrl+S saves, Space+drag or right-drag pans, scroll zooms.
+
+**Selections** get their own bar: rotate 15°, flip left-right or top-bottom, put brackets (or transition-state brackets with ‡) around them, and expand group labels into full structures. Drag the round handle above a selection to rotate it freely (Shift turns off the 15° steps).
+
+**Templates** (Ctrl+T, or the shapes button): 16 rings and heterocycles, the 20 amino acids, every group abbreviation, and mechanism templates for SN1, SN2, E1, E2 and carbonyl addition. Each template is one undo step.
+
+**Looks** (the palette button): seven themes (Refined Lab light and dark, Cyanotype, Lab Notebook, Fume Hood, CPK, Spectrometer) and three drawing styles (Sketch, ACS 1996, Presentation). The theme only changes the screen. Exports always use white paper and the chosen drawing style, and the Export panel shows a live preview with style, transparent background, size and selection-only options.
 
 Type a name (`caffeine`) or SMILES (`CC(=O)O`) in the top box to add a molecule. Names are looked up on PubChem, so that needs internet.
 
-## Letting Claude draw
+## Chatting with Claude in the app
+
+Click **Claude** in the top bar and type in the box at the bottom of the panel. Claude can read and edit the canvas you're chatting from; every change it makes is one undo step, and the conversation is kept across reloads (**New chat** starts over).
+
+- It uses the Claude account Claude Code is signed into on this computer, so there is no API key and usage counts toward your plan. If the chat says you're not signed in, open a terminal, run `claude`, type `/login` and sign in once.
+- It only works under `npm run dev` (the chat runs inside the dev server, in `chat/plugin.mjs`), and Claude only gets the drawing tools: it can't read your files, run commands or browse.
+
+## Letting Claude draw from Claude Code
 
 1. Run `npm run dev` and keep the page open.
 2. Open Claude Code in this folder. It reads `.mcp.json` and starts `bridge/server.mjs` (approve the `sketch` MCP server when asked).
@@ -74,9 +87,9 @@ ChemSketch has too many menus, modes and dialogs. This app does less, and keeps 
 - Curly arrows (full-headed for electron pairs, half-headed for radicals) as Bézier curves anchored to atoms, bonds or lone pairs
 - Reaction arrows: forward, reversible, equilibrium, resonance, retrosynthetic, with reagent/condition text
 - Lone-pair dots, radicals, circled charges
-- Brackets for intermediates and transition states (‡)
-- Multi-step schemes with `+` signs and alignment helpers
-- Mechanism templates (SN1, SN2, E1, E2, carbonyl addition)
+- Brackets for intermediates and transition states (‡), square or round, with ‡, n, + or − labels
+- Multi-step schemes with `+` signs
+- Mechanism templates (SN1, SN2, E1, E2, carbonyl addition), built from real molecules with lone pairs and curly arrows
 
 ## Claude control (MCP tools)
 
@@ -88,6 +101,7 @@ ChemSketch has too many menus, modes and dialogs. This app does less, and keeps 
 | `add_curly_arrow` | From atom/bond/lone-pair ID to atom/bond ID |
 | `add_reaction_arrow` | With reagent and condition text |
 | `add_text` | Labels and annotations |
+| `add_bracket` | Brackets around items, with ‡ or other labels |
 | `clean_structure` | RDKit 2D clean-up |
 | `get_document` | Scene JSON plus SMILES, formula and mass per molecule |
 | `screenshot` | PNG/SVG of the canvas so Claude can check its work |
@@ -99,6 +113,7 @@ ChemSketch has too many menus, modes and dialogs. This app does less, and keeps 
 - [x] **Phase 1, Foundation**: SVG canvas, document model, undo/redo, pan/zoom
 - [x] **Phase 2, Structure drawing**: atoms, bonds, rings, selection and move, valence and formula
 - [x] **Phase 3, Import/export**: SMILES, names, MOL, SVG, PNG, clean-up
-- [x] **Phase 4, Mechanism tools**: anchored curly arrows, reaction arrows, lone pairs, radicals (brackets still to do)
-- [x] **Phase 5, Claude bridge**: WebSocket server, MCP tools, screenshot feedback loop
-- [ ] **Phase 6, Polish**: brackets and ‡, mechanism templates, copy/paste, Electron package
+- [x] **Phase 4, Mechanism tools**: anchored curly arrows, reaction arrows, lone pairs, radicals, brackets and ‡
+- [x] **Phase 5, Claude bridge**: WebSocket server, MCP tools, screenshot feedback loop, in-app chat
+- [x] **Phase 6, Polish**: motion, drawing previews, copy/paste, rotate/flip, group abbreviations, command bar, templates, style presets, export preview, themes
+- [ ] **Phase 7**: Electron package

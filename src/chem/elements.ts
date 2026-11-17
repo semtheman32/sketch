@@ -1,3 +1,5 @@
+import { findAbbrev } from './abbrev'
+
 export interface ElementInfo {
   mass: number
   /** Allowed neutral valences, smallest first. Empty for metals (no implicit H). */
@@ -52,6 +54,11 @@ export function normaliseSymbol(input: string): string | null {
   if (!s) return null
   const sym = s[0].toUpperCase() + s.slice(1).toLowerCase()
   return isElement(sym) ? sym : null
+}
+
+/** Normalise an atom label the user typed: an element ("cl" → "Cl") or a group ("boc" → "Boc"). */
+export function normaliseLabel(input: string): string | null {
+  return normaliseSymbol(input) ?? findAbbrev(input)?.label ?? null
 }
 
 export const elementColor = (sym: string): string | undefined => ELEMENTS[sym]?.color

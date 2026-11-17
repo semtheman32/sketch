@@ -1,0 +1,197 @@
+/*
+ * The Sketch tools Claude can use, shared by both ways Claude reaches the app:
+ *   - bridge/server.mjs: the MCP server Claude Code starts from .mcp.json
+ *   - chat/plugin.mjs:   the chatbox inside the app (Claude Agent SDK in the Vite dev server)
+ *
+ * Each tool names a `method` that src/bridge/client.ts runs in the browser as one undoable edit.
+ * `transform` turns the browser's result into an MCP tool result.
+ */
+import { writeFileSync, mkdirSync } from 'node:fs'
+import { dirname, resolve } from 'node:path'
+import * as z from 'zod'
+
+export const INSTRUCTIONS = `
+Sketch is a 2D chemical drawing canvas (molecules and reaction mechanisms) that the user has open in a browser.
+
+Coordinates: canvas units, x to the right, y DOWNWARD. A standard bond is 40 units long.
+IDs: atoms "a…", bonds "b…", reaction arrows "r…", curly arrows "c…", texts "t…", brackets "k…".
+Group abbreviations are allowed as an atom's element (Me, Et, iPr, tBu, Ph, Bn, Ac, Bz, Boc, Cbz, Fmoc, Ts, Ms, Tf,
+TMS, TBS, OMe, OEt, OAc, OTs, OTf, CO2Me, CO2Et, CO2H, CHO, CN, NO2, CF3, N3…): one bond each, counted in formulas.
+
+Good workflow:
+1. get_document to see what's already there (call it again whenever the user may have edited by hand).
+2. add_molecule with SMILES (or a name) for each species. It returns atom ids in SMILES heavy-atom order,
+   so you can find the atom you need. Leave ~60 units between species. Use x/y to place them.
+3. For mechanisms: set lone pairs / charges with set_atom, then add_curly_arrow from an atom (its lone pair)
+   or a bond, to the atom or bond the electrons move to. half=true for single-electron (radical) arrows.
+   Use bend 1 or -1 to choose which side the arrow curves; pick the side away from other atoms.
+4. add_reaction_arrow between reactants and products, with reagents in "above" and conditions in "below".
+   Use add_text for "+" signs between species.
+5. Call screenshot to look at the result and fix overlaps or awkward arrows before telling the user it's done.
+Every tool call is one undo step for the user.
+`.trim()
+
+export const json = data => ({ content: [{ type: 'text', text: JSON.stringify(data, null, 1) }] })
+const image = png => ({ content: [{ type: 'image', data: png, mimeType: 'image/png' }] })
+
+const id = z.string()
+const num = z.number()
+const order = z.union([z.literal(1), z.literal(2), z.literal(3)])
+const arrowKind = z.enum(['forward', 'equilibrium', 'resonance', 'retro'])
+const stereo = z.enum(['none', 'wedge', 'dash'])
+const textStyle = {
+  color: z.string().optional().describe('Hex colour like #d64545; omit for the normal ink colour'),
+  bold: z.boolean().optional(),
+  italic: z.boolean().optional(),
+  size: num.optional().describe('Font size in canvas units; default 14'),
+}
+
+/** @type {{ name: string, description: string, shape: Record<string, z.ZodType>, method: string, transform?: (res: any, args: any) => any }[]} */
+export const TOOLS = [
+  {
+    name: 'get_document', method: 'get_document', shape: {},
+    description: 'Read everything on the canvas: atoms (with implicit H count), bonds, reaction arrows, curly arrows, texts, and per-molecule formula, mass and SMILES.',
+  },
+  {
+    name: 'add_molecule', method: 'add_molecule',
+    description: 'Add a molecule from SMILES, a compound name (looked up on PubChem) or a V2000 molfile. Gives it clean 2D coordinates centred at x,y (or to the right of existing content). Returns atom ids in input order.',
+    shape: {
+      smiles: z.string().optional().describe('SMILES, e.g. "CCBr" or "[OH-]"'),
+      name: z.string().optional().describe('Compound name, e.g. "aspirin"'),
+      molfile: z.string().optional(),
+      x: num.optional().describe('Centre x'),
+      y: num.optional().describe('Centre y'),
+    },
+  },
+  {
+    name: 'add_atom', method: 'add_atom',
+    description: 'Add one atom. Give x,y, or bond_to (an atom id) to grow it off that atom in a sensible direction.',
+    shape: {
+      element: z.string().default('C'),
+      x: num.optional(), y: num.optional(),
+      bond_to: id.optional(), order: order.optional(),
+      charge: z.number().int().optional(),
+    },
+  },
+  {
+    name: 'add_bond', method: 'add_bond', description: 'Bond two existing atoms.',
+    shape: { from: id, to: id, order: order.optional(), stereo: stereo.optional().describe('Wedge/dash narrow end is at "from"') },
+  },
+  {
+    name: 'set_atom', method: 'set_atom',
+    description: 'Change an atom: element, formal charge, number of lone pairs shown (0–4), radical dot, or position.',
+    shape: {
+      id, element: z.string().optional(), charge: z.number().int().optional(),
+      lone_pairs: z.number().int().min(0).max(4).optional(), radical: z.boolean().optional(),
+      x: num.optional(), y: num.optional(),
+    },
+  },
+  {
+    name: 'set_bond', method: 'set_bond',
+    description: 'Change a bond order or stereo. flip=true swaps its direction (wedge narrow end).',
+    shape: { id, order: order.optional(), stereo: stereo.optional(), flip: z.boolean().optional() },
+  },
+  {
+    name: 'move', method: 'move',
+    description: 'Move items by dx,dy. With whole_molecule=true, giving any atom id moves its entire molecule.',
+    shape: { ids: z.array(id), dx: num, dy: num, whole_molecule: z.boolean().optional() },
+  },
+  {
+    name: 'delete_items', method: 'delete',
+    description: 'Delete atoms, bonds, arrows, curly arrows, texts or brackets by id (bonds of deleted atoms go too).',
+    shape: { ids: z.array(id) },
+  },
+  {
+    name: 'add_reaction_arrow', method: 'add_reaction_arrow',
+    description: 'Add a straight reaction arrow from (x1,y1) to (x2,y2). Without coordinates it goes right of existing content.',
+    shape: {
+      x1: num.optional(), y1: num.optional(), x2: num.optional(), y2: num.optional(),
+      kind: arrowKind.optional(),
+      above: z.string().optional().describe('Reagents written above'),
+      below: z.string().optional().describe('Conditions written below'),
+    },
+  },
+  {
+    name: 'set_reaction_arrow', method: 'set_reaction_arrow', description: 'Edit an existing reaction arrow.',
+    shape: {
+      id, kind: arrowKind.optional(),
+      above: z.string().optional(), below: z.string().optional(),
+      x1: num.optional(), y1: num.optional(), x2: num.optional(), y2: num.optional(),
+    },
+  },
+  {
+    name: 'add_curly_arrow', method: 'add_curly_arrow',
+    description: 'Add a mechanism (curly) arrow showing electron movement. from/to are atom ids (starts at its lone pair if it has one) or bond ids (bond midpoint).',
+    shape: {
+      from: id, to: id,
+      half: z.boolean().optional().describe('true = fishhook, single electron'),
+      bend: z.number().min(-3).max(3).optional().describe('Curvature; 1 curves left of the from→to direction, -1 right. Default 1.'),
+    },
+  },
+  {
+    name: 'add_text', method: 'add_text',
+    description: 'Add a text label (e.g. "+", "Step 1", "δ+") with its left baseline at x,y. Optional colour, bold, italic and size.',
+    shape: { text: z.string(), x: num.optional(), y: num.optional(), ...textStyle },
+  },
+  {
+    name: 'set_text', method: 'set_text', description: 'Change a text label: its words, position or style.',
+    shape: { id, text: z.string().optional(), x: num.optional(), y: num.optional(), ...textStyle },
+  },
+  {
+    name: 'add_bracket', method: 'add_bracket',
+    description: 'Put square or round brackets around items (give ids, e.g. the atoms of an intermediate) or a box (x1,y1,x2,y2). label goes top right: "‡" for a transition state, "n" for a repeat unit, "+" or "−" for a charge.',
+    shape: {
+      ids: z.array(id).optional(), x1: num.optional(), y1: num.optional(), x2: num.optional(), y2: num.optional(),
+      shape: z.enum(['square', 'round']).optional(), label: z.string().optional(), padding: num.optional(),
+    },
+  },
+  {
+    name: 'clean_structure', method: 'clean',
+    description: 'Recompute tidy 2D coordinates for the molecules containing atom_ids (or every molecule).',
+    shape: { atom_ids: z.array(id).optional() },
+  },
+  { name: 'undo', method: 'undo', shape: {}, description: 'Undo the last edit (the user\'s or yours).' },
+  { name: 'redo', method: 'redo', shape: {}, description: 'Redo the last undone edit.' },
+  {
+    name: 'clear_canvas', method: 'clear', shape: {},
+    description: 'Remove everything from the canvas (undoable). Ask the user before using this on their work.',
+  },
+  {
+    name: 'screenshot', method: 'screenshot', shape: {},
+    description: 'Render the canvas as a PNG so you can check how the drawing looks.',
+    transform: res => image(res.png),
+  },
+  {
+    name: 'export_drawing', method: 'export',
+    description: 'Export the drawing as svg, png, mol, smiles or json. With path, writes the file there (relative to the project folder) instead of returning it.',
+    shape: { format: z.enum(['svg', 'png', 'mol', 'smiles', 'json']), path: z.string().optional() },
+    transform: (res, args) => {
+      if (args.path) {
+        const file = resolve(process.cwd(), args.path)
+        mkdirSync(dirname(file), { recursive: true })
+        writeFileSync(file, res.png ? Buffer.from(res.png, 'base64') : res.data)
+        return json({ saved: file })
+      }
+      if (res.png) return image(res.png)
+      return { content: [{ type: 'text', text: res.data }] }
+    },
+  },
+  {
+    name: 'set_document', method: 'set_document',
+    description: 'Replace the whole canvas with a saved Sketch JSON document (from export_drawing json).',
+    shape: { doc: z.string().describe('JSON text') },
+  },
+]
+
+/**
+ * Run one tool: send its method to the app with `call`, then shape the result for MCP.
+ * Errors come back as an error result so Claude can see what went wrong and try again.
+ */
+export async function runTool(def, args, call) {
+  try {
+    const res = await call(def.method, args ?? {})
+    return (def.transform ?? json)(res, args ?? {})
+  } catch (err) {
+    return { content: [{ type: 'text', text: `Error: ${err?.message ?? err}` }], isError: true }
+  }
+}

@@ -7,10 +7,11 @@ import type { ArrowKind, BondOrder, BondStereo, Doc, ID, TextStyle } from '../mo
 import { emptyDoc, kindOf } from '../model/types'
 import { BOND } from '../model/geometry'
 import { commit, getDoc, newId, redo, replaceDoc, undo } from '../model/store'
-import { addAtom, addBond, contentBounds, growBond, moveItems, removeItems, straightenTriple } from '../model/ops'
+import { addAtom, addBond, bracketAround, changedIds, contentBounds, growBond, moveItems, removeItems, straightenTriple } from '../model/ops'
+import { flashItems } from '../model/flash'
 import { adjacency, componentOf, hCount } from '../chem/chem'
-import { writeMolfile } from '../chem/molfile'
-import { addMolecule, cleanStructures, exportPngDataUrl, exportSvg, moleculeSummaries, smilesOf } from '../actions'
+import { addMolecule, cleanStructures, exportMolfile, exportPngDataUrl, exportSvg, moleculeSummaries, smilesOf } from '../actions'
+import { getDrawStyle } from '../render/styles'
 
 export const BRIDGE_URL = 'ws://127.0.0.1:3917'
 
@@ -35,6 +36,7 @@ async function describe(doc: Doc = getDoc()) {
     reactionArrows: Object.values(doc.arrows).map(r => ({ ...r, x1: r1(r.x1), y1: r1(r.y1), x2: r1(r.x2), y2: r1(r.y2) })),
     curlyArrows: Object.values(doc.curlies),
     texts: Object.values(doc.texts).map(t => ({ ...t, x: r1(t.x), y: r1(t.y) })),
+    brackets: Object.values(doc.brackets ?? {}),
     molecules: await moleculeSummaries(doc),
     bounds: contentBounds(doc),
   }
@@ -202,23 +204,39 @@ const handlers: Record<string, (p: Params) => unknown> = {
     })
   },
 
+  add_bracket(p) {
+    return commit(d => {
+      let id: ID | null
+      if (p.ids?.length) id = bracketAround(d, p.ids, p.label ?? '', p.padding ?? 14)
+      else {
+        if ([p.x1, p.y1, p.x2, p.y2].some(v => typeof v !== 'number')) throw new Error('Give ids to wrap, or x1, y1, x2, y2')
+        id = newId('k')
+        d.brackets[id] = { id, x1: Math.min(p.x1, p.x2), y1: Math.min(p.y1, p.y2), x2: Math.max(p.x1, p.x2), y2: Math.max(p.y1, p.y2), shape: 'square', label: '' }
+      }
+      if (!id) throw new Error('Nothing to wrap')
+      if (p.shape) d.brackets[id].shape = p.shape
+      if (p.label !== undefined) d.brackets[id].label = String(p.label)
+      return { ...d.brackets[id] }
+    })
+  },
+
   async clean(p) { return { cleaned: await cleanStructures(p.atom_ids) } },
   undo: () => ({ undone: undo() }),
   redo: () => ({ redone: redo() }),
   clear: () => { replaceDoc(emptyDoc()); return { cleared: true } },
 
   async screenshot() {
-    const url = await exportPngDataUrl(getDoc(), 2)
+    const url = await exportPngDataUrl(getDoc(), 2, { style: getDrawStyle() })
     return { png: url.split(',')[1] }
   },
 
   async export(p) {
     const doc = getDoc()
     switch (p.format) {
-      case 'svg': return { data: exportSvg(doc) }
-      case 'mol': return { data: writeMolfile(doc) }
+      case 'svg': return { data: exportSvg(doc, { style: getDrawStyle() }) }
+      case 'mol': return { data: await exportMolfile(doc) }
       case 'json': return { data: JSON.stringify(doc, null, 2) }
-      case 'png': return { png: (await exportPngDataUrl(doc, 3)).split(',')[1] }
+      case 'png': return { png: (await exportPngDataUrl(doc, 3, { style: getDrawStyle() })).split(',')[1] }
       case 'smiles': {
         const mols = await moleculeSummaries(doc)
         return { data: mols.map(m => m.smiles).filter(Boolean).join('.') }
@@ -258,18 +276,32 @@ export function startBridge() {
       let msg: { id: number; method: string; params?: Params }
       try { msg = JSON.parse(String(ev.data)) } catch { return }
       if (typeof msg.id !== 'number') return
-      const h = handlers[msg.method]
-      try {
-        if (!h) throw new Error(`Unknown method ${msg.method}`)
-        const result = await h(msg.params ?? {})
-        ws.send(JSON.stringify({ id: msg.id, result }))
-        set({ log: [{ time: Date.now(), method: msg.method, ok: true }, ...state.log].slice(0, 50) })
-      } catch (err) {
-        const message = err instanceof Error ? err.message : String(err)
-        ws.send(JSON.stringify({ id: msg.id, error: message }))
-        set({ log: [{ time: Date.now(), method: msg.method, ok: false, detail: message }, ...state.log].slice(0, 50) })
-      }
+      const reply = await runMethod(msg.method, msg.params ?? {})
+      ws.send(JSON.stringify({ id: msg.id, ...reply }))
     }
   }
   connect()
+}
+
+/**
+ * Run one of Claude's tool methods on the canvas and add it to the activity log.
+ * Used by both the Claude Code bridge (above) and the in-app chat (src/chat/chat.ts).
+ */
+export async function runMethod(method: string, params: Params): Promise<{ result: unknown } | { error: string }> {
+  const h = handlers[method]
+  const before = getDoc()
+  try {
+    if (!h) throw new Error(`Unknown method ${method}`)
+    const result = await h(params)
+    // Make Claude's edits visible: whatever it added or changed glows briefly.
+    if (getDoc() !== before && method !== 'undo' && method !== 'redo' && method !== 'clear' && method !== 'set_document') {
+      flashItems(changedIds(before, getDoc()))
+    }
+    set({ log: [{ time: Date.now(), method, ok: true }, ...state.log].slice(0, 50) })
+    return { result }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    set({ log: [{ time: Date.now(), method, ok: false, detail: message }, ...state.log].slice(0, 50) })
+    return { error: message }
+  }
 }

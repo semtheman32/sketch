@@ -1,5 +1,6 @@
 import type { Atom, Bond, Doc, ID } from '../model/types'
 import { ELEMENTS, implicitHydrogens } from './elements'
+import { abbrevOf } from './abbrev'
 
 export interface Neighbor { bond: Bond; other: ID }
 export type Adjacency = Map<ID, Neighbor[]>
@@ -61,7 +62,9 @@ export function formulaOf(doc: Doc, atomIds: ID[], adj: Adjacency = adjacency(do
   for (const id of atomIds) {
     const a = doc.atoms[id]
     if (!a) continue
-    counts[a.element] = (counts[a.element] ?? 0) + 1
+    const ab = abbrevOf(a.element)
+    if (ab) for (const [el, n] of Object.entries(ab.formula)) counts[el] = (counts[el] ?? 0) + n
+    else counts[a.element] = (counts[a.element] ?? 0) + 1
     const h = hCount(a, adj)
     if (h) counts.H = (counts.H ?? 0) + h
     charge += a.charge

@@ -1,11 +1,14 @@
-import { useEffect, useRef, useState, type MouseEvent as RMouseEvent, type PointerEvent as RPointerEvent, type ReactNode } from 'react'
+import { useEffect, useMemo, useRef, useState, type MouseEvent as RMouseEvent, type PointerEvent as RPointerEvent, type ReactNode } from 'react'
 import type { Doc, ID } from '../model/types'
 import { kindOf } from '../model/types'
 import { BOND, add, angleOf, dist, fromAngle, inRect, len, mid, mul, norm, perp, sub, type P, type Rect } from '../model/geometry'
-import { commit, finishLive, getDoc, newId, setLive, useDoc } from '../model/store'
+import { commit, finishLive, getDoc, newId, scratch, setLive, useDoc } from '../model/store'
 import {
-  addAtom, addBond, addRing, applyBondStyle, atomNear, bondBetween, growBond, moveItems, removeItems,
+  addAtom, addBond, addRing, applyBondStyle, atomNear, bondBetween, growBond, moveItems, nextBondDirection, removeItems,
+  rotateItems, selectionBounds,
 } from '../model/ops'
+import { useFlash } from '../model/flash'
+import { useDrawStyle } from './styles'
 import { adjacency, components } from '../chem/chem'
 import { anchorPoint, hitTest, type Hit } from './layout'
 import { LIVE, Scene } from './Scene'
@@ -42,11 +45,14 @@ type Mode =
   | { m: 'curly'; from: ID; sx: number; sy: number }
   | { m: 'erase'; base: Doc }
   | { m: 'text'; target: EditTarget }
+  | { m: 'rotate'; base: Doc; ids: ID[]; c: P; a0: number; ang: number }
 
 const SNAP = Math.PI / 6
 
 export function Canvas(p: Props) {
   const doc = useDoc()
+  const style = useDrawStyle()
+  const flash = useFlash()
   const svgRef = useRef<SVGSVGElement>(null)
   const mode = useRef<Mode>({ m: 'none' })
   const [pointer, setPointer] = useState<P | null>(null)
@@ -142,6 +148,17 @@ export function Canvas(p: Props) {
     }
   }
 
+  /** Rotate handle above the selection (Select tool, two or more atoms or any non-atom items). */
+  const rotHandle = useMemo(() => {
+    if (p.tool !== 'select' || !p.selection.length) return null
+    const hasShape = p.selection.filter(id => kindOf(id) === 'atom').length >= 2 || p.selection.some(id => kindOf(id) !== 'atom' && kindOf(id) !== 'bond')
+    if (!hasShape) return null
+    const r = selectionBounds(doc, p.selection)
+    if (!r) return null
+    const c = { x: (r.x1 + r.x2) / 2, y: (r.y1 + r.y2) / 2 }
+    return { c, top: r.y1, h: { x: c.x, y: r.y1 - 26 / p.view.k } }
+  }, [doc, p.selection, p.tool, p.view.k])
+
   const createCurly = (from: ID, to: ID) => {
     commit(d => {
       const id = newId('c')
@@ -151,6 +168,9 @@ export function Canvas(p: Props) {
   }
 
   const onDown = (e: RPointerEvent<SVGSVGElement>) => {
+    // Clicking the drawing leaves any text box, so keyboard shortcuts work again.
+    const focused = document.activeElement as HTMLElement | null
+    if (focused && (focused.tagName === 'INPUT' || focused.tagName === 'TEXTAREA')) focused.blur()
     svgRef.current!.setPointerCapture(e.pointerId)
     const w = toWorld(e)
     if (e.button === 1 || e.button === 2 || p.spaceDown) {
@@ -161,6 +181,12 @@ export function Canvas(p: Props) {
     const hit = hitAt(w)
     const d = getDoc()
     const o = p.opts
+
+    if (rotHandle && p.tool === 'select' && dist(w, rotHandle.h) < 9 / p.view.k) {
+      mode.current = { m: 'rotate', base: d, ids: p.selection, c: rotHandle.c, a0: angleOf(sub(w, rotHandle.c)), ang: 0 }
+      setPointer(w)
+      return
+    }
 
     switch (p.tool) {
       case 'select': {
@@ -270,7 +296,18 @@ export function Canvas(p: Props) {
         const h = hitAt(w)
         const id = h?.id ?? null
         if (id !== p.hover) p.setHover(id)
-        if (curlyFrom) setPointer(w)
+        // Ghost previews follow the pointer for the drawing tools.
+        if (curlyFrom || p.tool === 'bond' || p.tool === 'ring' || (p.tool === 'select' && rotHandle)) setPointer(w)
+        return
+      }
+      case 'rotate': {
+        let ang = angleOf(sub(w, md.c)) - md.a0
+        if (!e.shiftKey) ang = Math.round(ang / (Math.PI / 12)) * (Math.PI / 12) // 15° steps; Shift = free
+        md.ang = ang
+        const nd = structuredClone(md.base)
+        rotateItems(nd, md.ids, md.c, ang)
+        setLive(nd)
+        setPointer(w)
         return
       }
       case 'pan':
@@ -330,7 +367,7 @@ export function Canvas(p: Props) {
     const md = mode.current
     mode.current = { m: 'none' }
     switch (md.m) {
-      case 'move': case 'arrowEnd': case 'bend': case 'erase':
+      case 'move': case 'arrowEnd': case 'bend': case 'erase': case 'rotate':
         finishLive(md.base)
         break
       case 'text': {
@@ -350,6 +387,7 @@ export function Canvas(p: Props) {
         for (const a of Object.values(d.arrows)) if (inRect(mid({ x: a.x1, y: a.y1 }, { x: a.x2, y: a.y2 }), r)) ids.push(a.id)
         for (const t of Object.values(d.texts)) if (inRect(t, r)) ids.push(t.id)
         for (const c of Object.values(d.curlies)) if (inRect(anchorPoint(d, c.from) ?? { x: NaN, y: NaN }, r)) ids.push(c.id)
+        for (const k of Object.values(d.brackets ?? {})) if (inRect({ x: k.x1, y: k.y1 }, r) && inRect({ x: k.x2, y: k.y2 }, r)) ids.push(k.id)
         p.setSelection(md.add ? [...new Set([...p.selection, ...ids])] : ids)
         break
       }
@@ -420,6 +458,22 @@ export function Canvas(p: Props) {
   const md = mode.current
   const k = p.view.k
   let preview: ReactNode = null
+  const readout = (at: P, text: string) => (
+    <text x={at.x + 14 / k} y={at.y - 12 / k} fontSize={11 / k} className="readout">{text}</text>
+  )
+  const degrees = (v: P) => `${Math.round(((-angleOf(v) * 180) / Math.PI + 360) % 360)}°`
+  if (md.m === 'none' && pointer && !curlyFrom && !p.spaceDown) {
+    preview = ghostPreview(doc, p, pointer, k)
+  }
+  if (md.m === 'rotate' && pointer) {
+    preview = (
+      <g>
+        <circle cx={md.c.x} cy={md.c.y} r={3 / k} fill="var(--accent)" />
+        <line x1={md.c.x} y1={md.c.y} x2={pointer.x} y2={pointer.y} stroke="var(--accent)" strokeWidth={1 / k} strokeDasharray={`${3 / k} ${3 / k}`} />
+        {readout(pointer, `${Math.round((md.ang * 180) / Math.PI)}°`)}
+      </g>
+    )
+  }
   if (md.m === 'bond' && pointer) {
     const moved = dist(pointer, md.start) * k > 6
     if (md.chain.length > 2) {
@@ -432,11 +486,24 @@ export function Canvas(p: Props) {
       )
     } else if (moved) {
       const s = snapEnd(md.start, pointer, md.from)
-      preview = <line x1={md.start.x} y1={md.start.y} x2={s.p.x} y2={s.p.y} stroke="var(--accent)" strokeWidth={2} strokeDasharray="4 3" />
+      preview = (
+        <g>
+          <line x1={md.start.x} y1={md.start.y} x2={s.p.x} y2={s.p.y} stroke="var(--accent)" strokeWidth={2} strokeDasharray="4 3" />
+          {s.atom
+            ? <circle cx={s.p.x} cy={s.p.y} r={11} fill="var(--hover)" stroke="var(--accent)" strokeWidth={1.5 / k} className="drop-target" />
+            : <circle cx={s.p.x} cy={s.p.y} r={2.5} fill="var(--accent)" />}
+          {readout(pointer, degrees(sub(s.p, md.start)))}
+        </g>
+      )
     }
   } else if (md.m === 'arrow' && pointer) {
     const end = snapAngle(md.start, pointer, Math.PI / 12)
-    preview = <line x1={md.start.x} y1={md.start.y} x2={end.x} y2={end.y} stroke="var(--accent)" strokeWidth={2} strokeDasharray="4 3" />
+    preview = (
+      <g>
+        <line x1={md.start.x} y1={md.start.y} x2={end.x} y2={end.y} stroke="var(--accent)" strokeWidth={2} strokeDasharray="4 3" />
+        {readout(pointer, degrees(sub(end, md.start)))}
+      </g>
+    )
   }
   if (curlyFrom && pointer) {
     const s = anchorPoint(doc, curlyFrom)
@@ -451,9 +518,13 @@ export function Canvas(p: Props) {
     }
   }
 
-  const cursor = p.spaceDown || md.m === 'pan' ? 'grabbing'
-    : p.tool === 'select' ? (p.hover ? 'move' : 'default')
-      : p.tool === 'text' ? 'text' : 'crosshair'
+  const overHandle = !!(rotHandle && pointer && dist(pointer, rotHandle.h) < 9 / k)
+  const cursor = md.m === 'pan' ? 'grabbing' : p.spaceDown ? 'grab'
+    : md.m === 'rotate' || overHandle ? ROTATE_CURSOR
+      : p.tool === 'select' ? (p.hover ? 'move' : 'default')
+        : p.tool === 'text' ? 'text'
+          : p.tool === 'eraser' ? ERASER_CURSOR
+            : p.tool === 'curly' && p.hover ? 'pointer' : 'crosshair'
 
   return (
     <svg
@@ -468,8 +539,15 @@ export function Canvas(p: Props) {
       onContextMenu={e => e.preventDefault()}
     >
       <g transform={`translate(${p.view.x} ${p.view.y}) scale(${k})`}>
-        <Scene doc={doc} palette={LIVE} selected={new Set(p.selection)} hover={p.hover} />
+        <g className="scene"><Scene doc={doc} palette={LIVE} style={style} selected={new Set(p.selection)} hover={p.hover} flash={flash.ids} flashKey={flash.key} /></g>
         {preview}
+        {rotHandle && md.m !== 'move' && (
+          <g className="rot-handle">
+            <line x1={rotHandle.c.x} y1={rotHandle.top - 4 / k} x2={rotHandle.h.x} y2={rotHandle.h.y + 6 / k} stroke="var(--accent)" strokeWidth={1 / k} />
+            <circle cx={rotHandle.h.x} cy={rotHandle.h.y} r={6 / k} fill="var(--panel)" stroke="var(--accent)" strokeWidth={1.5 / k} />
+            <path d={`M ${rotHandle.h.x - 2.6 / k} ${rotHandle.h.y - 1 / k} a ${2.8 / k} ${2.8 / k} 0 1 1 ${1.2 / k} ${3.2 / k}`} fill="none" stroke="var(--accent)" strokeWidth={1.1 / k} />
+          </g>
+        )}
         {marquee && (
           <rect
             x={Math.min(marquee.x1, marquee.x2)} y={Math.min(marquee.y1, marquee.y2)}
@@ -486,4 +564,60 @@ function snapAngle(from: P, to: P, step: number): P {
   const v = sub(to, from)
   const ang = Math.round(angleOf(v) / step) * step
   return add(from, mul(fromAngle(ang), len(v)))
+}
+
+const svgCursor = (svg: string, x: number, y: number, fallback: string) =>
+  `url("data:image/svg+xml,${encodeURIComponent(svg)}") ${x} ${y}, ${fallback}`
+
+const ERASER_CURSOR = svgCursor(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><path d="M4 15l7-7a1.8 1.8 0 0 1 2.5 0l2.5 2.5a1.8 1.8 0 0 1 0 2.5L11 18H7z" fill="#fff" stroke="#222" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 11l5 5" stroke="#222" stroke-width="1.4"/></svg>',
+  6, 17, 'crosshair')
+
+const ROTATE_CURSOR = svgCursor(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><path d="M16.5 8.5A6 6 0 1 0 17 13" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M16.5 8.5A6 6 0 1 0 17 13" fill="none" stroke="#222" stroke-width="1.6" stroke-linecap="round"/><path d="M17.5 4.5v4.5H13" fill="none" stroke="#222" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  11, 11, 'grab')
+
+/** Faint preview of what a click would add: the next bond from an atom, or the ring the Ring tool would place. */
+function ghostPreview(doc: Doc, p: Props, pointer: P, k: number): ReactNode {
+  const ghost = { stroke: 'var(--accent)', strokeWidth: 1.6, strokeLinecap: 'round' as const, opacity: 0.45 }
+  if (p.tool === 'bond') {
+    const hit = p.hover
+    if (hit && kindOf(hit) === 'bond') return null // clicking a bond changes its order: the hover glow says enough
+    const fromAtom = hit && kindOf(hit) === 'atom' ? doc.atoms[hit] : null
+    const start = fromAtom ?? pointer
+    const dir = fromAtom ? nextBondDirection(doc, fromAtom.id) : fromAngle(-Math.PI / 6)
+    const end = add(start, mul(dir, BOND))
+    return (
+      <g className="ghost" pointerEvents="none">
+        <line x1={start.x} y1={start.y} x2={end.x} y2={end.y} {...ghost} strokeDasharray={`${4 / k} ${3 / k}`} />
+        <circle cx={end.x} cy={end.y} r={2.5} fill="var(--accent)" opacity={0.5} />
+      </g>
+    )
+  }
+  if (p.tool === 'ring') {
+    const hit = p.hover
+    const target = hit && kindOf(hit) === 'atom' ? { kind: 'atom' as const, id: hit }
+      : hit && kindOf(hit) === 'bond' ? { kind: 'bond' as const, id: hit }
+        : hit ? null : { kind: 'point' as const, p: pointer }
+    if (!target) return null
+    const ring = ghostRing(doc, p.opts.ringSize, target)
+    if (!ring) return null
+    return (
+      <g className="ghost" pointerEvents="none">
+        <polygon points={ring.map(q => `${q.x},${q.y}`).join(' ')} fill="var(--accent-soft)" {...ghost} />
+      </g>
+    )
+  }
+  return null
+}
+
+/** Ring corner points the Ring tool would produce, without changing the document. */
+function ghostRing(doc: Doc, size: number, target: Parameters<typeof addRing>[3]): P[] | null {
+  try {
+    return scratch(() => {
+      const d = structuredClone(doc)
+      const ids = addRing(d, size, false, target)
+      return ids.map(id => d.atoms[id]).filter(Boolean)
+    })
+  } catch { return null }
 }

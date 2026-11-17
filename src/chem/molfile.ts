@@ -1,5 +1,6 @@
 import type { BondOrder, BondStereo, Doc, ID } from '../model/types'
 import { BOND } from '../model/geometry'
+import { isAbbrev } from './abbrev'
 
 /** Molfile coordinates use ~1.5 Å bond length; the canvas uses BOND units with y pointing down. */
 const SCALE = BOND / 1.5
@@ -21,7 +22,10 @@ export function writeMolfile(doc: Doc, atomIds: ID[] = Object.keys(doc.atoms), n
   for (const id of atomIds) {
     const a = doc.atoms[id]
     const x = (a.x / SCALE).toFixed(4), y = (-a.y / SCALE).toFixed(4)
-    lines.push(`${pad(x, 10)}${pad(y, 10)}${pad('0.0000', 10)} ${a.element.padEnd(3)} 0  0  0  0  0  0  0  0  0  0  0  0`)
+    // Group labels (Ph, Boc…) are written as C here, which is right for layout. Anything that needs the
+    // real structure (SMILES, MOL export) expands them first: see expandAbbreviations in actions.tsx.
+    const el = isAbbrev(a.element) ? 'C' : a.element
+    lines.push(`${pad(x, 10)}${pad(y, 10)}${pad('0.0000', 10)} ${el.padEnd(3)} 0  0  0  0  0  0  0  0  0  0  0  0`)
     if (a.charge) charged.push([index.get(id)!, a.charge])
   }
   for (const b of bonds) {
