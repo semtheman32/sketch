@@ -202,14 +202,13 @@ kbd {
 
 /* Canvas feedback */
 @keyframes appear { from { opacity: 0; } }
-.canvas .appear { animation: appear var(--dur-3) var(--ease); }
 @keyframes flash-out { 0% { opacity: 0; } 12% { opacity: 1; } 100% { opacity: 0; } }
 .flash-halo { animation: flash-out 1.9s var(--ease) forwards; }
 .flash-halo circle, .flash-halo rect { fill: var(--flash); stroke: none; }
 .flash-halo line, .flash-halo path { stroke: var(--flash); fill: none; }
 .canvas .readout { fill: var(--accent); font-family: var(--font-ui); font-variant-numeric: tabular-nums; paint-order: stroke; stroke: var(--canvas); stroke-width: 3px; stroke-linejoin: round; }
 .canvas .drop-target { animation: appear var(--dur-1) var(--ease); }
-.canvas .ghost { animation: appear var(--dur-2) var(--ease); }
+
 .rot-handle { animation: appear var(--dur-2) var(--ease); }
 
 /* Contextual tool options */
@@ -250,7 +249,7 @@ kbd {
 
 .empty {
   position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  pointer-events: none; color: var(--muted); text-align: center; animation: appear var(--dur-3) var(--ease);
+  pointer-events: none; color: var(--muted); text-align: center;
 }
 .empty p { margin: 4px 0; }
 .empty .big { font-size: 20px; font-weight: 600; color: var(--ink); }

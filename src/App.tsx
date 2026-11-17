@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import './App.css'
 import type { BondOrder, Doc, ID, TextStyle } from './model/types'
 import { allIds, emptyDoc, exists, kindOf } from './model/types'
@@ -23,6 +23,7 @@ import { TOOLS, defaultOptions, type Tool, type ToolOptions } from './ui/tools'
 import { addMolecule, cleanStructures, copyImage, download, expandInDoc, prepareGroups } from './actions'
 import { AMINO_ACIDS, MECHANISMS, RINGS, insertMechanism, insertTemplate, type MechanismTemplate, type StructureTemplate } from './templates'
 import { startBridge, useBridge } from './bridge/client'
+import { loadRDKit } from './chem/rdkit'
 import { newChat, sendChat } from './chat/chat'
 
 const LETTER_ELEMENTS: Record<string, string> = { c: 'C', n: 'N', o: 'O', s: 'S', p: 'P', f: 'F', h: 'H', i: 'I', b: 'B', l: 'Cl', r: 'Br' }
@@ -61,6 +62,15 @@ export default function App() {
   const toggle = (p: Exclude<Popover, null>) => setPopover(cur => (cur === p ? null : p))
 
   useEffect(() => { startBridge() }, [])
+
+  // Load the chemistry engine (a few MB of WebAssembly) while the app is idle, so the first
+  // molecule, clean-up or SMILES isn't slow.
+  useEffect(() => {
+    const start = () => { loadRDKit().catch(() => { /* retried on first real use */ }) }
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }
+    if (w.requestIdleCallback) w.requestIdleCallback(start, { timeout: 2500 })
+    else setTimeout(start, 800)
+  }, [])
 
   // Edits that would over-bond an atom are refused in commit(); explain why instead of failing silently.
   useEffect(() => {
@@ -371,14 +381,18 @@ export default function App() {
     return () => { window.removeEventListener('keydown', onKey); window.removeEventListener('keyup', onUp) }
   }, [hover, selection, setOpts, selectAll, saveJson, duplicate, copyAsImage, copySelection, pasteFrag])
 
+  // The formula line can lag a frame behind while you drag; drawing stays smooth.
+  const lazyDoc = useDeferredValue(doc)
+  const lazySel = useDeferredValue(selection)
   const status = useMemo(() => {
+    const doc = lazyDoc, selection = lazySel
     const adj = adjacency(doc)
     const selAtoms = selection.filter(id => kindOf(id) === 'atom' && doc.atoms[id])
     const groups = selAtoms.length
       ? components(doc, adj).map(c => c.filter(id => selAtoms.includes(id))).filter(c => c.length)
       : components(doc, adj)
     return groups.slice(0, 4).map(g => formulaOf(doc, g, adj))
-  }, [doc, selection])
+  }, [lazyDoc, lazySel])
 
   const toolInfo = TOOLS.find(t => t.id === tool)!
   const isEmpty = !Object.keys(doc.atoms).length && !Object.keys(doc.arrows).length && !Object.keys(doc.texts).length && !Object.keys(doc.brackets ?? {}).length

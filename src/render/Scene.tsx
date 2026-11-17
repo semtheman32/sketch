@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { memo, type ReactNode } from 'react'
 import type { Arrow, Atom, Bond, Bracket, Curly, Doc, ID, TextItem } from '../model/types'
 import { add, mul, norm, perp, sub, type P } from '../model/geometry'
 import { adjacency, chargeLabel, type Adjacency } from '../chem/chem'
@@ -57,7 +57,7 @@ export function Scene({ doc, palette: pal, style = STYLES[0], selected, hover, f
   const sel = selected ?? new Set<ID>()
   const highlight = (id: ID) => (sel.has(id) ? pal.select : hover === id ? pal.hover : null)
   const fl = (id: ID) => (flash?.has(id) ? flashKey : 0)
-  const anim = pal.live ? 'appear' : undefined
+  const anim = undefined as string | undefined
 
   return (
     <g style={{ fontFamily: st.fontFamily }}>
@@ -75,6 +75,51 @@ export function Scene({ doc, palette: pal, style = STYLES[0], selected, hover, f
       {Object.values(doc.texts).map(t => <TextView key={t.id} t={t} pal={pal} hl={highlight(t.id)} fl={fl(t.id)} cls={anim} />)}
     </g>
   )
+}
+
+/**
+ * The drawing, re-rendered only when the document, style or flash changes: not on every mouse
+ * move. Hover and selection glows are drawn separately by <Highlights> underneath it.
+ */
+export const MemoScene = memo(Scene)
+
+/** Selection and hover glows, drawn behind the scene. Cheap: only the highlighted items are visited. */
+export function Highlights({ doc, selected, hover, palette: pal, style = STYLES[0] }: {
+  doc: Doc; selected: ID[]; hover: ID | null; palette: Palette; style?: DrawStyle
+}) {
+  const ids = hover && !selected.includes(hover) ? [...selected, hover] : selected
+  if (!ids.length) return null
+  const scale = style.font / FONT
+  let adj: Adjacency | null = null
+  const getAdj = () => (adj ??= adjacency(doc))
+  const out: ReactNode[] = []
+  for (const id of ids) {
+    const fill = id === hover && !selected.includes(id) ? pal.hover : pal.select
+    const kind = id[0]
+    if (kind === 'a' && doc.atoms[id]) {
+      const a = doc.atoms[id]
+      const v = atomVisual(doc, a, getAdj(), style.font, style.margin)
+      out.push(<circle key={id} cx={a.x} cy={a.y} r={v.showLabel ? 12 * scale : 6} fill={fill} />)
+    } else if (kind === 'b' && doc.bonds[id]) {
+      const A = doc.atoms[doc.bonds[id].a1], B = doc.atoms[doc.bonds[id].a2]
+      if (A && B) out.push(<line key={id} x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke={fill} strokeWidth={12} strokeLinecap="round" />)
+    } else if (kind === 'r' && doc.arrows[id]) {
+      const r = doc.arrows[id]
+      out.push(<line key={id} x1={r.x1} y1={r.y1} x2={r.x2} y2={r.y2} stroke={fill} strokeWidth={14} strokeLinecap="round" />)
+    } else if (kind === 'c' && doc.curlies[id]) {
+      const g = curlyGeometry(doc, doc.curlies[id], getAdj(), scale)
+      if (g) out.push(<path key={id} d={`M ${g.p0.x} ${g.p0.y} Q ${g.ctrl.x} ${g.ctrl.y} ${g.p1.x} ${g.p1.y}`} stroke={fill} strokeWidth={10} fill="none" strokeLinecap="round" />)
+    } else if (kind === 'k' && doc.brackets?.[id]) {
+      const k = doc.brackets[id]
+      const x1 = Math.min(k.x1, k.x2), x2 = Math.max(k.x1, k.x2), y1 = Math.min(k.y1, k.y2), y2 = Math.max(k.y1, k.y2)
+      out.push(<rect key={id} x={x1 - 4} y={y1 - 4} width={x2 - x1 + 8} height={y2 - y1 + 8} rx={6} fill={fill} />)
+    } else if (kind === 't' && doc.texts[id]) {
+      const tx = doc.texts[id]
+      const size = tx.size ?? FONT
+      out.push(<rect key={id} x={tx.x - 3} y={tx.y - size} width={labelWidth(tx) + 6} height={size * 1.4} rx={3} fill={fill} />)
+    }
+  }
+  return <g pointerEvents="none">{out}</g>
 }
 
 /** A soft glow that fades out; keyed so a new flash restarts it. */

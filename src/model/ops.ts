@@ -310,6 +310,48 @@ export function selectionBounds(d: Doc, ids: ID[]): Rect | null {
   return { x1: Math.min(...xs), y1: Math.min(...ys), x2: Math.max(...xs), y2: Math.max(...ys) }
 }
 
+/**
+ * A copy of `d` that is safe to move/rotate `ids` in: the item maps are new, and only the
+ * entries that will change are copied (far cheaper than structuredClone while dragging).
+ */
+export function cloneTouched(d: Doc, ids: ID[]): Doc {
+  const out: Doc = { ...d, atoms: { ...d.atoms }, arrows: { ...d.arrows }, texts: { ...d.texts }, brackets: { ...(d.brackets ?? {}) } }
+  for (const id of selectedAtoms(d, ids)) out.atoms[id] = { ...d.atoms[id] }
+  for (const id of ids) {
+    const k = kindOf(id)
+    if (k === 'arrow' && d.arrows[id]) out.arrows[id] = { ...d.arrows[id] }
+    else if (k === 'text' && d.texts[id]) out.texts[id] = { ...d.texts[id] }
+    else if (k === 'bracket' && d.brackets?.[id]) out.brackets[id] = { ...d.brackets[id] }
+  }
+  return out
+}
+
+/**
+ * Split a document for a smooth drag: what moves and what stays. Returns null when the move
+ * stretches a bond or curly arrow between the two parts (then the drag edits the document live).
+ */
+export function splitForDrag(d: Doc, ids: ID[]): { stat: Doc; moving: Doc } | null {
+  const atoms = selectedAtoms(d, ids)
+  const moving = emptyDoc(), stat = emptyDoc()
+  for (const a of Object.values(d.atoms)) (atoms.has(a.id) ? moving : stat).atoms[a.id] = a
+  for (const b of Object.values(d.bonds)) {
+    const n = (atoms.has(b.a1) ? 1 : 0) + (atoms.has(b.a2) ? 1 : 0)
+    if (n === 1) return null
+    ;(n === 2 ? moving : stat).bonds[b.id] = b
+  }
+  const sel = new Set(ids)
+  for (const r of Object.values(d.arrows)) (sel.has(r.id) ? moving : stat).arrows[r.id] = r
+  for (const t of Object.values(d.texts)) (sel.has(t.id) ? moving : stat).texts[t.id] = t
+  for (const k of Object.values(d.brackets ?? {})) (sel.has(k.id) ? moving : stat).brackets[k.id] = k
+  const side = (anchor: ID) => (moving.atoms[anchor] || moving.bonds[anchor] ? 'm' : 's')
+  for (const c of Object.values(d.curlies)) {
+    const a = side(c.from), b = side(c.to)
+    if (a !== b) return null
+    ;(a === 'm' ? moving : stat).curlies[c.id] = c
+  }
+  return { stat, moving }
+}
+
 /** Rotate the selection by `ang` radians around `c` (screen y-down, so positive is clockwise). */
 export function rotateItems(d: Doc, ids: ID[], c: P, ang: number) {
   const turn = (p: P) => add(c, rotate(sub(p, c), ang))

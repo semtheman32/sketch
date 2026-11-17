@@ -4,14 +4,14 @@ import { kindOf } from '../model/types'
 import { BOND, add, angleOf, dist, fromAngle, inRect, len, mid, mul, norm, perp, sub, type P, type Rect } from '../model/geometry'
 import { commit, finishLive, getDoc, newId, scratch, setLive, useDoc } from '../model/store'
 import {
-  addAtom, addBond, addRing, applyBondStyle, atomNear, bondBetween, growBond, moveItems, nextBondDirection, removeItems,
-  rotateItems, selectionBounds,
+  addAtom, addBond, addRing, applyBondStyle, atomNear, bondBetween, cloneTouched, growBond, moveItems, nextBondDirection, removeItems,
+  rotateItems, selectionBounds, splitForDrag,
 } from '../model/ops'
 import { useFlash } from '../model/flash'
 import { useDrawStyle } from './styles'
 import { adjacency, components } from '../chem/chem'
 import { anchorPoint, hitTest, type Hit } from './layout'
-import { LIVE, Scene } from './Scene'
+import { Highlights, LIVE, MemoScene } from './Scene'
 import type { Tool, ToolOptions } from '../ui/tools'
 
 export interface View { x: number; y: number; k: number }
@@ -36,7 +36,7 @@ interface Props {
 type Mode =
   | { m: 'none' }
   | { m: 'pan'; sx: number; sy: number; vx: number; vy: number }
-  | { m: 'move'; base: Doc; ids: ID[]; start: P; moved: boolean }
+  | { m: 'move'; base: Doc; ids: ID[]; start: P; moved: boolean; split?: { stat: Doc; moving: Doc } | null; dx?: number; dy?: number }
   | { m: 'arrowEnd'; base: Doc; id: ID; end: 1 | 2 }
   | { m: 'bend'; base: Doc; id: ID }
   | { m: 'marquee'; start: P; add: boolean }
@@ -58,6 +58,8 @@ export function Canvas(p: Props) {
   const [pointer, setPointer] = useState<P | null>(null)
   const [marquee, setMarquee] = useState<Rect | null>(null)
   const [curlyFrom, setCurlyFrom] = useState<ID | null>(null)
+  /** While dragging whole molecules: the still part, the moving part and the offset (only a transform changes per move). */
+  const [drag, setDrag] = useState<{ stat: Doc; moving: Doc; dx: number; dy: number } | null>(null)
   const [, force] = useState(0)
 
   useEffect(() => { if (p.tool !== 'curly') setCurlyFrom(null) }, [p.tool])
@@ -93,7 +95,7 @@ export function Canvas(p: Props) {
 
   const hitAt = (w: P): Hit | null => {
     const d = getDoc()
-    return hitTest(d, w, tol(), adjacency(d))
+    return hitTest(d, w, tol(), adjacencyOf(d))
   }
 
   /** Atoms and bonds of every molecule touched by `ids`. */
@@ -297,14 +299,14 @@ export function Canvas(p: Props) {
         const id = h?.id ?? null
         if (id !== p.hover) p.setHover(id)
         // Ghost previews follow the pointer for the drawing tools.
-        if (curlyFrom || p.tool === 'bond' || p.tool === 'ring' || (p.tool === 'select' && rotHandle)) setPointer(w)
+        if (curlyFrom || p.tool === 'ring') setPointer(w)
         return
       }
       case 'rotate': {
         let ang = angleOf(sub(w, md.c)) - md.a0
         if (!e.shiftKey) ang = Math.round(ang / (Math.PI / 12)) * (Math.PI / 12) // 15° steps; Shift = free
         md.ang = ang
-        const nd = structuredClone(md.base)
+        const nd = cloneTouched(md.base, md.ids)
         rotateItems(nd, md.ids, md.c, ang)
         setLive(nd)
         setPointer(w)
@@ -314,9 +316,17 @@ export function Canvas(p: Props) {
         p.setView(v => ({ ...v, x: md.vx + e.clientX - md.sx, y: md.vy + e.clientY - md.sy }))
         return
       case 'move': {
-        const nd = structuredClone(md.base)
-        moveItems(nd, md.ids, w.x - md.start.x, w.y - md.start.y)
+        const dx = w.x - md.start.x, dy = w.y - md.start.y
         md.moved = true
+        if (md.split === undefined) md.split = splitForDrag(md.base, md.ids)
+        if (md.split) {
+          // Smooth path: slide the moving part with a transform; the document changes once, on release.
+          md.dx = dx; md.dy = dy
+          setDrag({ ...md.split, dx, dy })
+          return
+        }
+        const nd = cloneTouched(md.base, md.ids)
+        moveItems(nd, md.ids, dx, dy)
         setLive(nd)
         return
       }
@@ -367,7 +377,16 @@ export function Canvas(p: Props) {
     const md = mode.current
     mode.current = { m: 'none' }
     switch (md.m) {
-      case 'move': case 'arrowEnd': case 'bend': case 'erase': case 'rotate':
+      case 'move':
+        if (md.split && md.moved) {
+          const nd = cloneTouched(md.base, md.ids)
+          moveItems(nd, md.ids, md.dx ?? 0, md.dy ?? 0)
+          setLive(nd)
+        }
+        setDrag(null)
+        finishLive(md.base)
+        break
+      case 'arrowEnd': case 'bend': case 'erase': case 'rotate':
         finishLive(md.base)
         break
       case 'text': {
@@ -518,9 +537,8 @@ export function Canvas(p: Props) {
     }
   }
 
-  const overHandle = !!(rotHandle && pointer && dist(pointer, rotHandle.h) < 9 / k)
   const cursor = md.m === 'pan' ? 'grabbing' : p.spaceDown ? 'grab'
-    : md.m === 'rotate' || overHandle ? ROTATE_CURSOR
+    : md.m === 'rotate' ? ROTATE_CURSOR
       : p.tool === 'select' ? (p.hover ? 'move' : 'default')
         : p.tool === 'text' ? 'text'
           : p.tool === 'eraser' ? ERASER_CURSOR
@@ -539,12 +557,25 @@ export function Canvas(p: Props) {
       onContextMenu={e => e.preventDefault()}
     >
       <g transform={`translate(${p.view.x} ${p.view.y}) scale(${k})`}>
-        <g className="scene"><Scene doc={doc} palette={LIVE} style={style} selected={new Set(p.selection)} hover={p.hover} flash={flash.ids} flashKey={flash.key} /></g>
+        {drag ? (
+          <>
+            <g className="scene"><MemoScene doc={drag.stat} palette={LIVE} style={style} /></g>
+            <g transform={`translate(${drag.dx} ${drag.dy})`}>
+              <Highlights doc={drag.moving} selected={p.selection} hover={null} palette={LIVE} style={style} />
+              <g className="scene"><MemoScene doc={drag.moving} palette={LIVE} style={style} /></g>
+            </g>
+          </>
+        ) : (
+          <>
+            <Highlights doc={doc} selected={p.selection} hover={p.hover} palette={LIVE} style={style} />
+            <g className="scene"><MemoScene doc={doc} palette={LIVE} style={style} flash={flash.ids} flashKey={flash.key} /></g>
+          </>
+        )}
         {preview}
-        {rotHandle && md.m !== 'move' && (
+        {rotHandle && !drag && md.m !== 'move' && (
           <g className="rot-handle">
             <line x1={rotHandle.c.x} y1={rotHandle.top - 4 / k} x2={rotHandle.h.x} y2={rotHandle.h.y + 6 / k} stroke="var(--accent)" strokeWidth={1 / k} />
-            <circle cx={rotHandle.h.x} cy={rotHandle.h.y} r={6 / k} fill="var(--panel)" stroke="var(--accent)" strokeWidth={1.5 / k} />
+            <circle cx={rotHandle.h.x} cy={rotHandle.h.y} r={6 / k} fill="var(--panel)" stroke="var(--accent)" strokeWidth={1.5 / k} style={{ cursor: ROTATE_CURSOR }} />
             <path d={`M ${rotHandle.h.x - 2.6 / k} ${rotHandle.h.y - 1 / k} a ${2.8 / k} ${2.8 / k} 0 1 1 ${1.2 / k} ${3.2 / k}`} fill="none" stroke="var(--accent)" strokeWidth={1.1 / k} />
           </g>
         )}
@@ -603,7 +634,7 @@ function ghostPreview(doc: Doc, p: Props, pointer: P, k: number): ReactNode {
       : hit && kindOf(hit) === 'bond' ? { kind: 'bond' as const, id: hit }
         : hit ? null : { kind: 'point' as const, p: pointer }
     if (!target) return null
-    const ring = ghostRing(doc, p.opts.ringSize, target)
+    const ring = target.kind === 'point' ? ringAt(pointer, p.opts.ringSize) : ghostRing(doc, p.opts.ringSize, target)
     if (!ring) return null
     return (
       <g className="ghost" pointerEvents="none">
@@ -616,6 +647,14 @@ function ghostPreview(doc: Doc, p: Props, pointer: P, k: number): ReactNode {
 
 /** Ring corner points the Ring tool would produce, without changing the document. */
 function ghostRing(doc: Doc, size: number, target: Parameters<typeof addRing>[3]): P[] | null {
+  const key = `${size}|${target.kind === 'point' ? '' : target.id}`
+  if (ringMemo && ringMemo.doc === doc && ringMemo.key === key) return ringMemo.pts
+  const pts = ghostRingUncached(doc, size, target)
+  ringMemo = { doc, key, pts }
+  return pts
+}
+
+function ghostRingUncached(doc: Doc, size: number, target: Parameters<typeof addRing>[3]): P[] | null {
   try {
     return scratch(() => {
       const d = structuredClone(doc)
@@ -623,4 +662,22 @@ function ghostRing(doc: Doc, size: number, target: Parameters<typeof addRing>[3]
       return ids.map(id => d.atoms[id]).filter(Boolean)
     })
   } catch { return null }
+}
+
+/** Corner points of a ring centred at c, laid out like addRing does for empty space. */
+function ringAt(c: P, n: number): P[] {
+  const r = BOND / (2 * Math.sin(Math.PI / n))
+  const step = (2 * Math.PI) / n
+  return Array.from({ length: n }, (_, k) => add(c, mul(fromAngle(-Math.PI / 2 + k * step), r)))
+}
+
+/** Ring previews on atoms/bonds need a trial insert; remember the last one so hovering doesn't redo it. */
+let ringMemo: { doc: Doc; key: string; pts: P[] | null } | null = null
+
+/** Store documents never change once committed, so their bond lookup can be cached per document. */
+const adjCache = new WeakMap<Doc, ReturnType<typeof adjacency>>()
+function adjacencyOf(d: Doc) {
+  let a = adjCache.get(d)
+  if (!a) { a = adjacency(d); adjCache.set(d, a) }
+  return a
 }
