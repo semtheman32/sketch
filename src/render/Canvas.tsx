@@ -577,10 +577,13 @@ const ROTATE_CURSOR = svgCursor(
   '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><path d="M16.5 8.5A6 6 0 1 0 17 13" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M16.5 8.5A6 6 0 1 0 17 13" fill="none" stroke="#222" stroke-width="1.6" stroke-linecap="round"/><path d="M17.5 4.5v4.5H13" fill="none" stroke="#222" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   11, 11, 'grab')
 
+/** The Bond tool's follow-the-pointer preview is off: it felt distracting. Hover glow on atoms/bonds still shows. */
+const SHOW_BOND_GHOST = false
+
 /** Faint preview of what a click would add: the next bond from an atom, or the ring the Ring tool would place. */
 function ghostPreview(doc: Doc, p: Props, pointer: P, k: number): ReactNode {
   const ghost = { stroke: 'var(--accent)', strokeWidth: 1.6, strokeLinecap: 'round' as const, opacity: 0.45 }
-  if (p.tool === 'bond') {
+  if (p.tool === 'bond' && SHOW_BOND_GHOST) {
     const hit = p.hover
     if (hit && kindOf(hit) === 'bond') return null // clicking a bond changes its order: the hover glow says enough
     const fromAtom = hit && kindOf(hit) === 'atom' ? doc.atoms[hit] : null
