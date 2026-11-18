@@ -24,9 +24,12 @@ Good workflow:
    so you can find the atom you need. Leave ~60 units between species. Use x/y to place them.
 3. For mechanisms: set lone pairs / charges with set_atom, then add_curly_arrow from an atom (its lone pair)
    or a bond, to the atom or bond the electrons move to. half=true for single-electron (radical) arrows.
-   Use bend 1 or -1 to choose which side the arrow curves; pick the side away from other atoms.
+   Leave out bend: Sketch curves the arrow on the open side, away from other atoms. Only pass bend
+   (1 or -1) to flip an arrow that the screenshot shows on the wrong side.
 4. add_reaction_arrow between reactants and products, with reagents in "above" and conditions in "below".
-   Use add_text for "+" signs between species.
+   Use add_text for "+" signs between species, as the last step once nothing will move again: put each one
+   midway between the two species it separates, on their shared centre line. Text that would land on a
+   structure is nudged clear; the result gives its final x and y.
 5. Call screenshot to look at the result and fix overlaps or awkward arrows before telling the user it's done.
 
 Getting the chemistry right:
@@ -133,7 +136,7 @@ export const TOOLS = [
     shape: {
       from: id, to: id,
       half: z.boolean().optional().describe('true = fishhook, single electron'),
-      bend: z.number().min(-3).max(3).optional().describe('Curvature; 1 curves left of the from→to direction, -1 right. Default 1.'),
+      bend: z.number().min(-3).max(3).optional().describe('Leave out to curve on the open side automatically. 1 curves left of the from→to direction, -1 right.'),
     },
   },
   {

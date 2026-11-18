@@ -120,6 +120,7 @@ export function sketchChat() {
         let sessionId = msg.sessionId || undefined
         let error
         let wroteText = false
+        let pending = '' // text of the message being streamed, shown once it ends without a tool call
         try {
           const turn = query({
             prompt: text,
@@ -143,14 +144,22 @@ export function sketchChat() {
             if (m.type === 'system' && m.subtype === 'init') {
               sessionId = m.session_id
             } else if (m.type === 'stream_event' && !m.parent_tool_use_id) {
+              // Text written before a tool call in the same message is a working note ("Need the bond id…"),
+              // not the reply, so hold each message's text until we know no tool call follows it.
               const ev = m.event
-              if (ev.type === 'content_block_start' && ev.content_block.type === 'text' && wroteText) {
-                emit({ type: 'text', delta: '\n\n' })
+              if (ev.type === 'message_start') {
+                pending = ''
               } else if (ev.type === 'content_block_start' && ev.content_block.type === 'tool_use') {
+                pending = ''
                 emit({ type: 'tool', name: ev.content_block.name.replace(/^mcp__sketch__/, '') })
+              } else if (ev.type === 'content_block_start' && ev.content_block.type === 'text' && pending) {
+                pending += '\n\n'
               } else if (ev.type === 'content_block_delta' && ev.delta.type === 'text_delta') {
+                pending += ev.delta.text
+              } else if (ev.type === 'message_stop' && pending.trim()) {
+                emit({ type: 'text', delta: (wroteText ? '\n\n' : '') + pending.trim() })
                 wroteText = true
-                emit({ type: 'text', delta: ev.delta.text })
+                pending = ''
               }
             } else if (m.type === 'assistant' && m.error) {
               error = friendlyError(m.error)

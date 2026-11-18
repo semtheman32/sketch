@@ -10,7 +10,7 @@ import {
 import { useFlash } from '../model/flash'
 import { useDrawStyle } from './styles'
 import { adjacency, components } from '../chem/chem'
-import { anchorPoint, hitTest, type Hit } from './layout'
+import { anchorPoint, autoBend, curlyLift, hitTest, type Hit } from './layout'
 import { Highlights, LIVE, MemoScene } from './Scene'
 import type { Tool, ToolOptions } from '../ui/tools'
 
@@ -164,7 +164,7 @@ export function Canvas(p: Props) {
   const createCurly = (from: ID, to: ID) => {
     commit(d => {
       const id = newId('c')
-      d.curlies[id] = { id, from, to, half: p.opts.curlyHalf, bend: 1 }
+      d.curlies[id] = { id, from, to, half: p.opts.curlyHalf, bend: autoBend(d, from, to, adjacency(d)) }
     })
     setCurlyFrom(null)
   }
@@ -348,7 +348,7 @@ export function Canvas(p: Props) {
           const n = perp(norm(sub(t, s)))
           const off = (w.x - mid(s, t).x) * n.x + (w.y - mid(s, t).y) * n.y
           // the curve's peak sits halfway to the control point
-          c.bend = Math.max(-3, Math.min(3, (off * 2) / Math.max(L * 0.45, 16)))
+          c.bend = Math.max(-3, Math.min(3, (off * 2) / curlyLift(L)))
           if (Math.abs(c.bend) < 0.15) c.bend = 0.15 * Math.sign(c.bend || 1)
         }
         setLive(nd)

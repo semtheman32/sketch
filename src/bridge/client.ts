@@ -12,6 +12,7 @@ import { flashItems } from '../model/flash'
 import { adjacency, componentOf, hCount } from '../chem/chem'
 import { addMolecule, cleanStructures, exportMolfile, exportPngDataUrl, exportSvg, moleculeSummaries, smilesOf } from '../actions'
 import { getDrawStyle } from '../render/styles'
+import { autoBend, clearTextSpot } from '../render/layout'
 
 export const BRIDGE_URL = 'ws://127.0.0.1:3917'
 
@@ -179,7 +180,7 @@ const handlers: Record<string, (p: Params) => unknown> = {
       }
       if (p.from === p.to) throw new Error('from and to must differ')
       const id = newId('c')
-      d.curlies[id] = { id, from: p.from, to: p.to, half: !!p.half, bend: p.bend ?? 1 }
+      d.curlies[id] = { id, from: p.from, to: p.to, half: !!p.half, bend: p.bend ?? autoBend(d, p.from, p.to, adjacency(d)) }
       return { id }
     })
   },
@@ -189,7 +190,8 @@ const handlers: Record<string, (p: Params) => unknown> = {
       const id = newId('t')
       const b = contentBounds(d)
       d.texts[id] = { id, text: String(p.text ?? ''), x: p.x ?? (b ? b.x1 : 0), y: p.y ?? (b ? b.y2 + 40 : 0), ...pickStyle(p) }
-      return { id }
+      Object.assign(d.texts[id], clearTextSpot(d, d.texts[id], adjacency(d))) // never on top of a structure
+      return { id, x: d.texts[id].x, y: d.texts[id].y }
     })
   },
 
@@ -200,6 +202,7 @@ const handlers: Record<string, (p: Params) => unknown> = {
       if (p.x !== undefined) t.x = p.x
       if (p.y !== undefined) t.y = p.y
       Object.assign(t, pickStyle(p))
+      if (p.x !== undefined || p.y !== undefined) Object.assign(t, clearTextSpot(d, t, adjacency(d)))
       return { ...t }
     })
   },

@@ -44,6 +44,7 @@ export function atomVisual(doc: Doc, a: Atom, adj: Adjacency, font = FONT, margi
 export function freeAngles(doc: Doc, a: Atom, adj: Adjacency, vis: AtomVisual, count: number): number[] {
   const occupied = (adj.get(a.id) ?? []).map(n => angleOf(sub(doc.atoms[n.other], a)))
   if (vis.h > 0) occupied.push(vis.hSide === 'right' ? 0 : Math.PI)
+  if (a.charge) { const c = chargeDir(doc, a, adj, vis); occupied.push(Math.atan2(c.y, c.x)) }
   const out: number[] = []
   // Straight up/down/left/right read best; fall back to diagonals when those are crowded.
   const axes = [-Math.PI / 2, Math.PI / 2, 0, Math.PI]
@@ -65,6 +66,19 @@ export function freeAngles(doc: Doc, a: Atom, adj: Adjacency, vis: AtomVisual, c
     out.push(ax.bestScore >= Math.PI / 3 - 1e-6 ? ax.best : pickFrom([...axes, ...diagonals]).best)
   }
   return out
+}
+
+/**
+ * Where an atom's charge sign goes, as a direction (x, y in -1..1): top-right unless a bond or the H label
+ * is that way, then the other corners, then straight right, left, above or below. Charges are placed
+ * before lone pairs, and the dots go around them (see freeAngles).
+ */
+export function chargeDir(doc: Doc, a: Atom, adj: Adjacency, vis: AtomVisual): P {
+  const dirs = (adj.get(a.id) ?? []).map(n => doc.atoms[n.other]).filter(Boolean).map(o => Math.atan2(o.y - a.y, o.x - a.x))
+  if (vis.showLabel && vis.h > 0) dirs.push(vis.hSide === 'right' ? 0 : Math.PI)
+  const options = [{ x: 1, y: -1 }, { x: -1, y: -1 }, { x: 1, y: 1 }, { x: -1, y: 1 }, { x: 1, y: 0 }, { x: -1, y: 0 }, { x: 0, y: -1 }, { x: 0, y: 1 }]
+  const clearance = (c: P) => Math.min(Math.PI, ...dirs.map(d => angleGap(d, Math.atan2(c.y, c.x))))
+  return options.find(c => clearance(c) >= Math.PI / 3 - 1e-6) ?? options.reduce((b, c) => (clearance(c) > clearance(b) ? c : b))
 }
 
 export interface ElectronDots { pairs: P[][]; radical: P | null; centers: P[] }
@@ -100,10 +114,14 @@ export function anchorPoint(doc: Doc, id: ID): P | null {
 
 export interface CurlyGeom { p0: P; ctrl: P; p1: P }
 
+/** How far the control point sits off the chord. Short arrows still get a visible arc. */
+export const curlyLift = (chordLength: number) => Math.max(chordLength * 0.45, 30)
+
 export function curlyGeometry(doc: Doc, c: Curly, adj: Adjacency, scale = 1): CurlyGeom | null {
   let s = anchorPoint(doc, c.from)
   const e = anchorPoint(doc, c.to)
   if (!s || !e) return null
+  const side = Math.sign(c.bend || 1)
   let trimS = kindOf(c.from) === 'bond' ? 2 : 10
   if (kindOf(c.from) === 'atom') {
     const a = doc.atoms[c.from]
@@ -117,28 +135,107 @@ export function curlyGeometry(doc: Doc, c: Curly, adj: Adjacency, scale = 1): Cu
   }
   let trimE = 4
   let e2: P = e
+  let lift: number | null = null
   if (kindOf(c.to) === 'atom') {
-    const toVis = atomVisual(doc, doc.atoms[c.to], adj)
+    const toAtom = doc.atoms[c.to]
+    const toVis = atomVisual(doc, toAtom, adj)
     trimE = toVis.showLabel ? 13 * scale : 7
-    // Bond breaking toward one of its own atoms: aim past the atom so the arrow has room to curve.
+    // Bond breaking toward one of its own atoms: the arrow leaves the bond sideways and lands on the
+    // outside of the atom, just beyond its label and lone pairs, so it reads as a clean hook.
     const b = kindOf(c.from) === 'bond' ? doc.bonds[c.from] : undefined
     if (b && (b.a1 === c.to || b.a2 === c.to)) {
       const other = doc.atoms[b.a1 === c.to ? b.a2 : b.a1]
-      const out = norm(sub(e, other))
-      // Land just outside the label, on the side the arrow arcs, so the head points down onto the atom.
-      e2 = add(add(e, mul(out, (toVis.showLabel ? 3 : 2) * scale)), mul(perp(out), Math.sign(c.bend || 1) * (toVis.showLabel ? 12 : 8) * scale))
-      trimE = toVis.showLabel ? 5 * scale : 2
+      const along = norm(sub(e, other))
+      const r = (toVis.showLabel ? (toAtom.lonePairs ? 19 : 13) : 7) * scale
+      e2 = add(add(e, mul(along, r * 0.35)), mul(perp(along), side * r))
+      trimE = 1.5 * scale
+      lift = Math.max(len(sub(e2, s)) * 0.6, 26)
     }
   }
   const dv = sub(e2, s)
   const L = len(dv)
   if (L < 1) return null
-  const ctrl = add(mid(s, e2), mul(perp(norm(dv)), c.bend * Math.max(L * 0.45, 18)))
+  const ctrl = add(mid(s, e2), mul(perp(norm(dv)), c.bend * (lift ?? curlyLift(L))))
   return {
     p0: add(s, mul(norm(sub(ctrl, s)), trimS)),
     ctrl,
     p1: add(e2, mul(norm(sub(ctrl, e2)), trimE)),
   }
+}
+
+/**
+ * Which way a new curly arrow should bend (1 or -1): the side whose curve passes furthest from atoms,
+ * labels and bonds that the arrow isn't about.
+ */
+export function autoBend(doc: Doc, from: ID, to: ID, adj: Adjacency): 1 | -1 {
+  const own = new Set<ID>()
+  for (const id of [from, to]) {
+    if (kindOf(id) === 'atom') own.add(id)
+    else if (doc.bonds[id]) { own.add(doc.bonds[id].a1); own.add(doc.bonds[id].a2) }
+  }
+  const atoms = Object.values(doc.atoms).filter(a => !own.has(a.id))
+  // the arrow's own labelled atoms (O of H2O, Br) still mustn't be crossed away from its two ends
+  const ownLabels = [...own].map(id => doc.atoms[id]).filter(a => a && atomVisual(doc, a, adj).showLabel)
+  const bonds = Object.values(doc.bonds).filter(b => b.id !== from && b.id !== to && doc.atoms[b.a1] && doc.atoms[b.a2])
+  const curve = (bend: number) => curlyGeometry(doc, { id: '', from, to, half: false, bend }, adj)
+  const cost = (bend: number) => {
+    const g = curve(bend)
+    if (!g) return Infinity
+    let total = 0
+    for (let i = 1; i < 12; i++) {
+      const q = quadPoint(g.p0, g.ctrl, g.p1, i / 12)
+      for (const a of atoms) { const d = dist(a, q); if (d < 26) total += (26 - d) ** 2 }
+      for (const b of bonds) { const d = distToSeg(q, doc.atoms[b.a1], doc.atoms[b.a2]); if (d < 14) total += (14 - d) ** 2 }
+      if (i > 1 && i < 11) for (const a of ownLabels) { const d = dist(a, q); if (d < 15) total += 4 * (15 - d) ** 2 }
+    }
+    return total
+  }
+  const a = cost(1), b = cost(-1)
+  if (Math.abs(a - b) > 1) return b < a ? -1 : 1
+  // Both sides equally clear: bow away from the middle of the molecule(s) the arrow belongs to.
+  const comp = new Set<ID>()
+  for (const id of own) for (const x of componentAtoms(doc, adj, id)) comp.add(x)
+  let cx = 0, cy = 0
+  for (const id of comp) { cx += doc.atoms[id].x; cy += doc.atoms[id].y }
+  const centre = { x: cx / comp.size, y: cy / comp.size }
+  const g1 = curve(1), g2 = curve(-1)
+  if (!g1 || !g2) return 1
+  return dist(g2.ctrl, centre) > dist(g1.ctrl, centre) ? -1 : 1
+}
+
+function componentAtoms(doc: Doc, adj: Adjacency, start: ID): ID[] {
+  const seen = new Set<ID>([start]), stack = [start]
+  while (stack.length) {
+    const id = stack.pop()!
+    for (const n of adj.get(id) ?? []) if (!seen.has(n.other) && doc.atoms[n.other]) { seen.add(n.other); stack.push(n.other) }
+  }
+  return [...seen]
+}
+
+/**
+ * Nudge a text so it doesn't sit on a structure: if its box covers an atom label, lone pairs or a bond,
+ * try nearby spots along the same line first, then above and below. Returns the new position.
+ */
+export function clearTextSpot(doc: Doc, t: TextItem, adj: Adjacency): P {
+  const blocked = (x: number, y: number) => {
+    const b = textBox({ ...t, x, y })
+    const inBox = (p: P, pad: number) => p.x > b.x1 - pad && p.x < b.x2 + pad && p.y > b.y1 - pad && p.y < b.y2 + pad
+    for (const a of Object.values(doc.atoms)) {
+      const v = atomVisual(doc, a, adj)
+      const pad = v.showLabel ? (a.lonePairs || a.charge ? 16 : 10) : 3
+      if (inBox(a, pad)) return true
+    }
+    const centre = { x: (b.x1 + b.x2) / 2, y: (b.y1 + b.y2) / 2 }, half = Math.max(b.x2 - b.x1, b.y2 - b.y1) / 2
+    for (const bd of Object.values(doc.bonds)) {
+      const A = doc.atoms[bd.a1], B = doc.atoms[bd.a2]
+      if (A && B && distToSeg(centre, A, B) < half + 3) return true
+    }
+    return false
+  }
+  if (!blocked(t.x, t.y)) return { x: t.x, y: t.y }
+  for (let k = 1; k <= 12; k++) for (const dx of [-5 * k, 5 * k]) if (!blocked(t.x + dx, t.y)) return { x: t.x + dx, y: t.y }
+  for (let k = 1; k <= 8; k++) for (const dy of [-6 * k, 6 * k]) if (!blocked(t.x, t.y + dy)) return { x: t.x, y: t.y + dy }
+  return { x: t.x, y: t.y }
 }
 
 /** Width of a text label, allowing for its size and boldness. */
