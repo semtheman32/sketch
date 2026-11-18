@@ -4,7 +4,7 @@ import { BOND, add, angleGap, angleOf, dist, fromAngle, mid, mul, norm, perp, ro
 import { adjacency, type Adjacency } from '../chem/chem'
 import type { ParsedMol } from '../chem/molfile'
 import { newId } from './store'
-import { freeValence } from '../chem/valence'
+import { bondSum, freeValence, reachableBonds } from '../chem/valence'
 
 export function addAtom(d: Doc, x: number, y: number, element = 'C', charge = 0): ID {
   const id = newId('a')
@@ -125,8 +125,9 @@ export function applyBondStyle(d: Doc, bondId: ID, order: BondOrder, stereo: Bon
   } else if (b.stereo !== 'none') {
     b.stereo = 'none'; b.order = order
   } else if (b.order === order) {
-    // cycle 1 → 2 → 3 → 1, skipping orders the atoms have no room for
-    const room = Math.min(freeValence(d, b.a1), freeValence(d, b.a2)) + b.order
+    // cycle 1 → 2 → 3 → 1, skipping orders the atoms have no room for (even with an automatic charge)
+    const reach = (id: ID) => { const a = d.atoms[id]; return reachableBonds(a.element, a.charge, a.radical) - bondSum(d, id) }
+    const room = Math.min(reach(b.a1), reach(b.a2)) + b.order
     const next = (order === 3 ? 1 : order + 1) as BondOrder
     b.order = next <= room ? next : 1
   } else {

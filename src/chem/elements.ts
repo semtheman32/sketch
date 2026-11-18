@@ -69,6 +69,7 @@ const ELECTRON_RICH = new Set(['N', 'P', 'O', 'S', 'Se', 'F', 'Cl', 'Br', 'I'])
 export function implicitHydrogens(element: string, bondOrderSum: number, charge: number, radical: boolean): number {
   const info = ELEMENTS[element]
   if (!info || info.valence.length === 0) return 0
+  if (element === 'B' && charge === -1) return Math.max(0, 4 - (radical ? 1 : 0) - bondOrderSum) // BH4-
   const shift = ELECTRON_RICH.has(element) ? charge : -Math.abs(charge)
   for (const v of info.valence) {
     const val = v + shift - (radical ? 1 : 0)

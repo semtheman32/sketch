@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react'
 import { emptyDoc, type Doc } from './types'
-import { checkValence } from '../chem/valence'
+import { autoCharge, checkValence } from '../chem/valence'
 
 const STORAGE_KEY = 'chemsketch-clone:doc'
 const LIMIT = 200
@@ -63,6 +63,7 @@ function pushPast(d: Doc) {
 export function commit<T>(fn: (d: Doc) => T): T {
   const draft = structuredClone(doc)
   const result = fn(draft)
+  autoCharge(doc, draft)
   checkValence(doc, draft)
   pushPast(doc)
   doc = draft

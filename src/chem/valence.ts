@@ -12,8 +12,56 @@ export function maxBonds(element: string, charge: number, radical: boolean): num
   if (isAbbrev(element)) return 1 // a group like Ph or Boc has one attachment point
   const info = ELEMENTS[element]
   if (!info || info.valence.length === 0) return Infinity
+  if (element === 'B' && charge === -1) return 4 - (radical ? 1 : 0) // borate, BF4-
   const shift = ELECTRON_RICH.has(element) ? charge : -Math.abs(charge)
   return Math.max(...info.valence) + shift - (radical ? 1 : 0)
+}
+
+/** Most bond order an atom could reach if its charge were adjusted automatically (see autoCharge). */
+export function reachableBonds(element: string, charge: number, radical: boolean): number {
+  const r = radical ? 1 : 0
+  let best = Math.max(maxBonds(element, charge, radical), maxBonds(element, 0, radical))
+  const low = lowestValence(element)
+  if (low !== null && ELECTRON_RICH.has(element)) best = Math.max(best, low + 1 - r)
+  if (element === 'B') best = Math.max(best, 4 - r)
+  return best
+}
+
+function lowestValence(element: string): number | null {
+  const info = ELEMENTS[element]
+  return info && info.valence.length ? Math.min(...info.valence) : null
+}
+
+/**
+ * Give atoms the formal charge their new bonds imply, so intermediates can be drawn directly:
+ * a third bond on O makes O+ (oxonium), a fourth on N makes N+, a second on Br makes Br+ (bromonium),
+ * a fourth on B makes B−; an anion or carbocation that forms a bond becomes neutral.
+ * Taking the extra bond away again removes the charge. Only atoms whose bonds or element changed in this
+ * edit (and whose charge wasn't set in the same edit) are touched. Mutates `after`.
+ */
+export function autoCharge(before: Doc, after: Doc) {
+  const sb = bondSums(before), sa = bondSums(after)
+  for (const a of Object.values(after.atoms)) {
+    const old = before.atoms[a.id]
+    if (!old || old.charge !== a.charge || isAbbrev(a.element)) continue
+    const s1 = sa.get(a.id) ?? 0
+    // a new element counts as gaining all its bonds (typing O over a carbon with three bonds gives O+)
+    const s0 = old.element === a.element ? sb.get(a.id) ?? 0 : 0
+    if (s0 === s1) continue
+    const low = lowestValence(a.element)
+    if (low === null) continue
+    const r = a.radical ? 1 : 0
+    if (ELECTRON_RICH.has(a.element)) {
+      const needed = s1 - (low - r) // the charge that makes this bond count normal
+      if (s1 > s0 && needed <= 1 && needed > a.charge) a.charge = needed
+      else if (s1 < s0 && a.charge === 1 && s0 - (low - r) === 1 && needed <= 0) a.charge = 0
+    } else if (a.element === 'B') {
+      if (s1 > s0 && s1 === 4 - r && a.charge === 0) a.charge = -1
+      else if (s1 < s0 && a.charge === -1 && s0 === 4 - r) a.charge = 0
+    } else if (s1 > s0 && a.charge !== 0 && s1 > maxBonds(a.element, a.charge, a.radical) && s1 <= maxBonds(a.element, 0, a.radical)) {
+      a.charge = 0 // carbanion or carbocation forming its fourth bond
+    }
+  }
 }
 
 function bondSums(d: Doc): Map<ID, number> {

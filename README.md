@@ -18,7 +18,7 @@ Open http://localhost:5173. Your drawing autosaves in the browser.
 | Tool | Key | What it does |
 |---|---|---|
 | Select | V | Click a molecule to select it, drag to move. Alt+drag moves one atom. Drag on empty space to box-select. Double-click an atom, label or arrow to edit it. |
-| Bond | B | Click empty space for a bond, click an atom to grow a chain. Drag to draw a zigzag chain that follows the mouse (move back to remove bonds). Click a bond to change its order. Atoms can't be given more bonds than their valence allows. |
+| Bond | B | Click empty space for a bond, click an atom to grow a chain. Drag to draw a zigzag chain that follows the mouse (move back to remove bonds). Click a bond to change its order. Giving an atom one bond more than usual adds the charge for you (O with three bonds becomes O⁺, N with four N⁺, Br with two Br⁺, B with four B⁻), and an anion or carbocation that forms a bond becomes neutral, so intermediates draw directly. Removing that bond takes the charge away. Bonds no charge can explain, like a fifth bond on carbon, are refused. |
 | Atom | A | Pick an element, charge, lone pair or radical, then click atoms. |
 | Ring | R | Click empty space, an atom (spiro) or a bond (fused). Keys 3–8 pick a ring size. |
 | Reaction arrow | W | Drag to draw: reaction, equilibrium, resonance or retrosynthesis. |
