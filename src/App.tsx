@@ -132,8 +132,9 @@ export default function App() {
   }
 
   const doClean = () => run(async () => {
-    const n = await cleanStructures(selection.filter(id => kindOf(id) === 'atom'))
-    flash(n ? `Cleaned ${n} structure${n > 1 ? 's' : ''}` : 'Nothing to clean')
+    const { structures: n, texts: t } = await cleanStructures(selection.filter(id => kindOf(id) === 'atom'))
+    const parts = [n && `cleaned ${n} structure${n > 1 ? 's' : ''}`, t && `moved ${t} label${t > 1 ? 's' : ''} off structures`].filter(Boolean)
+    flash(parts.length ? parts.join(', ').replace(/^./, c => c.toUpperCase()) : 'Nothing to clean')
   })
 
   const addStructure = (t: StructureTemplate) => run(async () => {

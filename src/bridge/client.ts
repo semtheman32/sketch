@@ -223,7 +223,7 @@ const handlers: Record<string, (p: Params) => unknown> = {
     })
   },
 
-  async clean(p) { return { cleaned: await cleanStructures(p.atom_ids) } },
+  async clean(p) { const r = await cleanStructures(p.atom_ids); return { cleaned: r.structures, textsMoved: r.texts } },
   undo: () => ({ undone: undo() }),
   redo: () => ({ redone: redo() }),
   clear: () => { replaceDoc(emptyDoc()); return { cleared: true } },

@@ -7,6 +7,7 @@ import { add, angleOf, BOND, norm, rotate, sub, type P } from './model/geometry'
 import { abbrevOf, findAbbrev } from './chem/abbrev'
 import { STYLES, type DrawStyle } from './render/styles'
 import { adjacency, components, formulaOf } from './chem/chem'
+import { clearTextSpot } from './render/layout'
 import { arrangeFragments, bondScale, parseMolfile, writeMolfile } from './chem/molfile'
 import { cleanMolblock, molblockToSmiles, nameToMolblock, smilesToMolblock } from './chem/rdkit'
 import { Scene, PRINT } from './render/Scene'
@@ -40,8 +41,11 @@ const molWidth = (atoms: { x: number }[]) => {
   return Math.max(...xs) - Math.min(...xs)
 }
 
-/** Recompute 2D layout for the molecules containing the given atoms (all molecules if none given). */
-export async function cleanStructures(atomIds?: ID[]): Promise<number> {
+/**
+ * Recompute 2D layout for the molecules containing the given atoms (all molecules if none given), then move
+ * any text (like a "+" between species) that ends up on a structure. Returns how many of each changed.
+ */
+export async function cleanStructures(atomIds?: ID[]): Promise<{ structures: number; texts: number }> {
   const doc = getDoc()
   const all = components(doc)
   const comps = all.filter(c => c.length > 1 && (!atomIds?.length || c.some(id => atomIds.includes(id))))
@@ -69,12 +73,20 @@ export async function cleanStructures(atomIds?: ID[]): Promise<number> {
     const n = comp.length
     updates.push({ ids, coords: parsed.map(p => ({ x: p.x - nx / n + ox / n, y: p.y - ny / n + oy / n })) })
   }
-  if (updates.length) {
+  let texts = 0
+  const docAdj = adjacency(doc)
+  const textsBlocked = Object.values(doc.texts).some(t => { const p = clearTextSpot(doc, t, docAdj); return p.x !== t.x || p.y !== t.y })
+  if (updates.length || textsBlocked) {
     commit(d => {
       for (const u of updates) u.ids.forEach((id, i) => { if (d.atoms[id]) { d.atoms[id].x = u.coords[i].x; d.atoms[id].y = u.coords[i].y } })
+      const adj = adjacency(d)
+      for (const t of Object.values(d.texts)) {
+        const p = clearTextSpot(d, t, adj)
+        if (p.x !== t.x || p.y !== t.y) { t.x = p.x; t.y = p.y; texts++ }
+      }
     })
   }
-  return updates.length
+  return { structures: updates.length, texts }
 }
 
 /** Atom coordinates from a molfile without stripping hydrogens (atom order must be kept). */
