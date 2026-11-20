@@ -119,6 +119,31 @@ export default function App() {
 
   useEffect(() => { fit() }, [fit])
 
+  // Open a drawing passed in the URL: #doc=<base64url of the .chem.json>&name=<label>.
+  // Used by the lesson-overview app ("Openen in Sketch"). Replaces the canvas (undoable).
+  useEffect(() => {
+    const load = () => {
+      const params = new URLSearchParams(location.hash.slice(1))
+      const data = params.get('doc')
+      if (!data) return
+      try {
+        const b64 = data.replace(/-/g, '+').replace(/_/g, '/')
+        const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0))
+        const d = JSON.parse(new TextDecoder().decode(bytes)) as Doc
+        replaceDoc(d)
+        // Fit once the canvas has its size (on a fresh page load that can take a moment).
+        requestAnimationFrame(() => fit())
+        setTimeout(() => fit(), 400)
+        const name = params.get('name')
+        flash(`${name ? `Opened ${name}` : 'Drawing opened'} (Ctrl+Z brings back your previous drawing)`)
+      } catch { flash("Couldn't open the drawing from the link") }
+      history.replaceState(null, '', location.pathname + location.search)
+    }
+    load()
+    window.addEventListener('hashchange', load)
+    return () => window.removeEventListener('hashchange', load)
+  }, [fit, flash])
+
   /** Run an async action with the busy state and a friendly error. */
   const run = useCallback(async (fn: () => Promise<void>) => {
     setBusy(true)
