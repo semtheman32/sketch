@@ -11,9 +11,14 @@
  *                           sketch-chat:result {callId, result? | error?}
  * Events (server -> page):  sketch-chat:event {chatId, type: 'text' | 'tool' | 'done', ...},
  *                           sketch-chat:call {callId, method, params}
+ *
+ * Practice mode (src/chat/practice.ts) uses its own one-off turns: sketch-practice:run {runId, kind, ...}
+ * and sketch-practice:stop {runId} in, sketch-practice:event {runId, type: 'tool' | 'done', result?} out.
+ * Claude ends each one by calling a submit_* tool; its arguments are the result.
  */
 import { createSdkMcpServer, query, tool } from '@anthropic-ai/claude-agent-sdk'
 import { INSTRUCTIONS, TOOLS, runTool } from '../bridge/tools.mjs'
+import { practicePrompt, PRACTICE_SYSTEM } from './practice.mjs'
 
 const MODEL = 'claude-opus-5-5'
 const CALL_TIMEOUT_MS = 30_000
@@ -90,6 +95,77 @@ export function sketchChat() {
       ws.on('sketch-chat:stop', (msg, client) => {
         const turn = running.get(client)
         if (turn && turn.chatId === msg?.chatId) turn.abort.abort()
+      })
+
+      /** Practice turns: one per button press, no shared conversation. */
+      const practiceRuns = new Map()
+      ws.on('sketch-practice:stop', (msg, client) => {
+        const r = practiceRuns.get(client)
+        if (r && r.runId === msg?.runId) r.abort.abort()
+      })
+      ws.on('sketch-practice:run', async (msg, client) => {
+        const runId = msg?.runId
+        const emit = data => client.send('sketch-practice:event', { runId, ...data })
+        if (practiceRuns.has(client)) { emit({ type: 'done', error: 'Claude is still working on the last request.' }); return }
+        let spec
+        try { spec = practicePrompt(msg) } catch (err) { emit({ type: 'done', error: err.message }); return }
+        const abort = new AbortController()
+        practiceRuns.set(client, { runId, abort })
+        log(`practice ${msg.kind} started`)
+        const onClose = () => abort.abort()
+        client.socket?.once?.('close', onClose)
+
+        let result
+        const submit = tool(spec.submit.name, spec.submit.description, spec.submit.shape, async args => {
+          result ??= args
+          return { content: [{ type: 'text', text: 'Received. You are done: end your turn now without writing anything else.' }] }
+        })
+        const canvasTools = TOOLS.filter(t => spec.tools === 'all' || spec.tools.includes(t.name))
+        const sketch = createSdkMcpServer({
+          name: 'sketch', version: '1.0.0', alwaysLoad: true,
+          tools: [submit, ...canvasTools.map(def => tool(def.name, def.description, def.shape,
+            args => runTool(def, args, (method, params) => callTab(client, method, params))))],
+        })
+        let error
+        try {
+          const turn = query({
+            prompt: spec.prompt,
+            options: {
+              model: MODEL,
+              systemPrompt: PRACTICE_SYSTEM + (spec.tools === 'all' ? '\n\n' + INSTRUCTIONS : ''),
+              tools: [],
+              mcpServers: { sketch },
+              allowedTools: [spec.submit.name, ...canvasTools.map(t => t.name)].map(n => `mcp__sketch__${n}`),
+              permissionMode: 'dontAsk',
+              settingSources: [],
+              strictMcpConfig: true,
+              includePartialMessages: true,
+              cwd: server.config.root,
+              abortController: abort,
+            },
+          })
+          for await (const m of turn) {
+            if (m.type === 'stream_event' && !m.parent_tool_use_id) {
+              const ev = m.event
+              if (ev.type === 'content_block_start' && ev.content_block.type === 'tool_use') {
+                const name = ev.content_block.name.replace(/^mcp__sketch__/, '')
+                log(`practice ${msg.kind}: ${name}`)
+                emit({ type: 'tool', name })
+              }
+            } else if (m.type === 'assistant' && m.error) {
+              error = friendlyError(m.error)
+            } else if (m.type === 'result' && (m.subtype !== 'success' || m.is_error) && !result) {
+              error ??= failure(m.result || m.errors?.join('\n'), m.api_error_status)
+            }
+          }
+        } catch (err) {
+          if (!abort.signal.aborted) { log('practice turn failed:', err); error ??= failure(err?.message) }
+        } finally {
+          practiceRuns.delete(client)
+          client.socket?.off?.('close', onClose)
+        }
+        log(`practice ${msg.kind} done:`, result ? 'submitted' : error ?? 'no result')
+        emit({ type: 'done', result, error: result ? undefined : error, stopped: abort.signal.aborted || undefined })
       })
 
       ws.on('sketch-chat:send', async (msg, client) => {

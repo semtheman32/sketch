@@ -16,6 +16,10 @@ import { autoBend, clearTextSpot } from '../render/layout'
 
 export const BRIDGE_URL = 'ws://127.0.0.1:3917'
 
+/** The app registers how to show the Practice tab, so bridge calls can bring it into view. */
+let openPractice = () => {}
+export function onOpenPractice(fn: () => void) { openPractice = fn }
+
 export interface LogEntry { time: number; method: string; ok: boolean; detail?: string }
 
 let state = { connected: false, log: [] as LogEntry[] }
@@ -246,6 +250,32 @@ const handlers: Record<string, (p: Params) => unknown> = {
       }
       default: throw new Error('format must be svg, png, mol, smiles or json')
     }
+  },
+
+  async practice_add(p) {
+    const { addExercises, setLang, toExercise } = await import('../chat/practice')
+    if (!Array.isArray(p.exercises) || !p.exercises.length) throw new Error('Give at least one exercise')
+    const list = p.exercises.map((e: unknown) => toExercise(e))
+    if (p.language === 'en' || p.language === 'nl') setLang(p.language)
+    openPractice()
+    const ids = await addExercises(list, { replace: !!p.replace })
+    return { added: ids, opened: ids[0], note: 'The first new exercise is open in the Practice tab with its setup drawn.' }
+  },
+  async practice_state() {
+    const { practiceSummary } = await import('../chat/practice')
+    return practiceSummary()
+  },
+  async practice_open(p) {
+    const { getPractice, openExercise, practiceSummary } = await import('../chat/practice')
+    if (!getPractice().exercises[p.index]) throw new Error(`There is no exercise ${p.index}`)
+    openPractice()
+    await openExercise(p.index)
+    return practiceSummary().current
+  },
+  async practice_feedback(p) {
+    const { recordFeedback } = await import('../chat/practice')
+    openPractice()
+    return recordFeedback({ verdict: p.verdict, summary: String(p.summary ?? ''), points: p.points })
   },
 
   set_document(p) {

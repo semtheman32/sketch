@@ -40,6 +40,14 @@ Getting the chemistry right:
 - Before replying, call get_document and compare each molecule's SMILES and formula with what you meant to draw.
   Delete failed attempts and leftovers. Your reply must describe what is actually on the canvas.
 Every tool call is one undo step for the user.
+
+Practice mode (the app's Practice tab): the user solves mechanism exercises by drawing them, then has them checked.
+- practice_add_exercises puts exercises in the tab (a whole set at once is fine, e.g. made from lecture notes).
+  Give each a setup (reactant SMILES, reagents above/below the arrow, and the product unless they must predict it)
+  and a thorough answer_key; the app draws the setup itself. Don't draw the answer.
+- To check the user's work yourself: practice_get_state (answer key), get_document and screenshot, then
+  practice_record_feedback. Accept any chemically valid mechanism; point at mistakes by id and ask a guiding
+  question rather than giving the corrected structure.
 `.trim()
 
 export const json = data => ({ content: [{ type: 'text', text: JSON.stringify(data, null, 1) }] })
@@ -185,6 +193,45 @@ export const TOOLS = [
       }
       if (res.png) return image(res.png)
       return { content: [{ type: 'text', text: res.data }] }
+    },
+  },
+  {
+    name: 'practice_add_exercises', method: 'practice_add',
+    description: 'Practice mode: put mechanism exercises in the Practice tab of the app for the user to solve by drawing. The first new one opens on a fresh canvas (Undo brings back the previous drawing) with its setup drawn. The answer key and hints stay hidden until the user asks; the Check button in the app grades against the answer key. See the practice notes in the server instructions.',
+    shape: {
+      exercises: z.array(z.object({
+        title: z.string().optional(),
+        question: z.string().describe('The task as the user sees it'),
+        answer_key: z.string().describe('Full worked answer for the grader: numbered steps with every curly arrow (from which lone pair/bond to which atom/bond), intermediate SMILES with charges, product SMILES, acceptable alternatives'),
+        hints: z.array(z.string()).optional().describe('2–3 hints, gentle to concrete'),
+        topic: z.string().optional(), difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
+        source: z.string().optional().describe('e.g. "Organic Synthesis 2, lecture 3" or "practice test Q4"'),
+        setup: z.object({
+          reactants: z.array(z.object({ smiles: z.string(), label: z.string().optional() })).min(1),
+          above: z.string().optional(), below: z.string().optional(),
+          product: z.array(z.object({ smiles: z.string(), label: z.string().optional() })).optional().describe('Leave out to ask for the product ("?")'),
+        }).optional().describe('What the app draws when the exercise opens'),
+      })).min(1),
+      replace: z.boolean().optional().describe('true replaces the current list instead of adding to it'),
+      language: z.enum(['en', 'nl']).optional().describe('Language for the in-app Check, Hint and Solution buttons'),
+    },
+  },
+  {
+    name: 'practice_get_state', method: 'practice_state', shape: {},
+    description: 'Practice mode: the open exercise (with its answer key, the attempts and all feedback so far) and the list of exercises with their results. Use with get_document and screenshot to check the drawing yourself.',
+  },
+  {
+    name: 'practice_open', method: 'practice_open',
+    description: 'Practice mode: open exercise number `index` from the list (redraws its setup on a fresh canvas; Undo brings back the previous drawing).',
+    shape: { index: z.number().int().min(0) },
+  },
+  {
+    name: 'practice_record_feedback', method: 'practice_feedback',
+    description: 'Practice mode: show your grading or hint for the open exercise in the Practice tab and count it in the score. Use after checking the drawing yourself.',
+    shape: {
+      verdict: z.enum(['correct', 'almost', 'incorrect']).optional().describe('Leave out for a hint'),
+      summary: z.string(),
+      points: z.array(z.object({ ok: z.boolean(), text: z.string() })).optional().describe('Step-by-step: what is right and what is wrong; refer to items by id (a12, c3)'),
     },
   },
   {

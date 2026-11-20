@@ -44,6 +44,19 @@ Click **Claude** in the top bar and type in the box at the bottom of the panel. 
 - It uses the Claude account Claude Code is signed into on this computer, so there is no API key and usage counts toward your plan. If the chat says you're not signed in, open a terminal, run `claude`, type `/login` and sign in once.
 - It only works under `npm run dev` (the chat runs inside the dev server, in `chat/plugin.mjs`), and Claude only gets the drawing tools: it can't read your files, run commands or browse.
 
+## Practising mechanisms
+
+Open **Claude → Practice** (or Ctrl+K → "Practice mechanisms"). It works a bit like NMR Challenge, but for curly arrows:
+
+1. Get an exercise: pick a topic and level and press **New exercise**, type your own question, or let a Claude Code session add a whole set (see below). The exercise opens on a fresh canvas with the starting materials, the reaction arrow with reagents, and the product (or a "?" when you have to predict it). Undo brings your previous drawing back.
+2. Draw the mechanism yourself: curly arrows, intermediates, charges.
+3. Press **Check**. Claude grades your drawing against the exercise's hidden answer key (any chemically valid route counts) and gives **Correct / Almost / Not yet** with a step-by-step list. Mistakes come with a guiding question instead of the answer; ids like `c3` highlight the arrow it means.
+4. Stuck? **Hint** gives one nudge at a time; **Solution** draws the worked mechanism below your attempt.
+
+The list keeps every exercise with its result, so you can redo the ones you missed. Feedback can be in Dutch or English (NL/EN).
+
+**Exercise sets from another Claude Code session.** Any Claude Code session with the `sketch` MCP server (this folder's `.mcp.json`) can call `practice_add_exercises` with a list of exercises (question, answer key, hints, and a setup of reactant/product SMILES and reagents). So a session that has your lecture notes or a practice exam can make exercises from them and put them straight into the app. That session can also check your drawing itself (`practice_get_state` + `get_document` + `screenshot`) and post its verdict to the Practice tab with `practice_record_feedback`.
+
 ## Letting Claude draw from Claude Code
 
 1. Run `npm run dev` and keep the page open.
@@ -107,6 +120,8 @@ ChemSketch has too many menus, modes and dialogs. This app does less, and keeps 
 | `screenshot` | PNG/SVG of the canvas so Claude can check its work |
 | `export` | PNG, SVG, MOL/SDF, SMILES, PDF |
 | `undo` / `redo` / `clear` | History |
+| `practice_add_exercises` / `practice_open` | Put exercises in the Practice tab; open one |
+| `practice_get_state` / `practice_record_feedback` | Read the open exercise (with answer key) and attempts; post a grade or hint |
 
 ## Roadmap
 

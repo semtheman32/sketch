@@ -12,7 +12,9 @@ import { adjacency, components, formulaOf } from './chem/chem'
 import { findAbbrev, isAbbrevPrefix } from './chem/abbrev'
 import { Canvas, type EditTarget, type View } from './render/Canvas'
 import { OptionsBar } from './ui/OptionsBar'
-import { ClaudePanel } from './ui/ClaudePanel'
+import { ClaudePanel, type ClaudeTab } from './ui/ClaudePanel'
+import { onOpenPractice } from './bridge/client'
+import { onPracticeDrawn } from './chat/practice'
 import { Icon } from './ui/Icons'
 import { CommandBar, type Command } from './ui/CommandBar'
 import { ExportPanel } from './ui/ExportPanel'
@@ -42,6 +44,8 @@ export default function App() {
   const [view, setView] = useState<View>({ x: 400, y: 300, k: 1.4 })
   const [editing, setEditing] = useState<EditTarget | null>(null)
   const [claudeOpen, setClaudeOpen] = useState(false)
+  const [claudeTab, setClaudeTab] = useState<ClaudeTab>(() => { try { return localStorage.getItem('sketch-claude-tab') === 'practice' ? 'practice' : 'chat' } catch { return 'chat' } })
+  const chooseTab = useCallback((t: ClaudeTab) => { setClaudeTab(t); try { localStorage.setItem('sketch-claude-tab', t) } catch { /* ignore */ } }, [])
   const [spaceDown, setSpaceDown] = useState(false)
   const [molInput, setMolInput] = useState('')
   const [busy, setBusy] = useState(false)
@@ -97,16 +101,21 @@ export default function App() {
     setHover(h => (h && !exists(doc, h) ? null : h))
   }, [doc])
 
-  const fit = useCallback(() => {
+  const fit = useCallback((maxK = 2.2) => {
     const el = stageRef.current
     if (!el) return
     const { width, height } = el.getBoundingClientRect()
     const b = contentBounds(getDoc())
     if (!b) { setView({ x: width / 2, y: height / 2, k: 1.4 }); return }
     const pad = 80
-    const k = Math.min(2.2, Math.max(0.3, Math.min((width - pad * 2) / Math.max(b.x2 - b.x1, 1), (height - pad * 2) / Math.max(b.y2 - b.y1, 1))))
+    const k = Math.min(maxK, Math.max(0.3, Math.min((width - pad * 2) / Math.max(b.x2 - b.x1, 1), (height - pad * 2) / Math.max(b.y2 - b.y1, 1))))
     setView({ k, x: width / 2 - ((b.x1 + b.x2) / 2) * k, y: height / 2 - ((b.y1 + b.y2) / 2) * k })
   }, [])
+  useEffect(() => {
+    onOpenPractice(() => { setClaudeOpen(true); chooseTab('practice') })
+    // A new exercise is drawn: show all of it, at a zoom that leaves room to draw the mechanism.
+    onPracticeDrawn(() => requestAnimationFrame(() => fit(1.3)))
+  }, [chooseTab, fit])
 
   useEffect(() => { fit() }, [fit])
 
@@ -275,7 +284,7 @@ export default function App() {
     { id: 'fliph', group: 'Arrange', label: 'Flip left to right', hint: 'mirror horizontal', run: () => arrange((d, ids) => flipItems(d, ids, 'h')) },
     { id: 'flipv', group: 'Arrange', label: 'Flip top to bottom', hint: 'mirror vertical', run: () => arrange((d, ids) => flipItems(d, ids, 'v')) },
     { id: 'clean', group: 'Arrange', label: 'Clean up structure', hint: 'tidy layout', run: doClean },
-    { id: 'fit', group: 'View', label: 'Fit to screen', hint: 'zoom', run: fit },
+    { id: 'fit', group: 'View', label: 'Fit to screen', hint: 'zoom', run: () => fit() },
     { id: 'theme-menu', group: 'View', label: 'Change theme…', hint: 'appearance colours', run: () => setPopover('theme') },
     ...THEMES.map(t => ({ id: `theme-${t.id}`, group: 'Theme', label: `Theme: ${t.name}`, hint: `${t.note} ${t.dark ? 'dark' : 'light'}`, run: () => setTheme(t.id) })),
     ...STYLES.map(s => ({ id: `style-${s.id}`, group: 'Drawing style', label: `Drawing style: ${s.name}`, hint: s.note, run: () => setDrawStyle(s.id) })),
@@ -288,9 +297,10 @@ export default function App() {
     ...RINGS.map(r => ({ id: `ring-${r.name}`, group: 'Templates', label: `Ring: ${r.name}`, run: () => addStructure(r) })),
     ...AMINO_ACIDS.map(a => ({ id: `aa-${a.name}`, group: 'Templates', label: `Amino acid: ${a.name}`, run: () => addStructure(a) })),
     { id: 'claude', group: 'Claude', label: claudeOpen ? 'Hide Claude' : 'Chat with Claude', hint: 'ai assistant', run: () => setClaudeOpen(o => !o) },
+    { id: 'practice', group: 'Claude', label: 'Practice mechanisms', hint: 'exercises quiz oefenen check', run: () => { setClaudeOpen(true); chooseTab('practice') } },
     { id: 'newchat', group: 'Claude', label: 'New conversation with Claude', run: () => { newChat(); setClaudeOpen(true) } },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  ], [selection, claudeOpen, copySelection, duplicate, rotateBy, arrange, fit, copyAsImage, saveJson, selectAll])
+  ], [selection, claudeOpen, chooseTab, copySelection, duplicate, rotateBy, arrange, fit, copyAsImage, saveJson, selectAll])
 
   const extraCommands = useCallback((q: string): Command[] => [
     { id: 'add-mol', group: 'Add', label: `Add molecule “${q}”`, hint: 'name or SMILES', run: () => addByName(q) },
@@ -423,7 +433,7 @@ export default function App() {
         <div className="group">
           <button className={'icon-btn' + (popover === 'templates' ? ' on' : '')} onClick={() => toggle('templates')} title="Templates: rings, amino acids, groups, mechanisms (Ctrl+T)" aria-label="Templates"><Icon name="shapes" /></button>
           <button className="icon-btn" onClick={doClean} title="Clean up structure" aria-label="Clean up"><Icon name="clean" /></button>
-          <button className="icon-btn" onClick={fit} title="Fit to screen" aria-label="Fit to screen"><Icon name="fit" /></button>
+          <button className="icon-btn" onClick={() => fit()} title="Fit to screen" aria-label="Fit to screen"><Icon name="fit" /></button>
           <button className="icon-btn" onClick={() => fileRef.current?.click()} title="Open file (.json, .mol)" aria-label="Open"><Icon name="open" /></button>
           <button className={'btn' + (popover === 'export' ? ' on' : '')} onClick={() => toggle('export')} title="Export (Ctrl+E)">
             <Icon name="download" size={16} /><span className="label">Export</span>
@@ -503,7 +513,7 @@ export default function App() {
           </footer>
         </main>
 
-        {claudeOpen && <ClaudePanel onClose={() => setClaudeOpen(false)} doc={doc} selection={selection} setSelection={setSelection} />}
+        {claudeOpen && <ClaudePanel onClose={() => setClaudeOpen(false)} doc={doc} selection={selection} setSelection={setSelection} tab={claudeTab} setTab={chooseTab} />}
       </div>
 
       {paletteOpen && <CommandBar commands={commands} extra={extraCommands} onClose={() => setPaletteOpen(false)} />}

@@ -9,6 +9,9 @@ import { smilesOf } from '../actions'
 import { flashItems } from '../model/flash'
 import { Icon } from './Icons'
 import { RichText } from './RichText'
+import { PracticePanel } from './PracticePanel'
+
+export type ClaudeTab = 'chat' | 'practice'
 
 /** Quick questions offered when something is selected. */
 const ASK_SELECTION = ['What is this?', 'Name it (IUPAC)', 'How does it react?', 'Check the structure for mistakes']
@@ -22,8 +25,9 @@ const EXAMPLES = [
 
 const toolLabel = (name: string) => name.replace(/_/g, ' ')
 
-export function ClaudePanel({ onClose, doc, selection, setSelection }: {
+export function ClaudePanel({ onClose, doc, selection, setSelection, tab, setTab }: {
   onClose: () => void; doc: Doc; selection: ID[]; setSelection: (ids: ID[]) => void
+  tab: ClaudeTab; setTab: (t: ClaudeTab) => void
 }) {
   const { connected, log } = useBridge()
   const [useSel, setUseSel] = useState(true)
@@ -39,7 +43,7 @@ export function ClaudePanel({ onClose, doc, selection, setSelection }: {
     if (el) el.scrollTop = el.scrollHeight
   }, [messages.length, last?.text, last?.tools.length])
 
-  useEffect(() => { inputRef.current?.focus() }, [])
+  useEffect(() => { inputRef.current?.focus() }, [tab])
 
   // What's selected, described for Claude and summarised for the chip.
   const sel = useMemo(() => {
@@ -75,17 +79,21 @@ export function ClaudePanel({ onClose, doc, selection, setSelection }: {
     <aside className="claude">
       <header>
         <Icon name="sparkles" size={18} />
-        <span className="title">Claude</span>
+        <div className="tabs" role="tablist">
+          <button role="tab" aria-selected={tab === 'chat'} className={tab === 'chat' ? 'on' : ''} onClick={() => setTab('chat')}>Chat</button>
+          <button role="tab" aria-selected={tab === 'practice'} className={tab === 'practice' ? 'on' : ''} onClick={() => setTab('practice')}>Practice</button>
+        </div>
         <span
           className={'dot' + (connected ? ' on' : '')}
           title={connected ? 'Claude Code is connected too' : 'Claude Code is not connected (the chat below works without it)'}
         />
-        {messages.length > 0 && (
+        {tab === 'chat' && messages.length > 0 && (
           <button className="text-btn" onClick={newChat} title="Start a new conversation">New chat</button>
         )}
         <button className="icon-btn" onClick={onClose} aria-label="Close panel"><Icon name="close" size={16} /></button>
       </header>
 
+      {tab === 'practice' ? <PracticePanel doc={doc} setSelection={setSelection} /> : <>
       <div className="chat-scroll" ref={scrollRef}>
         {messages.length === 0 ? (
           <div className="chat-intro">
@@ -152,6 +160,8 @@ export function ClaudePanel({ onClose, doc, selection, setSelection }: {
       ) : (
         <p className="muted small">The chat needs the dev server: run <code>npm run dev</code> and open the app from there.</p>
       )}
+
+      </>}
 
       {log.length > 0 && (
         <details className="activity">
