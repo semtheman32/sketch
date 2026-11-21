@@ -496,7 +496,8 @@ export default function App() {
           ))}
         </nav>
 
-        <main className="stage" ref={stageRef} style={stageVars} onMouseDown={() => setPopover(null)}>
+        <main className="stage" ref={stageRef} onMouseDown={() => setPopover(null)}>
+          <div className="stage-grid" style={stageVars} />
           {!editing && (
             <OptionsBar
               key={tool} tool={tool} opts={opts} setOpts={setOpts} doc={doc}
