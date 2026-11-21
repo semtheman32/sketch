@@ -180,10 +180,11 @@ kbd {
 .tool:hover { background: var(--soft); color: var(--text); }
 .tool.on { background: var(--accent-soft); color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent-soft); }
 
-/* The canvas grid scales and pans with the drawing: --vx/--vy/--k come from the view. */
-.stage {
-  position: relative; flex: 1; min-width: 0; overflow: hidden;
-  background-color: var(--canvas);
+/* The canvas grid scales and pans with the drawing: --vx/--vy/--k come from the view. They live on
+   their own element (not on .stage) so that changing them while panning doesn't restyle every SVG node. */
+.stage { position: relative; flex: 1; min-width: 0; overflow: hidden; background-color: var(--canvas); }
+.stage-grid {
+  position: absolute; inset: 0; pointer-events: none;
   background-image:
     linear-gradient(var(--grid-major-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-major-color) 1px, transparent 1px),

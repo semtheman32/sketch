@@ -10,7 +10,7 @@ import {
 import { useFlash } from '../model/flash'
 import { useDrawStyle } from './styles'
 import { adjacency, components } from '../chem/chem'
-import { anchorPoint, autoBend, curlyLift, hitTest, type Hit } from './layout'
+import { anchorPoint, atomVisual, autoBend, curlyLift, hitTest, implicitHAt, type Hit } from './layout'
 import { Highlights, LIVE, MemoScene } from './Scene'
 import type { Tool, ToolOptions } from '../ui/tools'
 
@@ -35,7 +35,7 @@ interface Props {
 
 type Mode =
   | { m: 'none' }
-  | { m: 'pan'; sx: number; sy: number; vx: number; vy: number }
+  | { m: 'pan'; sx: number; sy: number; vx: number; vy: number; x: number; y: number; raf: number }
   | { m: 'move'; base: Doc; ids: ID[]; start: P; moved: boolean; split?: { stat: Doc; moving: Doc } | null; dx?: number; dy?: number }
   | { m: 'arrowEnd'; base: Doc; id: ID; end: 1 | 2 }
   | { m: 'bend'; base: Doc; id: ID }
@@ -92,6 +92,14 @@ export function Canvas(p: Props) {
     return { x: (e.clientX - r.left - v.x) / v.k, y: (e.clientY - r.top - v.y) / v.k }
   }
   const tol = () => 8 / viewRef.current.k
+
+  const sceneRef = useRef<SVGGElement>(null)
+  const paintPan = (x: number, y: number) => {
+    const k = viewRef.current.k
+    sceneRef.current?.setAttribute('transform', `translate(${x} ${y}) scale(${k})`)
+    const grid = svgRef.current?.parentElement?.querySelector<HTMLElement>('.stage-grid')
+    if (grid) { grid.style.setProperty('--vx', String(x)); grid.style.setProperty('--vy', String(y)) }
+  }
 
   const hitAt = (w: P): Hit | null => {
     const d = getDoc()
@@ -161,6 +169,30 @@ export function Canvas(p: Props) {
     return { c, top: r.y1, h: { x: c.x, y: r.y1 - 26 / p.view.k } }
   }, [doc, p.selection, p.tool, p.view.k])
 
+  /**
+   * What a curly arrow attaches to under the pointer. Clicking the H of a label such as HBr first makes
+   * that hydrogen a real atom (H–Br), so the arrow can point at the proton and a second arrow can break the H–Br bond.
+   */
+  const curlyAnchorAt = (w: P): ID | null => {
+    const d = getDoc()
+    const adj = adjacencyOf(d)
+    const owner = implicitHAt(d, w, adj, style.font)
+    if (owner) {
+      return commit(dd => {
+        const a = dd.atoms[owner.id]
+        const v = atomVisual(dd, a, adjacency(dd), style.font)
+        const spot = { x: a.x + (v.hSide === 'right' ? BOND : -BOND), y: a.y }
+        const free = !Object.values(dd.atoms).some(o => o.id !== a.id && dist(o, spot) < BOND * 0.5)
+        if (!free) return growBond(dd, a.id, 1, 'none', 'H')
+        const h = addAtom(dd, spot.x, spot.y, 'H')
+        addBond(dd, a.id, h)
+        return h
+      })
+    }
+    const hit = hitTest(d, w, tol(), adj)
+    return hit && (hit.kind === 'atom' || hit.kind === 'bond') ? hit.id : null
+  }
+
   const createCurly = (from: ID, to: ID) => {
     commit(d => {
       const id = newId('c')
@@ -176,7 +208,7 @@ export function Canvas(p: Props) {
     svgRef.current!.setPointerCapture(e.pointerId)
     const w = toWorld(e)
     if (e.button === 1 || e.button === 2 || p.spaceDown) {
-      mode.current = { m: 'pan', sx: e.clientX, sy: e.clientY, vx: p.view.x, vy: p.view.y }
+      mode.current = { m: 'pan', sx: e.clientX, sy: e.clientY, vx: p.view.x, vy: p.view.y, x: p.view.x, y: p.view.y, raf: 0 }
       return
     }
     if (e.button !== 0) return
@@ -261,7 +293,7 @@ export function Canvas(p: Props) {
           commit(dd => { dd.curlies[hit.id].bend *= -1 })
           return
         }
-        const anchor = hit && (hit.kind === 'atom' || hit.kind === 'bond') ? hit.id : null
+        const anchor = curlyAnchorAt(w)
         if (curlyFrom) {
           if (anchor && anchor !== curlyFrom) createCurly(curlyFrom, anchor)
           else setCurlyFrom(null)
@@ -313,7 +345,12 @@ export function Canvas(p: Props) {
         return
       }
       case 'pan':
-        p.setView(v => ({ ...v, x: md.vx + e.clientX - md.sx, y: md.vy + e.clientY - md.sy }))
+        // Panning bypasses React: re-rendering the whole app on every mouse move made it laggy.
+        // Move the drawing and grid directly, at most once per frame; the view is committed on release.
+        md.x = md.vx + e.clientX - md.sx
+        md.y = md.vy + e.clientY - md.sy
+        viewRef.current = { ...viewRef.current, x: md.x, y: md.y }
+        if (!md.raf) md.raf = requestAnimationFrame(() => { md.raf = 0; paintPan(md.x, md.y) })
         return
       case 'move': {
         const dx = w.x - md.start.x, dy = w.y - md.start.y
@@ -377,6 +414,11 @@ export function Canvas(p: Props) {
     const md = mode.current
     mode.current = { m: 'none' }
     switch (md.m) {
+      case 'pan':
+        if (md.raf) cancelAnimationFrame(md.raf)
+        paintPan(md.x, md.y)
+        if (md.x !== md.vx || md.y !== md.vy) p.setView(v => ({ ...v, x: md.x, y: md.y }))
+        break
       case 'move':
         if (md.split && md.moved) {
           const nd = cloneTouched(md.base, md.ids)
@@ -457,8 +499,8 @@ export function Canvas(p: Props) {
       case 'curly': {
         const dragged = Math.hypot(e.clientX - md.sx, e.clientY - md.sy) > 6
         if (dragged) {
-          const h = hitAt(w)
-          if (h && (h.kind === 'atom' || h.kind === 'bond') && h.id !== md.from) createCurly(md.from, h.id)
+          const to = curlyAnchorAt(w)
+          if (to && to !== md.from) createCurly(md.from, to)
         }
         break
       }
@@ -556,7 +598,7 @@ export function Canvas(p: Props) {
       onDoubleClick={onDouble}
       onContextMenu={e => e.preventDefault()}
     >
-      <g transform={`translate(${p.view.x} ${p.view.y}) scale(${k})`}>
+      <g ref={sceneRef} transform={`translate(${p.view.x} ${p.view.y}) scale(${k})`}>
         {drag ? (
           <>
             <g className="scene"><MemoScene doc={drag.stat} palette={LIVE} style={style} /></g>

@@ -255,6 +255,22 @@ export type Hit =
   | { kind: 'atom' | 'bond' | 'curly' | 'text' | 'bracket'; id: ID }
   | { kind: 'arrow'; id: ID; end?: 1 | 2 }
 
+/**
+ * The atom whose implicit-H label ("H" in HBr, H₂O, NH₃…) lies under `p`, if any. Lets a curly arrow
+ * point at a hydrogen that is only part of a label.
+ */
+export function implicitHAt(doc: Doc, p: P, adj: Adjacency, font = FONT): Atom | null {
+  for (const a of Object.values(doc.atoms)) {
+    const v = atomVisual(doc, a, adj, font)
+    if (!v.showLabel || v.h < 1) continue
+    const half = textWidth(a.element, font) / 2
+    const hw = textWidth('H', font) + (v.h > 1 ? textWidth(String(v.h), font * 0.72) : 0)
+    const dx = (p.x - a.x) * (v.hSide === 'right' ? 1 : -1)
+    if (dx > half - 1 && dx < half + hw + 3 && Math.abs(p.y - a.y) < font * 0.75) return a
+  }
+  return null
+}
+
 export function hitTest(doc: Doc, p: P, tol: number, adj: Adjacency): Hit | null {
   let best: Hit | null = null, bestD = tol * 1.3
   for (const a of Object.values(doc.atoms)) {
