@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Doc, ID } from '../model/types'
 import {
-  askHint, checkDrawing, lastError, openExercise, outOfCourse, removeExercise, requestExercise, restartExercise,
+  askHint, canGoBack, canGoNext, checkDrawing, goBack, goNext, lastError, openExercise, outOfCourse, removeExercise, requestExercise, restartExercise,
   setCourseOnly, setDone, setLang, showSolution, stopPractice, usePractice, type Feedback, type Verdict,
 } from '../chat/practice'
 import { flashItems } from '../model/flash'
@@ -30,6 +30,7 @@ const T = {
     beyond: 'beyond the course', hidden: 'hidden',
     pickExisting: 'Random one from my list', pickTip: 'Open a random exercise from your list at this level (ones not ticked off or solved first).',
     noneAtLevel: (l: string) => `There are no other exercises at level ${l} in your list yet.`,
+    back: 'Back', next: 'Next', backTip: 'The exercise you did before this one', nextTip: 'The next exercise in your history, or a random one at the same level',
     done: 'done', markDone: 'Done', markDoneTip: 'Tick this exercise off when you have done it (whatever the check said).',
   },
   nl: {
@@ -46,6 +47,7 @@ const T = {
     beyond: 'buiten de lesstof', hidden: 'verborgen',
     pickExisting: 'Willekeurig uit mijn lijst', pickTip: 'Open een willekeurige opgave uit je lijst op dit niveau (eerst de opgaven die je nog niet afgevinkt of goed hebt).',
     noneAtLevel: (l: string) => `Er staan nog geen andere opgaven op niveau ${l} in je lijst.`,
+    back: 'Terug', next: 'Volgende', backTip: 'De opgave die je hiervoor deed', nextTip: 'De volgende opgave uit je geschiedenis, of een willekeurige op hetzelfde niveau',
     done: 'gedaan', markDone: 'Gedaan', markDoneTip: 'Vink deze opgave af als je hem gedaan hebt (los van wat het nakijken zei).',
   },
 }
@@ -112,8 +114,13 @@ export function PracticePanel({ doc, setSelection }: { doc: Doc; setSelection: (
         {ex ? (
           <section className="ex-card">
             <div className="ex-meta">
-              {[ex.topic, ex.difficulty, ex.source, outOfCourse(ex) ? t.beyond : ''].filter(Boolean).join(' · ')}
+              <span>{[ex.topic, ex.difficulty, ex.source, outOfCourse(ex) ? t.beyond : ''].filter(Boolean).join(' · ')}</span>
               {attempt?.verdict && <span className={'verdict ' + attempt.verdict}>{t.verdict[attempt.verdict]}</span>}
+              <span className="ex-nav">
+                <button className="text-btn" disabled={!!busy || !canGoBack(p)} onClick={() => guard(goBack)} title={t.backTip}>‹ {t.back}</button>
+                <span className="ex-pos">{p.historyPos + 1}/{p.history.length}</span>
+                <button className="text-btn" disabled={!!busy || !canGoNext(p)} onClick={() => guard(goNext)} title={t.nextTip}>{t.next} ›</button>
+              </span>
             </div>
             <h3>{ex.title}</h3>
             <div className="rich"><RichText text={ex.question} doc={doc} onRef={showRef} /></div>

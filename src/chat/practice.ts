@@ -10,7 +10,7 @@
  * get the exercise's answer key plus read access to the canvas.
  */
 import { useSyncExternalStore } from 'react'
-import type { ID } from '../model/types'
+import type { Doc, ID } from '../model/types'
 import { emptyDoc } from '../model/types'
 import { batch, getDoc, replaceDoc } from '../model/store'
 import { runMethod } from '../bridge/client'
@@ -69,16 +69,35 @@ interface PracticeState {
   available: boolean
   /** "Only course material": hide exercises marked as beyond the course, and keep new ones inside it. */
   courseOnly: boolean
+  /** Exercise ids in the order they were opened, like browser history; historyPos is where Back/Next stand. */
+  history: string[]
+  historyPos: number
 }
 
 const STORAGE_KEY = 'sketch-practice'
 const hot = import.meta.hot
 
-let state: PracticeState = { exercises: [], current: -1, attempts: {}, feedback: {}, busy: null, lang: 'en', available: !!hot, courseOnly: false }
+let state: PracticeState = { exercises: [], current: -1, attempts: {}, feedback: {}, busy: null, lang: 'en', available: !!hot, courseOnly: false, history: [], historyPos: -1 }
 try {
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null')
   if (saved?.exercises) state = { ...state, ...saved, busy: null, available: !!hot }
 } catch { /* storage unavailable */ }
+// Lists saved before there was a history start it at the open exercise.
+if (!state.history?.length && state.exercises[state.current]) state = { ...state, history: [state.exercises[state.current].id], historyPos: 0 }
+
+/* Your drawing for each exercise, so going back shows it again (the 30 most recent, in their own storage key). */
+const DRAWINGS_KEY = 'sketch-practice-drawings'
+function loadDrawings(): Record<string, Doc> {
+  try { return JSON.parse(localStorage.getItem(DRAWINGS_KEY) ?? '{}') ?? {} } catch { return {} }
+}
+function saveDrawing(id: string, doc: Doc) {
+  const all = loadDrawings()
+  delete all[id]
+  all[id] = doc
+  const ids = Object.keys(all)
+  for (const old of ids.slice(0, Math.max(0, ids.length - 30))) delete all[old]
+  try { localStorage.setItem(DRAWINGS_KEY, JSON.stringify(all)) } catch { /* storage full: keep going without */ }
+}
 
 const listeners = new Set<() => void>()
 function set(s: Partial<PracticeState>) {
@@ -164,15 +183,67 @@ export function removeExercise(index: number) {
   if (!ex) return
   const exercises = state.exercises.filter((_, i) => i !== index)
   const current = index === state.current ? -1 : state.current > index ? state.current - 1 : state.current
-  set({ exercises, current })
+  const history = state.history.filter(id => id !== ex.id)
+  const historyPos = state.history.slice(0, state.historyPos + 1).filter(id => id !== ex.id).length - 1
+  set({ exercises, current, history, historyPos: Math.min(historyPos, history.length - 1) })
 }
 
-/** Make an exercise current and draw its starting point on a fresh canvas (one undo step). */
-export async function openExercise(index: number) {
+/**
+ * Make an exercise current (one undo step). Shows your earlier drawing for it if there is one,
+ * otherwise its starting point on a fresh canvas. Your drawing of the exercise you leave is kept.
+ * `fromHistory`: opened by Back/Next, so the history itself stays as it is.
+ */
+export async function openExercise(index: number, { fromHistory = false } = {}) {
   const ex = state.exercises[index]
   if (!ex) return
-  set({ current: index })
-  if (ex.setup) await drawSetup(ex.setup)
+  const leaving = currentExercise()
+  const switching = leaving?.id !== ex.id
+  if (leaving && switching) saveDrawing(leaving.id, getDoc())
+  let { history, historyPos } = state
+  if (!fromHistory && history[historyPos] !== ex.id) {
+    history = [...history.slice(0, historyPos + 1), ex.id].slice(-100)
+    historyPos = history.length - 1
+  }
+  set({ current: index, history, historyPos })
+  const saved = switching ? loadDrawings()[ex.id] : undefined
+  if (saved) { replaceDoc(saved); afterDraw() }
+  else if (ex.setup) await drawSetup(ex.setup)
+}
+
+/** Step through the history (skipping exercises removed since). Returns false at either end. */
+async function stepHistory(dir: 1 | -1) {
+  for (let pos = state.historyPos + dir; pos >= 0 && pos < state.history.length; pos += dir) {
+    const i = state.exercises.findIndex(e => e.id === state.history[pos])
+    if (i < 0) continue
+    set({ historyPos: pos })
+    await openExercise(i, { fromHistory: true })
+    return true
+  }
+  return false
+}
+
+export const canGoBack = (s: PracticeState = state) =>
+  s.history.slice(0, Math.max(0, s.historyPos)).some(id => s.exercises.some(e => e.id === id))
+
+/** Exercises Next may pick when there is no history ahead: same level as the open one, not yet done first. */
+function nextCandidates(s: PracticeState = state) {
+  const all = s.exercises.map((e, i) => ({ e, i })).filter(({ e, i }) => i !== s.current && !(s.courseOnly && outOfCourse(e)))
+  const level = s.exercises[s.current]?.difficulty?.toLowerCase()
+  const same = level ? all.filter(({ e }) => e.difficulty?.toLowerCase() === level) : all
+  const base = same.length ? same : all
+  const notYet = base.filter(({ e }) => !s.attempts[e.id]?.done && s.attempts[e.id]?.verdict !== 'correct')
+  return notYet.length ? notYet : base
+}
+export const canGoNext = (s: PracticeState = state) =>
+  s.history.slice(s.historyPos + 1).some(id => s.exercises.some(e => e.id === id)) || nextCandidates(s).length > 0
+
+export async function goBack() { await stepHistory(-1) }
+
+/** Forward in the history, or at its end a random exercise from the list (same level, not done yet first). */
+export async function goNext() {
+  if (await stepHistory(1)) return
+  const pool = nextCandidates()
+  if (pool.length) await openExercise(pool[Math.floor(Math.random() * pool.length)].i)
 }
 
 /** Start the current exercise over: redraw its starting point. */
