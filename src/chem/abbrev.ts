@@ -56,6 +56,8 @@ export const ABBREVIATIONS: Abbrev[] = [
   { label: 'CF3', left: 'F3C', name: 'trifluoromethyl', smiles: 'C(F)(F)F', formula: { C: 1, F: 3 } },
   { label: 'N3', name: 'azide', smiles: 'N=[N+]=[N-]', formula: { N: 3 } },
   { label: 'SO3H', left: 'HO3S', name: 'sulfonic acid', smiles: 'S(=O)(=O)O', formula: { H: 1, O: 3, S: 1 } },
+  { label: 'OSO3H', left: 'HO3SO', name: 'hydrogen sulfate', smiles: 'OS(=O)(=O)O', formula: { H: 1, O: 4, S: 1 } },
+  { label: 'OPO3H2', left: 'H2O3PO', name: 'dihydrogen phosphate', smiles: 'OP(=O)(O)O', formula: { H: 2, O: 4, P: 1 } },
 ]
 
 const BY_KEY = new Map<string, Abbrev>()

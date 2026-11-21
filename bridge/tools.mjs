@@ -49,7 +49,8 @@ Practice mode (the app's Practice tab): the user solves mechanism exercises by d
   practice_set_scope changes that afterwards.
 - To check the user's work yourself: practice_get_state (answer key), get_document and screenshot, then
   practice_record_feedback. Accept any chemically valid mechanism; point at mistakes by id and ask a guiding
-  question rather than giving the corrected structure.
+  question rather than giving the corrected structure. Give reaction_type with every verdict. Written
+  explanations are a bonus: a missing one never counts as wrong or lowers the verdict.
 `.trim()
 
 export const json = data => ({ content: [{ type: 'text', text: JSON.stringify(data, null, 1) }] })
@@ -238,6 +239,7 @@ export const TOOLS = [
     description: 'Practice mode: show your grading or hint for the open exercise in the Practice tab and count it in the score. Use after checking the drawing yourself.',
     shape: {
       verdict: z.enum(['correct', 'almost', 'incorrect']).optional().describe('Leave out for a hint'),
+      reaction_type: z.string().optional().describe('With a verdict: the kind of reaction, e.g. "Zure epoxide-opening (SN1-achtig)"'),
       summary: z.string(),
       points: z.array(z.object({ ok: z.boolean(), text: z.string() })).optional().describe('Step-by-step: what is right and what is wrong; refer to items by id (a12, c3)'),
     },

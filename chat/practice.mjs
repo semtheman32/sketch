@@ -50,7 +50,8 @@ const SUBMIT = {
     name: 'submit_check',
     description: 'Hand over the grading of the user\'s drawing.',
     shape: {
-      verdict: z.enum(['correct', 'almost', 'incorrect']).describe('correct: complete, chemically right mechanism. almost: right mechanism with small slips (a missing charge, a skipped proton transfer, an arrow slightly off). incorrect: wrong step, wrong product, or not finished.'),
+      reaction_type: z.string().describe('The kind of reaction, short, e.g. "Acid-catalysed epoxide opening (SN1-like)", "E2 (Zaitsev)", "Electrophilic addition of HBr (Markovnikov)". Shown above the verdict.'),
+      verdict: z.enum(['correct', 'almost', 'incorrect']).describe('correct: complete, chemically right mechanism. almost: right mechanism with small slips (a missing charge, a skipped proton transfer, an arrow slightly off). incorrect: wrong step, wrong product, or not finished. Judge the drawing only: a missing written explanation never lowers the verdict.'),
       summary: z.string().describe('One or two sentences: the overall verdict and the single most important thing to fix.'),
       points: z.array(z.object({ ok: z.boolean(), text: z.string() })).describe('Step by step: what is right (ok=true) and what is wrong (ok=false). Point at items by id. For mistakes, say what is wrong and ask a guiding question; do not give the corrected structure unless the verdict is almost.'),
     },
@@ -105,6 +106,8 @@ The user says they are done and asks you to check their drawing. Call get_docume
 - Check intermediates and product: structure, formal charges, and that mass and charge balance.
 - Lone pairs drawn as dots are optional unless the question asks for them.
 - If nothing beyond the setup is drawn, the verdict is incorrect and the summary says to draw the mechanism first.
+- Grade the drawing (arrows, intermediates, charges, product, stereochemistry). Written explanations ("why", "explain") are a bonus: if one is missing, never mark a point as wrong (ok=false) for it and never lower the verdict. You may add one ok=true point starting with "Bonus:" that names what a short explanation could say.
+- Fill reaction_type (in the user's language) with the kind of reaction this exercise is, so the user learns to recognise it.
 ${lang}
 Then call submit_check.`,
         tools: ['get_document', 'screenshot'],

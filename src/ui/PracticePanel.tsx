@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { Doc, ID } from '../model/types'
 import {
   askHint, checkDrawing, lastError, openExercise, outOfCourse, removeExercise, requestExercise, restartExercise,
-  setCourseOnly, setLang, showSolution, stopPractice, usePractice, type Feedback, type Verdict,
+  setCourseOnly, setDone, setLang, showSolution, stopPractice, usePractice, type Feedback, type Verdict,
 } from '../chat/practice'
 import { flashItems } from '../model/flash'
 import { RichText } from './RichText'
@@ -28,6 +28,9 @@ const T = {
     courseOnly: 'Only course material',
     courseOnlyTip: 'Show only exercises you can solve with the course material, and keep new exercises inside it (course.md).',
     beyond: 'beyond the course', hidden: 'hidden',
+    pickExisting: 'Random one from my list', pickTip: 'Open a random exercise from your list at this level (ones not ticked off or solved first).',
+    noneAtLevel: (l: string) => `There are no other exercises at level ${l} in your list yet.`,
+    done: 'done', markDone: 'Done', markDoneTip: 'Tick this exercise off when you have done it (whatever the check said).',
   },
   nl: {
     intro: 'Vraag een opgave, teken het mechanisme met curly arrows op het canvas en druk op Nakijken.',
@@ -41,6 +44,9 @@ const T = {
     courseOnly: 'Alleen lesstof',
     courseOnlyTip: 'Toon alleen opgaven die je met de gegeven lesstof kunt oplossen, en houd nieuwe opgaven binnen de lesstof (course.md).',
     beyond: 'buiten de lesstof', hidden: 'verborgen',
+    pickExisting: 'Willekeurig uit mijn lijst', pickTip: 'Open een willekeurige opgave uit je lijst op dit niveau (eerst de opgaven die je nog niet afgevinkt of goed hebt).',
+    noneAtLevel: (l: string) => `Er staan nog geen andere opgaven op niveau ${l} in je lijst.`,
+    done: 'gedaan', markDone: 'Gedaan', markDoneTip: 'Vink deze opgave af als je hem gedaan hebt (los van wat het nakijken zei).',
   },
 }
 
@@ -69,6 +75,7 @@ export function PracticePanel({ doc, setSelection }: { doc: Doc; setSelection: (
   const listed = p.exercises.map((e, i) => ({ e, i })).filter(({ e }) => !(p.courseOnly && outOfCourse(e)))
   const hiddenCount = p.exercises.length - listed.length
   const solved = listed.filter(({ e }) => p.attempts[e.id]?.verdict === 'correct').length
+  const doneCount = listed.filter(({ e }) => p.attempts[e.id]?.done).length
   const showRef = (id: ID) => { setSelection([id]); flashItems([id]) }
   const guard = async (fn: () => unknown) => {
     setError('')
@@ -77,10 +84,19 @@ export function PracticePanel({ doc, setSelection }: { doc: Doc; setSelection: (
   const busy = p.busy
   const disabled = !!busy || !p.available
 
+  // Existing exercises at the chosen level, not counting the open one.
+  const atLevel = listed.filter(({ e, i }) => i !== p.current && e.difficulty?.toLowerCase() === level)
+  const pickExisting = () => guard(async () => {
+    const notYet = atLevel.filter(({ e }) => !p.attempts[e.id]?.done && p.attempts[e.id]?.verdict !== 'correct')
+    const pool = notYet.length ? notYet : atLevel
+    if (!pool.length) throw new Error(t.noneAtLevel(level))
+    await openExercise(pool[Math.floor(Math.random() * pool.length)].i)
+  })
+
   return (
     <div className="practice">
       <div className="practice-top">
-        {p.exercises.length > 0 && <span className="muted small">{solved}/{listed.length} {t.solved}</span>}
+        {p.exercises.length > 0 && <span className="muted small">{doneCount}/{listed.length} {t.done} · {solved} {t.solved}</span>}
         <label className="course-only" title={t.courseOnlyTip}>
           <input type="checkbox" checked={p.courseOnly} onChange={e => setCourseOnly(e.target.checked)} />
           {t.courseOnly}
@@ -105,6 +121,10 @@ export function PracticePanel({ doc, setSelection }: { doc: Doc; setSelection: (
               <button className="btn primary" disabled={disabled} onClick={checkDrawing}>{t.check}</button>
               <button className="btn" disabled={disabled} onClick={askHint}>{t.hint}</button>
               <button className="btn" disabled={disabled} onClick={showSolution}>{t.solution}</button>
+              <label className="done-toggle" title={t.markDoneTip}>
+                <input type="checkbox" checked={!!attempt?.done} onChange={e => setDone(ex.id, e.target.checked)} />
+                {t.markDone}
+              </label>
               {ex.setup && <button className="text-btn" disabled={!!busy} onClick={() => guard(restartExercise)} title={t.undoNote}>{t.restart}</button>}
             </div>
             {feedback.length > 0 && (
@@ -139,6 +159,9 @@ export function PracticePanel({ doc, setSelection }: { doc: Doc; setSelection: (
           <button className="btn primary wide" disabled={disabled} onClick={() => requestExercise({ topic, difficulty: level })}>
             <Icon name="sparkles" size={15} /> {t.newEx}
           </button>
+          <button className="btn wide" disabled={!!busy || !atLevel.length} onClick={pickExisting} title={t.pickTip}>
+            {t.pickExisting} ({atLevel.length})
+          </button>
           <form className="composer" onSubmit={e => { e.preventDefault(); if (own.trim()) { requestExercise({ own }); setOwn('') } }}>
             <textarea
               value={own} rows={1} placeholder={t.own}
@@ -159,8 +182,10 @@ export function PracticePanel({ doc, setSelection }: { doc: Doc; setSelection: (
             <ol>
               {listed.map(({ e, i }) => {
                 const v = p.attempts[e.id]?.verdict
+                const done = !!p.attempts[e.id]?.done
                 return (
-                  <li key={e.id} className={i === p.current ? 'on' : ''}>
+                  <li key={e.id} className={(i === p.current ? 'on' : '') + (done ? ' done' : '')}>
+                    <input type="checkbox" className="ex-done" checked={done} onChange={ev => setDone(e.id, ev.target.checked)} title={t.markDoneTip} aria-label={`${t.markDone}: ${e.title}`} />
                     <span className={'vdot ' + (v ?? '')} title={v ? t.verdict[v] : ''} />
                     <button className="ex-open" disabled={!!busy} onClick={() => guard(() => openExercise(i))}>
                       <span className="ex-title">{e.title}</span>
@@ -182,6 +207,7 @@ function FeedbackItem({ f, t, doc, onRef }: { f: Feedback; t: (typeof T)['en']; 
   const label = f.kind === 'check' && f.verdict ? t.verdict[f.verdict] : f.kind === 'hint' ? t.hintLabel : f.kind === 'solution' ? t.solutionLabel : ''
   return (
     <li className={'fb fb-' + f.kind + (f.verdict ? ' ' + f.verdict : '')}>
+      {f.reactionType && <div className="fb-type">{f.reactionType}</div>}
       {label && <div className="fb-label">{label}</div>}
       <div className="rich"><RichText text={f.summary} doc={doc} onRef={onRef} /></div>
       {f.points && f.points.length > 0 && (

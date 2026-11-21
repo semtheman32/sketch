@@ -45,11 +45,17 @@ export interface CheckPoint { ok: boolean; text: string }
 export interface Feedback {
   kind: 'check' | 'hint' | 'solution' | 'error'
   verdict?: Verdict
+  /** Which kind of reaction this is (shown with a check). */
+  reactionType?: string
   summary: string
   points?: CheckPoint[]
   time: number
 }
-export interface Attempt { verdict?: Verdict; checks: number; hints: number; solutionShown: boolean }
+export interface Attempt {
+  verdict?: Verdict; checks: number; hints: number; solutionShown: boolean
+  /** Ticked off by the user ("I've done this one"), whatever Claude's verdict. */
+  done?: boolean
+}
 export type Lang = 'en' | 'nl'
 
 interface PracticeState {
@@ -96,6 +102,8 @@ function addFeedback(id: string, f: Omit<Feedback, 'time'>) {
 }
 
 export function setLang(lang: Lang) { set({ lang }) }
+/** Tick an exercise off as done (or untick it). Independent of Claude's verdict. */
+export function setDone(id: string, done: boolean) { bumpAttempt(id, () => ({ done })) }
 export function setCourseOnly(courseOnly: boolean) { set({ courseOnly }) }
 
 /** Hidden by the "only course material" checkbox. */
@@ -236,11 +244,11 @@ function run(kind: NonNullable<PracticeState['busy']>['kind'], payload: Record<s
 }
 
 /** Record a result that came from elsewhere (a Claude Code session checking through the bridge). */
-export function recordFeedback(f: { kind?: Feedback['kind']; verdict?: Verdict; summary: string; points?: CheckPoint[] }) {
+export function recordFeedback(f: { kind?: Feedback['kind']; verdict?: Verdict; reactionType?: string; summary: string; points?: CheckPoint[] }) {
   const ex = currentExercise()
   if (!ex) throw new Error('No exercise is open')
   const kind = f.kind ?? (f.verdict ? 'check' : 'hint')
-  addFeedback(ex.id, { kind, verdict: f.verdict, summary: f.summary, points: f.points })
+  addFeedback(ex.id, { kind, verdict: f.verdict, reactionType: f.reactionType, summary: f.summary, points: f.points })
   if (f.verdict) bumpAttempt(ex.id, a => ({ verdict: best(a.verdict, f.verdict!), checks: a.checks + 1 }))
   return { exercise: ex.id, recorded: kind }
 }
@@ -278,7 +286,7 @@ if (hot) {
     } else if (ex) {
       if (kind === 'check') {
         const verdict: Verdict = ['correct', 'almost', 'incorrect'].includes(r.verdict) ? r.verdict : 'incorrect'
-        addFeedback(ex.id, { kind, verdict, summary: String(r.summary ?? ''), points: Array.isArray(r.points) ? r.points.map((p: any) => ({ ok: !!p.ok, text: String(p.text ?? '') })) : [] })
+        addFeedback(ex.id, { kind, verdict, reactionType: r.reaction_type ? String(r.reaction_type) : undefined, summary: String(r.summary ?? ''), points: Array.isArray(r.points) ? r.points.map((p: any) => ({ ok: !!p.ok, text: String(p.text ?? '') })) : [] })
         bumpAttempt(ex.id, a => ({ verdict: best(a.verdict, verdict) }))
       } else {
         addFeedback(ex.id, { kind, summary: String(r.text ?? r.explanation ?? '') })
@@ -297,7 +305,7 @@ export function practiceSummary() {
   const ex = currentExercise()
   return {
     current: ex ? { ...ex, attempt: attemptOf(ex.id), feedback: state.feedback[ex.id] ?? [] } : null,
-    exercises: state.exercises.map((e, i) => ({ index: i, id: e.id, title: e.title, topic: e.topic, difficulty: e.difficulty, source: e.source, in_course: e.inCourse ?? null, verdict: state.attempts[e.id]?.verdict ?? null })),
+    exercises: state.exercises.map((e, i) => ({ index: i, id: e.id, title: e.title, topic: e.topic, difficulty: e.difficulty, source: e.source, in_course: e.inCourse ?? null, verdict: state.attempts[e.id]?.verdict ?? null, done: !!state.attempts[e.id]?.done })),
     language: state.lang,
     course_only: state.courseOnly,
   }

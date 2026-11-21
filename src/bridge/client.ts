@@ -281,7 +281,7 @@ const handlers: Record<string, (p: Params) => unknown> = {
   async practice_feedback(p) {
     const { recordFeedback } = await import('../chat/practice')
     openPractice()
-    return recordFeedback({ verdict: p.verdict, summary: String(p.summary ?? ''), points: p.points })
+    return recordFeedback({ verdict: p.verdict, reactionType: p.reaction_type ? String(p.reaction_type) : undefined, summary: String(p.summary ?? ''), points: p.points })
   },
 
   set_document(p) {

@@ -12,6 +12,7 @@ import { arrangeFragments, bondScale, parseMolfile, writeMolfile } from './chem/
 import { cleanMolblock, molblockToSmiles, nameToMolblock, smilesToMolblock } from './chem/rdkit'
 import { Scene, PRINT } from './render/Scene'
 import { newId } from './model/store'
+import { findReagent, reagentLayout, type Reagent } from './chem/reagents'
 
 export interface AddedMolecule { atomIds: ID[]; bondIds: ID[]; source: 'smiles' | 'name' | 'molfile' }
 
@@ -19,6 +20,9 @@ export interface AddedMolecule { atomIds: ID[]; bondIds: ID[]; source: 'smiles' 
 export async function addMolecule(input: string, at?: P, kind?: 'smiles' | 'name' | 'molfile'): Promise<AddedMolecule> {
   const text = input.trim()
   if (!text) throw new Error('Type a name or SMILES first')
+  // Mechanism reagents (H2SO4, HBr, H3O+, NaOEt…) as short, arrow-ready forms instead of full structures.
+  const reagent = kind ? undefined : findReagent(text)
+  if (reagent) return addReagent(reagent, at)
   let molblock: string | null = null
   let source: AddedMolecule['source'] = 'smiles'
   if (kind === 'molfile' || (!kind && /V2000/.test(text))) {
@@ -32,6 +36,28 @@ export async function addMolecule(input: string, at?: P, kind?: 'smiles' | 'name
   return commit(d => {
     const spot = at ?? nextFreeSpot(d, molWidth(parsed.atoms))
     return { ...insertMolecule(d, parsed, spot), source }
+  })
+}
+
+/** Insert a mechanism reagent with its lone pairs and charges. */
+function addReagent(r: Reagent, at?: P): AddedMolecule {
+  const layout = reagentLayout(r)
+  return commit(d => {
+    // Long labels (OSO3H, OPO3H2) stick out past their atom: leave room so the next reagent doesn't overlap.
+    const labelRoom = (el: string) => Math.max(0, el.length - 2) * 9
+    const pad = labelRoom(r.atoms[0].element) + labelRoom(r.atoms[r.atoms.length - 1].element) + 40
+    const spot = at ?? nextFreeSpot(d, molWidth(layout) + pad)
+    const atomIds = layout.map(a => {
+      const id = addAtom(d, a.x + spot.x, a.y + spot.y, a.element, a.charge ?? 0)
+      d.atoms[id].lonePairs = a.lonePairs ?? 0
+      return id
+    })
+    const bondIds = r.bonds.map(([i, j, order]) => {
+      const id = newId('b')
+      d.bonds[id] = { id, a1: atomIds[i], a2: atomIds[j], order, stereo: 'none' }
+      return id
+    })
+    return { atomIds, bondIds, source: 'name' as const }
   })
 }
 
