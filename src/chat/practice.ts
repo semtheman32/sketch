@@ -14,6 +14,7 @@ import type { ID } from '../model/types'
 import { emptyDoc } from '../model/types'
 import { batch, getDoc, replaceDoc } from '../model/store'
 import { runMethod } from '../bridge/client'
+import { drawMechanism } from '../bridge/mechanism'
 
 export interface Species { smiles: string; label?: string }
 export interface ExerciseSetup {
@@ -199,20 +200,13 @@ async function drawSetup(s: ExerciseSetup) {
   try {
     await batch(async () => {
       replaceDoc(emptyDoc())
-      let prevRight: number | null = null
-      let y = 0
-      for (const [i, r] of s.reactants.entries()) {
-        const res = await call('add_molecule', { smiles: r.smiles })
-        const xs: number[] = res.atoms.map((a: { x: number }) => a.x)
-        if (i === 0) y = res.atoms.reduce((t: number, a: { y: number }) => t + a.y, 0) / res.atoms.length
-        if (i > 0 && prevRight !== null) await call('add_text', { text: '+', x: (prevRight + Math.min(...xs)) / 2 - 5, y: y + 6, size: 18 })
-        prevRight = Math.max(...xs)
-      }
-      const x1 = (prevRight ?? 0) + 45
-      const width = Math.max(110, Math.max(s.above?.length ?? 0, s.below?.length ?? 0) * 7.5 + 20)
-      await call('add_reaction_arrow', { x1, y1: y, x2: x1 + width, y2: y, above: s.above ?? '', below: s.below ?? '' })
-      if (s.product?.length) for (const p of s.product) await call('add_molecule', { smiles: p.smiles })
-      else await call('add_text', { text: '?', x: x1 + width + 30, y: y + 9, size: 26, bold: true })
+      await drawMechanism({
+        x: 0, y: 0, width: Infinity, lonePairs: 'none',
+        steps: [
+          { species: s.reactants, then: { above: s.above ?? '', below: s.below ?? '' } },
+          { species: s.product?.length ? s.product : [{ smiles: '?' }] },
+        ],
+      })
     })
   } catch (err) {
     replaceDoc(before)
@@ -229,8 +223,19 @@ let runId = 0
 export function requestExercise(opts: { own?: string; topic?: string; difficulty?: string }) {
   run('new', opts)
 }
-export function checkDrawing() { const ex = currentExercise(); if (ex) { bumpAttempt(ex.id, a => ({ checks: a.checks + 1 })); run('check', { exercise: ex }) } }
-export function askHint() { const ex = currentExercise(); if (ex) { bumpAttempt(ex.id, a => ({ hints: a.hints + 1 })); run('hint', { exercise: ex, hintsShown: hintsGiven(ex.id) }) } }
+// Check and Hint send the drawing along (as compact text), so Claude can answer in one round.
+export async function checkDrawing() {
+  const ex = currentExercise()
+  if (!ex || state.busy) return
+  bumpAttempt(ex.id, a => ({ checks: a.checks + 1 }))
+  run('check', { exercise: ex, drawing: await call('get_document') })
+}
+export async function askHint() {
+  const ex = currentExercise()
+  if (!ex || state.busy) return
+  bumpAttempt(ex.id, a => ({ hints: a.hints + 1 }))
+  run('hint', { exercise: ex, hintsShown: hintsGiven(ex.id), drawing: await call('get_document') })
+}
 export function showSolution() { const ex = currentExercise(); if (ex) { bumpAttempt(ex.id, () => ({ solutionShown: true })); run('solution', { exercise: ex }) } }
 export function stopPractice() { if (state.busy) hot?.send('sketch-practice:stop', { runId }) }
 

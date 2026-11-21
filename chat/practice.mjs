@@ -100,7 +100,11 @@ Use a real reaction that works as written. Usually give the product and ask for 
       return {
         prompt: `${exerciseText(msg.exercise)}
 
-The user says they are done and asks you to check their drawing. Call get_document (it lists atoms with charges and lone pairs, bonds, curly arrows with their from/to ids, and each molecule's SMILES) and screenshot, then grade.
+The user says they are done and asks you to check their drawing. This is the canvas now (atoms per molecule with charges and lone pairs, bonds, curly arrows "c1 a5>b2" from > to, reaction arrows, texts):
+<drawing>
+${msg.drawing ?? '(not available: call get_document)'}
+</drawing>
+Grade from this text. Call screenshot only if the layout really matters for your verdict and the text cannot tell you (it usually can).
 - Accept any chemically valid mechanism, not only the one in the answer key (other order of proton transfers, another base, curly arrows drawn on a separate copy of a species…).
 - Each curly arrow must start at electrons (a lone pair on an atom, or a bond) and end at the atom or bond the electrons go to. A curly arrow whose "from" is an atom means its lone pair.
 - Check intermediates and product: structure, formal charges, and that mass and charge balance.
@@ -110,7 +114,7 @@ The user says they are done and asks you to check their drawing. Call get_docume
 - Fill reaction_type (in the user's language) with the kind of reaction this exercise is, so the user learns to recognise it.
 ${lang}
 Then call submit_check.`,
-        tools: ['get_document', 'screenshot'],
+        tools: msg.drawing ? ['screenshot'] : ['get_document', 'screenshot'],
         submit: SUBMIT.check,
       }
     case 'hint':
@@ -118,19 +122,24 @@ Then call submit_check.`,
         prompt: `${exerciseText(msg.exercise)}
 ${msg.hintsShown?.length ? `\nHints already given: ${msg.hintsShown.map(h => `"${h}"`).join(', ')}. Give the next one, a bit more concrete.` : ''}
 
-The user asks for a hint. Call get_document to see how far they are, then give one hint for their next step (or for their first mistake). ${lang}
+The user asks for a hint. This is what they have drawn so far (atoms per molecule, bonds, curly arrows "c1 a5>b2" from > to):
+<drawing>
+${msg.drawing ?? '(not available: call get_document)'}
+</drawing>
+Give one hint for their next step (or for their first mistake). ${lang}
 Then call submit_hint.`,
-        tools: ['get_document', 'screenshot'],
+        tools: msg.drawing ? [] : ['get_document'],
         submit: SUBMIT.hint,
       }
     case 'solution':
       return {
         prompt: `${exerciseText(msg.exercise)}
 
-The user asks for the worked solution. Call get_document, then draw the complete mechanism BELOW everything on the canvas (start at y = bounds.y2 + 120), left to right: each species from SMILES with add_molecule, curly arrows, reaction arrows between steps, "+" signs. Start with a bold text label "Solution". Do not move, change or delete anything the user drew. Check with screenshot and fix overlaps.
+The user asks for the worked solution. Draw the complete mechanism with ONE draw_mechanism call, titled "${msg.lang === 'nl' ? 'Uitwerking' : 'Solution'}" (it goes below the user's drawing by itself): one step per intermediate, with that step's curly arrows on its species and the reagents on the reaction arrow to the next step; the last step holds the products. Draw explicit H only where an arrow needs one ("2.3H"). Do not move, change or delete anything the user drew.
+Then take one screenshot. Fix only clear problems (a wrong structure, an arrow on the wrong atom) with the editing tools; don't redraw for small layout details.
 ${lang}
 Then call submit_solution.`,
-        tools: 'all',
+        tools: ['draw_mechanism', 'screenshot', 'get_document', 'delete_items', 'move', 'set_atom', 'add_curly_arrow', 'set_text'],
         submit: SUBMIT.solution,
       }
     default:

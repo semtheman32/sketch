@@ -37,6 +37,12 @@ before or between tool calls: use the tools silently, then write only the short 
 
 const log = (...a) => console.log('[sketch-chat]', ...a)
 
+/** One line per finished turn: rounds, tokens (fresh input, cache read/written, output) and cost. */
+function logUsage(what, m) {
+  const u = m.usage ?? {}
+  log(`${what} usage: ${m.num_turns ?? '?'} rounds, in ${u.input_tokens ?? 0} + cache read ${u.cache_read_input_tokens ?? 0} + cache write ${u.cache_creation_input_tokens ?? 0}, out ${u.output_tokens ?? 0}, $${(m.total_cost_usd ?? 0).toFixed(3)}`)
+}
+
 /** Turn an SDK error into something the user can act on. */
 function friendlyError(code, fallback) {
   switch (code) {
@@ -132,7 +138,7 @@ export function sketchChat() {
             prompt: spec.prompt,
             options: {
               model: MODEL,
-              systemPrompt: PRACTICE_SYSTEM + (spec.tools === 'all' ? '\n\n' + INSTRUCTIONS : ''),
+              systemPrompt: PRACTICE_SYSTEM + (spec.tools === 'all' || spec.tools.includes('draw_mechanism') ? '\n\n' + INSTRUCTIONS : ''),
               tools: [],
               mcpServers: { sketch },
               allowedTools: [spec.submit.name, ...canvasTools.map(t => t.name)].map(n => `mcp__sketch__${n}`),
@@ -154,8 +160,9 @@ export function sketchChat() {
               }
             } else if (m.type === 'assistant' && m.error) {
               error = friendlyError(m.error)
-            } else if (m.type === 'result' && (m.subtype !== 'success' || m.is_error) && !result) {
-              error ??= failure(m.result || m.errors?.join('\n'), m.api_error_status)
+            } else if (m.type === 'result') {
+              logUsage(`practice ${msg.kind}`, m)
+              if ((m.subtype !== 'success' || m.is_error) && !result) error ??= failure(m.result || m.errors?.join('\n'), m.api_error_status)
             }
           }
         } catch (err) {
@@ -240,6 +247,7 @@ export function sketchChat() {
             } else if (m.type === 'assistant' && m.error) {
               error = friendlyError(m.error)
             } else if (m.type === 'result') {
+              logUsage('chat', m)
               sessionId = m.session_id ?? sessionId
               if (m.subtype !== 'success' || m.is_error) {
                 error ??= failure(m.result || m.errors?.join('\n'), m.api_error_status)

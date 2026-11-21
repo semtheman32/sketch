@@ -18,7 +18,10 @@ IDs: atoms "a…", bonds "b…", reaction arrows "r…", curly arrows "c…", te
 Group abbreviations are allowed as an atom's element (Me, Et, iPr, tBu, Ph, Bn, Ac, Bz, Boc, Cbz, Fmoc, Ts, Ms, Tf,
 TMS, TBS, OMe, OEt, OAc, OTs, OTf, CO2Me, CO2Et, CO2H, CHO, CN, NO2, CF3, N3…): one bond each, counted in formulas.
 
-Good workflow:
+For a mechanism or reaction scheme, use draw_mechanism: one call draws every species, curly arrow, "+" and
+reaction arrow. Then one screenshot to check it, and fix only what is clearly wrong.
+
+Good workflow for single structures and edits:
 1. get_document to see what's already there (call it again whenever the user may have edited by hand).
 2. add_molecule with SMILES (or a name) for each species. It returns atom ids in SMILES heavy-atom order,
    so you can find the atom you need. Leave ~60 units between species. Use x/y to place them.
@@ -33,7 +36,7 @@ Good workflow:
 5. Call screenshot to look at the result and fix overlaps or awkward arrows before telling the user it's done.
 
 Getting the chemistry right:
-- Draw every species (reactant, intermediate, product, resonance form) with add_molecule from a complete SMILES.
+- Draw every species (reactant, intermediate, product, resonance form) from a complete SMILES (draw_mechanism or add_molecule).
   Don't build a new structure by editing a copy atom by atom: that is where wrong structures come from.
 - Resonance forms keep exactly the same atoms and connections; only bond orders, charges and lone pairs move.
   Write the SMILES of each form, check the atoms match, and draw the curly arrows on the first form.
@@ -53,7 +56,7 @@ Practice mode (the app's Practice tab): the user solves mechanism exercises by d
   explanations are a bonus: a missing one never counts as wrong or lowers the verdict.
 `.trim()
 
-export const json = data => ({ content: [{ type: 'text', text: JSON.stringify(data, null, 1) }] })
+export const json = data => ({ content: [{ type: 'text', text: typeof data === 'string' ? data : JSON.stringify(data) }] })
 const image = png => ({ content: [{ type: 'image', data: png, mimeType: 'image/png' }] })
 
 const id = z.string()
@@ -72,7 +75,28 @@ const textStyle = {
 export const TOOLS = [
   {
     name: 'get_document', method: 'get_document', shape: {},
-    description: 'Read everything on the canvas: atoms (with implicit H count), bonds, reaction arrows, curly arrows, texts, and per-molecule formula, mass and SMILES.',
+    description: 'Read everything on the canvas as compact text. Per molecule: "M1 <formula> <SMILES>", then its atoms "a3 OH 120,80 -1 lp3 rad" (id, element with implicit H, x,y, then charge, lone pairs and radical only when present), then its bonds "b2 a1=a3" (- single, = double, # triple; wedge/dash after). Then "Curly: c1 a5>b2 half" (from > to), reaction arrows, texts, brackets and the content bounds.',
+  },
+  {
+    name: 'draw_mechanism', method: 'draw_mechanism',
+    description: 'Draw a whole mechanism (or reaction scheme) in ONE call, as one undo step: the species of each step from SMILES left to right with "+" between, its curly arrows, then a reaction arrow to the next step. Rows wrap automatically; by default it goes below everything on the canvas. Lone pairs are added on atoms where a curly arrow starts and on anionic heteroatoms. Prefer this over add_molecule + add_curly_arrow + add_reaction_arrow + add_text for any mechanism.',
+    shape: {
+      steps: z.array(z.object({
+        species: z.array(z.object({ smiles: z.string().describe('Complete SMILES with charges, e.g. "C[C+](C)C" or "[Br-]"; "?" draws a question mark') })).min(1),
+        arrows: z.array(z.object({
+          from: z.string().describe('Where the electrons start: atom "2.3" (species 2 of this step, its 3rd heavy atom in SMILES order; both count from 1) = its lone pair, or bond "2.3-2.4". "2.3H" is an H on atom 2.3, drawn explicitly (e.g. bond "2.3-2.3H" for a deprotonation).'),
+          to: z.string().describe('Where they go: atom or bond, same notation'),
+          half: z.boolean().optional().describe('Fishhook (one electron)'),
+        })).optional().describe('Curly arrows on the species of this step'),
+        then: z.object({ above: z.string().optional(), below: z.string().optional(), kind: arrowKind.optional() }).optional()
+          .describe('The reaction arrow after this step: reagents above, conditions below. Leave out on the last step.'),
+      })).min(1),
+      title: z.string().optional().describe('Bold label above the scheme, e.g. "Solution"'),
+      x: num.optional().describe('Left edge; default: left edge of the existing content'),
+      y: num.optional().describe('Top edge; default: below the existing content'),
+      width: num.optional().describe('Wrap to a new row past this width; default 1000'),
+      lone_pairs: z.enum(['arrows', 'heteroatoms', 'none']).optional().describe('Which atoms get lone-pair dots; default arrows'),
+    },
   },
   {
     name: 'add_molecule', method: 'add_molecule',
@@ -180,7 +204,7 @@ export const TOOLS = [
   },
   {
     name: 'screenshot', method: 'screenshot', shape: {},
-    description: 'Render the canvas as a PNG so you can check how the drawing looks.',
+    description: 'Render the canvas as a PNG so you can check how the drawing looks (layout, overlaps). get_document is cheaper for checking the chemistry.',
     transform: res => image(res.png),
   },
   {

@@ -13,6 +13,7 @@ import { adjacency, componentOf, hCount } from '../chem/chem'
 import { addMolecule, cleanStructures, exportMolfile, exportPngDataUrl, exportSvg, moleculeSummaries, smilesOf } from '../actions'
 import { getDrawStyle } from '../render/styles'
 import { autoBend, clearTextSpot } from '../render/layout'
+import { drawMechanism, type MechSpec } from './mechanism'
 
 export const BRIDGE_URL = 'ws://127.0.0.1:3917'
 
@@ -29,22 +30,52 @@ export const useBridge = () => useSyncExternalStore(l => { listeners.add(l); ret
 
 const r1 = (n: number) => Math.round(n * 10) / 10
 
-async function describe(doc: Doc = getDoc()) {
+const r0 = (n: number) => Math.round(n)
+const q = (s: string) => JSON.stringify(s)
+
+/**
+ * The canvas as compact text for Claude (a fraction of the tokens JSON would take). Atoms are grouped
+ * per molecule; default values (no charge, no lone pairs, no H) are left out. See DOC_FORMAT.
+ */
+async function describe(doc: Doc = getDoc()): Promise<string> {
   const adj = adjacency(doc)
-  return {
-    note: 'Coordinates are canvas units; y grows downward; a standard bond is 40 units.',
-    atoms: Object.values(doc.atoms).map(a => ({
-      id: a.id, element: a.element, x: r1(a.x), y: r1(a.y), charge: a.charge,
-      lonePairs: a.lonePairs, radical: a.radical, implicitH: hCount(a, adj),
-    })),
-    bonds: Object.values(doc.bonds).map(b => ({ id: b.id, from: b.a1, to: b.a2, order: b.order, stereo: b.stereo })),
-    reactionArrows: Object.values(doc.arrows).map(r => ({ ...r, x1: r1(r.x1), y1: r1(r.y1), x2: r1(r.x2), y2: r1(r.y2) })),
-    curlyArrows: Object.values(doc.curlies),
-    texts: Object.values(doc.texts).map(t => ({ ...t, x: r1(t.x), y: r1(t.y) })),
-    brackets: Object.values(doc.brackets ?? {}),
-    molecules: await moleculeSummaries(doc),
-    bounds: contentBounds(doc),
+  const out: string[] = []
+  const mols = await moleculeSummaries(doc)
+  const bondsOf = new Map<ID, string[]>()
+  for (const b of Object.values(doc.bonds)) {
+    const sym = b.order === 2 ? '=' : b.order === 3 ? '#' : '-'
+    const st = b.stereo && b.stereo !== 'none' ? ' ' + b.stereo : ''
+    const list = bondsOf.get(b.a1) ?? []
+    list.push(`${b.id} ${b.a1}${sym}${b.a2}${st}`)
+    bondsOf.set(b.a1, list)
   }
+  mols.forEach((m, i) => {
+    out.push(`M${i + 1} ${m.formula} ${m.smiles ?? '?'}`)
+    out.push('  ' + m.atomIds.map(id => {
+      const a = doc.atoms[id]
+      const h = hCount(a, adj)
+      let s = `${a.id} ${a.element}${h ? 'H' + (h > 1 ? h : '') : ''} ${r0(a.x)},${r0(a.y)}`
+      if (a.charge) s += ` ${a.charge > 0 ? '+' : ''}${a.charge}`
+      if (a.lonePairs) s += ` lp${a.lonePairs}`
+      if (a.radical) s += ' rad'
+      return s
+    }).join('; '))
+    const bonds = m.atomIds.flatMap(id => bondsOf.get(id) ?? [])
+    if (bonds.length) out.push('  ' + bonds.join('; '))
+  })
+  const curlies = Object.values(doc.curlies)
+  if (curlies.length) out.push('Curly: ' + curlies.map(c => `${c.id} ${c.from}>${c.to}${c.half ? ' half' : ''}`).join('; '))
+  for (const r of Object.values(doc.arrows)) {
+    out.push(`Arrow ${r.id} ${r.kind} ${r0(r.x1)},${r0(r.y1)}>${r0(r.x2)},${r0(r.y2)}${r.above ? ' above ' + q(r.above) : ''}${r.below ? ' below ' + q(r.below) : ''}`)
+  }
+  const texts = Object.values(doc.texts)
+  if (texts.length) out.push('Text: ' + texts.map(t => `${t.id} ${q(t.text)} ${r0(t.x)},${r0(t.y)}`).join('; '))
+  for (const k of Object.values(doc.brackets ?? {})) {
+    out.push(`Bracket ${k.id} ${k.shape} ${r0(k.x1)},${r0(k.y1)}>${r0(k.x2)},${r0(k.y2)}${k.label ? ' ' + q(k.label) : ''}`)
+  }
+  const b = contentBounds(doc)
+  out.push(b ? `Bounds ${r0(b.x1)},${r0(b.y1)}>${r0(b.x2)},${r0(b.y2)}` : 'The canvas is empty.')
+  return out.join('\n')
 }
 
 function need<T>(v: T | undefined, what: string): T {
@@ -74,15 +105,18 @@ const handlers: Record<string, (p: Params) => unknown> = {
     const res = await addMolecule(String(input), at, kind)
     const doc = getDoc()
     const adj = adjacency(doc)
-    return {
-      atoms: res.atomIds.map((id, index) => {
-        const a = doc.atoms[id]
-        return { index, id, element: a.element, x: r1(a.x), y: r1(a.y), charge: a.charge, implicitH: hCount(a, adj) }
-      }),
-      bonds: res.bondIds.map(id => ({ id, from: doc.bonds[id].a1, to: doc.bonds[id].a2, order: doc.bonds[id].order })),
-      smiles: await smilesOf(doc, res.atomIds),
-      note: kind === 'smiles' ? 'Atom index follows the heavy-atom order of the SMILES string.' : undefined,
-    }
+    const atoms = res.atomIds.map((id, index) => {
+      const a = doc.atoms[id]
+      const h = hCount(a, adj)
+      return `${index}:${id} ${a.element}${h ? 'H' + (h > 1 ? h : '') : ''} ${r0(a.x)},${r0(a.y)}${a.charge ? ` ${a.charge > 0 ? '+' : ''}${a.charge}` : ''}`
+    })
+    const bonds = res.bondIds.map(id => {
+      const b = doc.bonds[id]
+      return `${id} ${b.a1}${b.order === 2 ? '=' : b.order === 3 ? '#' : '-'}${b.a2}`
+    })
+    return `Added ${await smilesOf(doc, res.atomIds)}
+Atoms (index:id${kind === 'smiles' ? ', index = heavy-atom order in your SMILES' : ''}): ${atoms.join('; ')}${bonds.length ? `
+Bonds: ${bonds.join('; ')}` : ''}`
   },
 
   add_atom(p) {
@@ -232,8 +266,24 @@ const handlers: Record<string, (p: Params) => unknown> = {
   redo: () => ({ redone: redo() }),
   clear: () => { replaceDoc(emptyDoc()); return { cleared: true } },
 
+  async draw_mechanism(p) {
+    const spec: MechSpec = { steps: p.steps, title: p.title, x: p.x, y: p.y, width: p.width, lonePairs: p.lone_pairs }
+    const r = await drawMechanism(spec)
+    const b = contentBounds(getDoc())
+    return [
+      'Drawn. Atom ids per species, in SMILES heavy-atom order:',
+      ...r.species.map(s => `${s.step}.${s.index} ${s.smiles}: ${s.atoms.join(' ')}`),
+      r.curlies.length ? `Curly arrows: ${r.curlies.join(' ')}` : '',
+      r.arrows.length ? `Reaction arrows: ${r.arrows.join(' ')}` : '',
+      b ? `Canvas bounds now ${r0(b.x1)},${r0(b.y1)}>${r0(b.x2)},${r0(b.y2)}` : '',
+    ].filter(Boolean).join('\n')
+  },
+
   async screenshot() {
-    const url = await exportPngDataUrl(getDoc(), 2, { style: getDrawStyle() })
+    // Big enough to read, small enough not to waste tokens: about 1000 px on the long side.
+    const b = contentBounds(getDoc())
+    const long = b ? Math.max(b.x2 - b.x1, b.y2 - b.y1) + 80 : 500
+    const url = await exportPngDataUrl(getDoc(), Math.max(0.6, Math.min(2, 1000 / long)), { style: getDrawStyle() })
     return { png: url.split(',')[1] }
   },
 

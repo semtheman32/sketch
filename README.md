@@ -108,6 +108,7 @@ ChemSketch has too many menus, modes and dialogs. This app does less, and keeps 
 
 | Tool | Purpose |
 |---|---|
+| `draw_mechanism` | A whole mechanism in one call: species from SMILES, curly arrows ("2.3" = species 2, atom 3), "+" signs and reaction arrows, laid out automatically |
 | `add_molecule` | From SMILES, molfile or name (PubChem/OPSIN) at x,y |
 | `add_atom` / `add_bond` / `set_charge` | Atom-level edits |
 | `move` / `delete` / `group` | Edit by element ID |
@@ -116,8 +117,8 @@ ChemSketch has too many menus, modes and dialogs. This app does less, and keeps 
 | `add_text` | Labels and annotations |
 | `add_bracket` | Brackets around items, with ‡ or other labels |
 | `clean_structure` | RDKit 2D clean-up |
-| `get_document` | Scene JSON plus SMILES, formula and mass per molecule |
-| `screenshot` | PNG/SVG of the canvas so Claude can check its work |
+| `get_document` | The canvas as compact text: per molecule its formula, SMILES, atoms and bonds, then curly arrows, reaction arrows and texts |
+| `screenshot` | PNG of the canvas (about 1000 px wide) so Claude can check the layout |
 | `export` | PNG, SVG, MOL/SDF, SMILES, PDF |
 | `undo` / `redo` / `clear` | History |
 | `practice_add_exercises` / `practice_open` | Put exercises in the Practice tab; open one |
