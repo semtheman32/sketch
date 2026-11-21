@@ -37,7 +37,10 @@ export function atomVisual(doc: Doc, a: Atom, adj: Adjacency, font = FONT, margi
     for (const n of ns) sx += norm(sub(doc.atoms[n.other], a)).x
     if (sx > 0.1) hSide = 'left'
   }
-  return { showLabel, h, hSide, trim: showLabel ? font * 0.36 + margin : 0 }
+  // Bonds to a heteroatom (O, N, halogens…) stop further from its label than the label needs, so
+  // they read as visibly shorter than a C–C bond and can't be mistaken for one.
+  const hetero = a.element !== 'C' ? font * 0.35 : 0
+  return { showLabel, h, hSide, trim: showLabel ? font * 0.36 + margin + hetero : 0 }
 }
 
 /** Free directions around an atom (for lone pairs and radicals), most open first. */
