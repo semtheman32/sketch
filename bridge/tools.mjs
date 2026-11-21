@@ -45,6 +45,8 @@ Practice mode (the app's Practice tab): the user solves mechanism exercises by d
 - practice_add_exercises puts exercises in the tab (a whole set at once is fine, e.g. made from lecture notes).
   Give each a setup (reactant SMILES, reagents above/below the arrow, and the product unless they must predict it)
   and a thorough answer_key; the app draws the setup itself. Don't draw the answer.
+  Set in_course on each: true when it can be solved with the user's course material, false when it goes beyond.
+  practice_set_scope changes that afterwards.
 - To check the user's work yourself: practice_get_state (answer key), get_document and screenshot, then
   practice_record_feedback. Accept any chemically valid mechanism; point at mistakes by id and ask a guiding
   question rather than giving the corrected structure.
@@ -206,6 +208,7 @@ export const TOOLS = [
         hints: z.array(z.string()).optional().describe('2–3 hints, gentle to concrete'),
         topic: z.string().optional(), difficulty: z.enum(['easy', 'medium', 'hard']).optional(),
         source: z.string().optional().describe('e.g. "Organic Synthesis 2, lecture 3" or "practice test Q4"'),
+        in_course: z.boolean().optional().describe('true if it can be solved with the course material only; false if it goes beyond it (hidden when the user ticks "only course material")'),
         setup: z.object({
           reactants: z.array(z.object({ smiles: z.string(), label: z.string().optional() })).min(1),
           above: z.string().optional(), below: z.string().optional(),
@@ -224,6 +227,11 @@ export const TOOLS = [
     name: 'practice_open', method: 'practice_open',
     description: 'Practice mode: open exercise number `index` from the list (redraws its setup on a fresh canvas; Undo brings back the previous drawing).',
     shape: { index: z.number().int().min(0) },
+  },
+  {
+    name: 'practice_set_scope', method: 'practice_scope',
+    description: 'Practice mode: mark exercises (by id from practice_get_state) as solvable with the course material (in_course true) or beyond it (false). The Practice tab hides the "false" ones when the user ticks "only course material".',
+    shape: { ids: z.array(z.string()).min(1), in_course: z.boolean() },
   },
   {
     name: 'practice_record_feedback', method: 'practice_feedback',

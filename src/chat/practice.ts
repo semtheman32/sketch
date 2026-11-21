@@ -37,6 +37,8 @@ export interface Exercise {
   /** Where it came from, e.g. "Organic Synthesis 2, lecture 4" or "Claude". */
   source?: string
   setup?: ExerciseSetup
+  /** true: solvable with the course material (course.md); false: goes beyond it. Unknown when left out. */
+  inCourse?: boolean
 }
 export type Verdict = 'correct' | 'almost' | 'incorrect'
 export interface CheckPoint { ok: boolean; text: string }
@@ -58,12 +60,14 @@ interface PracticeState {
   busy: null | { kind: 'new' | 'check' | 'hint' | 'solution'; tools: string[] }
   lang: Lang
   available: boolean
+  /** "Only course material": hide exercises marked as beyond the course, and keep new ones inside it. */
+  courseOnly: boolean
 }
 
 const STORAGE_KEY = 'sketch-practice'
 const hot = import.meta.hot
 
-let state: PracticeState = { exercises: [], current: -1, attempts: {}, feedback: {}, busy: null, lang: 'en', available: !!hot }
+let state: PracticeState = { exercises: [], current: -1, attempts: {}, feedback: {}, busy: null, lang: 'en', available: !!hot, courseOnly: false }
 try {
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null')
   if (saved?.exercises) state = { ...state, ...saved, busy: null, available: !!hot }
@@ -92,6 +96,23 @@ function addFeedback(id: string, f: Omit<Feedback, 'time'>) {
 }
 
 export function setLang(lang: Lang) { set({ lang }) }
+export function setCourseOnly(courseOnly: boolean) { set({ courseOnly }) }
+
+/** Hidden by the "only course material" checkbox. */
+export const outOfCourse = (e: Exercise) => e.inCourse === false
+
+/** Mark exercises as inside (true) or beyond (false) the course material. Returns the ids that changed. */
+export function setInCourse(ids: string[], inCourse: boolean) {
+  const want = new Set(ids)
+  const changed: string[] = []
+  const exercises = state.exercises.map(e => {
+    if (!want.has(e.id)) return e
+    changed.push(e.id)
+    return { ...e, inCourse }
+  })
+  set({ exercises })
+  return changed
+}
 
 let nextId = Date.now()
 /** Validate loose input (from Claude or the bridge) into an Exercise. */
@@ -117,6 +138,7 @@ export function toExercise(raw: any, source?: string): Exercise {
     difficulty: raw.difficulty ? String(raw.difficulty) : undefined,
     source: raw.source ? String(raw.source) : source,
     setup,
+    inCourse: typeof raw.in_course === 'boolean' ? raw.in_course : typeof raw.inCourse === 'boolean' ? raw.inCourse : undefined,
   }
 }
 
@@ -210,7 +232,7 @@ function run(kind: NonNullable<PracticeState['busy']>['kind'], payload: Record<s
   if (state.busy || !hot) return
   runId++
   set({ busy: { kind, tools: [] } })
-  hot.send('sketch-practice:run', { runId, kind, lang: state.lang, ...payload })
+  hot.send('sketch-practice:run', { runId, kind, lang: state.lang, courseOnly: state.courseOnly, ...payload })
 }
 
 /** Record a result that came from elsewhere (a Claude Code session checking through the bridge). */
@@ -247,7 +269,12 @@ if (hot) {
     lastError = ''
     const r = ev.result
     if (kind === 'new') {
-      try { await addExercises([toExercise(r, 'Claude')]) } catch (err) { lastError = err instanceof Error ? err.message : String(err); set({}) }
+      try {
+        const made = toExercise(r, 'Claude')
+        // Made while "only course material" was on: the prompt kept it inside course.md.
+        if (state.courseOnly && made.inCourse === undefined) made.inCourse = true
+        await addExercises([made])
+      } catch (err) { lastError = err instanceof Error ? err.message : String(err); set({}) }
     } else if (ex) {
       if (kind === 'check') {
         const verdict: Verdict = ['correct', 'almost', 'incorrect'].includes(r.verdict) ? r.verdict : 'incorrect'
@@ -270,8 +297,9 @@ export function practiceSummary() {
   const ex = currentExercise()
   return {
     current: ex ? { ...ex, attempt: attemptOf(ex.id), feedback: state.feedback[ex.id] ?? [] } : null,
-    exercises: state.exercises.map((e, i) => ({ index: i, id: e.id, title: e.title, topic: e.topic, difficulty: e.difficulty, source: e.source, verdict: state.attempts[e.id]?.verdict ?? null })),
+    exercises: state.exercises.map((e, i) => ({ index: i, id: e.id, title: e.title, topic: e.topic, difficulty: e.difficulty, source: e.source, in_course: e.inCourse ?? null, verdict: state.attempts[e.id]?.verdict ?? null })),
     language: state.lang,
+    course_only: state.courseOnly,
   }
 }
 

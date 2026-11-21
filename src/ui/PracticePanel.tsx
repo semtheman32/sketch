@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Doc, ID } from '../model/types'
 import {
-  askHint, checkDrawing, lastError, openExercise, removeExercise, requestExercise, restartExercise,
-  setLang, showSolution, stopPractice, usePractice, type Feedback, type Verdict,
+  askHint, checkDrawing, lastError, openExercise, outOfCourse, removeExercise, requestExercise, restartExercise,
+  setCourseOnly, setLang, showSolution, stopPractice, usePractice, type Feedback, type Verdict,
 } from '../chat/practice'
 import { flashItems } from '../model/flash'
 import { RichText } from './RichText'
@@ -25,6 +25,9 @@ const T = {
     undoNote: 'Opening an exercise starts a fresh canvas. Undo (Ctrl+Z) brings your previous drawing back.',
     hintLabel: 'Hint', solutionLabel: 'Solution', remove: 'Remove', stop: 'Stop',
     sessionNote: 'A Claude Code session can add whole sets too (for example from your lecture notes).',
+    courseOnly: 'Only course material',
+    courseOnlyTip: 'Show only exercises you can solve with the course material, and keep new exercises inside it (course.md).',
+    beyond: 'beyond the course', hidden: 'hidden',
   },
   nl: {
     intro: 'Vraag een opgave, teken het mechanisme met curly arrows op het canvas en druk op Nakijken.',
@@ -35,6 +38,9 @@ const T = {
     undoNote: 'Een opgave opent op een leeg canvas. Ongedaan maken (Ctrl+Z) haalt je vorige tekening terug.',
     hintLabel: 'Hint', solutionLabel: 'Uitwerking', remove: 'Verwijderen', stop: 'Stop',
     sessionNote: 'Een Claude Code-sessie kan ook hele sets toevoegen (bijvoorbeeld uit je lesoverzichten).',
+    courseOnly: 'Alleen lesstof',
+    courseOnlyTip: 'Toon alleen opgaven die je met de gegeven lesstof kunt oplossen, en houd nieuwe opgaven binnen de lesstof (course.md).',
+    beyond: 'buiten de lesstof', hidden: 'verborgen',
   },
 }
 
@@ -59,7 +65,10 @@ export function PracticePanel({ doc, setSelection }: { doc: Doc; setSelection: (
     else el.scrollTop = 0
   }, [feedback.length, p.current])
 
-  const solved = p.exercises.filter(e => p.attempts[e.id]?.verdict === 'correct').length
+  // Keep the original index: open/remove work on the full list.
+  const listed = p.exercises.map((e, i) => ({ e, i })).filter(({ e }) => !(p.courseOnly && outOfCourse(e)))
+  const hiddenCount = p.exercises.length - listed.length
+  const solved = listed.filter(({ e }) => p.attempts[e.id]?.verdict === 'correct').length
   const showRef = (id: ID) => { setSelection([id]); flashItems([id]) }
   const guard = async (fn: () => unknown) => {
     setError('')
@@ -71,7 +80,11 @@ export function PracticePanel({ doc, setSelection }: { doc: Doc; setSelection: (
   return (
     <div className="practice">
       <div className="practice-top">
-        {p.exercises.length > 0 && <span className="muted small">{solved}/{p.exercises.length} {t.solved}</span>}
+        {p.exercises.length > 0 && <span className="muted small">{solved}/{listed.length} {t.solved}</span>}
+        <label className="course-only" title={t.courseOnlyTip}>
+          <input type="checkbox" checked={p.courseOnly} onChange={e => setCourseOnly(e.target.checked)} />
+          {t.courseOnly}
+        </label>
         <div className="seg-mini" role="group" aria-label="Language">
           {(['nl', 'en'] as const).map(l => (
             <button key={l} className={p.lang === l ? 'on' : ''} onClick={() => setLang(l)}>{l.toUpperCase()}</button>
@@ -83,7 +96,7 @@ export function PracticePanel({ doc, setSelection }: { doc: Doc; setSelection: (
         {ex ? (
           <section className="ex-card">
             <div className="ex-meta">
-              {[ex.topic, ex.difficulty, ex.source].filter(Boolean).join(' · ')}
+              {[ex.topic, ex.difficulty, ex.source, outOfCourse(ex) ? t.beyond : ''].filter(Boolean).join(' · ')}
               {attempt?.verdict && <span className={'verdict ' + attempt.verdict}>{t.verdict[attempt.verdict]}</span>}
             </div>
             <h3>{ex.title}</h3>
@@ -141,17 +154,17 @@ export function PracticePanel({ doc, setSelection }: { doc: Doc; setSelection: (
         </section>
 
         {p.exercises.length > 0 && (
-          <details className="ex-list" open={p.exercises.length <= 8}>
-            <summary>{t.exercises} ({p.exercises.length})</summary>
+          <details className="ex-list" open={listed.length <= 8}>
+            <summary>{t.exercises} ({listed.length}{hiddenCount > 0 ? `, ${hiddenCount} ${t.hidden}` : ''})</summary>
             <ol>
-              {p.exercises.map((e, i) => {
+              {listed.map(({ e, i }) => {
                 const v = p.attempts[e.id]?.verdict
                 return (
                   <li key={e.id} className={i === p.current ? 'on' : ''}>
                     <span className={'vdot ' + (v ?? '')} title={v ? t.verdict[v] : ''} />
                     <button className="ex-open" disabled={!!busy} onClick={() => guard(() => openExercise(i))}>
                       <span className="ex-title">{e.title}</span>
-                      {(e.difficulty || e.source) && <span className="muted small">{[e.difficulty, e.source].filter(Boolean).join(' · ')}</span>}
+                      {(e.difficulty || e.source || outOfCourse(e)) && <span className="muted small">{[e.difficulty, e.source, outOfCourse(e) ? t.beyond : ''].filter(Boolean).join(' · ')}</span>}
                     </button>
                     <button className="icon-btn" disabled={!!busy} onClick={() => removeExercise(i)} aria-label={t.remove} title={t.remove}><Icon name="close" size={13} /></button>
                   </li>

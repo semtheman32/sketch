@@ -272,6 +272,12 @@ const handlers: Record<string, (p: Params) => unknown> = {
     await openExercise(p.index)
     return practiceSummary().current
   },
+  async practice_scope(p) {
+    const { setInCourse } = await import('../chat/practice')
+    if (!Array.isArray(p.ids) || !p.ids.length) throw new Error('Give at least one exercise id')
+    const changed = setInCourse(p.ids.map(String), !!p.in_course)
+    return { changed, missing: p.ids.filter((id: string) => !changed.includes(id)) }
+  },
   async practice_feedback(p) {
     const { recordFeedback } = await import('../chat/practice')
     openPractice()

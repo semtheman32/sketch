@@ -3,6 +3,13 @@
  * Each practice request is a one-off Claude turn that ends by calling one submit_* tool.
  */
 import * as z from 'zod'
+import fs from 'node:fs'
+import path from 'node:path'
+
+/** Optional course syllabus (course.md in the project root). When present, new exercises stay inside it. */
+function courseText() {
+  try { return fs.readFileSync(path.resolve(process.cwd(), 'course.md'), 'utf8').trim() } catch { return '' }
+}
 
 export const PRACTICE_SYSTEM = `
 You are an organic chemistry tutor inside Sketch, a drawing app for molecules and reaction mechanisms.
@@ -78,8 +85,12 @@ export function practicePrompt(msg) {
         : `Make one new mechanism exercise. Topic: ${msg.topic || 'any classic organic reaction mechanism (choose one at random, vary it)'}. Level: ${msg.difficulty || 'medium'}.
 Easy: one or two steps, common reagents (SN2, E2, acid-base, simple carbonyl addition). Medium: two to four steps with intermediates (SN1/E1 with carbocations, acetal or imine formation, ester hydrolysis, aldol, Grignard, EAS). Hard: longer or subtler mechanisms (rearrangements, Claisen/Dieckmann, Michael + Robinson, Wittig, neighbouring-group effects, pericyclic).
 Use a real reaction that works as written. Usually give the product and ask for the mechanism; sometimes (about one in three) leave the product out and ask for product and mechanism.`
+      const course = msg.courseOnly ? courseText() : ''
+      const scope = course
+        ? `\n\nThe user is studying for this course. Only make exercises about reactions and mechanisms that are in this syllabus; this overrides the topic and level examples above. If the chosen topic is not in the syllabus, pick the closest topic that is, and make "hard" mean longer combinations of these reactions with stereochemistry, not reactions from outside the course. Put the lesson in "topic" (e.g. "Les 8 · halohydrine").\n\n<syllabus>\n${course}\n</syllabus>`
+        : ''
       return {
-        prompt: `${ask}\n\nCheck that every SMILES is valid and balanced in charge. ${lang}\nThen call submit_exercise.`,
+        prompt: `${ask}${scope}\n\nCheck that every SMILES is valid and balanced in charge. ${lang}\nThen call submit_exercise.`,
         tools: own ? ['get_document'] : [],
         submit: SUBMIT.exercise,
       }
