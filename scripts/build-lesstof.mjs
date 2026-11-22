@@ -129,7 +129,9 @@ function builder() {
     }
     return b.y2 - b.y1
   }
-  return { doc, text, place }
+  /** Een decoratiepaneel (bracket met shape 'box'): label als kopje linksboven, kleur als accent. */
+  const box = (x1, y1, x2, y2, label = '', color = '') => { const i = id('k'); doc.brackets[i] = { id: i, x1, y1: +y1.toFixed(1), x2, y2: +y2.toFixed(1), shape: 'box', label, ...(color ? { color } : {}) }; return i }
+  return { doc, text, place, box }
 }
 
 // ---------------------------------------------------------------- per les
@@ -144,9 +146,25 @@ for (const { n, short, theme } of ALL) {
   const prefix = (src.match(/const T = n => '([^']+)' \+ n/) || [])[1] || `les${nn}/l${nn}-`
   const B = builder()
   let y = 0, used = new Set(), drawings = 0
-  const para = (s, style, gap = 19) => { for (const l of wrap(s)) { B.text(0, y, l, style); y += gap } }
-  B.text(0, y, `Les ${n} · ${clean(title)}`, { bold: true, size: 24 }); y += 30
-  B.text(0, y, `${theme}. Lesstof uit het lesoverzicht: tekeningen met uitleg per hoofdstuk.`, { size: 13, italic: true, color: '#6b7280' }); y += 44
+  const W = 820, PAD = 22, GAP = 19
+  const C = { blue: '#3b6fd4', green: '#2e9e5b', purple: '#7b4fc9', grey: '#6b7280' }
+  /** Tekstregels vanaf de huidige y; geeft niets terug, schuift y op. */
+  const lines = (s, style = {}, x = PAD, n = WRAP) => { for (const l of wrap(s, n)) { B.text(x, y, l, style); y += GAP } }
+  /** Een paneel met kopje om wat `fill` tekent. */
+  const panel = (label, color, fill, width = W) => {
+    const top = y
+    y += label ? 44 : 28
+    fill()
+    y += -GAP + 16
+    B.box(0, top, width, y, label, color)
+    y += 22
+  }
+
+  panel(`OSY2 · Les ${n}`, C.purple, () => {
+    B.text(PAD, y + 4, clean(title), { bold: true, size: 24 }); y += 34
+    lines(`${theme}. Alle tekeningen uit het lesoverzicht, met de uitleg per hoofdstuk.`, { size: 13, italic: true, color: C.grey })
+  })
+  y += 16
 
   for (const ch of src.matchAll(/<Chapter id="([\w-]+)" n=\{(\d+)\} title="([^"]+)"[^>]*>([\s\S]*?)<\/Chapter>/g)) {
     const [, cid, cn, ctitle, body] = ch
@@ -159,27 +177,32 @@ for (const { n, short, theme } of ALL) {
     const draws = items.filter(i => i.kind === 'draw' && index[i.key] && !used.has(i.key))
     if (!draws.length && !items.some(i => i.kind === 'why')) continue
 
-    B.text(0, y, `${cn}. ${clean(ctitle)}`, { bold: true, size: 19, color: '#1d4ed8' }); y += 28
+    y += 10
+    B.text(0, y, `${cn}. ${clean(ctitle)}`, { bold: true, size: 21, color: C.blue }); y += 24
     for (const it of items) {
-      if (it.kind === 'why' && it.s) { para(it.s, { size: 13, italic: true }); y += 10 }
+      if (it.kind === 'why' && it.s) panel('Waarom', C.blue, () => lines(it.s, { size: 13.5, italic: true }))
       else if (it.kind === 'rem' && it.list.length) {
-        B.text(0, y, 'Onthoud', { bold: true, size: 13, color: '#047857' }); y += 19
-        for (const s of it.list) { const ls = wrap(s, WRAP - 4); ls.forEach((l, i) => { B.text(i ? 12 : 0, y, (i ? '' : '• ') + l, { size: 13, color: '#047857' }); y += 19 }) }
-        y += 12
+        panel('Onthoud', C.green, () => {
+          for (const s of it.list) wrap(s, WRAP - 4).forEach((l, i) => { B.text(PAD + (i ? 14 : 0), y, (i ? '' : '• ') + l, { size: 13.5 }); y += GAP })
+        })
       } else if (it.kind === 'draw') {
         if (!index[it.key] || used.has(it.key)) continue
         const got = labelFor(body, it.p)
         if (got === null) continue
         const label = typeof got === 'string' ? got : got.label, after = typeof got === 'string' ? '' : got.after
         used.add(it.key)
-        if (label) { y += 4; para(label, { size: 13, bold: false }, 19); y -= 4 }
-        y += 18
-        const h = B.place(index[it.key], 24, y)
-        y += h + 40; drawings++
-        if (after) { y -= 8; para('Waarom: ' + after, { size: 13, italic: true, color: '#6b7280' }); y += 22 }
+        const b = bbox(index[it.key])
+        const width = Math.max(W, (b ? b.x2 - b.x1 : 0) + PAD * 2 + 8)
+        panel('', '', () => {
+          if (label) { lines(label, { size: 14, bold: true }); y += 2 }
+          const h = B.place(index[it.key], PAD + 8, y)
+          y += h + 24
+          if (after) { y += 4; lines('Waarom: ' + after, { size: 13, italic: true, color: C.grey }) }
+        }, width)
+        drawings++
       }
     }
-    y += 30
+    y += 26
   }
   if (!drawings) continue
   const out = `les${nn}.chem.json`

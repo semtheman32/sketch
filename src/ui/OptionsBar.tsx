@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react'
 import type { ArrowKind, BondOrder, BondStereo, Doc, ID, TextStyle } from '../model/types'
 import { kindOf } from '../model/types'
 import { commit } from '../model/store'
-import { TextStyleBar } from './TextStyleBar'
+import { TEXT_COLORS, TextStyleBar } from './TextStyleBar'
 import { normaliseLabel } from '../chem/elements'
 import { isAbbrev } from '../chem/abbrev'
 import { bracketAround, flipItems, rotateItems, selectionBounds } from '../model/ops'
@@ -124,12 +124,25 @@ export function OptionsBar({ tool, opts, setOpts, doc, selection, setSelection, 
       body = (
         <>
           <span className="muted small" style={{ padding: '0 6px' }}>Bracket</span>
-          <Seg value={first.shape} onPick={v => set({ shape: v })} items={[{ v: 'square' as const, label: '[ ]', title: 'Square brackets' }, { v: 'round' as const, label: '( )', title: 'Round brackets' }]} />
+          <Seg value={first.shape} onPick={v => set({ shape: v })} items={[{ v: 'square' as const, label: '[ ]', title: 'Square brackets' }, { v: 'round' as const, label: '( )', title: 'Round brackets' }, { v: 'box' as const, label: '▢', title: 'Panel: a coloured box behind a block (decoration)' }]} />
           <span className="divider" />
-          <Seg value={first.label} onPick={v => set({ label: v })} items={[
-            { v: '', label: 'No label' }, { v: '‡', label: '‡', title: 'Transition state' }, { v: 'n', label: 'n', title: 'Repeat unit' },
-            { v: '+', label: '+' }, { v: '−', label: '−' },
-          ]} />
+          {first.shape === 'box' ? (
+            <>
+              <Seg value={first.label} onPick={v => set({ label: v })} items={[
+                { v: '', label: 'No title' }, { v: 'Onthoud', label: 'Onthoud' }, { v: 'Let op', label: 'Let op' }, { v: 'Voorbeeld', label: 'Voorbeeld' },
+              ]} />
+              <span className="divider" />
+              {TEXT_COLORS.map(c => (
+                <button key={c.label} className={'swatch' + ((first.color ?? '') === c.v ? ' on' : '')} title={c.v ? c.label : 'Grey'} aria-label={`${c.v ? c.label : 'Grey'} panel`}
+                  onClick={() => set({ color: c.v })}><span style={{ background: c.v || 'var(--ink)' }} /></button>
+              ))}
+            </>
+          ) : (
+            <Seg value={first.label} onPick={v => set({ label: v })} items={[
+              { v: '', label: 'No label' }, { v: '‡', label: '‡', title: 'Transition state' }, { v: 'n', label: 'n', title: 'Repeat unit' },
+              { v: '+', label: '+' }, { v: '−', label: '−' },
+            ]} />
+          )}
         </>
       )
     }

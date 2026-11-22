@@ -59,7 +59,9 @@ export interface TextItem {
 
 /**
  * Square or round brackets around part of a scheme (an intermediate, a transition state),
- * with an optional label such as ‡ at the top right.
+ * with an optional label such as ‡ at the top right. Shape 'box' is a decoration instead:
+ * a soft coloured panel (behind everything) with its label as a heading at the top left,
+ * e.g. an "Onthoud" box or a card around one mechanism.
  */
 export interface Bracket {
   id: ID
@@ -67,8 +69,10 @@ export interface Bracket {
   y1: number
   x2: number
   y2: number
-  shape: 'square' | 'round'
+  shape: 'square' | 'round' | 'box'
   label: string
+  /** Hex colour of a 'box' panel; empty or missing means the normal ink colour (a neutral grey card). */
+  color?: string
 }
 
 export type TextStyle = Pick<TextItem, 'color' | 'bold' | 'italic' | 'size'>

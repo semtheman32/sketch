@@ -405,6 +405,13 @@ export const bracketTick = (k: Bracket) => Math.min(10, Math.abs(k.y2 - k.y1) * 
 /** Is p on the left or right side of a bracket (or its label)? */
 export function bracketHit(k: Bracket, p: P, tol: number): boolean {
   const x1 = Math.min(k.x1, k.x2), x2 = Math.max(k.x1, k.x2), y1 = Math.min(k.y1, k.y2), y2 = Math.max(k.y1, k.y2)
+  if (k.shape === 'box') {
+    // A panel is picked by its border (or its heading), so clicks inside still reach what is in it.
+    const inX = p.x >= x1 - tol && p.x <= x2 + tol, inYb = p.y >= y1 - tol && p.y <= y2 + tol
+    if (inYb && (Math.abs(p.x - x1) < tol || Math.abs(p.x - x2) < tol)) return true
+    if (inX && (Math.abs(p.y - y1) < tol || Math.abs(p.y - y2) < tol)) return true
+    return !!k.label && p.x >= x1 + 10 && p.x <= x1 + 24 + k.label.length * 9 && p.y >= y1 + 6 && p.y <= y1 + 24
+  }
   const tick = bracketTick(k)
   const inY = p.y >= y1 - tol && p.y <= y2 + tol
   if (inY && p.x >= x1 - tol && p.x <= x1 + tick + tol) return true

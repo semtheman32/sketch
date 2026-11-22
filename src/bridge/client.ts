@@ -71,7 +71,7 @@ async function describe(doc: Doc = getDoc()): Promise<string> {
   const texts = Object.values(doc.texts)
   if (texts.length) out.push('Text: ' + texts.map(t => `${t.id} ${q(t.text)} ${r0(t.x)},${r0(t.y)}`).join('; '))
   for (const k of Object.values(doc.brackets ?? {})) {
-    out.push(`Bracket ${k.id} ${k.shape} ${r0(k.x1)},${r0(k.y1)}>${r0(k.x2)},${r0(k.y2)}${k.label ? ' ' + q(k.label) : ''}`)
+    out.push(`Bracket ${k.id} ${k.shape} ${r0(k.x1)},${r0(k.y1)}>${r0(k.x2)},${r0(k.y2)}${k.label ? ' ' + q(k.label) : ''}${k.color ? ' ' + k.color : ''}`)
   }
   const b = contentBounds(doc)
   out.push(b ? `Bounds ${r0(b.x1)},${r0(b.y1)}>${r0(b.x2)},${r0(b.y2)}` : 'The canvas is empty.')
@@ -257,6 +257,7 @@ Bonds: ${bonds.join('; ')}` : ''}`
       if (!id) throw new Error('Nothing to wrap')
       if (p.shape) d.brackets[id].shape = p.shape
       if (p.label !== undefined) d.brackets[id].label = String(p.label)
+      if (p.color !== undefined) d.brackets[id].color = String(p.color)
       return { ...d.brackets[id] }
     })
   },

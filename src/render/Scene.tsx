@@ -340,6 +340,7 @@ function CurlyView({ c, doc, adj, pal, scale, fl }: { c: Curly; doc: Doc; adj: A
 
 const BracketView = memo(function BracketView({ k, pal, st, fl }: { k: Bracket; pal: Palette; st: DrawStyle; fl: number }) {
   const x1 = Math.min(k.x1, k.x2), x2 = Math.max(k.x1, k.x2), y1 = Math.min(k.y1, k.y2), y2 = Math.max(k.y1, k.y2)
+  if (k.shape === 'box') return <BoxView k={k} pal={pal} fl={fl} />
   const t = bracketTick(k)
   const stroke = { stroke: pal.ink, strokeWidth: st.line, fill: 'none', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
   const left = k.shape === 'round'
@@ -356,6 +357,20 @@ const BracketView = memo(function BracketView({ k, pal, st, fl }: { k: Bracket; 
     </g>
   )
 })
+
+/** A decoration panel: soft fill, thin border, an accent bar on the left and the label as its heading. */
+function BoxView({ k, pal, fl }: { k: Bracket; pal: Palette; fl: number }) {
+  const x1 = Math.min(k.x1, k.x2), x2 = Math.max(k.x1, k.x2), y1 = Math.min(k.y1, k.y2), y2 = Math.max(k.y1, k.y2)
+  const c = k.color || pal.ink
+  return (
+    <g>
+      <Flash k={fl}><rect x={x1 - 4} y={y1 - 4} width={x2 - x1 + 8} height={y2 - y1 + 8} rx={12} /></Flash>
+      <rect x={x1} y={y1} width={x2 - x1} height={y2 - y1} rx={10} fill={c} fillOpacity={k.color ? 0.09 : 0.045} stroke={c} strokeOpacity={k.color ? 0.45 : 0.22} strokeWidth={1.2} />
+      {k.color && <path d={`M ${x1 + 1.5} ${y1 + 10} V ${y2 - 10}`} stroke={c} strokeWidth={4} strokeLinecap="round" opacity={0.85} />}
+      {k.label && <text x={x1 + 16} y={y1 + 20} fontSize={12.5} fontWeight={700} letterSpacing={0.6} fill={c} style={{ fontFamily: pal.notesFont }}>{k.label.toUpperCase()}</text>}
+    </g>
+  )
+}
 
 const TextView = memo(function TextView({ t, pal, fl }: { t: TextItem; pal: Palette; fl: number }) {
   const w = labelWidth(t)

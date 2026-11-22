@@ -186,10 +186,10 @@ export const TOOLS = [
   },
   {
     name: 'add_bracket', method: 'add_bracket',
-    description: 'Put square or round brackets around items (give ids, e.g. the atoms of an intermediate) or a box (x1,y1,x2,y2). label goes top right: "‡" for a transition state, "n" for a repeat unit, "+" or "−" for a charge.',
+    description: 'Put square or round brackets around items (give ids, e.g. the atoms of an intermediate) or a box (x1,y1,x2,y2). label goes top right: "‡" for a transition state, "n" for a repeat unit, "+" or "−" for a charge. shape "box" is decoration instead: a soft coloured panel behind the items (color = hex, e.g. #2e9e5b green, #3b6fd4 blue; none = grey card) with label as its heading top left, e.g. "Onthoud" or "Stap 1".',
     shape: {
       ids: z.array(id).optional(), x1: num.optional(), y1: num.optional(), x2: num.optional(), y2: num.optional(),
-      shape: z.enum(['square', 'round']).optional(), label: z.string().optional(), padding: num.optional(),
+      shape: z.enum(['square', 'round', 'box']).optional(), label: z.string().optional(), padding: num.optional(), color: z.string().optional(),
     },
   },
   {

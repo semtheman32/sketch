@@ -66,6 +66,10 @@ the captions or step explanations and the "Onthoud" points next to it. A lesson 
 The drawings live in `public/lesstof/` (`index.json` plus one `.chem.json` per lesson). Rebuild them from the
 lesson-overview app with `node scripts/build-lesstof.mjs <path to lesoverzichten-app> [extra MS .chem.json]`.
 
+**Panels (decoration).** A bracket can also be a *panel*: select brackets and pick ▢ in the options bar, then a title
+(Onthoud, Let op, Voorbeeld) and a colour. A panel is a soft coloured box drawn behind everything, picked by its border so
+clicks inside still reach the drawing. Claude can make one with `add_bracket` and `shape: "box"`, `color`, `label`.
+
 ## Letting Claude draw from Claude Code
 
 1. Run `npm run dev` and keep the page open.
