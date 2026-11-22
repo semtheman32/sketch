@@ -1,0 +1,111 @@
+[
+ {
+  "n": 1,
+  "title": "Additiereacties (1)",
+  "file": "les01.chem.json",
+  "topics": "Het alkeen als nucleofiel, Additie van HX: het mechanisme, Carbokationen en de regel van Markovnikov, Omleggingen van carbokationen"
+ },
+ {
+  "n": 2,
+  "title": "¹H-NMR",
+  "file": "les02.chem.json",
+  "topics": "Wat meet ¹H-NMR?, De chemische verschuiving, Gelijkwaardige protonen en de integraal, Opsplitsing: de n+1-regel"
+ },
+ {
+  "n": 3,
+  "title": "Kinetiek",
+  "file": "les03.chem.json",
+  "topics": "Thermodynamica, kinetiek en reactiesnelheid, Snelheidsvergelijking en orde, Activeringsenergie en energiediagram, Kinetiek van SN1, SN2, E1 en E2"
+ },
+ {
+  "n": 4,
+  "title": "SN1, SN2, E1, E2",
+  "file": "les04.chem.json",
+  "topics": "Vier mechanismen op een rij, SN2: substraat, nucleofiel en oplosmiddel, SN1, en kiezen tussen SN1 en SN2, Eliminatie: E2 en E1"
+ },
+ {
+  "n": 5,
+  "title": "¹³C-NMR",
+  "file": "les05.chem.json",
+  "topics": "Wat is anders bij ¹³C-NMR?, De chemische verschuiving van C, Ontkoppeld en gekoppeld, DEPT en APT"
+ },
+ {
+  "n": 6,
+  "title": "Vacuüm- en eenvoudige destillatie",
+  "file": "les06.chem.json",
+  "topics": "Verdampen en koken: het p,T-diagram, Vacuümdestillatie en het nomogram, De rotatiefilmverdamper, Eenvoudige destillatie: het T,x-diagram"
+ },
+ {
+  "n": 7,
+  "title": "NMR-interpretatie",
+  "file": "les07.chem.json",
+  "topics": "Het stappenplan en de DBE, ¹H-NMR aflezen: ppm, integraal en opsplitsing, ¹³C-NMR en APT: aantal C, symmetrie en type C, Opdracht 1 en 2 helemaal opgelost"
+ },
+ {
+  "n": 8,
+  "title": "Additiereacties (2)",
+  "file": "les08.chem.json",
+  "topics": "Radicalen, Anti-Markovnikov: HBr met peroxide, Hydroborering-oxidatie, Halogenering: anti-additie"
+ },
+ {
+  "n": 9,
+  "title": "Massaspectrometrie",
+  "file": "les09.chem.json",
+  "topics": "Wat is een massaspectrum?, Fragmentatie van alkanen, Isotopen: M+1 en M+2, Halogeenalkanen: twee manieren van breken"
+ },
+ {
+  "n": 10,
+  "title": "Gefractioneerde en azeotropische destillatie",
+  "file": "les10.chem.json",
+  "topics": "Herhaalde destillatie, Gefractioneerde destillatie en schotels, Hoeveel schotels? Fenske en traptreden, Niet-ideale mengsels en azeotropen"
+ },
+ {
+  "n": 11,
+  "title": "Epoxides",
+  "file": "les11.chem.json",
+  "topics": "Epoxides maken met een peroxyzuur, Epoxides via een halohydrine, Zure ringopening, Basische ringopening"
+ },
+ {
+  "n": 12,
+  "title": "MS en IR",
+  "file": "les12.chem.json",
+  "topics": "MS van ketonen: α-splitsing, De McLafferty-omlegging, IR: wat meet je?, IR: waar ligt welke band?"
+ },
+ {
+  "n": 13,
+  "title": "Herkristallisatie",
+  "file": "les13.chem.json",
+  "topics": "Het driehoeksdiagram, Oplossen, afkoelen, uitkristalliseren, Als het misgaat: geen kristallen of een olie, Smeltpunt en zuiverheid"
+ },
+ {
+  "n": 14,
+  "title": "Combinatie van spectra",
+  "file": "les14.chem.json",
+  "topics": "Wat zegt elk spectrum?, MS: massa, brutoformule en fragmenten, Het stappenplan met vier spectra, Meer oefenopgaven uitgewerkt"
+ },
+ {
+  "n": 15,
+  "title": "Grignard en extractie",
+  "file": "les15.chem.json",
+  "topics": "Grignard- en organolithiumreagentia maken, Grignard met aldehyden en ketonen, Esters, carbonaten en CO₂, Epoxides, water en zijreacties"
+ },
+ {
+  "n": 16,
+  "title": "Ontmenging en stoomdestillatie",
+  "file": "les16.chem.json",
+  "topics": "Ontmengende vloeistoffen, De heterogene azeotroop, Stoomdestillatie, Waterafscheiding met een Dean-Stark-opzet"
+ },
+ {
+  "n": 17,
+  "title": "Casustoets doorgronden",
+  "file": "les17.chem.json",
+  "topics": "Een casustoets aanpakken, Lavendel 1 tot 7: structuur en spectra, Lavendel 8 en 9: mechanismen, Lavendel 10 tot 13: epoxide en Grignard"
+ },
+ {
+  "n": 12,
+  "label": "MS",
+  "title": "MS-splitsingsmechanismen (overzicht les 9 en 12)",
+  "file": "ms-splitsing.chem.json",
+  "topics": "α-splitsing, heterolytisch, McLafferty"
+ }
+]

@@ -340,6 +340,16 @@ function CurlyView({ c, doc, adj, pal, scale, fl }: { c: Curly; doc: Doc; adj: A
 
 const BracketView = memo(function BracketView({ k, pal, st, fl }: { k: Bracket; pal: Palette; st: DrawStyle; fl: number }) {
   const x1 = Math.min(k.x1, k.x2), x2 = Math.max(k.x1, k.x2), y1 = Math.min(k.y1, k.y2), y2 = Math.max(k.y1, k.y2)
+  if (k.shape === 'box') {
+    const c = k.color || pal.ink
+    return (
+      <g>
+        <Flash k={fl}><rect x={x1 - 4} y={y1 - 4} width={x2 - x1 + 8} height={y2 - y1 + 8} rx={12} /></Flash>
+        <rect x={x1} y={y1} width={x2 - x1} height={y2 - y1} rx={10} fill={c} fillOpacity={0.07} stroke={c} strokeOpacity={0.55} strokeWidth={1.5} />
+        {k.label && <text x={x1 + 14} y={y1 + 22} fontSize={Math.max(15, st.font)} fontWeight={700} fill={c}>{k.label}</text>}
+      </g>
+    )
+  }
   const t = bracketTick(k)
   const stroke = { stroke: pal.ink, strokeWidth: st.line, fill: 'none', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
   const left = k.shape === 'round'

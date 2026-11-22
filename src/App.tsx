@@ -112,6 +112,17 @@ export default function App() {
     const k = Math.min(maxK, Math.max(0.3, Math.min((width - pad * 2) / Math.max(b.x2 - b.x1, 1), (height - pad * 2) / Math.max(b.y2 - b.y1, 1))))
     setView({ k, x: width / 2 - ((b.x1 + b.x2) / 2) * k, y: height / 2 - ((b.y1 + b.y2) / 2) * k })
   }, [])
+  /** Show the top of a tall sheet (a lesson) at a readable zoom: fit its width, but never below 0.6. */
+  const fitTop = useCallback(() => {
+    const el = stageRef.current
+    const b = contentBounds(getDoc())
+    if (!el || !b) return
+    const { width } = el.getBoundingClientRect()
+    const pad = 60
+    const k = Math.min(1.2, Math.max(0.6, (width - pad * 2) / Math.max(b.x2 - b.x1, 1)))
+    const x = (b.x2 - b.x1) * k <= width - pad * 2 ? width / 2 - ((b.x1 + b.x2) / 2) * k : pad - b.x1 * k
+    setView({ k, x, y: pad - b.y1 * k })
+  }, [])
   useEffect(() => {
     onOpenPractice(() => { setClaudeOpen(true); chooseTab('practice') })
     // A new exercise is drawn: show all of it, at a zoom that leaves room to draw the mechanism.
@@ -507,7 +518,7 @@ export default function App() {
         )}
       </header>
 
-      <TabBar />
+      <TabBar onLessonOpened={() => { requestAnimationFrame(() => fitTop()); setTimeout(() => fitTop(), 300) }} />
 
       <div className="body">
         <nav className="toolbar" aria-label="Tools">
