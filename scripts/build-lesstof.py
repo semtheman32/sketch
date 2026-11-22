@@ -30,7 +30,7 @@ def tex(s):
         c = s[i]
         if c == '\\':
             m = re.match(r'\\([A-Za-z]+|.)', s[i:]); cmd = m.group(1); i += len(m.group(0))
-            if cmd == 'frac':
+            if cmd in ('frac', 'tfrac', 'dfrac'):
                 a, i = grp(s, i); b, i = grp(s, i)
                 a, b = tex(a), tex(b)
                 out.append((f'({a})' if len(a) > 1 and ' ' in a else a) + '/' + (f'({b})' if re.search(r'[\s+\-−·]', b) else b))
@@ -56,7 +56,7 @@ def tex(s):
     return ''.join(out)
 
 def clean(s):
-    s = re.sub(r'\$([^$]+)\$', lambda m: tex(m.group(1)), s)
+    s = re.sub(r'\$([^$]+)\$', lambda m: tex(m.group(1).replace('\x0c', '\\f').replace('\t', '\\t').replace('\x08', '\\b').replace('\x0b', '\\v')), s)
     s = s.replace('**', '').replace('`', '')
     s = re.sub(r'\s*\[(zelf|ter illustratie)\]', '', s)
     return re.sub(r'\s+', ' ', s).strip()
@@ -132,10 +132,14 @@ def lines(sh, items, x=0, numbered=False, size=14):
     for k, it in enumerate(items, 1):
         if isinstance(it, list): it = (clean(it[0]) + ' ' + clean(it[1])) if len(it) > 1 else clean(it[0])
         pre = f'{k}. ' if numbered else '• '
+        fig = None
+        if isinstance(it, dict) and 'c' not in it and ('t' in it or 'h' in it or 'f' in it):
+            fig = it.get('f'); it = (clean(str(it.get('h', ''))) + ' ' + clean(str(it.get('t', '')))).strip()
         txt = clean(flat(it) if isinstance(it, dict) else str(it))
         ws = wrap(pre + txt, size, W - x - 10)
         for j, line in enumerate(ws):
             sh.y += size + 2; sh.text(x + (0 if j == 0 else 18), sh.y, line, size); sh.y += 6
+        if fig: sh.drawing(fig, x + 18)
 
 def node(sh, n):
     t, p = n.get('t'), n.get('p', {})
@@ -189,6 +193,72 @@ def node(sh, n):
         card(sh, GRAY, clean(p.get('title', 'Tabel')), body)
     elif t == 'Summary':
         lines(sh, p.get('items', []), 4)
+    elif t == 'ReactionOverview':
+        def body():
+            for it in p.get('items', []):
+                sh.y += 6; sh.para(4, it.get('title', ''), 14, W - 20, bold=True)
+                if it.get('f'): sh.drawing(it['f'], 10)
+                sh.para(4, f"{clean(str(it.get('from', '')))}  + {clean(str(it.get('reag', '')))}  →  {clean(str(it.get('to', '')))}", 13, W - 20)
+        card(sh, BLUE, clean(p.get('title', 'Reactie-overzicht')), body)
+    elif t == 'RuleOverview':
+        def body():
+            for it in p.get('items', []):
+                sh.y += 6; sh.para(4, it.get('title', ''), 14, W - 20, bold=True)
+                if it.get('f'): sh.drawing(it['f'], 10)
+                for k in ('rule', 'text'):
+                    if it.get(k): sh.para(4, str(it[k]), 13, W - 20)
+                for r in it.get('rows') or []: sh.para(4, '  |  '.join(clean(str(x)) for x in r) if isinstance(r, list) else str(r), 13, W - 20)
+                if it.get('ex'): sh.para(4, 'Voorbeeld: ' + clean(str(it['ex'])), 13, W - 20, color=MUTED)
+        card(sh, GRAY, clean(p.get('title', 'Overzicht van de regels')), body)
+    elif t == 'DrawTabs':
+        def body():
+            for tb in p.get('tabs', []):
+                sh.y += 6; sh.para(4, tb.get('t', ''), 14, W - 20, bold=True)
+                if tb.get('f'): sh.drawing(tb['f'], 10)
+                if tb.get('cap'): sh.para(4, tb['cap'], 13, W - 20, italic=True, color=MUTED)
+                sh.para(4, (clean(str(tb.get('h', ''))) + ' ' + clean(str(tb.get('x', '')))).strip(), 13, W - 20)
+        card(sh, BLUE, clean(p.get('title', '')), body)
+    elif t == 'WhichProduct':
+        def body():
+            if p.get('f'): sh.drawing(p['f'], 10)
+            if p.get('q'): sh.para(4, re.sub(r'\s*Klik op een tekening\.?', '', p['q']), 13, W - 20, italic=True)
+            for k, o in enumerate(p.get('opts', [])):
+                sh.y += 4; sh.para(4, f"{'ABCDEFG'[k]}. {clean(str(o.get('name', '')))}", 13, W - 20, bold=True)
+                if o.get('f'): sh.drawing(o['f'], 10)
+            sh.y += 6; sh.para(4, 'Uitleg bij de keuzes:', 13, W - 20, bold=True, color=MUTED)
+            for k, o in enumerate(p.get('opts', [])):
+                sh.para(4, f"{'ABCDEFG'[k]}. {clean(str(o.get('why', '')))}", 13, W - 20, color=MUTED)
+        card(sh, PURPLE, clean(p.get('title', 'Welk product?')), body)
+    elif t == 'StickSpectrum':
+        def body():
+            for pk in p.get('peaks', []): sh.para(4, '• ' + clean(str(pk.get('label', ''))), 13, W - 20)
+        card(sh, GRAY, clean(p.get('title', 'Spectrum')), body)
+    elif t == 'SpectraPuzzle':
+        for c in p.get('cases', []):
+            def body(c=c):
+                if c.get('given'): sh.para(4, 'Gegeven: ' + clean(c['given']), 13, W - 20, italic=True)
+                for k, st in enumerate(c.get('steps', []), 1):
+                    sh.y += 4; sh.para(4, f"{k}. {clean(str(st.get('k', '')))}: {clean(str(st.get('data', '')))}", 13, W - 20, bold=True)
+                    if st.get('q'): sh.para(18, clean(st['q']), 13, W - 40)
+                    o = st.get('opts') or []
+                    if isinstance(st.get('a'), int) and st['a'] < len(o): sh.para(18, 'Antwoord: ' + clean(str(o[st['a']][0])) + '. ' + clean(str(st.get('ok', ''))), 13, W - 40, color=MUTED)
+                f = c.get('final') or {}
+                o = f.get('opts') or []
+                if isinstance(f.get('a'), int) and f['a'] < len(o):
+                    sh.y += 6; sh.para(4, 'Structuur: ' + clean(str(o[f['a']].get('name', ''))), 13, W - 20, bold=True)
+                    if o[f['a']].get('f'): sh.drawing(o[f['a']]['f'], 10)
+                    sh.para(4, clean(str(o[f['a']].get('why', ''))), 13, W - 20, color=MUTED)
+            card(sh, PURPLE, 'Puzzel: ' + clean(str(c.get('key', ''))), body)
+    elif t == 'FragmentLab':
+        def body():
+            for st in p.get('sets', []):
+                if not st: continue
+                sh.y += 6; sh.para(4, f"{clean(str(st.get('name', '')))} (M = {st.get('M', '')})", 14, W - 20, bold=True)
+                if st.get('f'): sh.drawing(st['f'], 10)
+                for mz, v in sorted((st.get('info') or {}).items(), key=lambda kv: int(kv[0]) if str(kv[0]).isdigit() else 0):
+                    v = v if isinstance(v, list) else [v]
+                    sh.para(4, f"m/z {mz}: " + ' — '.join(clean(str(x)) for x in v), 13, W - 20)
+        card(sh, BLUE, clean(p.get('title', 'Fragmenten')), body)
     elif t in ('F', 'div'):
         for c in n.get('c', []):
             if isinstance(c, dict): node(sh, c)
@@ -221,4 +291,6 @@ for key in sorted(T):
     json.dump(sh.d, open(os.path.join(OUT, fn), 'w'), ensure_ascii=False)
     index.append(dict(n=meta['n'], title=meta.get('short') or meta['title'], file=fn, topics=', '.join(topics[:4])))
     print(key, len(sh.d['atoms']), 'atoms', len(sh.d['texts']), 'texts', int(sh.y), 'high')
-json.dump(index, open(os.path.join(OUT, 'index.json'), 'w'), ensure_ascii=False, indent=1)
+# index.json is kept by hand (groups, extra sheets such as MS); only write it when there is none yet
+if not os.path.exists(os.path.join(OUT, 'index.json')):
+    json.dump(index, open(os.path.join(OUT, 'index.json'), 'w'), ensure_ascii=False, indent=1)
