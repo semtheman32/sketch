@@ -1,0 +1,146 @@
+[
+ {
+  "n": 1,
+  "name": "Les 1 · Additiereacties (1)",
+  "title": "Additiereacties (1): HX, water en alcohol aan alkenen",
+  "theme": "Organische chemie",
+  "file": "les01.chem.json",
+  "drawings": 25
+ },
+ {
+  "n": 2,
+  "name": "Les 2 · ¹H-NMR",
+  "title": "¹H-NMR: verschuiving, integraal en opsplitsing",
+  "theme": "Structuuropheldering",
+  "file": "les02.chem.json",
+  "drawings": 8
+ },
+ {
+  "n": 3,
+  "name": "Les 3 · Kinetiek en organische chemie",
+  "title": "Kinetiek en organische chemie",
+  "theme": "Organische chemie",
+  "file": "les03.chem.json",
+  "drawings": 13
+ },
+ {
+  "n": 4,
+  "name": "Les 4 · Reactiesturing: substitutie en eliminatie",
+  "title": "Reactiesturing: substitutie of eliminatie",
+  "theme": "Organische chemie",
+  "file": "les04.chem.json",
+  "drawings": 19
+ },
+ {
+  "n": 5,
+  "name": "Les 5 · ¹³C-NMR",
+  "title": "¹³C-NMR: verschuiving, multipliciteit, DEPT en onverzadigdheden",
+  "theme": "Structuuropheldering",
+  "file": "les05.chem.json",
+  "drawings": 7
+ },
+ {
+  "n": 6,
+  "name": "Les 6 · Vacuüm- en eenvoudige destillatie",
+  "title": "Vacuüm- en eenvoudige destillatie",
+  "theme": "Scheidingstechnieken",
+  "file": "les06.chem.json",
+  "drawings": 8
+ },
+ {
+  "n": 7,
+  "name": "Les 7 · NMR-interpretatie",
+  "title": "NMR-interpretatie: van spectrum naar structuur",
+  "theme": "Structuuropheldering",
+  "file": "les07.chem.json",
+  "drawings": 10
+ },
+ {
+  "n": 8,
+  "name": "Les 8 · Additiereacties (2)",
+  "title": "Additiereacties (2): radicalen, hydroborering, halogenen en waterstof",
+  "theme": "Organische chemie",
+  "file": "les08.chem.json",
+  "drawings": 28
+ },
+ {
+  "n": 9,
+  "name": "Les 9 · Massaspectrometrie",
+  "title": "Massaspectrometrie: fragmenten, isotopen en brutoformule",
+  "theme": "Structuuropheldering",
+  "file": "les09.chem.json",
+  "drawings": 12
+ },
+ {
+  "n": 10,
+  "name": "Les 10 · Gefractioneerde en azeotropische destillatie",
+  "title": "Gefractioneerde en azeotropische destillatie",
+  "theme": "Scheidingstechnieken",
+  "file": "les10.chem.json",
+  "drawings": 7
+ },
+ {
+  "n": 11,
+  "name": "Les 11 · Epoxides",
+  "title": "Epoxides: maken en openen",
+  "theme": "Organische chemie",
+  "file": "les11.chem.json",
+  "drawings": 28
+ },
+ {
+  "n": 12,
+  "name": "Les 12 · MS en IR",
+  "title": "MS van ketonen en IR-spectroscopie",
+  "theme": "Structuuropheldering",
+  "file": "les12.chem.json",
+  "drawings": 18
+ },
+ {
+  "n": 12,
+  "name": "MS-splitsing (les 9 en 12)",
+  "title": "Splitsingsmechanismen in de massaspectrometrie",
+  "theme": "Structuuropheldering",
+  "file": "ms-splitsing.chem.json",
+  "extra": true
+ },
+ {
+  "n": 13,
+  "name": "Les 13 · Herkristallisatie",
+  "title": "Herkristallisatie en smeltpunt",
+  "theme": "Scheidingstechnieken",
+  "file": "les13.chem.json",
+  "drawings": 5
+ },
+ {
+  "n": 14,
+  "name": "Les 14 · Combinatie van spectra",
+  "title": "Combinatie van spectra: MS, IR, ¹³C en ¹H samen",
+  "theme": "Structuuropheldering",
+  "file": "les14.chem.json",
+  "drawings": 10
+ },
+ {
+  "n": 15,
+  "name": "Les 15 · Grignard en extractie",
+  "title": "Grignard en organolithium, en vloeistof-vloeistofextractie",
+  "theme": "Organische chemie",
+  "file": "les15.chem.json",
+  "drawings": 24
+ },
+ {
+  "n": 16,
+  "name": "Les 16 · Ontmenging, stoomdestillatie en waterafscheiding",
+  "title": "Ontmengende vloeistoffen, stoomdestillatie en waterafscheiding",
+  "theme": "Scheidingstechnieken",
+  "file": "les16.chem.json",
+  "drawings": 1
+ },
+ {
+  "n": 17,
+  "name": "Les 17 · Casustoets doorgronden",
+  "title": "Casustoets doorgronden: aanpak en de oefencasus Lavendel",
+  "theme": "Toets",
+  "file": "les17.chem.json",
+  "drawings": 22
+ }
+]

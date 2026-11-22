@@ -1,0 +1,1953 @@
+{
+  "atoms": {
+    "a1": {
+      "id": "a1",
+      "x": 6,
+      "y": 270.9277551845757,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a2": {
+      "id": "a2",
+      "x": 40.655145414650974,
+      "y": 250.96024757724214,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a3": {
+      "id": "a3",
+      "x": 75.27829161839277,
+      "y": 270.9837538036668,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 2,
+      "radical": false
+    },
+    "a4": {
+      "id": "a4",
+      "x": 109.93343703304376,
+      "y": 251.00824639360593,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a5": {
+      "id": "a5",
+      "x": 144.55658323678557,
+      "y": 271.03975242275783,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a6": {
+      "id": "a6",
+      "x": 296.4,
+      "y": 271,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a7": {
+      "id": "a7",
+      "x": 331.4,
+      "y": 251,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a8": {
+      "id": "a8",
+      "x": 365.4,
+      "y": 271,
+      "element": "O",
+      "charge": 1,
+      "lonePairs": 1,
+      "radical": true
+    },
+    "a9": {
+      "id": "a9",
+      "x": 400.4,
+      "y": 251,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a10": {
+      "id": "a10",
+      "x": 435.4,
+      "y": 271,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a11": {
+      "id": "a11",
+      "x": 144.56944244352312,
+      "y": 546.97208663722,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a12": {
+      "id": "a12",
+      "x": 109.91108074229089,
+      "y": 527.0027258786151,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a13": {
+      "id": "a13",
+      "x": 109.87907856158799,
+      "y": 487,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a14": {
+      "id": "a14",
+      "x": 75.28472122176156,
+      "y": 547.02809045345,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a15": {
+      "id": "a15",
+      "x": 40.626359520529334,
+      "y": 527.0587296948453,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a16": {
+      "id": "a16",
+      "x": 6,
+      "y": 547.08409426968,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a17": {
+      "id": "a17",
+      "x": 505.1666666666667,
+      "y": 537,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a18": {
+      "id": "a18",
+      "x": 470.1666666666667,
+      "y": 517,
+      "element": "C",
+      "charge": 1,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a19": {
+      "id": "a19",
+      "x": 470.1666666666667,
+      "y": 477,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a20": {
+      "id": "a20",
+      "x": 435.1666666666667,
+      "y": 537,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": true
+    },
+    "a21": {
+      "id": "a21",
+      "x": 401.1666666666667,
+      "y": 517,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a22": {
+      "id": "a22",
+      "x": 366.1666666666667,
+      "y": 537,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a23": {
+      "id": "a23",
+      "x": 131.93343703304376,
+      "y": 767.0402456045151,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a24": {
+      "id": "a24",
+      "x": 97.27829161839279,
+      "y": 787.0157530145759,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a25": {
+      "id": "a25",
+      "x": 62.65514541465098,
+      "y": 766.9842469854241,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a26": {
+      "id": "a26",
+      "x": 28,
+      "y": 786.9597543954849,
+      "element": "Br",
+      "charge": 1,
+      "lonePairs": 2,
+      "radical": true
+    },
+    "a27": {
+      "id": "a27",
+      "x": 377.75,
+      "y": 769.5,
+      "element": "C",
+      "charge": 1,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a28": {
+      "id": "a28",
+      "x": 411.75,
+      "y": 789.5,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a29": {
+      "id": "a29",
+      "x": 446.75,
+      "y": 769.5,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a30": {
+      "id": "a30",
+      "x": 342.75,
+      "y": 789.5,
+      "element": "Br",
+      "charge": 0,
+      "lonePairs": 3,
+      "radical": true
+    },
+    "a31": {
+      "id": "a31",
+      "x": 75.28391188010025,
+      "y": 1066.1193944368374,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a32": {
+      "id": "a32",
+      "x": 40.71396000551443,
+      "y": 1046.0022585912818,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a33": {
+      "id": "a33",
+      "x": 6,
+      "y": 1065.8753806594307,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a34": {
+      "id": "a34",
+      "x": 40.85796813644305,
+      "y": 1005.9999999999999,
+      "element": "Cl",
+      "charge": 1,
+      "lonePairs": 2,
+      "radical": true
+    },
+    "a35": {
+      "id": "a35",
+      "x": 288.75,
+      "y": 1053.5,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a36": {
+      "id": "a36",
+      "x": 323.75,
+      "y": 1033.5,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a37": {
+      "id": "a37",
+      "x": 323.75,
+      "y": 993.5,
+      "element": "Cl",
+      "charge": 1,
+      "lonePairs": 2,
+      "radical": false
+    },
+    "a38": {
+      "id": "a38",
+      "x": 357.75,
+      "y": 1053.5,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": true
+    },
+    "a39": {
+      "id": "a39",
+      "x": 6,
+      "y": 1326.9277551845757,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a40": {
+      "id": "a40",
+      "x": 40.655145414650974,
+      "y": 1306.9602475772422,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a41": {
+      "id": "a41",
+      "x": 75.27829161839277,
+      "y": 1326.9837538036668,
+      "element": "O",
+      "charge": 1,
+      "lonePairs": 1,
+      "radical": true
+    },
+    "a42": {
+      "id": "a42",
+      "x": 109.93343703304376,
+      "y": 1307.008246393606,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a43": {
+      "id": "a43",
+      "x": 144.55658323678557,
+      "y": 1327.0397524227578,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a44": {
+      "id": "a44",
+      "x": 352.6,
+      "y": 1305,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a45": {
+      "id": "a45",
+      "x": 386.6,
+      "y": 1325,
+      "element": "O",
+      "charge": 1,
+      "lonePairs": 1,
+      "radical": false
+    },
+    "a46": {
+      "id": "a46",
+      "x": 421.6,
+      "y": 1305,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a47": {
+      "id": "a47",
+      "x": 456.6,
+      "y": 1325,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a48": {
+      "id": "a48",
+      "x": 317.6,
+      "y": 1325,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": true
+    },
+    "a49": {
+      "id": "a49",
+      "x": 6,
+      "y": 1535.9277551845757,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a50": {
+      "id": "a50",
+      "x": 40.655145414650974,
+      "y": 1515.9602475772422,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a51": {
+      "id": "a51",
+      "x": 75.27829161839277,
+      "y": 1535.9837538036668,
+      "element": "O",
+      "charge": 1,
+      "lonePairs": 1,
+      "radical": true
+    },
+    "a52": {
+      "id": "a52",
+      "x": 109.93343703304376,
+      "y": 1516.008246393606,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a53": {
+      "id": "a53",
+      "x": 144.55658323678557,
+      "y": 1536.0397524227578,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a54": {
+      "id": "a54",
+      "x": 364.2,
+      "y": 1536,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a55": {
+      "id": "a55",
+      "x": 399.2,
+      "y": 1516,
+      "element": "C",
+      "charge": 1,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a56": {
+      "id": "a56",
+      "x": 433.2,
+      "y": 1536,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 2,
+      "radical": true
+    },
+    "a57": {
+      "id": "a57",
+      "x": 468.2,
+      "y": 1516,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a58": {
+      "id": "a58",
+      "x": 503.2,
+      "y": 1536,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a59": {
+      "id": "a59",
+      "x": 6,
+      "y": 1792.2714313714037,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a60": {
+      "id": "a60",
+      "x": 40.679510328771194,
+      "y": 1812.2071498810456,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a61": {
+      "id": "a61",
+      "x": 75.27902178711848,
+      "y": 1792.1354332916828,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a62": {
+      "id": "a62",
+      "x": 109.9585321158897,
+      "y": 1812.0631519142826,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a63": {
+      "id": "a63",
+      "x": 144.558043574237,
+      "y": 1791.9994352119622,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a64": {
+      "id": "a64",
+      "x": 179.2455537900506,
+      "y": 1811.9271538345618,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a65": {
+      "id": "a65",
+      "x": 144.47804470381305,
+      "y": 1752,
+      "element": "O",
+      "charge": 1,
+      "lonePairs": 1,
+      "radical": true
+    },
+    "a66": {
+      "id": "a66",
+      "x": 567,
+      "y": 1797.7142857142858,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a67": {
+      "id": "a67",
+      "x": 533,
+      "y": 1777.7142857142858,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a68": {
+      "id": "a68",
+      "x": 532,
+      "y": 1737.7142857142858,
+      "element": "O",
+      "charge": 1,
+      "lonePairs": 1,
+      "radical": false
+    },
+    "a69": {
+      "id": "a69",
+      "x": 498,
+      "y": 1797.7142857142858,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": true
+    },
+    "a70": {
+      "id": "a70",
+      "x": 463,
+      "y": 1777.7142857142858,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a71": {
+      "id": "a71",
+      "x": 429,
+      "y": 1797.7142857142858,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a72": {
+      "id": "a72",
+      "x": 394,
+      "y": 1777.7142857142858,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a73": {
+      "id": "a73",
+      "x": 6,
+      "y": 2088.2071498810456,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a74": {
+      "id": "a74",
+      "x": 40.59951145834729,
+      "y": 2068.135433291683,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a75": {
+      "id": "a75",
+      "x": 75.2790217871185,
+      "y": 2088.071151801325,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a76": {
+      "id": "a76",
+      "x": 109.87853324546577,
+      "y": 2067.999435211962,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a77": {
+      "id": "a77",
+      "x": 144.558043574237,
+      "y": 2087.927153834562,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a78": {
+      "id": "a78",
+      "x": 109.79853437504185,
+      "y": 2028,
+      "element": "O",
+      "charge": 1,
+      "lonePairs": 1,
+      "radical": true
+    },
+    "a79": {
+      "id": "a79",
+      "x": 313.058043574237,
+      "y": 2077.9766970086716,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a80": {
+      "id": "a80",
+      "x": 347.7720035797514,
+      "y": 2058.103574940523,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a81": {
+      "id": "a81",
+      "x": 382.48596358526584,
+      "y": 2038.230452872374,
+      "element": "O",
+      "charge": 1,
+      "lonePairs": 1,
+      "radical": false
+    },
+    "a82": {
+      "id": "a82",
+      "x": 454.48596358526584,
+      "y": 2067.911320530902,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": true
+    },
+    "a83": {
+      "id": "a83",
+      "x": 489.19706319102005,
+      "y": 2048.0398359905253,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a84": {
+      "id": "a84",
+      "x": 523.7641665319888,
+      "y": 2068.1673138905203,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a85": {
+      "id": "a85",
+      "x": 6,
+      "y": 2364.2071498810456,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a86": {
+      "id": "a86",
+      "x": 40.59951145834729,
+      "y": 2344.135433291683,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a87": {
+      "id": "a87",
+      "x": 75.2790217871185,
+      "y": 2364.071151801325,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a88": {
+      "id": "a88",
+      "x": 109.87853324546577,
+      "y": 2343.999435211962,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a89": {
+      "id": "a89",
+      "x": 144.558043574237,
+      "y": 2363.927153834562,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a90": {
+      "id": "a90",
+      "x": 109.79853437504185,
+      "y": 2304,
+      "element": "O",
+      "charge": 1,
+      "lonePairs": 1,
+      "radical": true
+    },
+    "a91": {
+      "id": "a91",
+      "x": -28.682372193123214,
+      "y": 2344.278952294267,
+      "element": "H",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a92": {
+      "id": "a92",
+      "x": 371.6666666666667,
+      "y": 2357.3333333333335,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": true
+    },
+    "a93": {
+      "id": "a93",
+      "x": 406.6666666666667,
+      "y": 2337.3333333333335,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a94": {
+      "id": "a94",
+      "x": 441.6666666666667,
+      "y": 2357.3333333333335,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a95": {
+      "id": "a95",
+      "x": 406.6666666666667,
+      "y": 2297.3333333333335,
+      "element": "O",
+      "charge": 1,
+      "lonePairs": 1,
+      "radical": false
+    },
+    "a96": {
+      "id": "a96",
+      "x": 337.6666666666667,
+      "y": 2337.3333333333335,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a97": {
+      "id": "a97",
+      "x": 302.6666666666667,
+      "y": 2357.3333333333335,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b1": {
+      "id": "b1",
+      "a1": "a1",
+      "a2": "a2",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b2": {
+      "id": "b2",
+      "a1": "a2",
+      "a2": "a3",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b3": {
+      "id": "b3",
+      "a1": "a3",
+      "a2": "a4",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b4": {
+      "id": "b4",
+      "a1": "a4",
+      "a2": "a5",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b5": {
+      "id": "b5",
+      "a1": "a6",
+      "a2": "a7",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b6": {
+      "id": "b6",
+      "a1": "a7",
+      "a2": "a8",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b7": {
+      "id": "b7",
+      "a1": "a8",
+      "a2": "a9",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b8": {
+      "id": "b8",
+      "a1": "a9",
+      "a2": "a10",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b9": {
+      "id": "b9",
+      "a1": "a11",
+      "a2": "a12",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b10": {
+      "id": "b10",
+      "a1": "a12",
+      "a2": "a13",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b11": {
+      "id": "b11",
+      "a1": "a12",
+      "a2": "a14",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b12": {
+      "id": "b12",
+      "a1": "a14",
+      "a2": "a15",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b13": {
+      "id": "b13",
+      "a1": "a15",
+      "a2": "a16",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b14": {
+      "id": "b14",
+      "a1": "a17",
+      "a2": "a18",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b15": {
+      "id": "b15",
+      "a1": "a18",
+      "a2": "a19",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b16": {
+      "id": "b16",
+      "a1": "a20",
+      "a2": "a21",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b17": {
+      "id": "b17",
+      "a1": "a21",
+      "a2": "a22",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b18": {
+      "id": "b18",
+      "a1": "a23",
+      "a2": "a24",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b19": {
+      "id": "b19",
+      "a1": "a24",
+      "a2": "a25",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b20": {
+      "id": "b20",
+      "a1": "a25",
+      "a2": "a26",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b21": {
+      "id": "b21",
+      "a1": "a27",
+      "a2": "a28",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b22": {
+      "id": "b22",
+      "a1": "a28",
+      "a2": "a29",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b23": {
+      "id": "b23",
+      "a1": "a31",
+      "a2": "a32",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b24": {
+      "id": "b24",
+      "a1": "a32",
+      "a2": "a33",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b25": {
+      "id": "b25",
+      "a1": "a32",
+      "a2": "a34",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b26": {
+      "id": "b26",
+      "a1": "a35",
+      "a2": "a36",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b27": {
+      "id": "b27",
+      "a1": "a36",
+      "a2": "a37",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b28": {
+      "id": "b28",
+      "a1": "a39",
+      "a2": "a40",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b29": {
+      "id": "b29",
+      "a1": "a40",
+      "a2": "a41",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b30": {
+      "id": "b30",
+      "a1": "a41",
+      "a2": "a42",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b31": {
+      "id": "b31",
+      "a1": "a42",
+      "a2": "a43",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b32": {
+      "id": "b32",
+      "a1": "a44",
+      "a2": "a45",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b33": {
+      "id": "b33",
+      "a1": "a45",
+      "a2": "a46",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b34": {
+      "id": "b34",
+      "a1": "a46",
+      "a2": "a47",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b35": {
+      "id": "b35",
+      "a1": "a49",
+      "a2": "a50",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b36": {
+      "id": "b36",
+      "a1": "a50",
+      "a2": "a51",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b37": {
+      "id": "b37",
+      "a1": "a51",
+      "a2": "a52",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b38": {
+      "id": "b38",
+      "a1": "a52",
+      "a2": "a53",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b39": {
+      "id": "b39",
+      "a1": "a54",
+      "a2": "a55",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b40": {
+      "id": "b40",
+      "a1": "a56",
+      "a2": "a57",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b41": {
+      "id": "b41",
+      "a1": "a57",
+      "a2": "a58",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b42": {
+      "id": "b42",
+      "a1": "a59",
+      "a2": "a60",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b43": {
+      "id": "b43",
+      "a1": "a60",
+      "a2": "a61",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b44": {
+      "id": "b44",
+      "a1": "a61",
+      "a2": "a62",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b45": {
+      "id": "b45",
+      "a1": "a62",
+      "a2": "a63",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b46": {
+      "id": "b46",
+      "a1": "a63",
+      "a2": "a64",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b47": {
+      "id": "b47",
+      "a1": "a63",
+      "a2": "a65",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b48": {
+      "id": "b48",
+      "a1": "a66",
+      "a2": "a67",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b49": {
+      "id": "b49",
+      "a1": "a67",
+      "a2": "a68",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b50": {
+      "id": "b50",
+      "a1": "a69",
+      "a2": "a70",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b51": {
+      "id": "b51",
+      "a1": "a70",
+      "a2": "a71",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b52": {
+      "id": "b52",
+      "a1": "a71",
+      "a2": "a72",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b53": {
+      "id": "b53",
+      "a1": "a73",
+      "a2": "a74",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b54": {
+      "id": "b54",
+      "a1": "a74",
+      "a2": "a75",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b55": {
+      "id": "b55",
+      "a1": "a75",
+      "a2": "a76",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b56": {
+      "id": "b56",
+      "a1": "a76",
+      "a2": "a77",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b57": {
+      "id": "b57",
+      "a1": "a76",
+      "a2": "a78",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b58": {
+      "id": "b58",
+      "a1": "a79",
+      "a2": "a80",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b59": {
+      "id": "b59",
+      "a1": "a80",
+      "a2": "a81",
+      "order": 3,
+      "stereo": "none"
+    },
+    "b60": {
+      "id": "b60",
+      "a1": "a82",
+      "a2": "a83",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b61": {
+      "id": "b61",
+      "a1": "a83",
+      "a2": "a84",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b62": {
+      "id": "b62",
+      "a1": "a85",
+      "a2": "a86",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b63": {
+      "id": "b63",
+      "a1": "a86",
+      "a2": "a87",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b64": {
+      "id": "b64",
+      "a1": "a87",
+      "a2": "a88",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b65": {
+      "id": "b65",
+      "a1": "a88",
+      "a2": "a89",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b66": {
+      "id": "b66",
+      "a1": "a88",
+      "a2": "a90",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b67": {
+      "id": "b67",
+      "a1": "a85",
+      "a2": "a91",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b68": {
+      "id": "b68",
+      "a1": "a92",
+      "a2": "a93",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b69": {
+      "id": "b69",
+      "a1": "a93",
+      "a2": "a94",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b70": {
+      "id": "b70",
+      "a1": "a93",
+      "a2": "a95",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b71": {
+      "id": "b71",
+      "a1": "a96",
+      "a2": "a97",
+      "order": 2,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r1": {
+      "id": "r1",
+      "kind": "forward",
+      "x1": 172.55658323678557,
+      "y1": 261,
+      "x2": 262.55658323678557,
+      "y2": 261,
+      "above": "− e⁻",
+      "below": ""
+    },
+    "r2": {
+      "id": "r2",
+      "kind": "forward",
+      "x1": 172.56944244352312,
+      "y1": 517.04204713484,
+      "x2": 309.06944244352314,
+      "y2": 517.04204713484,
+      "above": "− e⁻, splitsing",
+      "below": ""
+    },
+    "r3": {
+      "id": "r3",
+      "kind": "forward",
+      "x1": 159.93343703304376,
+      "y1": 777,
+      "x2": 281.4334370330438,
+      "y2": 777,
+      "above": "heterolytisch",
+      "below": ""
+    },
+    "r4": {
+      "id": "r4",
+      "kind": "forward",
+      "x1": 103.28391188010025,
+      "y1": 1036.0596972184187,
+      "x2": 209.78391188010025,
+      "y2": 1036.0596972184187,
+      "above": "α-splitsing",
+      "below": ""
+    },
+    "r5": {
+      "id": "r5",
+      "kind": "forward",
+      "x1": 172.55658323678557,
+      "y1": 1317,
+      "x2": 279.05658323678557,
+      "y2": 1317,
+      "above": "α-splitsing",
+      "below": ""
+    },
+    "r6": {
+      "id": "r6",
+      "kind": "forward",
+      "x1": 172.55658323678557,
+      "y1": 1526,
+      "x2": 294.05658323678557,
+      "y2": 1526,
+      "above": "heterolytisch",
+      "below": ""
+    },
+    "r7": {
+      "id": "r7",
+      "kind": "forward",
+      "x1": 207.2455537900506,
+      "y1": 1782.1035749405228,
+      "x2": 313.7455537900506,
+      "y2": 1782.1035749405228,
+      "above": "α-splitsing",
+      "below": ""
+    },
+    "r8": {
+      "id": "r8",
+      "kind": "forward",
+      "x1": 172.558043574237,
+      "y1": 2058.103574940523,
+      "x2": 279.058043574237,
+      "y2": 2058.103574940523,
+      "above": "α-splitsing",
+      "below": ""
+    },
+    "r9": {
+      "id": "r9",
+      "kind": "forward",
+      "x1": 172.558043574237,
+      "y1": 2334.103574940523,
+      "x2": 271.558043574237,
+      "y2": 2334.103574940523,
+      "above": "McLafferty",
+      "below": ""
+    }
+  },
+  "curlies": {
+    "c1": {
+      "id": "c1",
+      "from": "b20",
+      "to": "a26",
+      "half": false,
+      "bend": -1
+    },
+    "c2": {
+      "id": "c2",
+      "from": "a34",
+      "to": "b25",
+      "half": true,
+      "bend": 1
+    },
+    "c3": {
+      "id": "c3",
+      "from": "b23",
+      "to": "b25",
+      "half": true,
+      "bend": -1
+    },
+    "c4": {
+      "id": "c4",
+      "from": "b23",
+      "to": "a31",
+      "half": true,
+      "bend": -1
+    },
+    "c5": {
+      "id": "c5",
+      "from": "a41",
+      "to": "b29",
+      "half": true,
+      "bend": 1
+    },
+    "c6": {
+      "id": "c6",
+      "from": "b28",
+      "to": "b29",
+      "half": true,
+      "bend": 1
+    },
+    "c7": {
+      "id": "c7",
+      "from": "b28",
+      "to": "a39",
+      "half": true,
+      "bend": -1
+    },
+    "c8": {
+      "id": "c8",
+      "from": "b36",
+      "to": "a51",
+      "half": false,
+      "bend": -1
+    },
+    "c9": {
+      "id": "c9",
+      "from": "a65",
+      "to": "b47",
+      "half": true,
+      "bend": -1
+    },
+    "c10": {
+      "id": "c10",
+      "from": "b45",
+      "to": "b47",
+      "half": true,
+      "bend": 1
+    },
+    "c11": {
+      "id": "c11",
+      "from": "b45",
+      "to": "a62",
+      "half": true,
+      "bend": 1
+    },
+    "c12": {
+      "id": "c12",
+      "from": "a78",
+      "to": "b57",
+      "half": true,
+      "bend": -1
+    },
+    "c13": {
+      "id": "c13",
+      "from": "b55",
+      "to": "b57",
+      "half": true,
+      "bend": 1
+    },
+    "c14": {
+      "id": "c14",
+      "from": "b55",
+      "to": "a75",
+      "half": true,
+      "bend": 1
+    },
+    "c15": {
+      "id": "c15",
+      "from": "a90",
+      "to": "a91",
+      "half": true,
+      "bend": -1
+    },
+    "c16": {
+      "id": "c16",
+      "from": "b67",
+      "to": "b62",
+      "half": true,
+      "bend": -1
+    },
+    "c17": {
+      "id": "c17",
+      "from": "b63",
+      "to": "b62",
+      "half": true,
+      "bend": 1
+    },
+    "c18": {
+      "id": "c18",
+      "from": "b63",
+      "to": "a87",
+      "half": true,
+      "bend": -1
+    }
+  },
+  "texts": {
+    "t1": {
+      "id": "t1",
+      "text": "MS: splitsingsmechanismen (OSY2 les 9 en 12)",
+      "x": 0,
+      "y": 0,
+      "bold": true,
+      "size": 22
+    },
+    "t2": {
+      "id": "t2",
+      "text": "Alleen positieve ionen komen in het spectrum. Radicalen en neutrale moleculen zie je niet.",
+      "x": 0,
+      "y": 41.8,
+      "size": 13
+    },
+    "t3": {
+      "id": "t3",
+      "text": "Volle pijl = 2 elektronen (heterolytisch). Vishaak (fishhook, halve pijlpunt) = 1 elektron (homolytisch).",
+      "x": 0,
+      "y": 62.8,
+      "size": 13
+    },
+    "t4": {
+      "id": "t4",
+      "text": "Binding tussen C en een elektronegatiever atoom (Br, O) breekt heterolytisch. C–C naast O, N, Cl of C=O breekt homolytisch: α-splitsing.",
+      "x": 0,
+      "y": 83.8,
+      "size": 13
+    },
+    "t5": {
+      "id": "t5",
+      "text": "Bindingen die stabielere fragmenten geven breken makkelijker, dus die fragmenten geven grotere pieken.",
+      "x": 0,
+      "y": 104.8,
+      "size": 13
+    },
+    "t6": {
+      "id": "t6",
+      "text": "1. Ionisatie: het molecuulion M•+",
+      "x": 0,
+      "y": 183,
+      "bold": true,
+      "size": 18
+    },
+    "t7": {
+      "id": "t7",
+      "text": "Het elektron verdwijnt uit een vrij elektronenpaar van O (die elektronen zitten het hoogst in energie).",
+      "x": 0,
+      "y": 303,
+      "size": 13
+    },
+    "t8": {
+      "id": "t8",
+      "text": "Er ontstaat een radicaalkation: één ongepaard elektron (•) en een + lading. m/z van M•+ = de molecuulmassa (diethylether: 74).",
+      "x": 0,
+      "y": 324,
+      "size": 13
+    },
+    "t9": {
+      "id": "t9",
+      "text": "Alle splitsingen hieronder beginnen bij dit radicaalkation.",
+      "x": 0,
+      "y": 345,
+      "size": 13
+    },
+    "t10": {
+      "id": "t10",
+      "text": "2. Alkaan: breuk naast de vertakking (2-methylpentaan, M = 86)",
+      "x": 0,
+      "y": 423,
+      "bold": true,
+      "size": 18
+    },
+    "t12": {
+      "id": "t12",
+      "text": "Een alkaan heeft geen vrij elektronenpaar: het gat zit in een C–C-binding, daarom geen pijlen.",
+      "x": 0,
+      "y": 579,
+      "size": 13
+    },
+    "t13": {
+      "id": "t13",
+      "text": "Breuk bij de vertakking geeft het secundaire isopropylkation (m/z 43) + propylradicaal. Verlies van CH₃• geeft m/z 71 (ook secundair).",
+      "x": 0,
+      "y": 600,
+      "size": 13
+    },
+    "t14": {
+      "id": "t14",
+      "text": "m/z 57 zou een primair kation zijn en is daarom klein. Stabiliteit: tertiair > secundair > primair > methyl.",
+      "x": 0,
+      "y": 621,
+      "size": 13
+    },
+    "t15": {
+      "id": "t15",
+      "text": "3. Heterolytische splitsing van C–Br (1-broompropaan)",
+      "x": 0,
+      "y": 699,
+      "bold": true,
+      "size": 18
+    },
+    "t17": {
+      "id": "t17",
+      "text": "Volle pijl van de C–Br-binding naar Br: beide bindingselektronen gaan naar het elektronegatievere Br.",
+      "x": 0,
+      "y": 822,
+      "size": 13
+    },
+    "t18": {
+      "id": "t18",
+      "text": "Br•+ wordt neutraal Br• (onzichtbaar). Het propylkation is de basispiek: m/z 43 (= 122 − 79 = 124 − 81).",
+      "x": 0,
+      "y": 843,
+      "size": 13
+    },
+    "t19": {
+      "id": "t19",
+      "text": "C–Br is zwakker dan C–C, dus breekt C–Br en niet C–C. M en M+2 (122 en 124) zijn even hoog door ⁷⁹Br en ⁸¹Br.",
+      "x": 0,
+      "y": 864,
+      "size": 13
+    },
+    "t20": {
+      "id": "t20",
+      "text": "4. α-splitsing bij een alkylchloride (2-chloorpropaan)",
+      "x": 0,
+      "y": 942,
+      "bold": true,
+      "size": 18
+    },
+    "t22": {
+      "id": "t22",
+      "text": "Het α-C is het C dat aan Cl vastzit. De binding van het α-C naar de buren (C–CH₃) breekt homolytisch.",
+      "x": 0,
+      "y": 1098,
+      "size": 13
+    },
+    "t23": {
+      "id": "t23",
+      "text": "Eén elektron vormt met het ongepaarde elektron van Cl een C=Cl⁺-binding, het andere gaat mee met CH₃•.",
+      "x": 0,
+      "y": 1119,
+      "size": 13
+    },
+    "t24": {
+      "id": "t24",
+      "text": "Product m/z 63 en 65 (3:1 door ³⁵Cl/³⁷Cl). Dit gebeurt bij Cl omdat C–Cl en C–C ongeveer even sterk zijn.",
+      "x": 0,
+      "y": 1140,
+      "size": 13
+    },
+    "t25": {
+      "id": "t25",
+      "text": "De basispiek m/z 43 komt hier wel van heterolytische splitsing van C–Cl (zoals bij 3).",
+      "x": 0,
+      "y": 1161,
+      "size": 13
+    },
+    "t26": {
+      "id": "t26",
+      "text": "5a. Ether: α-splitsing (diethylether)",
+      "x": 0,
+      "y": 1239,
+      "bold": true,
+      "size": 18
+    },
+    "t28": {
+      "id": "t28",
+      "text": "Drie vishaken: O• naar de C–O-binding, en de C–C-binding splitst: één elektron naar de nieuwe C=O⁺, één naar CH₃•.",
+      "x": 0,
+      "y": 1359,
+      "size": 13
+    },
+    "t29": {
+      "id": "t29",
+      "text": "Het oxoniumion (m/z 59) is stabiel: O deelt zijn elektronenpaar, zodat elk atoom een octet heeft.",
+      "x": 0,
+      "y": 1380,
+      "size": 13
+    },
+    "t30": {
+      "id": "t30",
+      "text": "5b. Ether: heterolytische splitsing van C–O",
+      "x": 0,
+      "y": 1448,
+      "bold": true,
+      "size": 18
+    },
+    "t32": {
+      "id": "t32",
+      "text": "Volle pijl van C–O naar O: carbokation (m/z 29) + neutraal alkoxyradicaal (onzichtbaar).",
+      "x": 0,
+      "y": 1568,
+      "size": 13
+    },
+    "t33": {
+      "id": "t33",
+      "text": "Bij ethers zie je beide routes. Een secundair kation of een groot vertrekkend radicaal geeft de grotere piek",
+      "x": 0,
+      "y": 1589,
+      "size": 13
+    },
+    "t34": {
+      "id": "t34",
+      "text": "(dia: sec-butylisopropylether geeft m/z 87 en 101 via α-splitsing, en 57 en 43 via heterolytische splitsing).",
+      "x": 0,
+      "y": 1610,
+      "size": 13
+    },
+    "t35": {
+      "id": "t35",
+      "text": "6. Alcohol: α-splitsing (2-hexanol, M = 102)",
+      "x": 0,
+      "y": 1688,
+      "bold": true,
+      "size": 18
+    },
+    "t37": {
+      "id": "t37",
+      "text": "Zelfde patroon als bij ethers. Het grote butylradicaal vertrekt het makkelijkst: m/z 45 is de basispiek.",
+      "x": 0,
+      "y": 1844,
+      "size": 13
+    },
+    "t38": {
+      "id": "t38",
+      "text": "Verlies van CH₃• aan de andere kant van het α-C geeft m/z 87, veel kleiner.",
+      "x": 0,
+      "y": 1865,
+      "size": 13
+    },
+    "t39": {
+      "id": "t39",
+      "text": "Alcoholen: M+ klein of afwezig. Ook M − 18 (verlies van H₂O, hier m/z 84). Primair alcohol: altijd m/z 31 (CH₂=OH⁺).",
+      "x": 0,
+      "y": 1886,
+      "size": 13
+    },
+    "t40": {
+      "id": "t40",
+      "text": "7. Keton: α-splitsing tot acyliumion (2-pentanon, M = 86)",
+      "x": 0,
+      "y": 1964,
+      "bold": true,
+      "size": 18
+    },
+    "t41": {
+      "id": "t41",
+      "text": "+",
+      "x": 416.48596358526584,
+      "y": 2065.103574940523,
+      "size": 20
+    },
+    "t42": {
+      "id": "t42",
+      "text": "De binding tussen het carbonyl-C en een α-C breekt. Het elektron van O• en één elektron uit die binding",
+      "x": 0,
+      "y": 2120,
+      "size": 13
+    },
+    "t43": {
+      "id": "t43",
+      "text": "maken een derde C–O-binding: het acyliumion R–C≡O⁺ (m/z 43), stabiel door resonantie R–C⁺=O ↔ R–C≡O⁺.",
+      "x": 0,
+      "y": 2141,
+      "size": 13
+    },
+    "t44": {
+      "id": "t44",
+      "text": "Breuk aan de andere kant (verlies CH₃•) geeft m/z 71. Ketonen geven een duidelijke M-piek.",
+      "x": 0,
+      "y": 2162,
+      "size": 13
+    },
+    "t45": {
+      "id": "t45",
+      "text": "8. McLafferty-omlegging (2-pentanon)",
+      "x": 0,
+      "y": 2240,
+      "bold": true,
+      "size": 18
+    },
+    "t47": {
+      "id": "t47",
+      "text": "Voorwaarde: een H op het γ-C (tel vanaf C=O: α, β, γ). Via een zesring komt die H bij O.",
+      "x": 0,
+      "y": 2396,
+      "size": 13
+    },
+    "t48": {
+      "id": "t48",
+      "text": "De H gaat met één elektron naar O. Het andere C–H-elektron en één elektron uit de α–β-binding vormen de C=C van het alkeen.",
+      "x": 0,
+      "y": 2417,
+      "size": 13
+    },
+    "t49": {
+      "id": "t49",
+      "text": "Het laatste elektron blijft op het α-C. Neutraal etheen (28) vertrekt; het enol-radicaalkation m/z 58 blijft (86 − 28).",
+      "x": 0,
+      "y": 2438,
+      "size": 13
+    },
+    "t50": {
+      "id": "t50",
+      "text": "Werkt ook bij aldehyden. Geen γ-H (bv. 3-pentanon) betekent geen McLafferty. 2-Hexanon geeft zo ook m/z 58 (verlies van propeen).",
+      "x": 0,
+      "y": 2459,
+      "size": 13
+    },
+    "t51": {
+      "id": "t51",
+      "text": "Samenvatting: welke splitsing?",
+      "x": 0,
+      "y": 2527,
+      "bold": true,
+      "size": 17
+    },
+    "t52": {
+      "id": "t52",
+      "text": "• C–Br, C–I, C–O: heterolytisch (volle pijl) → carbokation + radicaal.",
+      "x": 0,
+      "y": 2541.3,
+      "size": 13
+    },
+    "t53": {
+      "id": "t53",
+      "text": "• C–C naast O, N, Cl of C=O: α-splitsing (3 vishaken) → oxonium-, iminium-, chloronium- of acyliumion + radicaal.",
+      "x": 0,
+      "y": 2562.3,
+      "size": 13
+    },
+    "t54": {
+      "id": "t54",
+      "text": "• Keton of aldehyde met γ-H: McLafferty (zesring) → enol-radicaalkation + neutraal alkeen.",
+      "x": 0,
+      "y": 2583.3,
+      "size": 13
+    },
+    "t55": {
+      "id": "t55",
+      "text": "• Alkaan: breuk naast de vertakking → stabielste carbokation.",
+      "x": 0,
+      "y": 2604.3,
+      "size": 13
+    },
+    "t56": {
+      "id": "t56",
+      "text": "• Grootste, stabielste radicaal vertrekt → grootste piek. Massa's: verlies CH₃ = 15, C₂H₅ = 29, C₃H₇ = 43, C₄H₉ = 57, H₂O = 18.",
+      "x": 0,
+      "y": 2625.3,
+      "size": 13
+    }
+  },
+  "brackets": {}
+}

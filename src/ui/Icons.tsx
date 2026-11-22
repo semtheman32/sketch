@@ -35,6 +35,7 @@ const paths: Record<string, ReactNode> = {
   command: <path d="M7 4.5a2.5 2.5 0 1 0 0 5h6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0-2.5 2.5v6a2.5 2.5 0 1 0 2.5-2.5H7a2.5 2.5 0 1 0 2.5 2.5V7A2.5 2.5 0 0 0 7 4.5z" strokeLinejoin="round" />,
   send: <><path d="M10 16V4.5" /><path d="M5.5 9L10 4.5 14.5 9" strokeLinejoin="round" /></>,
   stop: <rect x="5.5" y="5.5" width="9" height="9" rx="1.5" fill="currentColor" stroke="none" />,
+  book: <><path d="M10 5.5C8.5 4.3 6.5 4 3.5 4v11c3 0 5 .3 6.5 1.5 1.5-1.2 3.5-1.5 6.5-1.5V4c-3 0-5 .3-6.5 1.5z" strokeLinejoin="round" /><path d="M10 5.5v11" /></>,
   flask: <><path d="M8 3.5h4M8.5 3.5v4.5L4.5 15a1 1 0 0 0 .9 1.5h9.2a1 1 0 0 0 .9-1.5l-4-7V3.5" strokeLinejoin="round" /><path d="M6.5 12.5h7" /></>,
 }
 

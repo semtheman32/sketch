@@ -87,6 +87,13 @@ kbd {
 .check input { accent-color: var(--accent); width: 15px; height: 15px; }
 .tabular { font-variant-numeric: tabular-nums; }
 
+/* Lesstof menu */
+.lesson-menu { width: 380px; max-width: calc(100vw - 24px); max-height: min(78vh, 640px); overflow-y: auto; }
+.lesson-group { margin-bottom: 8px; }
+.lesson-theme { font-size: 12px; font-weight: 600; color: var(--muted); margin: 6px 2px 2px; }
+.lesson-item { width: 100%; }
+.lesson-item:disabled { opacity: .6; cursor: wait; }
+
 /* Theme menu */
 .theme-menu { width: 420px; max-width: calc(100vw - 24px); }
 .theme-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-bottom: 14px; }

@@ -20,6 +20,7 @@ import { Icon } from './ui/Icons'
 import { CommandBar, type Command } from './ui/CommandBar'
 import { ExportPanel } from './ui/ExportPanel'
 import { TemplatesPanel, ThemeMenu } from './ui/Popovers'
+import { LessonPanel } from './ui/LessonPanel'
 import { THEMES, setTheme } from './ui/themes'
 import { STYLES, setDrawStyle } from './render/styles'
 import { TOOLS, defaultOptions, type Tool, type ToolOptions } from './ui/tools'
@@ -33,7 +34,7 @@ const LETTER_ELEMENTS: Record<string, string> = { c: 'C', n: 'N', o: 'O', s: 'S'
 const TOOL_KEYS: Record<string, Tool> = Object.fromEntries(TOOLS.map(t => [t.key.toLowerCase(), t.id]))
 const CLIP_MARK = 'sketch-clipboard'
 
-type Popover = 'export' | 'theme' | 'templates' | null
+type Popover = 'export' | 'theme' | 'templates' | 'lessons' | null
 
 export default function App() {
   const doc = useDoc()
@@ -112,6 +113,22 @@ export default function App() {
     const k = Math.min(maxK, Math.max(0.3, Math.min((width - pad * 2) / Math.max(b.x2 - b.x1, 1), (height - pad * 2) / Math.max(b.y2 - b.y1, 1))))
     setView({ k, x: width / 2 - ((b.x1 + b.x2) / 2) * k, y: height / 2 - ((b.y1 + b.y2) / 2) * k })
   }, [])
+  /** Long documents (lesstof): fit the width and start at the top, so the text stays readable; scroll down to read on. */
+  const fitTop = useCallback(() => {
+    const el = stageRef.current
+    const b = contentBounds(getDoc())
+    if (!el || !b) return
+    const { width } = el.getBoundingClientRect()
+    const k = Math.min(1.2, Math.max(0.3, (width - 120) / Math.max(b.x2 - b.x1, 1)))
+    setView({ k, x: width / 2 - ((b.x1 + b.x2) / 2) * k, y: 40 - b.y1 * k })
+  }, [])
+  /** Set while a lesstof tab opens, so the tab switch shows its top instead of the whole (very tall) drawing. */
+  const lessonFit = useRef(false)
+  const openedLesson = useCallback(() => {
+    lessonFit.current = true
+    requestAnimationFrame(() => fitTop())
+    setTimeout(() => { lessonFit.current = false }, 2000)
+  }, [fitTop])
   useEffect(() => {
     onOpenPractice(() => { setClaudeOpen(true); chooseTab('practice') })
     // A new exercise is drawn: show all of it, at a zoom that leaves room to draw the mechanism.
@@ -135,8 +152,8 @@ export default function App() {
     setEditing(null)
     const v = tabViews.current.get(activeTab)
     if (v) setView(v)
-    else requestAnimationFrame(() => fit())
-  }, [activeTab, fit])
+    else requestAnimationFrame(() => { if (lessonFit.current) { lessonFit.current = false; fitTop() } else fit() })
+  }, [activeTab, fit, fitTop])
 
   // Open a drawing passed in the URL: #doc=<base64url of the .chem.json>&name=<label>.
   // Used by the lesson-overview app ("Openen in Sketch"). Replaces the canvas (undoable).
@@ -323,6 +340,7 @@ export default function App() {
     { id: 'copy', group: 'Edit', label: 'Copy selection', keys: 'Ctrl+C', run: () => copySelection() },
     { id: 'dup', group: 'Edit', label: 'Duplicate selection', keys: 'Ctrl+D', run: duplicate },
     { id: 'del', group: 'Edit', label: 'Delete selection', keys: 'Del', run: () => { commit(d => removeItems(d, selection)); setSelection([]) } },
+    { id: 'lessons', group: 'Tabs', label: 'Lesstof…', hint: 'les lessen course lesson mechanismen uitleg', run: () => setPopover('lessons') },
     { id: 'new-tab', group: 'Tabs', label: 'New tab', hint: 'Alt+T', run: () => { newTab() } },
     { id: 'next-tab', group: 'Tabs', label: 'Next tab', hint: 'Alt+→', run: () => cycleTab(1) },
     { id: 'prev-tab', group: 'Tabs', label: 'Previous tab', hint: 'Alt+←', run: () => cycleTab(-1) },
@@ -481,6 +499,9 @@ export default function App() {
         </button>
         <div className="spacer" />
         <div className="group">
+          <button className={'btn' + (popover === 'lessons' ? ' on' : '')} onClick={() => toggle('lessons')} title="Lesstof: kies een les, die opent in een eigen tabblad">
+            <Icon name="book" size={16} /><span className="label">Lesstof</span>
+          </button>
           <button className={'icon-btn' + (popover === 'templates' ? ' on' : '')} onClick={() => toggle('templates')} title="Templates: rings, amino acids, groups, mechanisms (Ctrl+T)" aria-label="Templates"><Icon name="shapes" /></button>
           <button className="icon-btn" onClick={doClean} title="Clean up structure" aria-label="Clean up"><Icon name="clean" /></button>
           <button className="icon-btn" onClick={() => fit()} title="Fit to screen" aria-label="Fit to screen"><Icon name="fit" /></button>
@@ -500,6 +521,7 @@ export default function App() {
           </button>
         </div>
         <input ref={fileRef} type="file" accept=".json,.mol,.sdf" hidden onChange={e => { const f = e.target.files?.[0]; if (f) openFile(f); e.target.value = '' }} />
+        {popover === 'lessons' && <LessonPanel onClose={() => setPopover(null)} onOpened={openedLesson} flash={flash} />}
         {popover === 'theme' && <ThemeMenu onClose={() => setPopover(null)} />}
         {popover === 'export' && <ExportPanel doc={doc} selection={selection} onClose={() => setPopover(null)} flash={flash} />}
         {popover === 'templates' && (

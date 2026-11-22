@@ -57,6 +57,15 @@ The list keeps every exercise with its result, so you can redo the ones you miss
 
 **Exercise sets from another Claude Code session.** Any Claude Code session with the `sketch` MCP server (this folder's `.mcp.json`) can call `practice_add_exercises` with a list of exercises (question, answer key, hints, and a setup of reactant/product SMILES and reagents). So a session that has your lecture notes or a practice exam can make exercises from them and put them straight into the app. That session can also check your drawing itself (`practice_get_state` + `get_document` + `screenshot`) and post its verdict to the Practice tab with `practice_record_feedback`.
 
+## Lesstof (course material per lesson)
+
+The **Lesstof** button in the top bar lists every OSY2 lesson. Picking one opens that lesson in its own tab: every
+drawing from the lesson overview (mechanisms, structures, spectra fragments) with the chapter titles, the "why" text,
+the captions or step explanations and the "Onthoud" points next to it. A lesson that is already open is switched to.
+
+The drawings live in `public/lesstof/` (`index.json` plus one `.chem.json` per lesson). Rebuild them from the
+lesson-overview app with `node scripts/build-lesstof.mjs <path to lesoverzichten-app> [extra MS .chem.json]`.
+
 ## Letting Claude draw from Claude Code
 
 1. Run `npm run dev` and keep the page open.
