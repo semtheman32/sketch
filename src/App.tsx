@@ -4,6 +4,7 @@ import type { BondOrder, Doc, ID, TextStyle } from './model/types'
 import { allIds, emptyDoc, exists, kindOf } from './model/types'
 import { canRedo, canUndo, closeTab, commit, cycleTab, getDoc, isEmptyDoc, newId, newTab, redo, replaceDoc, switchTab, undo, useDoc, useTabs } from './model/store'
 import { TabBar } from './ui/TabBar'
+import { openLesson, lessonTabName, useLessons } from './ui/LessonMenu'
 import { TextStyleBar } from './ui/TextStyleBar'
 import {
   applyBondStyle, contentBounds, copyItems, flipItems, growBond, pasteFragment, removeItems, rotateItems, selectionBounds, straightenTriple,
@@ -326,7 +327,9 @@ export default function App() {
 
   // ------------------------------------------------------------ commands (Ctrl+K)
 
+  const { lessons } = useLessons()
   const commands = useMemo<Command[]>(() => [
+    ...(lessons ?? []).map(l => ({ id: `lesstof-${l.file}`, group: 'Lesstof', label: `Lesstof: ${lessonTabName(l)}`, hint: l.group ?? '', run: () => { openLesson(l).then(() => { requestAnimationFrame(() => fitTop()); setTimeout(() => fitTop(), 300) }).catch(() => {}) } })),
     ...TOOLS.map(t => ({ id: `tool-${t.id}`, group: 'Tools', label: `${t.label} tool`, keys: t.key, run: () => setTool(t.id) })),
     { id: 'undo', group: 'Edit', label: 'Undo', keys: 'Ctrl+Z', run: () => undo() },
     { id: 'redo', group: 'Edit', label: 'Redo', keys: 'Ctrl+Y', run: () => redo() },
@@ -360,7 +363,7 @@ export default function App() {
     { id: 'practice', group: 'Claude', label: 'Practice mechanisms', hint: 'exercises quiz oefenen check', run: () => { setClaudeOpen(true); chooseTab('practice') } },
     { id: 'newchat', group: 'Claude', label: 'New conversation with Claude', run: () => { newChat(); setClaudeOpen(true) } },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  ], [selection, claudeOpen, chooseTab, copySelection, duplicate, rotateBy, arrange, fit, copyAsImage, saveJson, selectAll])
+  ], [selection, claudeOpen, chooseTab, copySelection, duplicate, rotateBy, arrange, fit, copyAsImage, saveJson, selectAll, lessons, fitTop])
 
   const extraCommands = useCallback((q: string): Command[] => [
     { id: 'add-mol', group: 'Add', label: `Add molecule “${q}”`, hint: 'name or SMILES', run: () => addByName(q) },

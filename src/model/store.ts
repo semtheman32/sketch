@@ -286,3 +286,4 @@ listeners.add(refreshTabInfo)
 const subscribe = (l: () => void) => { listeners.add(l); return () => { listeners.delete(l) } }
 export const useDoc = () => useSyncExternalStore(subscribe, getDoc)
 export const useTabs = () => useSyncExternalStore(subscribe, () => tabInfo)
+export const getTabs = () => tabInfo

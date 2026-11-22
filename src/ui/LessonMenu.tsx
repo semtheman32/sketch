@@ -1,12 +1,43 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Doc } from '../model/types'
-import { getDoc, isEmptyDoc, newTab, renameTab, replaceDoc, switchTab, useTabs } from '../model/store'
+import { getDoc, getTabs, isEmptyDoc, newTab, renameTab, replaceDoc, switchTab, useTabs } from '../model/store'
 import { Icon } from './Icons'
 
 /** One lesson sheet in public/lesstof/index.json. */
-interface Lesson { n: number; title: string; file: string; topics?: string; label?: string }
+export interface Lesson { n: number; title: string; file: string; topics?: string; label?: string; group?: string }
 
 const BASE = `${import.meta.env.BASE_URL}lesstof/`
+
+let cache: Promise<Lesson[]> | null = null
+/** The lesson list (fetched once). */
+export function loadLessons(): Promise<Lesson[]> {
+  cache ??= fetch(BASE + 'index.json').then(r => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+  cache.catch(() => { cache = null })
+  return cache
+}
+
+/** Lessons for components that render before the list has loaded (empty until then). */
+export function useLessons() {
+  const [lessons, setLessons] = useState<Lesson[] | null>(null)
+  const [error, setError] = useState(false)
+  useEffect(() => { loadLessons().then(setLessons).catch(() => setError(true)) }, [])
+  return { lessons, error }
+}
+
+export const lessonTabName = (l: Lesson) => (l.label ? l.title : `Les ${l.n}: ${l.title}`)
+
+/** Open a lesson sheet in its own tab, or switch to its tab when it is already open. */
+export async function openLesson(l: Lesson) {
+  const name = lessonTabName(l)
+  const tabs = getTabs()
+  const existing = tabs.find(t => t.name === name)
+  if (existing) { switchTab(existing.id); return }
+  const r = await fetch(BASE + l.file)
+  if (!r.ok) throw new Error(`Kon ${l.file} niet openen`)
+  const d = (await r.json()) as Doc
+  const active = tabs.find(t => t.active)
+  if (active && isEmptyDoc(getDoc())) { replaceDoc(d); renameTab(active.id, name) } else newTab(d, name)
+}
 
 /**
  * "Lesstof" button on the tab bar: pick a lesson and its worked sheet (mechanisms with explanations)
@@ -14,18 +45,12 @@ const BASE = `${import.meta.env.BASE_URL}lesstof/`
  */
 export function LessonMenu({ onOpened }: { onOpened?: () => void }) {
   const tabs = useTabs()
+  const { lessons, error: loadError } = useLessons()
   const [open, setOpen] = useState(false)
-  const [lessons, setLessons] = useState<Lesson[] | null>(null)
   const [error, setError] = useState('')
-  const [busy, setBusy] = useState<number | null>(null)
+  const [busy, setBusy] = useState<string | null>(null)
   const [top, setTop] = useState(92)
   const box = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!open || lessons) return
-    fetch(BASE + 'index.json').then(r => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((l: Lesson[]) => setLessons(l)).catch(() => setError('Geen lesstof gevonden (public/lesstof/index.json).'))
-  }, [open, lessons])
 
   useEffect(() => {
     if (!open) return
@@ -35,22 +60,16 @@ export function LessonMenu({ onOpened }: { onOpened?: () => void }) {
     return () => { window.removeEventListener('mousedown', close); window.removeEventListener('keydown', esc) }
   }, [open])
 
-  const tabName = (l: Lesson) => (l.label ? l.title : `Les ${l.n}: ${l.title}`)
+  const pick = async (l: Lesson) => {
+    setBusy(l.file)
+    try { await openLesson(l); setOpen(false); onOpened?.() } catch (e) { setError((e as Error).message) } finally { setBusy(null) }
+  }
 
-  const openLesson = async (l: Lesson) => {
-    const name = tabName(l)
-    const existing = tabs.find(t => t.name === name)
-    if (existing) { switchTab(existing.id); setOpen(false); onOpened?.(); return }
-    setBusy(l.n)
-    try {
-      const r = await fetch(BASE + l.file)
-      if (!r.ok) throw new Error(String(r.status))
-      const d = (await r.json()) as Doc
-      const active = tabs.find(t => t.active)
-      if (active && isEmptyDoc(getDoc())) { replaceDoc(d); renameTab(active.id, name) } else newTab(d, name)
-      setOpen(false)
-      onOpened?.()
-    } catch { setError(`Kon ${l.file} niet openen.`) } finally { setBusy(null) }
+  const groups: [string, Lesson[]][] = []
+  for (const l of lessons ?? []) {
+    const g = l.group ?? ''
+    const last = groups.find(x => x[0] === g)
+    if (last) last[1].push(l); else groups.push([g, [l]])
   }
 
   return (
@@ -61,23 +80,25 @@ export function LessonMenu({ onOpened }: { onOpened?: () => void }) {
       {open && (
         <div className="lesson-pop" role="menu" style={{ top }}>
           <div className="popover-title">Lesstof per les</div>
-          {error && <p className="lesson-err">{error}</p>}
-          {!lessons && !error && <p className="lesson-err">Laden…</p>}
-          <ul>
-            {lessons?.map(l => {
-              const isOpen = tabs.some(t => t.name === tabName(l))
-              return (
-                <li key={l.file}>
-                  <button role="menuitem" onClick={() => openLesson(l)} disabled={busy !== null}>
-                    <span className="lesson-n">{l.label ?? l.n}</span>
-                    <span className="lesson-t">{l.title}{l.topics && <small>{l.topics}</small>}</span>
-                    {isOpen && <span className="lesson-open" title="Staat al open">●</span>}
-                    {busy === l.n && <span className="lesson-open">…</span>}
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
+          {(error || loadError) && <p className="lesson-err">{error || 'Geen lesstof gevonden (public/lesstof/index.json).'}</p>}
+          {!lessons && !loadError && <p className="lesson-err">Laden…</p>}
+          {groups.map(([g, ls]) => (
+            <div key={g}>
+              {g && <div className="lesson-group">{g}</div>}
+              <ul>
+                {ls.map(l => (
+                  <li key={l.file}>
+                    <button role="menuitem" onClick={() => pick(l)} disabled={busy !== null}>
+                      <span className="lesson-n">{l.label ?? l.n}</span>
+                      <span className="lesson-t">{l.title}{l.topics && <small>{l.topics}</small>}</span>
+                      {tabs.some(t => t.name === lessonTabName(l)) && <span className="lesson-open" title="Staat al open">●</span>}
+                      {busy === l.file && <span className="lesson-open">…</span>}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       )}
     </div>
