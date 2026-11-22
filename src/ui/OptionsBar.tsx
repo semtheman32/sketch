@@ -124,7 +124,7 @@ export function OptionsBar({ tool, opts, setOpts, doc, selection, setSelection, 
       body = (
         <>
           <span className="muted small" style={{ padding: '0 6px' }}>Bracket</span>
-          <Seg value={first.shape} onPick={v => set({ shape: v })} items={[{ v: 'square' as const, label: '[ ]', title: 'Square brackets' }, { v: 'round' as const, label: '( )', title: 'Round brackets' }]} />
+          <Seg value={first.shape} onPick={v => set({ shape: v })} items={[{ v: 'square' as const, label: '[ ]', title: 'Square brackets' }, { v: 'round' as const, label: '( )', title: 'Round brackets' }, { v: 'box' as const, label: '▭', title: 'Box with a light tint (to group a part of a sheet)' }]} />
           <span className="divider" />
           <Seg value={first.label} onPick={v => set({ label: v })} items={[
             { v: '', label: 'No label' }, { v: '‡', label: '‡', title: 'Transition state' }, { v: 'n', label: 'n', title: 'Repeat unit' },

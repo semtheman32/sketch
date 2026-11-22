@@ -524,3 +524,33 @@ kbd {
   width: 28px; height: 28px; margin-left: 2px; border: 0; border-radius: var(--radius); background: transparent; color: var(--muted); cursor: pointer;
 }
 .tab-new:hover { background: var(--soft); color: var(--text); }
+
+/* Lesstof menu on the tab bar: open a lesson sheet as a tab */
+.lesson-menu { margin-left: auto; align-self: center; flex: none; position: sticky; right: 0; }
+.lesson-btn {
+  display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border: 0; border-radius: var(--radius);
+  background: transparent; color: var(--muted); font: inherit; font-size: 12.5px; cursor: pointer;
+}
+.lesson-btn:hover, .lesson-btn.on { background: var(--panel); color: var(--text); }
+.lesson-pop {
+  position: fixed; top: 92px; right: 12px; z-index: 40; width: min(380px, calc(100vw - 24px)); max-height: min(70vh, 640px); overflow-y: auto;
+  padding: 12px; background: var(--panel); color: var(--text);
+  border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  animation: pop-in var(--dur-2) var(--ease); transform-origin: top right;
+}
+.lesson-pop ul { list-style: none; margin: 0; padding: 0; }
+.lesson-pop li button {
+  display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 7px 8px; border: 0; border-radius: var(--radius);
+  background: transparent; color: var(--text); font: inherit; font-size: 13px; text-align: left; cursor: pointer;
+}
+.lesson-pop li button:hover { background: var(--soft); }
+.lesson-pop li button:disabled { cursor: progress; }
+.lesson-n {
+  flex: none; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--soft); color: var(--accent); font-weight: 600; font-size: 12px; font-variant-numeric: tabular-nums;
+}
+.lesson-t { flex: 1; min-width: 0; padding-top: 3px; }
+.lesson-t small { display: block; color: var(--muted); font-size: 11.5px; margin-top: 2px; }
+.lesson-open { flex: none; color: var(--accent); font-size: 10px; padding-top: 6px; }
+.lesson-err { color: var(--muted); font-size: 12.5px; margin: 4px 8px; }
+.lesson-group { font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin: 10px 8px 2px; }

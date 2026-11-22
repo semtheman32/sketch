@@ -257,6 +257,7 @@ Bonds: ${bonds.join('; ')}` : ''}`
       if (!id) throw new Error('Nothing to wrap')
       if (p.shape) d.brackets[id].shape = p.shape
       if (p.label !== undefined) d.brackets[id].label = String(p.label)
+      if (p.color) d.brackets[id].color = String(p.color)
       return { ...d.brackets[id] }
     })
   },

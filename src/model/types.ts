@@ -67,8 +67,11 @@ export interface Bracket {
   y1: number
   x2: number
   y2: number
-  shape: 'square' | 'round'
+  /** 'box' is a rounded frame with a light tint, for grouping parts of a sheet (lesstof, notes). */
+  shape: 'square' | 'round' | 'box'
   label: string
+  /** Hex colour of a box frame and its tint; brackets ignore it. */
+  color?: string
 }
 
 export type TextStyle = Pick<TextItem, 'color' | 'bold' | 'italic' | 'size'>
