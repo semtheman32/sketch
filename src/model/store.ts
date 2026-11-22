@@ -3,21 +3,58 @@ import { emptyDoc, type Doc } from './types'
 import { autoCharge, checkValence } from '../chem/valence'
 
 const STORAGE_KEY = 'chemsketch-clone:doc'
+const TABS_KEY = 'chemsketch-clone:tabs'
 const LIMIT = 200
 
-let doc: Doc = load()
-let past: Doc[] = []
-let future: Doc[] = []
+/**
+ * Tabs: several drawings open at once, like browser tabs. The active tab's drawing and history live in
+ * `doc`/`past`/`future` below (so every edit works as before); the other tabs keep theirs in `tabs`.
+ */
+export interface Tab { id: string; name: string; doc: Doc; past: Doc[]; future: Doc[] }
+export interface TabInfo { id: string; name: string; active: boolean; empty: boolean }
+
 const listeners = new Set<() => void>()
 const counters: Record<string, number> = {}
+let tabs: Tab[] = []
+let activeId = ''
+let tabSeq = 0
+let doc: Doc = emptyDoc()
+let past: Doc[] = []
+let future: Doc[] = []
+loadTabs()
 syncCounters(doc)
 
-function load(): Doc {
+function fill(d: Partial<Doc>): Doc { return { ...emptyDoc(), ...d } } // older saves have no brackets: emptyDoc fills them in
+
+function loadTabs() {
+  try {
+    const raw = localStorage.getItem(TABS_KEY)
+    if (raw) {
+      const saved = JSON.parse(raw) as { active: string; tabs: { id: string; name: string; doc: Doc }[] }
+      if (saved.tabs?.length) {
+        tabs = saved.tabs.map(t => ({ id: t.id, name: t.name, doc: fill(t.doc), past: [], future: [] }))
+        const a = tabs.find(t => t.id === saved.active) ?? tabs[0]
+        activeId = a.id
+        doc = a.doc
+        tabSeq = Math.max(0, ...tabs.map(t => parseInt(t.id.slice(3)) || 0))
+        return
+      }
+    }
+  } catch { /* storage unavailable or broken: start fresh */ }
+  // First run with tabs: the drawing saved by older versions becomes the first tab.
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) return { ...emptyDoc(), ...JSON.parse(raw) } // older saves have no brackets: emptyDoc fills them in
-  } catch { /* storage unavailable */ }
-  return emptyDoc()
+    if (raw) doc = fill(JSON.parse(raw))
+  } catch { /* ignore */ }
+  const t: Tab = { id: 'tab' + ++tabSeq, name: 'Drawing 1', doc, past: [], future: [] }
+  tabs = [t]
+  activeId = t.id
+}
+
+/** Write the active tab's state back into its slot in `tabs`. */
+function stash() {
+  const t = tabs.find(x => x.id === activeId)
+  if (t) { t.doc = doc; t.past = past; t.future = future }
 }
 
 let saveTimer: number | undefined
@@ -25,7 +62,11 @@ function emit() {
   listeners.forEach(l => l())
   clearTimeout(saveTimer)
   saveTimer = window.setTimeout(() => {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(doc)) } catch { /* ignore */ }
+    stash()
+    try {
+      localStorage.setItem(TABS_KEY, JSON.stringify({ active: activeId, tabs: tabs.map(t => ({ id: t.id, name: t.name, doc: t.doc })) }))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(doc)) // kept for older versions of the app
+    } catch { /* ignore */ }
   }, 300)
 }
 
@@ -148,5 +189,100 @@ export function redo() {
   return true
 }
 
+// ------------------------------------------------------------ tabs
+
+let tabInfo: TabInfo[] = []
+function refreshTabInfo() {
+  tabInfo = tabs.map(t => {
+    const d = t.id === activeId ? doc : t.doc
+    return { id: t.id, name: t.name, active: t.id === activeId, empty: isEmptyDoc(d) }
+  })
+}
+refreshTabInfo()
+
+export function isEmptyDoc(d: Doc) {
+  return !Object.keys(d.atoms).length && !Object.keys(d.arrows).length && !Object.keys(d.texts).length
+    && !Object.keys(d.curlies).length && !Object.keys(d.brackets ?? {}).length
+}
+
+export const getActiveTabId = () => activeId
+
+function activate(id: string) {
+  stash()
+  const t = tabs.find(x => x.id === id)
+  if (!t) return
+  activeId = id
+  doc = t.doc; past = t.past; future = t.future
+  // Ids only need to be unique within one drawing: restart the counters from this tab's drawing.
+  for (const k of Object.keys(counters)) delete counters[k]
+  syncCounters(doc)
+}
+
+function nextName() {
+  const used = new Set(tabs.map(t => t.name))
+  let n = tabs.length + 1
+  while (used.has(`Drawing ${n}`)) n++
+  return `Drawing ${n}`
+}
+
+/** Open a new tab (empty, or with `d`) and switch to it. Returns its id. */
+export function newTab(d?: Doc, name?: string): string {
+  stash()
+  const t: Tab = { id: 'tab' + ++tabSeq, name: name?.trim() || nextName(), doc: d ? fill(d) : emptyDoc(), past: [], future: [] }
+  const i = tabs.findIndex(x => x.id === activeId)
+  tabs.splice(i + 1, 0, t)
+  activate(t.id)
+  emit()
+  return t.id
+}
+
+export function switchTab(id: string) {
+  if (id === activeId || !tabs.some(t => t.id === id)) return
+  activate(id)
+  emit()
+}
+
+/** Switch to the tab `delta` places to the left/right of the active one (wrapping around). */
+export function cycleTab(delta: number) {
+  const i = tabs.findIndex(t => t.id === activeId)
+  switchTab(tabs[(i + delta + tabs.length) % tabs.length].id)
+}
+
+export function closeTab(id: string) {
+  const i = tabs.findIndex(t => t.id === id)
+  if (i < 0) return
+  if (tabs.length === 1) {
+    // Closing the last tab leaves one empty tab, like a fresh start.
+    tabs[0] = { id: 'tab' + ++tabSeq, name: 'Drawing 1', doc: emptyDoc(), past: [], future: [] }
+    activeId = ''
+    activate(tabs[0].id)
+  } else if (id === activeId) {
+    const next = tabs[i + 1] ?? tabs[i - 1]
+    activate(next.id)
+    tabs.splice(i, 1)
+  } else {
+    tabs.splice(i, 1)
+  }
+  emit()
+}
+
+export function renameTab(id: string, name: string) {
+  const t = tabs.find(x => x.id === id)
+  if (!t || !name.trim()) return
+  t.name = name.trim()
+  emit()
+}
+
+/** Move tab `id` to position `to` (drag to reorder). */
+export function moveTab(id: string, to: number) {
+  const i = tabs.findIndex(t => t.id === id)
+  if (i < 0) return
+  const [t] = tabs.splice(i, 1)
+  tabs.splice(Math.max(0, Math.min(to, tabs.length)), 0, t)
+  emit()
+}
+
+listeners.add(refreshTabInfo)
 const subscribe = (l: () => void) => { listeners.add(l); return () => { listeners.delete(l) } }
 export const useDoc = () => useSyncExternalStore(subscribe, getDoc)
+export const useTabs = () => useSyncExternalStore(subscribe, () => tabInfo)

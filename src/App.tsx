@@ -2,7 +2,8 @@ import { memo, useCallback, useDeferredValue, useEffect, useMemo, useRef, useSta
 import './App.css'
 import type { BondOrder, Doc, ID, TextStyle } from './model/types'
 import { allIds, emptyDoc, exists, kindOf } from './model/types'
-import { canRedo, canUndo, commit, getDoc, newId, redo, replaceDoc, undo, useDoc } from './model/store'
+import { canRedo, canUndo, closeTab, commit, cycleTab, getDoc, isEmptyDoc, newId, newTab, redo, replaceDoc, switchTab, undo, useDoc, useTabs } from './model/store'
+import { TabBar } from './ui/TabBar'
 import { TextStyleBar } from './ui/TextStyleBar'
 import {
   applyBondStyle, contentBounds, copyItems, flipItems, growBond, pasteFragment, removeItems, rotateItems, selectionBounds, straightenTriple,
@@ -119,6 +120,24 @@ export default function App() {
 
   useEffect(() => { fit() }, [fit])
 
+  // Tabs: each tab remembers where you were looking. Switching clears the selection (ids repeat across drawings).
+  const tabs = useTabs()
+  const activeTab = tabs.find(t => t.active)?.id ?? ''
+  const viewRef = useRef(view)
+  viewRef.current = view
+  const tabViews = useRef(new Map<string, View>())
+  const shownTab = useRef(activeTab)
+  useEffect(() => {
+    if (shownTab.current === activeTab) return
+    tabViews.current.set(shownTab.current, viewRef.current)
+    shownTab.current = activeTab
+    setSelection([])
+    setEditing(null)
+    const v = tabViews.current.get(activeTab)
+    if (v) setView(v)
+    else requestAnimationFrame(() => fit())
+  }, [activeTab, fit])
+
   // Open a drawing passed in the URL: #doc=<base64url of the .chem.json>&name=<label>.
   // Used by the lesson-overview app ("Openen in Sketch"). Replaces the canvas (undoable).
   useEffect(() => {
@@ -130,12 +149,14 @@ export default function App() {
         const b64 = data.replace(/-/g, '+').replace(/_/g, '/')
         const bytes = Uint8Array.from(atob(b64), c => c.charCodeAt(0))
         const d = JSON.parse(new TextDecoder().decode(bytes)) as Doc
-        replaceDoc(d)
+        const name = params.get('name')
+        // A drawing from a link opens in its own tab, unless the current tab is still empty.
+        if (isEmptyDoc(getDoc())) replaceDoc(d)
+        else newTab(d, name ?? undefined)
         // Fit once the canvas has its size (on a fresh page load that can take a moment).
         requestAnimationFrame(() => fit())
         setTimeout(() => fit(), 400)
-        const name = params.get('name')
-        flash(`${name ? `Opened ${name}` : 'Drawing opened'} (Ctrl+Z brings back your previous drawing)`)
+        flash(name ? `Opened ${name}` : 'Drawing opened')
       } catch { flash("Couldn't open the drawing from the link") }
       history.replaceState(null, '', location.pathname + location.search)
     }
@@ -302,6 +323,9 @@ export default function App() {
     { id: 'copy', group: 'Edit', label: 'Copy selection', keys: 'Ctrl+C', run: () => copySelection() },
     { id: 'dup', group: 'Edit', label: 'Duplicate selection', keys: 'Ctrl+D', run: duplicate },
     { id: 'del', group: 'Edit', label: 'Delete selection', keys: 'Del', run: () => { commit(d => removeItems(d, selection)); setSelection([]) } },
+    { id: 'new-tab', group: 'Tabs', label: 'New tab', hint: 'Alt+T', run: () => { newTab() } },
+    { id: 'next-tab', group: 'Tabs', label: 'Next tab', hint: 'Alt+→', run: () => cycleTab(1) },
+    { id: 'prev-tab', group: 'Tabs', label: 'Previous tab', hint: 'Alt+←', run: () => cycleTab(-1) },
     { id: 'clear', group: 'Edit', label: 'Clear the canvas', hint: 'new empty', run: () => replaceDoc(emptyDoc()) },
     { id: 'rotl', group: 'Arrange', label: 'Rotate left 15°', hint: 'turn', run: () => rotateBy(-15) },
     { id: 'rotr', group: 'Arrange', label: 'Rotate right 15°', hint: 'turn', run: () => rotateBy(15) },
@@ -342,6 +366,18 @@ export default function App() {
       // Ctrl+K works everywhere, even while typing in a box.
       if (mod && key === 'k') { e.preventDefault(); setPaletteOpen(o => !o); return }
       if (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable) return
+      // Tabs: Alt+T new, Alt+W close, Alt+1..9 jump, Alt+←/→ previous/next (Ctrl+T/W/Tab belong to the browser).
+      if (e.altKey && !mod) {
+        if (key === 't') { e.preventDefault(); newTab(); return }
+        if (key === 'w') {
+          e.preventDefault()
+          const cur = tabs.find(x => x.active)
+          if (cur && (isEmptyDoc(getDoc()) || confirm(`Close “${cur.name}”? Its drawing will be gone.`))) closeTab(cur.id)
+          return
+        }
+        if (/^[1-9]$/.test(e.key)) { e.preventDefault(); const tab = e.key === '9' ? tabs[tabs.length - 1] : tabs[Number(e.key) - 1]; if (tab) switchTab(tab.id); return }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); cycleTab(e.key === 'ArrowLeft' ? -1 : 1); return }
+      }
       if (mod && key === 'z') { e.preventDefault(); if (e.shiftKey) redo(); else undo(); return }
       if (mod && key === 'y') { e.preventDefault(); redo(); return }
       if (mod && key === 'a') { e.preventDefault(); selectAll(); return }
@@ -417,7 +453,7 @@ export default function App() {
     window.addEventListener('keydown', onKey)
     window.addEventListener('keyup', onUp)
     return () => { window.removeEventListener('keydown', onKey); window.removeEventListener('keyup', onUp) }
-  }, [selection, setOpts, selectAll, saveJson, duplicate, copyAsImage, copySelection, pasteFrag])
+  }, [selection, tabs, setOpts, selectAll, saveJson, duplicate, copyAsImage, copySelection, pasteFrag])
 
   const toolInfo = TOOLS.find(t => t.id === tool)!
   const isEmpty = !Object.keys(doc.atoms).length && !Object.keys(doc.arrows).length && !Object.keys(doc.texts).length && !Object.keys(doc.brackets ?? {}).length
@@ -470,6 +506,8 @@ export default function App() {
           <TemplatesPanel onClose={() => setPopover(null)} onStructure={addStructure} onMechanism={t => { setPopover(null); addMechanism(t) }} onGroup={useGroup} />
         )}
       </header>
+
+      <TabBar />
 
       <div className="body">
         <nav className="toolbar" aria-label="Tools">
