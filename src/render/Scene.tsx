@@ -1,7 +1,7 @@
 import { memo, type ReactNode } from 'react'
 import type { Arrow, Atom, Bond, Bracket, Curly, Doc, ID, TextItem } from '../model/types'
 import { add, mul, norm, perp, sub, type P } from '../model/geometry'
-import { adjacency, chargeLabel, type Adjacency } from '../chem/chem'
+import { adjacency, chargeLabel, components, type Adjacency } from '../chem/chem'
 import { elementColor } from '../chem/elements'
 import { abbrevOf, labelRuns } from '../chem/abbrev'
 import {
@@ -39,8 +39,6 @@ interface Props {
   doc: Doc
   palette: Palette
   style?: DrawStyle
-  selected?: Set<ID>
-  hover?: ID | null
   /** Items to glow briefly (Claude's latest edits). `flashKey` restarts the glow. */
   flash?: Set<ID>
   flashKey?: number
@@ -48,34 +46,53 @@ interface Props {
 
 const pts = (...ps: P[]) => ps.map(p => `${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ')
 
-export function Scene({ doc, palette: pal, style = STYLES[0], selected, hover, flash, flashKey = 0 }: Props) {
+/**
+ * The whole drawing. Each molecule, arrow, text and bracket is its own memoised piece, so an edit
+ * re-renders only what it touched: the store keeps unchanged items as the same objects (see store.ts).
+ * A molecule's look depends only on its own atoms and bonds, which is what makes that safe.
+ */
+export function Scene({ doc, palette: pal, style = STYLES[0], flash, flashKey = 0 }: Props) {
   const adj = adjacency(doc)
   const st = style
-  const scale = st.font / FONT
-  const vis = new Map<ID, AtomVisual>()
-  for (const a of Object.values(doc.atoms)) vis.set(a.id, atomVisual(doc, a, adj, st.font, st.margin))
-  const sel = selected ?? new Set<ID>()
-  const highlight = (id: ID) => (sel.has(id) ? pal.select : hover === id ? pal.hover : null)
   const fl = (id: ID) => (flash?.has(id) ? flashKey : 0)
-  const anim = undefined as string | undefined
+  const mols = components(doc, adj).map(ids => {
+    const atoms = ids.map(id => doc.atoms[id])
+    const bonds: Bond[] = []
+    for (const id of ids) for (const n of adj.get(id) ?? []) if (n.bond.a1 === id) bonds.push(n.bond)
+    const fk = flash && flashKey && (ids.some(id => flash.has(id)) || bonds.some(b => flash.has(b.id))) ? flashKey : 0
+    return { key: ids.reduce((m, id) => (id < m ? id : m)), atoms, bonds, fk }
+  })
 
   return (
     <g style={{ fontFamily: st.fontFamily }}>
-      {Object.values(doc.brackets ?? {}).map(k => <BracketView key={k.id} k={k} pal={pal} st={st} hl={highlight(k.id)} fl={fl(k.id)} cls={anim} />)}
-      {Object.values(doc.bonds).map(b => (
-        <BondView key={b.id} b={b} doc={doc} adj={adj} vis={vis} pal={pal} st={st} hl={highlight(b.id)} fl={fl(b.id)} cls={anim} />
-      ))}
-      {Object.values(doc.atoms).map(a => (
-        <AtomView key={a.id} a={a} doc={doc} adj={adj} v={vis.get(a.id)!} pal={pal} st={st} scale={scale} hl={highlight(a.id)} fl={fl(a.id)} cls={anim} />
-      ))}
-      {Object.values(doc.arrows).map(r => <ArrowView key={r.id} r={r} pal={pal} st={st} hl={highlight(r.id)} fl={fl(r.id)} cls={anim} />)}
+      {Object.values(doc.brackets ?? {}).map(k => <BracketView key={k.id} k={k} pal={pal} st={st} fl={fl(k.id)} />)}
+      {mols.map(m => <MolView key={m.key} atoms={m.atoms} bonds={m.bonds} doc={doc} adj={adj} pal={pal} st={st} fk={m.fk} flash={flash} />)}
+      {Object.values(doc.arrows).map(r => <ArrowView key={r.id} r={r} pal={pal} st={st} fl={fl(r.id)} />)}
       {Object.values(doc.curlies).map(c => (
-        <CurlyView key={c.id} c={c} doc={doc} adj={adj} pal={pal} scale={scale} hl={highlight(c.id)} fl={fl(c.id)} cls={anim} />
+        <CurlyView key={c.id} c={c} doc={doc} adj={adj} pal={pal} scale={st.font / FONT} fl={fl(c.id)} />
       ))}
-      {Object.values(doc.texts).map(t => <TextView key={t.id} t={t} pal={pal} hl={highlight(t.id)} fl={fl(t.id)} cls={anim} />)}
+      {Object.values(doc.texts).map(t => <TextView key={t.id} t={t} pal={pal} fl={fl(t.id)} />)}
     </g>
   )
 }
+
+interface MolProps { atoms: Atom[]; bonds: Bond[]; doc: Doc; adj: Adjacency; pal: Palette; st: DrawStyle; fk: number; flash?: Set<ID> }
+
+/** One molecule: its bonds, then its atoms on top. */
+const MolView = memo(function MolView({ atoms, bonds, doc, adj, pal, st, fk, flash }: MolProps) {
+  const scale = st.font / FONT
+  const vis = new Map<ID, AtomVisual>()
+  for (const a of atoms) vis.set(a.id, atomVisual(doc, a, adj, st.font, st.margin))
+  const fl = (id: ID) => (fk && flash?.has(id) ? fk : 0)
+  return (
+    <>
+      {bonds.map(b => <BondView key={b.id} b={b} doc={doc} adj={adj} vis={vis} pal={pal} st={st} fl={fl(b.id)} />)}
+      {atoms.map(a => <AtomView key={a.id} a={a} doc={doc} adj={adj} v={vis.get(a.id)!} pal={pal} st={st} scale={scale} fl={fl(a.id)} />)}
+    </>
+  )
+}, (p, n) => p.pal === n.pal && p.st === n.st && p.fk === n.fk && same(p.atoms, n.atoms) && same(p.bonds, n.bonds))
+
+const same = <T,>(a: T[], b: T[]) => a.length === b.length && a.every((x, i) => x === b[i])
 
 /**
  * The drawing, re-rendered only when the document, style or flash changes: not on every mouse
@@ -128,8 +145,8 @@ function Flash({ k, children }: { k: number; children: ReactNode }) {
   return <g key={k} className="flash-halo" pointerEvents="none">{children}</g>
 }
 
-function BondView({ b, doc, adj, vis, pal, st, hl, fl, cls }: {
-  b: Bond; doc: Doc; adj: Adjacency; vis: Map<ID, AtomVisual>; pal: Palette; st: DrawStyle; hl: string | null; fl: number; cls?: string
+function BondView({ b, doc, adj, vis, pal, st, fl }: {
+  b: Bond; doc: Doc; adj: Adjacency; vis: Map<ID, AtomVisual>; pal: Palette; st: DrawStyle; fl: number
 }) {
   const A = doc.atoms[b.a1], B = doc.atoms[b.a2]
   if (!A || !B) return null
@@ -173,16 +190,15 @@ function BondView({ b, doc, adj, vis, pal, st, hl, fl, cls }: {
     parts.push(line(sub(p1, mul(n, o)), sub(p2, mul(n, o)), 2))
   }
   return (
-    <g className={cls}>
-      {hl && <line x1={A.x} y1={A.y} x2={B.x} y2={B.y} stroke={hl} strokeWidth={12} strokeLinecap="round" />}
+    <g>
       <Flash k={fl}><line x1={A.x} y1={A.y} x2={B.x} y2={B.y} strokeWidth={14} strokeLinecap="round" /></Flash>
       {parts}
     </g>
   )
 }
 
-function AtomView({ a, doc, adj, v, pal, st, scale, hl, fl, cls }: {
-  a: Atom; doc: Doc; adj: Adjacency; v: AtomVisual; pal: Palette; st: DrawStyle; scale: number; hl: string | null; fl: number; cls?: string
+function AtomView({ a, doc, adj, v, pal, st, scale, fl }: {
+  a: Atom; doc: Doc; adj: Adjacency; v: AtomVisual; pal: Palette; st: DrawStyle; scale: number; fl: number
 }) {
   const font = st.font
   const ab = abbrevOf(a.element)
@@ -235,8 +251,7 @@ function AtomView({ a, doc, adj, v, pal, st, scale, hl, fl, cls }: {
   }
   const corner = charge ? chargeDir(doc, a, adj, v) : null
   return (
-    <g className={cls}>
-      {hl && <circle cx={a.x} cy={a.y} r={v.showLabel ? 12 * scale : 6} fill={hl} />}
+    <g>
       <Flash k={fl}><circle cx={a.x} cy={a.y} r={v.showLabel ? 14 * scale : 9} /></Flash>
       {label}
       {charge && corner && (() => {
@@ -265,7 +280,7 @@ function halfHead(tip: P, dir: P, side: P, length = 10, width = 4.5): string {
   return pts(tip, add(sub(tip, mul(dir, length)), mul(side, width)), sub(tip, mul(dir, length * 0.7)))
 }
 
-function ArrowView({ r, pal, st, hl, fl, cls }: { r: Arrow; pal: Palette; st: DrawStyle; hl: string | null; fl: number; cls?: string }) {
+const ArrowView = memo(function ArrowView({ r, pal, st, fl }: { r: Arrow; pal: Palette; st: DrawStyle; fl: number }) {
   const p1 = { x: r.x1, y: r.y1 }, p2 = { x: r.x2, y: r.y2 }
   const dir = norm(sub(p2, p1))
   const n = perp(dir)
@@ -296,17 +311,16 @@ function ArrowView({ r, pal, st, hl, fl, cls }: { r: Arrow; pal: Palette; st: Dr
   const lab = arrowLabelPositions(r)
   const fs = Math.max(12, st.font * 0.86)
   return (
-    <g className={cls}>
-      {hl && <line x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke={hl} strokeWidth={14} strokeLinecap="round" />}
+    <g>
       <Flash k={fl}><line x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} strokeWidth={14} strokeLinecap="round" /></Flash>
       {parts}
       {r.above && <text x={lab.above.x} y={lab.above.y} textAnchor={lab.anchor[0]} fontSize={fs} fill={pal.ink}>{r.above}</text>}
       {r.below && <text x={lab.below.x} y={lab.below.y + (fs - 12)} textAnchor={lab.anchor[1]} fontSize={fs} fill={pal.ink}>{r.below}</text>}
     </g>
   )
-}
+})
 
-function CurlyView({ c, doc, adj, pal, scale, hl, fl, cls }: { c: Curly; doc: Doc; adj: Adjacency; pal: Palette; scale: number; hl: string | null; fl: number; cls?: string }) {
+function CurlyView({ c, doc, adj, pal, scale, fl }: { c: Curly; doc: Doc; adj: Adjacency; pal: Palette; scale: number; fl: number }) {
   const g = curlyGeometry(doc, c, adj, scale)
   if (!g) return null
   const dir = norm(sub(g.p1, g.ctrl))
@@ -316,8 +330,7 @@ function CurlyView({ c, doc, adj, pal, scale, hl, fl, cls }: { c: Curly; doc: Do
   let side = perp(dir)
   if ((g.ctrl.x - chordMid.x) * side.x + (g.ctrl.y - chordMid.y) * side.y < 0) side = mul(side, -1)
   return (
-    <g className={cls}>
-      {hl && <path d={d} stroke={hl} strokeWidth={10} fill="none" strokeLinecap="round" />}
+    <g>
       <Flash k={fl}><path d={d} strokeWidth={12} fill="none" strokeLinecap="round" /></Flash>
       <path d={d} stroke={pal.curly} strokeWidth={1.5} fill="none" strokeLinecap="round" />
       <polygon points={c.half ? halfHead(g.p1, dir, side, 10, 5) : head(g.p1, dir, 9, 4)} fill={pal.curly} />
@@ -325,7 +338,7 @@ function CurlyView({ c, doc, adj, pal, scale, hl, fl, cls }: { c: Curly; doc: Do
   )
 }
 
-function BracketView({ k, pal, st, hl, fl, cls }: { k: Bracket; pal: Palette; st: DrawStyle; hl: string | null; fl: number; cls?: string }) {
+const BracketView = memo(function BracketView({ k, pal, st, fl }: { k: Bracket; pal: Palette; st: DrawStyle; fl: number }) {
   const x1 = Math.min(k.x1, k.x2), x2 = Math.max(k.x1, k.x2), y1 = Math.min(k.y1, k.y2), y2 = Math.max(k.y1, k.y2)
   const t = bracketTick(k)
   const stroke = { stroke: pal.ink, strokeWidth: st.line, fill: 'none', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
@@ -336,21 +349,19 @@ function BracketView({ k, pal, st, hl, fl, cls }: { k: Bracket; pal: Palette; st
     ? <path d={`M ${x2 - t} ${y1} Q ${x2 + t * 0.6} ${(y1 + y2) / 2} ${x2 - t} ${y2}`} {...stroke} />
     : <polyline points={pts({ x: x2 - t, y: y1 }, { x: x2, y: y1 }, { x: x2, y: y2 }, { x: x2 - t, y: y2 })} {...stroke} />
   return (
-    <g className={cls}>
-      {hl && <rect x={x1 - 4} y={y1 - 4} width={x2 - x1 + 8} height={y2 - y1 + 8} rx={6} fill={hl} />}
+    <g>
       <Flash k={fl}><rect x={x1 - 4} y={y1 - 4} width={x2 - x1 + 8} height={y2 - y1 + 8} rx={6} /></Flash>
       {left}{right}
       {k.label && <text x={x2 + 3} y={y1 + 4} fontSize={Math.max(14, st.font)} fill={pal.ink}>{k.label}</text>}
     </g>
   )
-}
+})
 
-function TextView({ t, pal, hl, fl, cls }: { t: TextItem; pal: Palette; hl: string | null; fl: number; cls?: string }) {
+const TextView = memo(function TextView({ t, pal, fl }: { t: TextItem; pal: Palette; fl: number }) {
   const w = labelWidth(t)
   const size = t.size ?? FONT
   return (
-    <g className={cls}>
-      {hl && <rect x={t.x - 3} y={t.y - size} width={w + 6} height={size * 1.4} rx={3} fill={hl} />}
+    <g>
       <Flash k={fl}><rect x={t.x - 3} y={t.y - size} width={w + 6} height={size * 1.4} rx={3} /></Flash>
       <text
         x={t.x} y={t.y} fontSize={size} fill={t.color || pal.ink}
@@ -359,4 +370,4 @@ function TextView({ t, pal, hl, fl, cls }: { t: TextItem; pal: Palette; hl: stri
       >{t.text}</text>
     </g>
   )
-}
+})

@@ -59,6 +59,32 @@ function pushPast(d: Doc) {
   future = []
 }
 
+type Items = Record<string, Record<string, unknown>>
+const GROUPS = ['atoms', 'bonds', 'arrows', 'curlies', 'texts', 'brackets'] as const
+
+/**
+ * Keep every item that didn't change as the very same object as in `prev`. The canvas redraws a molecule
+ * only when one of its atom or bond objects is new, so an edit (or undo) redraws just what it touched.
+ */
+function reshare(prev: Doc, next: Doc): Doc {
+  for (const g of GROUPS) {
+    const a = (prev[g] ?? {}) as unknown as Items, b = next[g] as unknown as Items | undefined
+    if (!b || a === b) continue
+    for (const id in b) {
+      const o = a[id], n = b[id]
+      if (o && o !== n && sameFields(o, n)) b[id] = o
+    }
+  }
+  return next
+}
+
+function sameFields(a: Record<string, unknown>, b: Record<string, unknown>) {
+  let n = 0
+  for (const k in a) { if (a[k] !== b[k]) return false; n++ }
+  for (const _ in b) n--
+  return n === 0
+}
+
 /** Apply an edit as one undoable step. The callback mutates a fresh copy. */
 export function commit<T>(fn: (d: Doc) => T): T {
   const draft = structuredClone(doc)
@@ -66,7 +92,7 @@ export function commit<T>(fn: (d: Doc) => T): T {
   autoCharge(doc, draft)
   checkValence(doc, draft)
   pushPast(doc)
-  doc = draft
+  doc = reshare(doc, draft)
   emit()
   return result
 }
@@ -90,7 +116,7 @@ export async function batch<T>(fn: () => Promise<T>): Promise<T> {
 }
 
 /** Show a document without recording history (used while dragging). */
-export function setLive(d: Doc) { doc = d; emit() }
+export function setLive(d: Doc) { doc = reshare(doc, d); emit() }
 
 /** Finish a live edit: record `base` as the undo point for the current document. */
 export function finishLive(base: Doc) {
@@ -99,7 +125,7 @@ export function finishLive(base: Doc) {
 
 export function replaceDoc(d: Doc) {
   pushPast(doc)
-  doc = { ...emptyDoc(), ...d }
+  doc = reshare(doc, { ...emptyDoc(), ...d })
   syncCounters(doc)
   emit()
 }

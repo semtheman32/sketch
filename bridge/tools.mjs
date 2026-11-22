@@ -40,7 +40,8 @@ Getting the chemistry right:
   Don't build a new structure by editing a copy atom by atom: that is where wrong structures come from.
 - Resonance forms keep exactly the same atoms and connections; only bond orders, charges and lone pairs move.
   Write the SMILES of each form, check the atoms match, and draw the curly arrows on the first form.
-- Before replying, call get_document and compare each molecule's SMILES and formula with what you meant to draw.
+- Before replying, compare each molecule's SMILES with what you meant to draw. The results of add_molecule and
+  draw_mechanism already give the drawn SMILES, so call get_document again only after edits that don't.
   Delete failed attempts and leftovers. Your reply must describe what is actually on the canvas.
 Every tool call is one undo step for the user.
 

@@ -1,4 +1,4 @@
-import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { memo, useCallback, useDeferredValue, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import './App.css'
 import type { BondOrder, Doc, ID, TextStyle } from './model/types'
 import { allIds, emptyDoc, exists, kindOf } from './model/types'
@@ -40,7 +40,8 @@ export default function App() {
   const [tool, setTool] = useState<Tool>('bond')
   const [opts, setOptsState] = useState<ToolOptions>(defaultOptions)
   const [selection, setSelection] = useState<ID[]>([])
-  const [hover, setHover] = useState<ID | null>(null)
+  /** What the pointer is over. Kept by the canvas, so hovering doesn't re-render the whole app. */
+  const hoverRef = useRef<ID | null>(null)
   const [view, setView] = useState<View>({ x: 400, y: 300, k: 1.4 })
   const [editing, setEditing] = useState<EditTarget | null>(null)
   const [claudeOpen, setClaudeOpen] = useState(false)
@@ -98,7 +99,6 @@ export default function App() {
   // Drop selection/hover ids that no longer exist (after undo, erase, Claude edits).
   useEffect(() => {
     setSelection(s => (s.every(id => exists(doc, id)) ? s : s.filter(id => exists(doc, id))))
-    setHover(h => (h && !exists(doc, h) ? null : h))
   }, [doc])
 
   const fit = useCallback((maxK = 2.2) => {
@@ -362,10 +362,12 @@ export default function App() {
       if (e.key === ' ') { e.preventDefault(); setSpaceDown(true); return }
       if (e.key === 'Escape') { setSelection([]); setEditing(null); setPopover(null); return }
       if (e.key === 'Delete' || e.key === 'Backspace') {
+        const hover = hoverRef.current && exists(getDoc(), hoverRef.current) ? hoverRef.current : null
         const ids = selection.length ? selection : hover ? [hover] : []
         if (ids.length) { commit(d => removeItems(d, ids)); setSelection([]) }
         return
       }
+      const hover = hoverRef.current && exists(getDoc(), hoverRef.current) ? hoverRef.current : null
       if (hover && kindOf(hover) === 'atom' && !e.altKey) {
         const id = hover
         // Collect letters (and digits after letters) to recognise group names: "Boc", "OMe", "NO2".
@@ -415,20 +417,7 @@ export default function App() {
     window.addEventListener('keydown', onKey)
     window.addEventListener('keyup', onUp)
     return () => { window.removeEventListener('keydown', onKey); window.removeEventListener('keyup', onUp) }
-  }, [hover, selection, setOpts, selectAll, saveJson, duplicate, copyAsImage, copySelection, pasteFrag])
-
-  // The formula line can lag a frame behind while you drag; drawing stays smooth.
-  const lazyDoc = useDeferredValue(doc)
-  const lazySel = useDeferredValue(selection)
-  const status = useMemo(() => {
-    const doc = lazyDoc, selection = lazySel
-    const adj = adjacency(doc)
-    const selAtoms = selection.filter(id => kindOf(id) === 'atom' && doc.atoms[id])
-    const groups = selAtoms.length
-      ? components(doc, adj).map(c => c.filter(id => selAtoms.includes(id))).filter(c => c.length)
-      : components(doc, adj)
-    return groups.slice(0, 4).map(g => formulaOf(doc, g, adj))
-  }, [lazyDoc, lazySel])
+  }, [selection, setOpts, selectAll, saveJson, duplicate, copyAsImage, copySelection, pasteFrag])
 
   const toolInfo = TOOLS.find(t => t.id === tool)!
   const isEmpty = !Object.keys(doc.atoms).length && !Object.keys(doc.arrows).length && !Object.keys(doc.texts).length && !Object.keys(doc.brackets ?? {}).length
@@ -507,7 +496,7 @@ export default function App() {
           <Canvas
             tool={tool} opts={opts} view={view} setView={setView}
             selection={selection} setSelection={setSelection}
-            hover={hover} setHover={setHover}
+            hoverRef={hoverRef}
             onEdit={setEditing} spaceDown={spaceDown}
           />
           {isEmpty && (
@@ -532,9 +521,7 @@ export default function App() {
           <footer className="status">
             <span className="hint">{toolInfo.hint}</span>
             <span className="spacer" />
-            {status.map((f, i) => (
-              <span key={i} className="formula">{f.formula} <span className="muted">{f.mass.toFixed(2)} g/mol</span></span>
-            ))}
+            <Formulas doc={doc} selection={selection} />
             <span className="muted tabular">{Math.round(view.k * 100 / 1.4)}%</span>
           </footer>
         </main>
@@ -546,6 +533,26 @@ export default function App() {
     </div>
   )
 }
+
+/**
+ * Formula and mass of each molecule (or of the selection). It may lag a frame behind while you drag,
+ * so drawing stays smooth; only this small part re-renders for it.
+ */
+const Formulas = memo(function Formulas(p: { doc: Doc; selection: ID[] }) {
+  const doc = useDeferredValue(p.doc)
+  const selection = useDeferredValue(p.selection)
+  const status = useMemo(() => {
+    const adj = adjacency(doc)
+    const selAtoms = new Set(selection.filter(id => kindOf(id) === 'atom' && doc.atoms[id]))
+    const groups = selAtoms.size
+      ? components(doc, adj).map(c => c.filter(id => selAtoms.has(id))).filter(c => c.length)
+      : components(doc, adj)
+    return groups.slice(0, 4).map(g => formulaOf(doc, g, adj))
+  }, [doc, selection])
+  return <>{status.map((f, i) => (
+    <span key={i} className="formula">{f.formula} <span className="muted">{f.mass.toFixed(2)} g/mol</span></span>
+  ))}</>
+})
 
 /** Typing box for a new or existing label, with its style controls above it. */
 function TextEditor({ target, view, newTextStyle, onDone }: {

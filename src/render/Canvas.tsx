@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type MouseEvent as RMouseEvent, type PointerEvent as RPointerEvent, type ReactNode } from 'react'
 import type { Doc, ID } from '../model/types'
-import { kindOf } from '../model/types'
+import { exists, kindOf } from '../model/types'
 import { BOND, add, angleOf, dist, fromAngle, inRect, len, mid, mul, norm, perp, sub, type P, type Rect } from '../model/geometry'
 import { commit, finishLive, getDoc, newId, scratch, setLive, useDoc } from '../model/store'
 import {
@@ -27,8 +27,8 @@ interface Props {
   setView: (v: View | ((v: View) => View)) => void
   selection: ID[]
   setSelection: (ids: ID[]) => void
-  hover: ID | null
-  setHover: (id: ID | null) => void
+  /** The canvas keeps the hovered item; the app reads it here for keyboard shortcuts. */
+  hoverRef: { current: ID | null }
   onEdit: (t: EditTarget) => void
   spaceDown: boolean
 }
@@ -61,29 +61,38 @@ export function Canvas(p: Props) {
   /** While dragging whole molecules: the still part, the moving part and the offset (only a transform changes per move). */
   const [drag, setDrag] = useState<{ stat: Doc; moving: Doc; dx: number; dy: number } | null>(null)
   const [, force] = useState(0)
+  const [hoverState, setHoverState] = useState<ID | null>(null)
+  // An item that no longer exists (after undo, erase, Claude edits) isn't hovered.
+  const hover = hoverState && exists(doc, hoverState) ? hoverState : null
+  const setHover = (id: ID | null) => { p.hoverRef.current = id; setHoverState(id) }
 
   useEffect(() => { if (p.tool !== 'curly') setCurlyFrom(null) }, [p.tool])
 
-  // Wheel zoom around the cursor (non-passive so the page doesn't scroll).
+  // Wheel zoom around the cursor (non-passive so the page doesn't scroll). Like panning, each wheel event
+  // moves the drawing directly; React hears about the new view at most once per frame.
   const viewRef = useRef(p.view)
   viewRef.current = p.view
   useEffect(() => {
     const el = svgRef.current!
+    let raf = 0
     const onWheel = (e: WheelEvent) => {
       e.preventDefault()
       const r = el.getBoundingClientRect()
       const sx = e.clientX - r.left, sy = e.clientY - r.top
+      const v = viewRef.current
+      let next: View
       if (e.ctrlKey || !e.shiftKey) {
-        p.setView(v => {
-          const k = Math.min(5, Math.max(0.2, v.k * Math.exp(-e.deltaY * 0.0015)))
-          return { k, x: sx - ((sx - v.x) / v.k) * k, y: sy - ((sy - v.y) / v.k) * k }
-        })
+        const k = Math.min(5, Math.max(0.2, v.k * Math.exp(-e.deltaY * 0.0015)))
+        next = { k, x: sx - ((sx - v.x) / v.k) * k, y: sy - ((sy - v.y) / v.k) * k }
       } else {
-        p.setView(v => ({ ...v, x: v.x - e.deltaY }))
+        next = { ...v, x: v.x - e.deltaY }
       }
+      viewRef.current = next
+      paintView(next)
+      if (!raf) raf = requestAnimationFrame(() => { raf = 0; p.setView(viewRef.current) })
     }
     el.addEventListener('wheel', onWheel, { passive: false })
-    return () => el.removeEventListener('wheel', onWheel)
+    return () => { el.removeEventListener('wheel', onWheel); cancelAnimationFrame(raf) }
   }, [p.setView])
 
   const toWorld = (e: { clientX: number; clientY: number }): P => {
@@ -94,12 +103,13 @@ export function Canvas(p: Props) {
   const tol = () => 8 / viewRef.current.k
 
   const sceneRef = useRef<SVGGElement>(null)
-  const paintPan = (x: number, y: number) => {
-    const k = viewRef.current.k
-    sceneRef.current?.setAttribute('transform', `translate(${x} ${y}) scale(${k})`)
+  /** Show a view straight away, without a React render (pan and wheel zoom). */
+  const paintView = (v: View) => {
+    sceneRef.current?.setAttribute('transform', `translate(${v.x} ${v.y}) scale(${v.k})`)
     const grid = svgRef.current?.parentElement?.querySelector<HTMLElement>('.stage-grid')
-    if (grid) { grid.style.setProperty('--vx', String(x)); grid.style.setProperty('--vy', String(y)) }
+    if (grid) { grid.style.setProperty('--vx', String(v.x)); grid.style.setProperty('--vy', String(v.y)); grid.style.setProperty('--k', String(v.k)) }
   }
+  const paintPan = (x: number, y: number) => paintView({ ...viewRef.current, x, y })
 
   const hitAt = (w: P): Hit | null => {
     const d = getDoc()
@@ -329,7 +339,7 @@ export function Canvas(p: Props) {
       case 'none': {
         const h = hitAt(w)
         const id = h?.id ?? null
-        if (id !== p.hover) p.setHover(id)
+        if (id !== hover) setHover(id)
         // Ghost previews follow the pointer for the drawing tools.
         if (curlyFrom || p.tool === 'ring') setPointer(w)
         return
@@ -524,7 +534,7 @@ export function Canvas(p: Props) {
   )
   const degrees = (v: P) => `${Math.round(((-angleOf(v) * 180) / Math.PI + 360) % 360)}°`
   if (md.m === 'none' && pointer && !curlyFrom && !p.spaceDown) {
-    preview = ghostPreview(doc, p, pointer, k)
+    preview = ghostPreview(doc, p, hover, pointer, k)
   }
   if (md.m === 'rotate' && pointer) {
     preview = (
@@ -581,10 +591,10 @@ export function Canvas(p: Props) {
 
   const cursor = md.m === 'pan' ? 'grabbing' : p.spaceDown ? 'grab'
     : md.m === 'rotate' ? ROTATE_CURSOR
-      : p.tool === 'select' ? (p.hover ? 'move' : 'default')
+      : p.tool === 'select' ? (hover ? 'move' : 'default')
         : p.tool === 'text' ? 'text'
           : p.tool === 'eraser' ? ERASER_CURSOR
-            : p.tool === 'curly' && p.hover ? 'pointer' : 'crosshair'
+            : p.tool === 'curly' && hover ? 'pointer' : 'crosshair'
 
   return (
     <svg
@@ -594,7 +604,7 @@ export function Canvas(p: Props) {
       onPointerDown={onDown}
       onPointerMove={onMove}
       onPointerUp={onUp}
-      onPointerLeave={() => { if (mode.current.m === 'none') p.setHover(null) }}
+      onPointerLeave={() => { if (mode.current.m === 'none') setHover(null) }}
       onDoubleClick={onDouble}
       onContextMenu={e => e.preventDefault()}
     >
@@ -609,7 +619,7 @@ export function Canvas(p: Props) {
           </>
         ) : (
           <>
-            <Highlights doc={doc} selected={p.selection} hover={p.hover} palette={LIVE} style={style} />
+            <Highlights doc={doc} selected={p.selection} hover={hover} palette={LIVE} style={style} />
             <g className="scene"><MemoScene doc={doc} palette={LIVE} style={style} flash={flash.ids} flashKey={flash.key} /></g>
           </>
         )}
@@ -654,10 +664,10 @@ const ROTATE_CURSOR = svgCursor(
 const SHOW_BOND_GHOST = false
 
 /** Faint preview of what a click would add: the next bond from an atom, or the ring the Ring tool would place. */
-function ghostPreview(doc: Doc, p: Props, pointer: P, k: number): ReactNode {
+function ghostPreview(doc: Doc, p: Props, hover: ID | null, pointer: P, k: number): ReactNode {
   const ghost = { stroke: 'var(--accent)', strokeWidth: 1.6, strokeLinecap: 'round' as const, opacity: 0.45 }
   if (p.tool === 'bond' && SHOW_BOND_GHOST) {
-    const hit = p.hover
+    const hit = hover
     if (hit && kindOf(hit) === 'bond') return null // clicking a bond changes its order: the hover glow says enough
     const fromAtom = hit && kindOf(hit) === 'atom' ? doc.atoms[hit] : null
     const start = fromAtom ?? pointer
@@ -671,7 +681,7 @@ function ghostPreview(doc: Doc, p: Props, pointer: P, k: number): ReactNode {
     )
   }
   if (p.tool === 'ring') {
-    const hit = p.hover
+    const hit = hover
     const target = hit && kindOf(hit) === 'atom' ? { kind: 'atom' as const, id: hit }
       : hit && kindOf(hit) === 'bond' ? { kind: 'bond' as const, id: hit }
         : hit ? null : { kind: 'point' as const, p: pointer }
