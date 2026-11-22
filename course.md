@@ -39,5 +39,12 @@ Combinaties van onderstaande stappen in één opgave mogen wel.
 - Verestering van linalool tot linalylacetaat (zuurgekatalyseerd, Fischer-type of SN1 via tertiair kation).
 - HOCl-additie aan linalylacetaat; E2 met tert-butoxide.
 
+## Les 9 en 12 · Massaspectrometrie (fragmentatie)
+- Molecuulion M•+ (radicaalkation, elektron uit een vrij elektronenpaar van O, N of halogeen).
+- Heterolytische splitsing van C–X en C–O (volle pijl naar het elektronegatieve atoom): carbokation + radicaal.
+- α-splitsing (homolytisch, fishhooks) bij alkylhalides, ethers, alcoholen (m/z 31 bij primair), amines en ketonen (acyliumion).
+- McLafferty-omlegging bij ketonen en aldehyden met een γ-H (zesring; neutraal alkeen vertrekt).
+- Alkanen: splitsing naast vertakking tot het stabielste carbokation; de grootste groep vertrekt bij voorkeur als radicaal.
+
 ## Stijl
 Nederlands. Vraag waar het kan om stereochemie (wiggen, R/S, E/Z, racemaat, meso).
