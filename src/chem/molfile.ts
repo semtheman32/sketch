@@ -1,12 +1,13 @@
 import type { BondOrder, BondStereo, Doc, ID } from '../model/types'
 import { BOND } from '../model/geometry'
 import { isAbbrev } from './abbrev'
+import { implicitHydrogens } from './elements'
 
 /** Molfile coordinates use ~1.5 Å bond length; the canvas uses BOND units with y pointing down. */
 const SCALE = BOND / 1.5
 
 export interface ParsedMol {
-  atoms: { element: string; x: number; y: number; charge: number }[]
+  atoms: { element: string; x: number; y: number; charge: number; radical?: boolean }[]
   bonds: { i: number; j: number; order: BondOrder; stereo: BondStereo }[]
 }
 
@@ -19,6 +20,7 @@ export function writeMolfile(doc: Doc, atomIds: ID[] = Object.keys(doc.atoms), n
   const lines = [name, '  ChemSketchClone', '']
   lines.push(`${pad(atomIds.length, 3)}${pad(bonds.length, 3)}  0  0  0  0  0  0  0  0999 V2000`)
   const charged: [number, number][] = []
+  const radicals: number[] = []
   for (const id of atomIds) {
     const a = doc.atoms[id]
     const x = (a.x / SCALE).toFixed(4), y = (-a.y / SCALE).toFixed(4)
@@ -27,6 +29,7 @@ export function writeMolfile(doc: Doc, atomIds: ID[] = Object.keys(doc.atoms), n
     const el = isAbbrev(a.element) ? 'C' : a.element
     lines.push(`${pad(x, 10)}${pad(y, 10)}${pad('0.0000', 10)} ${el.padEnd(3)} 0  0  0  0  0  0  0  0  0  0  0  0`)
     if (a.charge) charged.push([index.get(id)!, a.charge])
+    if (a.radical) radicals.push(index.get(id)!)
   }
   for (const b of bonds) {
     const st = b.stereo === 'wedge' ? 1 : b.stereo === 'dash' ? 6 : 0
@@ -35,6 +38,11 @@ export function writeMolfile(doc: Doc, atomIds: ID[] = Object.keys(doc.atoms), n
   for (let i = 0; i < charged.length; i += 8) {
     const chunk = charged.slice(i, i + 8)
     lines.push(`M  CHG${pad(chunk.length, 3)}` + chunk.map(([n, c]) => `${pad(n, 4)}${pad(c, 4)}`).join(''))
+  }
+  // Radicals (MS fragments, radical cations) as doublets, so RDKit doesn't fill the free valence with H.
+  for (let i = 0; i < radicals.length; i += 8) {
+    const chunk = radicals.slice(i, i + 8)
+    lines.push(`M  RAD${pad(chunk.length, 3)}` + chunk.map(n => `${pad(n, 4)}${pad(2, 4)}`).join(''))
   }
   lines.push('M  END')
   return lines.join('\n')
@@ -67,6 +75,9 @@ export function parseMolfile(text: string): ParsedMol {
     const order = (t === 2 || t === 3 ? t : 1) as BondOrder
     bonds.push({ i: a - 1, j: b - 1, order, stereo: st === 1 ? 'wedge' : st === 6 ? 'dash' : 'none' })
   }
+  // A valence field (15 = zero) below the normal valence marks a lone radical atom like [Br] or [Cl],
+  // which RDKit writes without an M  RAD line.
+  const fixedValence = lines.slice(c + 1, c + 1 + nAtoms).map(l => parseInt(l.slice(48, 51)) || 0)
   for (let k = c + 1 + nAtoms + nBonds; k < lines.length; k++) {
     const l = lines[k]
     if (l.startsWith('M  END')) break
@@ -77,7 +88,22 @@ export function parseMolfile(text: string): ParsedMol {
         if (atoms[idx - 1]) atoms[idx - 1].charge = ch
       }
     }
+    if (l.startsWith('M  RAD')) {
+      const n = parseInt(l.slice(6, 9))
+      for (let j = 0; j < n; j++) {
+        const idx = parseInt(l.slice(9 + j * 8, 13 + j * 8)), r = parseInt(l.slice(13 + j * 8, 17 + j * 8))
+        if (atoms[idx - 1] && r) atoms[idx - 1].radical = true
+      }
+    }
   }
+  const orderSum = new Array(atoms.length).fill(0)
+  for (const b of bonds) { orderSum[b.i] += b.order; orderSum[b.j] += b.order }
+  atoms.forEach((a, i) => {
+    const v = fixedValence[i]
+    if (!v || a.radical) return
+    const valence = v === 15 ? 0 : v
+    if (orderSum[i] === valence && implicitHydrogens(a.element, orderSum[i], a.charge, false) === 1) a.radical = true
+  })
   return separateFragments(normalizeBondLength(stripHydrogens({ atoms, bonds })))
 }
 

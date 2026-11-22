@@ -244,7 +244,11 @@ export function insertMolecule(d: Doc, m: ParsedMol, center: P): { atomIds: ID[]
   let cx = 0, cy = 0
   for (const a of m.atoms) { cx += a.x; cy += a.y }
   cx /= m.atoms.length; cy /= m.atoms.length
-  const atomIds = m.atoms.map(a => addAtom(d, a.x - cx + center.x, a.y - cy + center.y, a.element, a.charge))
+  const atomIds = m.atoms.map(a => {
+    const id = addAtom(d, a.x - cx + center.x, a.y - cy + center.y, a.element, a.charge)
+    if (a.radical) d.atoms[id].radical = true
+    return id
+  })
   const bondIds = m.bonds.map(b => {
     const id = newId('b')
     d.bonds[id] = { id, a1: atomIds[b.i], a2: atomIds[b.j], order: b.order, stereo: b.stereo }
