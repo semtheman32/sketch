@@ -1,0 +1,390 @@
+{
+ "title": "MS-splitsing (les 9 en 12)",
+ "exercises": [
+  {
+   "title": "L9.1 Alkaan: welke binding breekt? (2-methylpentaan)",
+   "question": "2-Methylpentaan (M = 86) wordt in de MS geïoniseerd. Het spectrum heeft sterke pieken bij m/z 71 en m/z 43, en maar een kleine piek bij m/z 57. Teken voor m/z 43 en m/z 71 het kation en het radicaal dat ontstaat (pijlen mogen, hoeven niet). Leg kort uit waarom m/z 57 klein is.",
+   "answer_key": "Geen curly arrows nodig (het molecuulion van een alkaan heeft het gat in een sigma-binding); het gaat om de juiste fragmenten. 1) m/z 71 = M − 15: binding C1–C2 breekt, verlies van CH3• ([CH3]). Kation: secundair pent-2-yl-kation C[CH+]CCC (C5H11+, 71). 2) m/z 43 = M − 43: binding C2–C3 breekt (bij de vertakking). Kation: isopropylkation C[CH+]C (C3H7+, 43), radicaal: propyl [CH2]CC. Ook goed als alternatief voor 43: propylkation [CH2+]CC + isopropylradicaal, maar het secundaire isopropylkation is stabieler en dus de verklaring van de grote piek. 3) m/z 57 = M − 29 (verlies ethyl, breuk C3–C4) geeft het PRIMAIRE kation [CH2+]C(C)C (isobutyl), dat minder stabiel is dan de secundaire kationen van 71 en 43, daarom klein. Regel: bindingen breken bij voorkeur naast de vertakking, zodat het stabielste carbokation ontstaat (tertiair > secundair > primair > methyl). Lading staat op het kation, ongepaard elektron op het radicaal; alleen het kation wordt gedetecteerd. Als Sem pijlen tekent: één fishhook van de brekende C–C-binding naar elk van beide C-atomen is goed, of één volle pijl van de binding naar het radicaal-C is ook acceptabel als het eindresultaat klopt.",
+   "hints": [
+    "Welk carbokation is stabieler: primair, secundair of tertiair? Bindingen die het stabielste kation geven breken het makkelijkst.",
+    "71 = 86 − 15 en 43 = 86 − 43. Welke groep van 15 en welke van 43 kun je bij de vertakking (C2) afknippen?",
+    "m/z 43 is het isopropylkation (CH3)2CH+; m/z 57 zou een primair kation (CH3)2CHCH2+ zijn."
+   ],
+   "topic": "MS: alkaanfragmentatie",
+   "difficulty": "easy",
+   "source": "OSY2 les 9 (MS), dia 9-13; Wade opgave 12-8",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)CCC",
+      "label": "2-methylpentaan, M = 86"
+     }
+    ],
+    "above": "e⁻ (70 eV)",
+    "below": "m/z 71 en 43?"
+   }
+  },
+  {
+   "title": "L9.2 Alkylhalide: heterolytische splitsing C–Br (1-broompropaan)",
+   "question": "Het molecuulion van 1-broompropaan (m/z 122/124) geeft de basispiek bij m/z 43. Teken de heterolytische splitsing van de C–Br-binding met de juiste pijl, en geef ladingen en het radicaal aan.",
+   "answer_key": "Molecuulion: radicaalkation met het gat op Br (een elektron uit een vrij elektronenpaar van Br weg): CCC[Br+•]. Stap 1 (heterolytisch, één VOLLE pijl): van de C1–Br-binding naar Br. Beide bindingselektronen gaan naar het elektronegatievere Br. Br had al een ongepaard elektron en +lading; met het elektronenpaar erbij wordt het een neutraal Br-radicaal [Br]. C1 houdt de positieve lading: propylkation [CH2+]CC (C3H7+, m/z 43). Producten: [CH2+]CC + [Br] (Br•, niet gedetecteerd). Uitleg: de C–Br-binding is zwakker dan een C–C-binding, daarom geen α-splitsing maar heterolytische splitsing. M en M+2 even hoog door 79Br/81Br (~1:1); m/z 43 heeft géén M+2-partner omdat Br weg is. Alternatieve notatie ook goed: twee fishhooks is FOUT hier (dat zou homolytisch zijn en het kation op Br laten); wel goed als de pijl vanuit de binding naar Br loopt en de ladingen kloppen.",
+   "hints": [
+    "Heterolytisch: beide bindingselektronen gaan naar hetzelfde atoom. Welk atoom is het meest elektronegatief?",
+    "Gebruik een volle pijl (2 elektronen) van de C–Br-binding naar Br. Waar blijft de + lading?",
+    "Br•+ krijgt het elektronenpaar en wordt neutraal Br•; het C-atoom wordt CH3CH2CH2+ (m/z 43)."
+   ],
+   "topic": "MS: heterolytische splitsing",
+   "difficulty": "easy",
+   "source": "OSY2 les 9 (MS), dia 15-16",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCC[Br+]",
+      "label": "M•+ m/z 122/124"
+     }
+    ],
+    "above": "heterolytisch",
+    "product": [
+     {
+      "smiles": "[CH2+]CC",
+      "label": "m/z 43"
+     },
+     {
+      "smiles": "[Br]"
+     }
+    ]
+   }
+  },
+  {
+   "title": "L9.3 Alkylhalide: α-splitsing (2-chloorpropaan, m/z 63)",
+   "question": "2-Chloorpropaan (m/z 78/80) geeft naast de basispiek bij 43 ook pieken bij m/z 63 en 65 (3:1). Teken de α-splitsing die m/z 63 oplevert, met fishhook-pijlen (1 elektron).",
+   "answer_key": "Molecuulion: C C(Cl•+) C, gat op Cl: CC(C)[Cl+]. α-splitsing (homolytisch, 3 fishhooks): 1) fishhook van het ongepaarde elektron op Cl naar de C2–Cl-binding (vormt de nieuwe π-binding C=Cl+). 2) fishhook van de C2–C1-binding (C2–CH3) naar de C2–Cl-binding (tweede elektron voor de π-binding). 3) fishhook van dezelfde C2–CH3-binding naar het CH3 (wordt CH3•). Producten: CH3CH=Cl+ = CC=[Cl+] (C2H4Cl+, m/z 63; met 37Cl m/z 65, verhouding 3:1) en [CH3] (CH3•, 15, niet gedetecteerd). Uitleg: C–Cl en C–C zijn ongeveer even sterk, en het chloronium-ion is gestabiliseerd door resonantie (vrij elektronenpaar Cl), daarom treedt α-splitsing op. Bij Br niet: C–Br is veel zwakker dan C–C. Goed is ook: 2 fishhooks (stap 1 en 2 in één keer getekend vanuit Cl en vanuit de C–C-binding) zolang de C–CH3-binding breekt, er een C=Cl+ ontstaat en CH3• vertrekt. Fout: een volle pijl (dat is heterolytisch).",
+   "hints": [
+    "α-splitsing: de binding tussen het α-C (het C dat aan Cl vastzit) en het volgende C breekt homolytisch.",
+    "Eén elektron van de C–CH3-binding vormt samen met het ongepaarde elektron op Cl een nieuwe C=Cl-binding. Het andere elektron gaat met CH3 mee.",
+    "Product: CH3–CH=Cl+ (m/z 63/65) + CH3•. Teken 3 fishhooks: Cl• → C–Cl, C–CH3 → C–Cl, C–CH3 → CH3."
+   ],
+   "topic": "MS: α-splitsing",
+   "difficulty": "medium",
+   "source": "OSY2 les 9 (MS), dia 17-19",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)[Cl+]",
+      "label": "M•+ m/z 78/80"
+     }
+    ],
+    "above": "α-splitsing",
+    "product": [
+     {
+      "smiles": "CC=[Cl+]",
+      "label": "m/z 63/65"
+     },
+     {
+      "smiles": "[CH3]"
+     }
+    ]
+   }
+  },
+  {
+   "title": "L9.4 Ether: α-splitsing (diethylether, m/z 59)",
+   "question": "Teken de α-splitsing van het molecuulion van diethylether (M = 74) die het oxoniumion met m/z 59 geeft. Gebruik fishhook-pijlen.",
+   "answer_key": "Molecuulion: CC[O+]CC (O•+, één elektron uit een vrij elektronenpaar van O weg). α-splitsing: de binding tussen het α-C (CH2 aan O) en het β-C (CH3) breekt homolytisch. Pijlen (fishhooks): 1) van het ongepaarde elektron op O naar de O–CH2-binding (nieuwe π-binding C=O+). 2) van de CH2–CH3-binding naar de O–CH2-binding. 3) van de CH2–CH3-binding naar het CH3 (wordt CH3•). Producten: oxoniumion CH2=O+–CH2CH3 = C=[O+]CC (C3H7O+, m/z 59), resonantiegestabiliseerd (vrij elektronenpaar O; alle atomen octet), en [CH3] (CH3•). Uitleg: bij ethers concurreren α-splitsing (oxoniumion) en heterolytische splitsing (carbokation, zie L9.5). Ook goed: dezelfde splitsing aan de andere ethylgroep (symmetrisch, zelfde product). Fout: een volle pijl of het breken van de C–O-binding (dat is opgave L9.5).",
+   "hints": [
+    "Welke binding is de α-β-binding? Het α-C zit aan O vast.",
+    "Het ongepaarde elektron op O en één elektron uit de CH2–CH3-binding vormen samen een C=O+-binding.",
+    "Product: CH2=O+–CH2CH3 (m/z 59) + CH3•. Drie fishhooks: O• → O–C, C–C → O–C, C–C → CH3."
+   ],
+   "topic": "MS: α-splitsing",
+   "difficulty": "easy",
+   "source": "OSY2 les 9 (MS), dia 20-23; Wade §14-4",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC[O+]CC",
+      "label": "M•+ m/z 74"
+     }
+    ],
+    "above": "α-splitsing",
+    "product": [
+     {
+      "smiles": "C=[O+]CC",
+      "label": "m/z 59"
+     },
+     {
+      "smiles": "[CH3]"
+     }
+    ]
+   }
+  },
+  {
+   "title": "L9.5 Ether: heterolytische splitsing C–O (diethylether, m/z 29)",
+   "question": "Diethylether (M = 74) geeft ook een piek bij m/z 29. Teken de heterolytische splitsing van de C–O-binding die dit fragment geeft, met ladingen en radicaal.",
+   "answer_key": "Molecuulion CC[O+]CC. Eén VOLLE pijl van de CH2–O-binding naar O: beide elektronen gaan naar het elektronegatieve O. O+• wordt daardoor een neutraal alkoxyradicaal CH3CH2O• = CC[O]. Het C-atoom verliest zijn bindingselektronen en wordt het ethylkation C[CH2+] (C2H5+, m/z 29). Producten: C[CH2+] (m/z 29, gedetecteerd) + CC[O] (niet gedetecteerd, neutraal). Uitleg: binding tussen C en een elektronegatiever atoom → heterolytische splitsing, elektronen naar het elektronegatieve atoom. Fout: kation op O laten staan, of fishhooks gebruiken.",
+   "hints": [
+    "Bij heterolytische splitsing gaan beide bindingselektronen naar het elektronegatiefste atoom.",
+    "Volle pijl van de C–O-binding naar O. Wat wordt O+• als het er twee elektronen bij krijgt?",
+    "Producten: CH3CH2+ (m/z 29) en het neutrale radicaal CH3CH2O•."
+   ],
+   "topic": "MS: heterolytische splitsing",
+   "difficulty": "easy",
+   "source": "OSY2 les 9 (MS), dia 20-21",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC[O+]CC",
+      "label": "M•+ m/z 74"
+     }
+    ],
+    "above": "heterolytisch",
+    "below": "m/z 29?"
+   }
+  },
+  {
+   "title": "L9.6 Ether: welke fragmenten? (butylisopropylether)",
+   "question": "Butylisopropylether (M = 116) geeft pieken bij m/z 101, 73, 57 en 43. Teken voor m/z 101 de α-splitsing met fishhook-pijlen, en geef bij elke andere piek welk fragment het is en via welke splitsing (α of heterolytisch).",
+   "answer_key": "Molecuulion CCCC[O+]C(C)C. m/z 101 (M − 15): α-splitsing aan de isopropylkant. Fishhooks: O• → O–CH-binding; CH–CH3-binding → O–CH-binding; CH–CH3-binding → CH3. Product CCCC[O+]=C(C) i.e. CCCC[O+]=CC (C6H13O+, 101) + [CH3]. m/z 73 (M − 43): α-splitsing aan de butylkant: de binding O–CH2–|–CH2CH2CH3 breekt, propyl• vertrekt, product C=[O+]C(C)C (CH2=O+–iPr, C4H9O+, 73). m/z 57: heterolytische splitsing van de butyl–O-binding (volle pijl naar O): butylkation [CH2+]CCC (C4H9+, 57) + •O-iPr. m/z 43: heterolytische splitsing van de isopropyl–O-binding: isopropylkation C[CH+]C (C3H7+, 43) + •O-Bu. Ook goed voor 43: propylkation, maar het secundaire isopropylkation is de logische verklaring. Beoordeel vooral de tekening van m/z 101; de rest mag in tekst of als losse structuren.",
+   "hints": [
+    "Reken de verschillen uit: 116 − 101 = 15, 116 − 73 = 43. Welke groepen zitten één C verder dan het α-C?",
+    "α-splitsing geeft een oxoniumion (C=O+); heterolytische splitsing van C–O geeft een carbokation. 57 = C4H9+, 43 = C3H7+.",
+    "Voor 101: knip één CH3 van het isopropyl-C af met drie fishhooks, zodat CH3CH2CH2CH2–O+=CH–CH3 ontstaat."
+   ],
+   "topic": "MS: ethers",
+   "difficulty": "hard",
+   "source": "OSY2 les 9 (MS); Wade opgave 14-7 en 12-10",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCCC[O+]C(C)C",
+      "label": "M•+ m/z 116"
+     }
+    ],
+    "above": "α-splitsing",
+    "below": "m/z 101?"
+   }
+  },
+  {
+   "title": "L9.7 Primair alcohol: α-splitsing geeft m/z 31 (1-butanol)",
+   "question": "Bij primaire alcoholen zie je bijna altijd een piek bij m/z 31. Teken voor 1-butanol (M = 74) de α-splitsing die dit ion geeft, met fishhook-pijlen.",
+   "answer_key": "Molecuulion CCCC[OH+] (O•+). α-splitsing: de C1–C2-binding breekt homolytisch. Fishhooks: 1) O• → C1–O-binding (nieuwe π-binding). 2) C1–C2-binding → C1–O-binding. 3) C1–C2-binding → C2 (propylradicaal). Producten: CH2=OH+ = C=[OH+] (CH3O+, m/z 31, resonantiegestabiliseerd) + propylradicaal [CH2]CC. Uitleg: alcoholen hebben een kleine of geen M+-piek; α-splitsing en waterverlies (M − 18 = 56) domineren. m/z 31 is typerend voor een primair alcohol (R–CH2–OH). Fout: een volle pijl, of de C–O-binding breken.",
+   "hints": [
+    "Het α-C is het C met de OH. Welke binding zit tussen het α-C en het volgende C?",
+    "Na de splitsing ontstaat een ion met een C=O+-dubbele binding en een H op O.",
+    "Product: H2C=OH+ (m/z 31) + •CH2CH2CH3."
+   ],
+   "topic": "MS: α-splitsing",
+   "difficulty": "easy",
+   "source": "OSY2 les 9 (MS), dia 24-26",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCCC[OH+]",
+      "label": "M•+ m/z 74"
+     }
+    ],
+    "above": "α-splitsing",
+    "product": [
+     {
+      "smiles": "C=[OH+]",
+      "label": "m/z 31"
+     },
+     {
+      "smiles": "[CH2]CC"
+     }
+    ]
+   }
+  },
+  {
+   "title": "L9.8 Tertiair alcohol: welke groep vertrekt? (2-methyl-2-butanol)",
+   "question": "2-Methyl-2-butanol (M = 88) heeft geen zichtbare M+-piek. Het α-C draagt twee methylgroepen en een ethylgroep. Teken de α-splitsing die de basispiek geeft, en leg uit waarom die piek groter is dan de andere α-splitsingspiek.",
+   "answer_key": "Molecuulion CCC(C)(C)[OH+]. Twee mogelijke α-splitsingen: (a) verlies van ethyl•: product (CH3)2C=OH+ = CC(C)=[OH+] (C3H7O+, m/z 59) + C[CH2] (ethylradicaal); (b) verlies van CH3•: product CCC(C)=[OH+] (C4H9O+, m/z 73) + [CH3]. Basispiek = m/z 59: bij α-splitsing vertrekt bij voorkeur de grootste alkylgroep, omdat een ethylradicaal stabieler is dan een methylradicaal (vergelijk Wade 19-10). Pijlen voor (a): fishhook O• → C–O-binding; fishhook C(α)–CH2CH3-binding → C–O-binding; fishhook C(α)–CH2CH3-binding → CH2 van ethyl. Ook genoemd mag worden: M − 18 = 70 (waterverlies). Goed: alleen (a) getekend met juiste uitleg; (b) erbij tekenen is ook goed. Bijna: (b) als basispiek gekozen met correcte pijlen.",
+   "hints": [
+    "Er zijn drie C–C-bindingen aan het α-C. Welke groepen kunnen er als radicaal af?",
+    "Welk radicaal is stabieler: CH3• of CH3CH2•? Dat bepaalt welke splitsing het meest voorkomt.",
+    "Verlies van ethyl geeft (CH3)2C=OH+ met m/z 88 − 29 = 59."
+   ],
+   "topic": "MS: α-splitsing",
+   "difficulty": "medium",
+   "source": "OSY2 les 9 (MS), dia 24-26; Wade opgave 12-11",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCC(C)(C)[OH+]",
+      "label": "M•+ m/z 88"
+     }
+    ],
+    "above": "α-splitsing",
+    "below": "basispiek?"
+   }
+  },
+  {
+   "title": "L9.9 Amine: α-splitsing (N-methyl-2-butanamine)",
+   "question": "N-Methyl-2-butanamine (M = 87, oneven: stikstofregel) geeft pieken bij m/z 72 en m/z 58. Teken de α-splitsing die m/z 58 geeft, en leg uit waarom 58 groter is dan 72.",
+   "answer_key": "Molecuulion CCC(C)[NH+]C (N•+). α-C = C2 (draagt CH3, C2H5 en de NH). m/z 58 = M − 29: verlies van ethyl•. Fishhooks: 1) N• → C2–N-binding (nieuwe C=N+). 2) C2–C3-binding (naar ethyl) → C2–N-binding. 3) C2–C3-binding → C3 (ethylradicaal). Product CH3CH=NH+CH3 = CC=[NH+]C (C3H8N+, m/z 58, iminiumion, resonantiegestabiliseerd) + C[CH2]. m/z 72 = M − 15: verlies van CH3• van C2, product CCC=[NH+]C (C4H10N+). Ook α-splitsing aan de N-methylkant zou alleen H• kunnen verliezen (M − 1), niet relevant. 58 > 72 omdat het ethylradicaal stabieler is dan het methylradicaal; de grootste groep vertrekt bij voorkeur. Stikstofregel: oneven M → oneven aantal N.",
+   "hints": [
+    "Bij amines werkt α-splitsing net als bij alcoholen en ethers, maar nu met N.",
+    "87 − 58 = 29 en 87 − 72 = 15. Welke groepen zitten aan het α-C?",
+    "Product voor 58: CH3–CH=NH+–CH3 + •CH2CH3. Ethylradicaal is stabieler dan methylradicaal."
+   ],
+   "topic": "MS: α-splitsing",
+   "difficulty": "medium",
+   "source": "OSY2 les 9 (MS), dia 30; Wade §19-8D, opgave 19-10",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCC(C)[NH+]C",
+      "label": "M•+ m/z 87"
+     }
+    ],
+    "above": "α-splitsing",
+    "below": "m/z 58?"
+   }
+  },
+  {
+   "title": "L12.1 Keton: α-splitsing tot acyliumion (2-butanon)",
+   "question": "Teken de α-splitsing van het molecuulion van 2-butanon (M = 72) die de basispiek bij m/z 43 geeft. Gebruik fishhook-pijlen en geef de ladingen.",
+   "answer_key": "Molecuulion CCC(C)=[O+] (O•+, elektron uit een vrij elektronenpaar van O). α-splitsing van de C2–C3-binding (carbonyl-C naar ethyl): fishhooks: 1) O• → C=O-binding (vormt derde binding, C≡O+). 2) C(=O)–CH2-binding → C=O-binding. 3) C(=O)–CH2-binding → CH2 van ethyl (wordt ethylradicaal). Producten: acyliumion CH3–C≡O+ = CC#[O+] (C2H3O+, m/z 43, resonantie CH3–C+=O ↔ CH3–C≡O+) + C[CH2] (ethyl•). Andere α-splitsing: verlies CH3• → CH3CH2C≡O+ (m/z 57), kleiner. Basispiek 43: verlies van het grotere (stabielere) ethylradicaal. Ook goed: het acyliumion als CH3–C+=O getekend.",
+   "hints": [
+    "Bij ketonen breekt de binding tussen het carbonyl-C en een α-C.",
+    "Het ongepaarde elektron op O en één elektron uit de gebroken C–C-binding vormen een extra binding tussen C en O.",
+    "Product: CH3–C≡O+ (acyliumion, m/z 43) + •CH2CH3. Drie fishhooks."
+   ],
+   "topic": "MS: ketonen",
+   "difficulty": "easy",
+   "source": "OSY2 les 12 (MS & IR), dia 2; Wade §18-5D",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCC(C)=[O+]",
+      "label": "M•+ m/z 72"
+     }
+    ],
+    "above": "α-splitsing",
+    "product": [
+     {
+      "smiles": "CC#[O+]",
+      "label": "m/z 43"
+     },
+     {
+      "smiles": "C[CH2]"
+     }
+    ]
+   }
+  },
+  {
+   "title": "L12.2 Keton zonder γ-H (3-pentanon)",
+   "question": "3-Pentanon (M = 86) geeft een basispiek bij m/z 57 en géén McLafferty-piek. Teken de α-splitsing die m/z 57 geeft, en leg uit waarom McLafferty hier niet kan.",
+   "answer_key": "Molecuulion CCC(=[O+])CC. α-splitsing van de C3–C2-binding (carbonyl-C naar CH2 van een ethylgroep). Fishhooks: O• → C=O-binding; C(=O)–CH2-binding → C=O-binding; C(=O)–CH2-binding → CH2 (ethylradicaal). Producten: CH3CH2C≡O+ = CCC#[O+] (C3H5O+, m/z 57) + C[CH2] (ethyl•, 29). Symmetrisch: beide kanten geven hetzelfde. Geen McLafferty: daarvoor is een H op het γ-C nodig (carbonyl-C, α, β, γ). In 3-pentanon is de keten aan elke kant maar α (CH2) en β (CH3); er is geen γ-C, dus geen zesring-overgangstoestand mogelijk.",
+   "hints": [
+    "Nummer vanaf het carbonyl-C: α, β, γ. Hoe ver gaat de keten aan elke kant?",
+    "α-splitsing bij een keton geeft een acyliumion R–C≡O+.",
+    "Product: CH3CH2–C≡O+ (m/z 57) + •CH2CH3. Geen γ-C → geen McLafferty."
+   ],
+   "topic": "MS: ketonen",
+   "difficulty": "medium",
+   "source": "OSY2 les 12 (MS & IR), dia 2-3",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCC(=[O+])CC",
+      "label": "M•+ m/z 86"
+     }
+    ],
+    "above": "α-splitsing",
+    "below": "m/z 57?"
+   }
+  },
+  {
+   "title": "L12.3 McLafferty-omlegging (2-hexanon, m/z 58)",
+   "question": "2-Hexanon (M = 100) geeft een sterke piek bij m/z 58 (de Canvas-opgave van les 9). Teken de McLafferty-omlegging met fishhook-pijlen. De producten staan al gegeven; teken de pijlen op het molecuulion.",
+   "answer_key": "Molecuulion CCCCC(C)=[O+] (O•+). Nummering vanaf carbonyl-C (C2): α = C3, β = C4, γ = C5 (draagt de γ-H). Zesring-overgangstoestand: O, C2, C3, C4, C5, H. Fishhooks (alle 1 elektron): 1) van het ongepaarde elektron op O naar de γ-H (vormt de nieuwe O–H-binding samen met een elektron uit de C5–H-binding). 2) van de C5–H-binding naar de O–H-positie (H gaat met één elektron naar O) — als de app geen pijl naar 'niets' toelaat: pijl naar het H-atoom of naar O is goed. 3) van de C5–H-binding naar de C4–C5-binding (tweede elektron vormt de π-binding C4=C5). 4) van de C3–C4-binding naar de C4–C5-binding (vormt samen met 3 de π-binding). 5) van de C3–C4-binding naar C3 (ongepaard elektron blijft op C3). Netto: γ-H verhuist naar O, de α-β-binding (C3–C4) breekt, propeen (C4=C5–C6, C=CC, 42) vertrekt als neutraal molecuul, en het enol-radicaalkation [CH2]C(C)=[OH+] (C3H6O•+, m/z 58; resonantie met CH2=C(CH3)–OH•+) blijft over. Acceptabel: de verkorte versie met 3 fishhookparen zoals in de dia (O• → H, C–H → C–C(β-γ), C(α)–C(β) → C(β)–C(γ) en → C(α)), zolang de juiste bindingen breken/vormen: C(γ)–H en C(α)–C(β) breken, O–H en C(β)=C(γ) ontstaan. Fout: δ-H of β-H overdragen, of de C2–C3-binding breken (dat is α-splitsing, m/z 43 of 85).",
+   "hints": [
+    "Nummer vanaf het carbonyl-C: α, β, γ. De H op het γ-C komt dicht bij O via een zesring.",
+    "De γ-H gaat naar O, de binding tussen α-C en β-C breekt, en tussen β-C en γ-C ontstaat een dubbele binding.",
+    "Fishhooks: O• → H; C(γ)–H → C(β)–C(γ); C(α)–C(β) → C(β)–C(γ); C(α)–C(β) → C(α). Neutraal propeen vertrekt, m/z 100 − 42 = 58."
+   ],
+   "topic": "MS: McLafferty",
+   "difficulty": "medium",
+   "source": "OSY2 les 12 (MS & IR), dia 3; les 9 Canvas-opgave 3 (2-hexanon)",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCCCC(C)=[O+]",
+      "label": "M•+ m/z 100"
+     }
+    ],
+    "above": "McLafferty",
+    "product": [
+     {
+      "smiles": "[CH2]C(C)=[OH+]",
+      "label": "m/z 58"
+     },
+     {
+      "smiles": "C=CC",
+      "label": "propeen"
+     }
+    ]
+   }
+  },
+  {
+   "title": "L12.4 McLafferty bij een aldehyde (butanal)",
+   "question": "Ook aldehyden met een γ-H geven een McLafferty-omlegging. Teken het mechanisme voor butanal (M = 72) en voorspel de m/z van het ion en welk neutraal molecuul vertrekt.",
+   "answer_key": "Molecuulion CCCC=[O+] (O•+). Carbonyl-C = C1, α = C2, β = C3, γ = C4 (CH3, γ-H). Fishhooks zoals bij L12.3: O• → γ-H; C4–H-binding → C3–C4-binding (π); C2–C3-binding → C3–C4-binding (π); C2–C3-binding → C2 (radicaal). Producten: enol-radicaalkation [CH2]C=[OH+] (CH2=CH–OH•+, C2H4O•+, m/z 44) + etheen C=C (28, neutraal, niet gedetecteerd). m/z 72 − 28 = 44. Ook goed: het ion als CH2=CH–OH•+ getekend. Daarnaast α-splitsing mogelijk: verlies H• (m/z 71) of propyl• (HC≡O+, m/z 29), maar dat is niet gevraagd.",
+   "hints": [
+    "Zoek het γ-C: tel vanaf het carbonyl-C (C1) drie C-atomen verder.",
+    "Net als bij 2-hexanon: γ-H naar O, α-β-binding breekt, β=γ wordt een alkeen.",
+    "Neutraal etheen (28) vertrekt; het ion is CH2=CH–OH•+ met m/z 44."
+   ],
+   "topic": "MS: McLafferty",
+   "difficulty": "medium",
+   "source": "OSY2 les 12 (MS & IR), dia 3 (\"vindt ook plaats bij aldehyde\")",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCCC=[O+]",
+      "label": "M•+ m/z 72"
+     }
+    ],
+    "above": "McLafferty",
+    "below": "m/z ?"
+   }
+  },
+  {
+   "title": "L12.5 Spectrum verklaren: alle splitsingen van 2-hexanon",
+   "question": "Het MS van 2-hexanon (M = 100) heeft pieken bij m/z 100, 85, 58 en 43 (basispiek). Teken voor m/z 85 en m/z 43 de α-splitsing (fishhooks) en geef bij elke piek in een tekstje het fragment en het type splitsing.",
+   "answer_key": "m/z 100: molecuulion CCCCC(C)=[O+] (M•+). m/z 85 (M − 15): α-splitsing aan de methylkant: fishhooks O• → C=O; C2–C1(H3)-binding → C=O; C2–C1-binding → CH3. Product CCCCC#[O+] (pentanoyl-acyliumion C5H9O+, 85) + [CH3]. m/z 43 (M − 57, basispiek): α-splitsing aan de butylkant: fishhooks O• → C=O; C2–C3-binding → C=O; C2–C3-binding → C3. Product CC#[O+] (acetyl-acyliumion, 43) + butylradicaal [CH2]CCC. Basispiek omdat het grotere, stabielere butylradicaal vertrekt. m/z 58: McLafferty-omlegging (zie L12.3): γ-H naar O, propeen (42) vertrekt, enol-radicaalkation [CH2]C(C)=[OH+]. Let op: m/z 43 kan ook C3H7+ (propylkation) zijn, maar bij een methylketon is het acetylion CH3C≡O+ de juiste verklaring. Tekst per piek is een bonus.",
+   "hints": [
+    "Er zijn twee α-C's aan het carbonyl-C: CH3 en CH2(butyl). Elke kant geeft een eigen acyliumion.",
+    "100 − 15 = 85 en 100 − 57 = 43. Welke radicalen zijn 15 en 57?",
+    "85 = C4H9–C≡O+, 43 = CH3–C≡O+, 58 = McLafferty-ion."
+   ],
+   "topic": "MS: ketonen",
+   "difficulty": "hard",
+   "source": "OSY2 les 9 Canvas-opgave 3 en les 12 (MS & IR)",
+   "in_course": true,
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCCCC(C)=[O+]",
+      "label": "M•+ m/z 100"
+     }
+    ],
+    "above": "α-splitsing",
+    "below": "m/z 85 en 43?"
+   }
+  }
+ ]
+}
