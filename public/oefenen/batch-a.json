@@ -1,0 +1,369 @@
+{
+ "title": "Extra opgaven A",
+ "exercises": [
+  {
+   "title": "A.01 HBr aan (R)-1,5-dimethylcyclohexeen: twee diastereomeren",
+   "topic": "Les 1 · Markovnikov-additie HX met stereocentrum",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 1 (additie HX, Markovnikov)",
+   "question": "(R)-1,5-Dimethylcyclohex-1-een reageert met HBr. Teken het volledige mechanisme met gebogen pijlen, het carbokation met formele lading en alle producten. Geef de producten met wiggen, geef R/S van elk stereocentrum en zeg of het mengsel optisch actief is. Zijn de producten enantiomeren of diastereomeren?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1=CCC[C@@H](C)C1",
+      "label": "(R)-1,5-dimethylcyclohex-1-een"
+     }
+    ],
+    "above": "HBr",
+    "below": ""
+   },
+   "hints": [
+    "Op welk C van de dubbele binding komt de H, zodat het stabielste kation ontstaat?",
+    "Het kation is tertiair en vlak. Br⁻ kan van boven en van onder aanvallen. Wat gebeurt er met het stereocentrum dat er al was?",
+    "Je krijgt 1-broom-1,3-dimethylcyclohexaan als cis- en trans-isomeer; het oude stereocentrum blijft (R)."
+   ],
+   "answer_key": "1. Protonering (Markovnikov): pijl van de π-binding C1=C2 naar de H van HBr; pijl van de H–Br-binding naar Br (Br⁻ met 4 vrije paren). H komt op C2 (het CH), zodat het tertiaire kation op C1 (met CH3) ontstaat: C[C+]1CCC[C@@H](C)C1. Een omlegging is niet nodig: het kation is al tertiair. Het stereocentrum (het CH met CH3) doet niet mee en houdt zijn ruimtelijke bouw.\n2. Aanval van Br⁻: pijl van een vrij paar van Br⁻ naar C+ (vlak, sp2). Dat kan van beide kanten.\nProducten (1-broom-1,3-dimethylcyclohexaan; het oude C5 heet nu C3):\n- C[C@]1(Br)CCC[C@@H](C)C1 = (1S,3R): de twee CH3-groepen trans, Br cis ten opzichte van 3-CH3.\n- C[C@@]1(Br)CCC[C@@H](C)C1 = (1R,3R): de twee CH3-groepen cis.\nC3 blijft (R) (zelfde CIP-volgorde: ring-CH2 naar C-Br > ring-CH2 > CH3 > H). De twee producten verschillen alleen op C1 en zijn dus diastereomeren, geen enantiomeren. Ze ontstaan niet in een 1:1-verhouding en hebben andere eigenschappen. Geen van beide is meso (1,3 met verschillende groepen op C1), dus het mengsel is optisch actief.\nAlternatief: de verhouding cis/trans hoeft niet gegeven te worden; 'mengsel van twee diastereomeren' is goed.\nBeoordeling: H op het minst gesubstitueerde C (Markovnikov), tertiair kation met + en zonder omlegging, Br-aanval van beide kanten, oud stereocentrum onveranderd (R), producten = diastereomeren, optisch actief. Typische fouten: 'racemaat' zeggen (er blijft een vast stereocentrum, dus géén racemaat), het stereocentrum mee laten omklappen, of Br op C2 zetten.",
+   "in_course": true
+  },
+  {
+   "title": "A.02 HBr aan vinylcyclohexaan: hydride-shift vanuit de ring",
+   "topic": "Les 1 · Carbokation-omlegging (hydride-shift)",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 1 (omleggingen)",
+   "question": "Vinylcyclohexaan reageert met HBr. Het hoofdproduct is niet (1-broomethyl)cyclohexaan. Teken het mechanisme met gebogen pijlen, alle carbokationen met formele lading en het hoofdproduct. Leg uit waarom het kation omlegt. Is het hoofdproduct chiraal? En het bijproduct?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C=CC1CCCCC1",
+      "label": "vinylcyclohexaan"
+     }
+    ],
+    "above": "HBr",
+    "below": ""
+   },
+   "hints": [
+    "Na protonering krijg je een secundair kation. Wat zit er op het C ernaast?",
+    "Het ring-C naast het kation draagt één H en wordt tertiair als het een kation is.",
+    "Een 1,2-hydride-shift van de ring naar het kation geeft het 1-ethylcyclohexylkation."
+   ],
+   "answer_key": "1. Protonering: pijl van de π-binding naar H van HBr, pijl van H–Br naar Br. H op het eind-CH2 (Markovnikov): secundair kation C[CH+]C1CCCCC1.\n2. 1,2-Hydride-shift: pijl van de C–H-binding van het ring-C1 (het CH naast het kation) naar het C+. H verhuist met zijn bindingselektronen; het ring-C wordt C+: CC[C+]1CCCCC1 (1-ethylcyclohexylkation, tertiair, stabieler door hyperconjugatie/inductie van drie alkylgroepen).\n3. Pijl van een vrij paar van Br⁻ naar C+: 1-broom-1-ethylcyclohexaan CCC1(Br)CCCCC1. Achiraal (C1 heeft twee gelijke ringtakken).\nBijproduct zonder omlegging: (1-broomethyl)cyclohexaan CC(Br)C1CCCCC1, chiraal maar ontstaat als racemaat (vlak kation), dus optisch inactief.\nRingvergroting naar een zevenring is hier geen goed alternatief: zesring heeft geen ringspanning en het zou weer een secundair kation geven.\nBeoordeling: secundair kation eerst tekenen, shift-pijl vanaf de C–H-binding (niet vanaf het H-atoom als 'vrij paar'), tertiair kation op het ring-C, Br op het ring-C. Typische fouten: Br direct op het secundaire C, ringvergroting tekenen, of een methyl-shift (er zit geen methyl op het ring-C).",
+   "in_course": true
+  },
+  {
+   "title": "A.03 Ringvergroting: HBr aan 1-methyl-1-vinylcyclobutaan",
+   "topic": "Les 1 · Carbokation-omlegging (ringvergroting)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 1 (omleggingen; alkylshift)",
+   "question": "1-Methyl-1-vinylcyclobutaan reageert met HBr tot een broomalkaan met een vijfring. Teken het mechanisme met gebogen pijlen en alle kationen met formele lading. Leg uit waarom de ring groter wordt en geen methyl-shift optreedt. Hoeveel stereo-isomeren van het product ontstaan er? Teken ze met wiggen en geef R/S.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C=CC1(C)CCC1",
+      "label": "1-methyl-1-vinylcyclobutaan"
+     }
+    ],
+    "above": "HBr",
+    "below": ""
+   },
+   "hints": [
+    "Het eerste kation is secundair en zit naast een quaternair ring-C. Welke bindingen van dat ring-C kunnen verhuizen?",
+    "Als een ringbinding (C–C van de vierring) naar het kation schuift, wordt de vierring een vijfring en komt de + op het C met de CH3.",
+    "Product: 1-broom-1,2-dimethylcyclopentaan, cis en trans, elk als racemaat."
+   ],
+   "answer_key": "1. Protonering: pijl van de π-binding naar H van HBr, pijl van H–Br naar Br. H op het eind-CH2: secundair kation C[CH+]C1(C)CCC1.\n2. Alkylshift (ringvergroting): pijl van een ring-C–C-binding van het quaternaire C (de binding naar een ring-CH2) naar het C+. Dat ring-CH2 bindt nu aan het vroegere kation-C; de vierring wordt een vijfring en de + komt op het C dat CH3 draagt: CC1CCC[C+]1C (1,2-dimethylcyclopentylkation, tertiair).\nWaarom: twee winsten tegelijk: secundair → tertiair én vierring (≈110 kJ/mol spanning) → vijfring (weinig spanning). Een methyl-shift zou wel een tertiair kation geven, maar dan op een vierring: de spanning blijft en een kation in een vierring is extra ongunstig (sp2 wil 120°).\n3. Pijl van een vrij paar van Br⁻ naar C+: 1-broom-1,2-dimethylcyclopentaan.\nStereo: C2 (CH–CH3) ontstaat in stap 2 aan een vlak kation-C (de ringbinding kan aan beide kanten aankomen) en C1 in stap 3 aan een vlak kation. Dus vier stereo-isomeren, alle gevormd, optisch inactief mengsel:\n- methylgroepen cis: C[C@@H]1CCC[C@@]1(C)Br (1R,2R) en C[C@H]1CCC[C@]1(C)Br (1S,2S), samen racemaat;\n- methylgroepen trans: C[C@@H]1CCC[C@]1(C)Br (1S,2R) en C[C@H]1CCC[C@@]1(C)Br (1R,2S), samen racemaat.\nBijproduct zonder omlegging: CC(Br)C1(C)CCC1 (racemisch).\nBeoordeling: secundair kation, shift-pijl vanaf de ring-C–C-binding naar C+, nieuwe vijfring met + op het C met CH3, Br daarop, argument met spanning + kationstabiliteit, 4 stereo-isomeren (2 paar enantiomeren). Typische fouten: pijl vanaf het C+ wegtekenen, de + op het verkeerde C na de shift, de ring tellen als zesring, of maar 2 isomeren noemen.",
+   "in_course": true
+  },
+  {
+   "title": "A.04 Methanol/H2SO4 aan (R)-1,4-dimethylcyclohexeen: waar blijft de chiraliteit?",
+   "topic": "Les 1 · Additie van alcohol (ethervorming)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 1 (additie van water en alcohol, zure katalyse)",
+   "question": "(R)-1,4-Dimethylcyclohex-1-een reageert met methanol en een beetje zwavelzuur tot een ether. Teken het mechanisme met gebogen pijlen (drie stappen), alle tussenproducten met formele lading en de producten met wiggen. Het beginmateriaal is optisch actief. Is het productmengsel dat ook? Leg uit op welk moment in het mechanisme de chiraliteit verdwijnt.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1=CC[C@H](C)CC1",
+      "label": "(R)-1,4-dimethylcyclohex-1-een"
+     },
+     {
+      "smiles": "CO",
+      "label": "methanol"
+     }
+    ],
+    "above": "H2SO4 (kat.)",
+    "below": ""
+   },
+   "hints": [
+    "Het zuur in methanol is CH3OH2+. Dat protoneert het alkeen. Welk kation ontstaat?",
+    "Kijk naar het kation: heeft het C met de CH3 aan de overkant nog vier verschillende groepen?",
+    "Het tertiaire kation heeft een spiegelvlak door C1 en C4. De producten (cis en trans 1-methoxy-1,4-dimethylcyclohexaan) zijn allebei achiraal."
+   ],
+   "answer_key": "1. Protonering: pijl van de π-binding C1=C2 naar de H van CH3OH2+; pijl van de O–H-binding naar O+ (methanol komt vrij). H komt op C2, het tertiaire kation op C1: C[C+]1CCC(C)CC1 (geen stereoaanduiding meer op C4). In dit kation zijn de twee ringhelften (C2-C3 en C6-C5) gelijk geworden: C4 heeft nu twee identieke takken en is geen stereocentrum meer. Hier verdwijnt de chiraliteit al.\n2. Pijl van een vrij paar van O van methanol naar C+: oxoniumion C[OH+]C1(C)CCC(C)CC1.\n3. Deprotonering: pijl van een vrij paar van een tweede methanol naar de H op O+, pijl van de O–H-binding naar O+. Katalysator CH3OH2+ terug.\nProducten (1-methoxy-1,4-dimethylcyclohexaan), aanval van boven of onder:\n- CO[C@]1(C)CC[C@H](C)CC1: OCH3 en 4-CH3 aan dezelfde kant (de twee CH3 trans);\n- CO[C@@]1(C)CC[C@H](C)CC1: OCH3 en 4-CH3 aan verschillende kanten (de twee CH3 cis).\nBeide zijn achiraal (spiegelvlak door C1, C4, OCH3 en beide CH3); het zijn cis/trans-diastereomeren. RDKit geeft r/s (kleine letters, pseudo-asymmetrisch): dat is geen chiraliteit. Het productmengsel is optisch inactief, maar níet omdat het een racemaat is.\nBeoordeling: zuurkatalyse via CH3OH2+ (niet H2SO4 met losse H+ zonder base), tertiair kation, O-aanval met vrij paar, oxonium met +, deprotonering die de katalysator teruggeeft, twee achirale diastereomeren, uitleg spiegelvlak. Typische fouten: 'racemaat' als verklaring, C4 nog R noemen, of OCH3 op C2 (anti-Markovnikov).",
+   "in_course": true
+  },
+  {
+   "title": "A.05 Hydratatie van (S)-3-methyl-1-penteen: het stereocentrum verdwijnt",
+   "topic": "Les 1 · Hydratatie met hydride-shift",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 1 (additie van water, omleggingen)",
+   "question": "(S)-3-Methylpent-1-een reageert met water en zwavelzuur. Teken het volledige mechanisme met gebogen pijlen voor het hoofdproduct, inclusief de omlegging en alle tussenproducten met formele lading. Is het hoofdproduct optisch actief? Geef ook het bijproduct zonder omlegging met wiggen en R/S en zeg hoe de stereo-isomeren daarvan zich tot elkaar verhouden.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C=C[C@@H](C)CC",
+      "label": "(S)-3-methylpent-1-een"
+     }
+    ],
+    "above": "H2O, H2SO4",
+    "below": ""
+   },
+   "hints": [
+    "Na protonering zit de + op C2. Welke H op C3 kan verhuizen, en wat voor kation krijg je dan?",
+    "De H die verhuist is de H van het stereocentrum. Hoeveel verschillende groepen heeft C3 daarna nog?",
+    "Hoofdproduct 3-methylpentaan-3-ol is achiraal. Bijproduct 3-methylpentaan-2-ol: (2R,3S) en (2S,3S), diastereomeren."
+   ],
+   "answer_key": "1. Protonering: pijl van de π-binding naar een H van H3O+, pijl van de O–H-binding naar O+. H op C1: secundair kation C[CH+][C@@H](C)CC (C3 heet nu (R): het C+ telt als (C,H) met lege plek; let niet op dat label, de ruimtelijke bouw is onveranderd).\n2. 1,2-Hydride-shift: pijl van de C3–H-binding naar C2+. Er ontstaat een tertiair kation CC[C+](C)CC. Dat is vlak en heeft twee ethylgroepen: achiraal. De H die schuift is precies de H van het stereocentrum, dus de stereo-informatie is weg.\n3. Pijl van een vrij paar van O van water naar C+: oxonium CCC(C)([OH2+])CC.\n4. Deprotonering: pijl van een vrij paar van een tweede H2O naar H op O+, pijl van de O–H-binding naar O+. Hoofdproduct 3-methylpentaan-3-ol CCC(C)(O)CC, achiraal, dus optisch inactief.\nBijproduct (water vangt het secundaire kation vóór de shift): 3-methylpentaan-2-ol. C3 blijft (S) (CH(OH)CH3 > CH2CH3 > CH3 > H, zelfde ruimtelijke bouw); C2 ontstaat aan een vlak kation: C[C@H](O)[C@@H](C)CC (2S,3S) en C[C@@H](O)[C@@H](C)CC (2R,3S). Dat zijn diastereomeren (geen racemaat), het bijproduct is optisch actief.\nBeoordeling: H3O+ als zuur, secundair → tertiair via hydride-shift (pijl vanaf de C–H-binding), water-aanval met vrij paar, oxonium met +, deprotonering door water, achiraal hoofdproduct met argument (twee ethylgroepen), bijproduct als diastereomeren met C3 = S. Typische fouten: hoofdproduct 'racemisch' noemen, de shift vergeten, of in het bijproduct C3 laten inverteren.",
+   "in_course": true
+  },
+  {
+   "title": "A.06 Intramoleculaire ethervorming: (S)-6-methylhept-5-en-2-ol",
+   "topic": "Les 1 · Additie van alcohol, intramoleculair (lavandulol-type)",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 1 en Oefencasus Lavendel (vorming lavendeloxide)",
+   "question": "(S)-6-Methylhept-5-en-2-ol sluit met een zure katalysator een ring tot een cyclische ether C8H16O. Teken het mechanisme met gebogen pijlen, alle tussenproducten met formele lading en het product met wig. Hoe groot is de ring? Waarom niet de andere ringgrootte? Geef R/S van het product.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@H](O)CCC=C(C)C",
+      "label": "(S)-6-methylhept-5-en-2-ol"
+     }
+    ],
+    "above": "H2SO4 (kat.)",
+    "below": "H2O"
+   },
+   "hints": [
+    "Protoneer de C=C zo dat het stabielste kation ontstaat. Waar zit de + dan?",
+    "De OH van hetzelfde molecuul is het nucleofiel. Tel de atomen van de ring die ontstaat (O meegerekend).",
+    "Tertiair kation op C6, O-aanval geeft een zesring: (S)-2,2,6-trimethyloxaan."
+   ],
+   "answer_key": "1. Protonering: pijl van de π-binding C5=C6 naar H van H3O+, pijl van O–H naar O+. H op C5, tertiair kation op C6: C[C@H](O)CCC[C+](C)C.\n2. Ringsluiting: pijl van een vrij paar van de OH-zuurstof naar C6+. Ring: O, C2, C3, C4, C5, C6 = zesring (oxaan). Oxonium: C[C@H]1CCCC(C)(C)[OH+]1.\n3. Deprotonering: pijl van een vrij paar van H2O naar H op O+, pijl van O–H naar O+. Product (S)-2,2,6-trimethyloxaan: C[C@H]1CCCC(C)(C)O1.\nRingkeuze: H op C6 zetten zou een secundair kation op C5 geven en een vijfring (tetrahydrofuraan); Markovnikov (tertiair kation) gaat voor, en zesringen sluiten goed.\nStereo: aan het stereocentrum (C2 van de beginstof) wordt geen binding verbroken of gemaakt: O bindt met zijn vrij paar aan C6, niet aan C2. De ruimtelijke bouw blijft, en het label blijft (S) (O > ring-CH2 > CH3 > H, dezelfde volgorde). C6 in het product heeft twee CH3 en is geen stereocentrum.\nBeoordeling: tertiair kation, intramoleculaire aanval vanaf het vrije paar van O, oxonium met +, deprotonering, zesring, stereocentrum behouden (S). Typische fouten: de OH eerst protoneren en water laten vertrekken (dat geeft een secundair kation op C2 en vernietigt het stereocentrum; hoort niet bij deze reactie), vijfring tekenen, of het label omdraaien.",
+   "in_course": true
+  },
+  {
+   "title": "A.07 Hydroborering-oxidatie van 1-fenylcyclohexeen",
+   "topic": "Les 8 · Hydroborering (syn, anti-Markovnikov)",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 8 (hydroborering, dia 9 en 10)",
+   "question": "1-Fenylcyclohexeen reageert met (1) BH3·THF en daarna (2) H2O2, NaOH. Teken de additie van BH3 met gebogen pijlen (één stap), het alkylboraan met wiggen en het eindproduct met wiggen. Geef cis/trans, R/S van beide stereocentra en zeg of je een racemaat krijgt.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C1=C(c2ccccc2)CCCC1",
+      "label": "1-fenylcyclohexeen"
+     }
+    ],
+    "above": "1) BH3·THF",
+    "below": "2) H2O2, NaOH"
+   },
+   "hints": [
+    "B gaat naar het C met de meeste H (minst gehinderd); H gaat naar het C met de fenylgroep.",
+    "H en BH2 komen tegelijk van dezelfde kant (syn). Waar staat de fenylgroep dan ten opzichte van de H die erbij komt?",
+    "OH vervangt B met behoud van configuratie: trans-2-fenylcyclohexanol, (1R,2S) en (1S,2R)."
+   ],
+   "answer_key": "1. Hydroborering (concerted, vierledige overgangstoestand): pijl van de π-binding C=C naar B (lege p-orbitaal); pijl van de B–H-binding naar het C met de fenylgroep. B bindt aan C2 (het CH, minst gehinderd; de gedeeltelijke + in de overgangstoestand zit op het benzylische C). H en BH2 komen van dezelfde kant: syn. Alkylboraan bv. B[C@@H]1CCCC[C@H]1c1ccccc1 (en het spiegelbeeld; R/S-labels verschillen van het alcohol omdat B lager prioriteit heeft dan C).\n2. Oxidatie: HOO⁻ (uit H2O2 + OH⁻) valt met een vrij paar aan op B; de alkylgroep schuift van B naar O (pijl van de C–B-binding naar O, pijl van de O–O-binding naar OH⁻); na hydrolyse staat OH precies waar B stond (retentie).\nProduct: trans-2-fenylcyclohexanol. De nieuwe H op C(fenyl) en de OH staan cis (syn); dus fenyl en OH staan trans. O[C@@H]1CCCC[C@H]1c1ccccc1 = (1R,2S) en O[C@H]1CCCC[C@@H]1c1ccccc1 = (1S,2R). BH3 kan van boven of onder het vlakke alkeen komen, dus 1:1: racemaat, optisch inactief.\nBeoordeling: anti-Markovnikov (OH op het CH, niet op C-fenyl), syn-additie, trans-product, retentie bij oxidatie, racemaat met juiste R/S-paren. Typische fouten: cis-2-fenylcyclohexanol tekenen (OH en fenyl verward met OH en H), 1-fenylcyclohexanol (Markovnikov, dat is H2O/H+), of maar één enantiomeer.",
+   "in_course": true
+  },
+  {
+   "title": "A.08 1-Methylcyclohexeen: welk reagens geeft welk stereoproduct?",
+   "topic": "Les 1 en 8 · Vergelijking additiereacties",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 1 en les 8",
+   "question": "1-Methylcyclohexeen wordt apart behandeld met (a) H2O/H2SO4, (b) 1) BH3·THF 2) H2O2, NaOH, (c) OsO4, H2O2, (d) HBr, (e) H2, Pt. Teken voor elk het product met wiggen waar nodig. Geef per reactie: Markovnikov of anti-Markovnikov, syn/anti/geen stereospecificiteit, aantal stereocentra en R/S, en of het product achiraal, een racemaat of een enkel enantiomeer is. Welk reagens kies je om trans-2-methylcyclohexanol te maken, en welk voor het isomere tertiaire alcohol?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1=CCCCC1",
+      "label": "1-methylcyclohexeen"
+     }
+    ],
+    "above": "(a) H2O/H2SO4  (b) BH3; H2O2/NaOH  (c) OsO4, H2O2",
+    "below": "(d) HBr  (e) H2, Pt"
+   },
+   "hints": [
+    "Reacties via een carbokation (a, d) zetten het nucleofiel op het tertiaire C; wat betekent dat voor het aantal stereocentra?",
+    "Hydroborering en OsO4 zijn allebei syn. Bij hydroborering komt er één OH en één H, bij OsO4 twee OH.",
+    "(b) trans-2-methylcyclohexanol (racemaat); (c) cis-diol, OH-groepen cis (racemaat); (a), (d) en (e) geven achirale producten."
+   ],
+   "answer_key": "(a) H2O/H2SO4: via tertiair kation (Markovnikov): 1-methylcyclohexanol CC1(O)CCCCC1. Geen stereocentrum, achiraal.\n(b) Hydroborering-oxidatie: anti-Markovnikov, syn. OH op C2, H op C1 aan dezelfde kant → OH en CH3 trans: trans-2-methylcyclohexanol, C[C@@H]1CCCC[C@H]1O (1R,2R) + C[C@H]1CCCC[C@@H]1O (1S,2S): racemaat.\n(c) OsO4, H2O2: syn-dihydroxylering via cyclisch osmaatester (beide O tegelijk van dezelfde kant). 1-Methylcyclohexaan-1,2-diol met de twee OH cis: C[C@]1(O)CCCC[C@H]1O (1S,2R) + C[C@@]1(O)CCCC[C@@H]1O (1R,2S): racemaat (geen meso, want C1 draagt CH3 en C2 H; het molecuul heeft geen spiegelvlak). Geen regiovraag (op beide C komt OH).\n(d) HBr: Markovnikov via tertiair kation: 1-broom-1-methylcyclohexaan CC1(Br)CCCCC1, achiraal.\n(e) H2, Pt: syn-additie van twee H, maar methylcyclohexaan CC1CCCCC1 heeft geen stereocentrum; syn/anti is hier onzichtbaar.\nKeuze: trans-2-methylcyclohexanol → (b); 1-methylcyclohexanol → (a).\nBeoordeling: per reactie juiste regiochemie, juist stereoverloop (syn voor b, c, e; niet-stereospecifiek voor a, d), cis-diol bij (c), trans-alcohol bij (b), juist aantal stereocentra, en het woord racemaat bij (b) en (c). Typische fouten: bij (b) cis tekenen, bij (c) 'meso' zeggen, bij (a) 2-methylcyclohexanol (anti-Markovnikov) tekenen.",
+   "in_course": true
+  },
+  {
+   "title": "A.09 Syn-hydrogenering van (E)-3,4-dimethylhex-3-een",
+   "topic": "Les 8 · Katalytische hydrogenering (syn)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 8 (hydrogenering, dia 16)",
+   "question": "(E)-3,4-Dimethylhex-3-een wordt gehydrogeneerd met H2 en Pd/C. Teken het product met wiggen (zigzag) en geef R/S van elk stereocentrum. Krijg je een racemaat of een meso-verbinding? Wat krijg je als je (Z)-3,4-dimethylhex-3-een gebruikt? Leg uit waarom de E/Z-geometrie hier ertoe doet, terwijl de hydrogenering van 1-methylcyclohexeen geen stereo-isomeren geeft.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC/C(C)=C(C)/CC",
+      "label": "(E)-3,4-dimethylhex-3-een"
+     }
+    ],
+    "above": "H2, Pd/C",
+    "below": ""
+   },
+   "hints": [
+    "Beide H-atomen komen van het metaaloppervlak, dus van dezelfde kant van het alkeen.",
+    "Vergelijk met OsO4 op 2-buteen: Z + syn geeft meso, E + syn geeft racemaat. Hier is het patroon hetzelfde (elk C draagt ethyl en methyl).",
+    "E geeft (3R,4R) + (3S,4S); Z geeft meso-(3R,4S)."
+   ],
+   "answer_key": "Mechanisme (in woorden, geen gebogen pijlen op het oppervlak nodig): H2 dissocieert op Pd tot H-atomen aan het oppervlak; het alkeen adsorbeert met één vlak; twee H-atomen worden na elkaar op C3 en C4 overgedragen, beide van de oppervlakkant: syn-additie.\nProduct 3,4-dimethylhexaan: C3 en C4 dragen elk H, CH3, C2H5 en de andere helft: twee stereocentra.\nUit het (E)-alkeen (de twee ethylgroepen trans): CC[C@@H](C)[C@H](C)CC (3R,4R) en CC[C@H](C)[C@@H](C)CC (3S,4S): racemaat, 1:1 omdat het alkeen van beide vlakken kan adsorberen. Nagerekend met een 3D-model van syn-additie aan het E-alkeen.\nUit het (Z)-alkeen: CC[C@@H](C)[C@@H](C)CC (3R,4S) = meso (inwendig spiegelvlak), achiraal; beide vlakken geven hetzelfde molecuul.\nWaarom de geometrie ertoe doet: er komen op twee C-atomen nieuwe stereocentra tegelijk, en hun onderlinge oriëntatie ligt vast door syn-additie plus de vaste positie van de groepen in het alkeen. Bij 1-methylcyclohexeen krijgt geen C vier verschillende groepen.\nBeoordeling: syn-additie benoemen, twee stereocentra, E → racemaat (R,R)/(S,S), Z → meso (R,S), uitleg spiegelvlak. Typische fouten: E en Z omdraaien (verwarring met anti-additie: Br2 aan E-alkeen geeft juist meso), of 'geen stereo-isomeren' zeggen omdat er alleen H bijkomt.",
+   "in_course": true
+  },
+  {
+   "title": "A.10 trans-Stilbeen: OsO4 geeft racemaat, Br2 geeft meso",
+   "topic": "Les 8 · Dihydroxylering versus halogenering",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 8 en vaardigheid VD1 (bromering trans-stilbeen)",
+   "question": "trans-Stilbeen reageert (a) met OsO4 en H2O2 en (b) met Br2 in dichloormethaan. Teken voor (a) de vorming van het cyclische osmaatester met gebogen pijlen en het diol met wiggen; voor (b) alleen het product met wiggen. Geef R/S van alle stereocentra en zeg per product of het meso of racemisch is. Verklaar waarom hetzelfde alkeen met de twee reagentia tegengestelde uitkomsten geeft. Wat geeft cis-stilbeen met OsO4?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "c1ccc(/C=C/c2ccccc2)cc1",
+      "label": "trans-stilbeen ((E)-1,2-difenyletheen)"
+     }
+    ],
+    "above": "(a) OsO4, H2O2",
+    "below": "(b) Br2, CH2Cl2"
+   },
+   "hints": [
+    "OsO4 levert beide O-atomen tegelijk van dezelfde kant (syn); Br2 gaat via een bromoniumion en Br⁻ valt van de andere kant aan (anti).",
+    "Syn-additie aan een E-alkeen met twee gelijke helften geeft een racemaat; anti-additie aan hetzelfde alkeen geeft meso.",
+    "(a) (1R,2R)- en (1S,2S)-1,2-difenylethaan-1,2-diol; (b) meso-(1R,2S)-1,2-dibroom-1,2-difenylethaan."
+   ],
+   "answer_key": "(a) Stap 1 (concerted, [3+2]): pijl van de π-binding C=C naar een O van OsO4 (het C wordt aan die O gebonden), pijl van de π-binding van díe Os=O naar Os (Os wordt gereduceerd van VIII naar VI), en pijl van de π-binding van een tweede Os=O naar het andere alkeen-C (dat tweede O bindt daar). Er ontstaat een vijfledig osmaatester; beide C–O-bindingen aan dezelfde kant. Stap 2: hydrolyse breekt de O–Os-bindingen (niet de C–O), H2O2 heroxideert Os(VI) tot OsO4 (katalytisch). Stereo van de C–O blijft.\nProduct: 1,2-difenylethaan-1,2-diol uit het E-alkeen met syn-additie: O[C@H](c1ccccc1)[C@H](O)c1ccccc1 (1R,2R) en O[C@@H](c1ccccc1)[C@@H](O)c1ccccc1 (1S,2S), 1:1 = racemaat (nagerekend met een 3D-model van syn-additie).\n(b) Br2: bromoniumion en anti-aanval van Br⁻: meso-1,2-dibroom-1,2-difenylethaan Br[C@H](c1ccccc1)[C@@H](Br)c1ccccc1 (1R,2S), achiraal (zoals in VD1).\nVerklaring: bij een symmetrisch alkeen met twee gelijke helften geldt: E + syn = racemaat, E + anti = meso; Z + syn = meso, Z + anti = racemaat. cis-Stilbeen + OsO4 geeft dus meso-diol O[C@H](c1ccccc1)[C@@H](O)c1ccccc1 (1R,2S).\nBeoordeling: syn voor OsO4 met cyclisch ester, anti voor Br2, juiste R/S-paren, racemaat versus meso goed benoemd, cis-stilbeen → meso. Typische fouten: denken dat 'trans in' ook 'trans uit' betekent, het osmaatester met trans-C–O-bindingen tekenen, of het diol meso noemen.",
+   "in_course": true
+  },
+  {
+   "title": "A.11 OsO4 op (Z)-3-methylpent-2-een: R/S van het diol",
+   "topic": "Les 8 · Dihydroxylering (syn) van een onsymmetrisch alkeen",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 8 (OsO4, dia 18)",
+   "question": "(Z)-3-Methylpent-2-een reageert met OsO4 en H2O2. Teken het product met wiggen in zigzag en bepaal R/S van beide stereocentra van beide gevormde stereo-isomeren. Is het een racemaat of meso? Welke stereo-isomeren ontstaan uit (E)-3-methylpent-2-een, en hoe verhouden die zich tot de Z-producten?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C/C=C(/C)CC",
+      "label": "(Z)-3-methylpent-2-een"
+     }
+    ],
+    "above": "OsO4, H2O2",
+    "below": ""
+   },
+   "hints": [
+    "Bepaal eerst welke groepen in het Z-alkeen cis staan: CH3 op C2 en de ethylgroep op C3.",
+    "Teken het alkeen vlak, zet beide OH aan de voorkant en bepaal R/S per C. C2: OH > C3 > CH3 > H. C3: OH > C2 > C2H5 > CH3.",
+    "Z geeft (2R,3S) + (2S,3R); E geeft (2R,3R) + (2S,3S). Z- en E-producten zijn diastereomeren."
+   ],
+   "answer_key": "Mechanisme: OsO4 addeert concerted via een cyclisch osmaatester (pijl van de π-binding C=C naar een O van OsO4, pijl van de π-binding van díe Os=O naar Os, pijl van de π-binding van een tweede Os=O naar het andere alkeen-C); hydrolyse geeft het diol, beide OH aan dezelfde kant (syn). H2O2 regenereert OsO4.\nProduct: 3-methylpentaan-2,3-diol, stereocentra C2 (OH, CH3, H, C3) en C3 (OH, CH3, C2H5, C2).\nCIP: C2: OH > C3 (O,C,C) > CH3 > H. C3: OH > C2 (O,C,H) > C2H5 > CH3.\nUit het Z-alkeen (CH3 van C2 cis aan C2H5 van C3): C[C@H](O)[C@](C)(O)CC (2S,3R) en C[C@@H](O)[C@@](C)(O)CC (2R,3S), 1:1 racemaat (OsO4 komt van beide vlakken). Geen meso: de twee helften zijn verschillend. Nagerekend met een 3D-model van syn-additie.\nUit het E-alkeen: C[C@H](O)[C@@](C)(O)CC (2S,3S) en C[C@@H](O)[C@](C)(O)CC (2R,3R), ook racemaat. Z- en E-producten zijn diastereomeren van elkaar. Syn-dihydroxylering is dus stereospecifiek.\nBeoordeling: syn-additie, juiste CIP-volgorde op C3 (C2 met O wint van ethyl), Z → (2R,3S)/(2S,3R), E → (2R,3R)/(2S,3S), racemaat (niet meso), Z/E-producten diastereomeer. Typische fouten: ethyl boven de C2-tak zetten in de CIP-volgorde, de wiggen voor beide OH aan verschillende kanten, of 'meso' omdat de labels R,S zijn (R,S betekent hier niet meso).",
+   "in_course": true
+  },
+  {
+   "title": "A.12 Hydroborering van (E)-3-methylpent-2-een: welk diastereomeer?",
+   "topic": "Les 8 · Hydroborering acyclisch, syn",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 8 (hydroborering)",
+   "question": "(E)-3-Methylpent-2-een reageert met (1) BH3·THF en (2) H2O2, NaOH. Teken de hydroborering met gebogen pijlen, het alcohol met wiggen in zigzag en geef R/S van beide stereocentra van beide gevormde enantiomeren. Welk diastereomeer van 3-methylpentaan-2-ol krijg je uit het (Z)-alkeen? En wat geeft H2O/H2SO4 met het (E)-alkeen?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C/C=C(/CC)C",
+      "label": "(E)-3-methylpent-2-een"
+     }
+    ],
+    "above": "1) BH3·THF",
+    "below": "2) H2O2, NaOH"
+   },
+   "hints": [
+    "B gaat naar C2 (één alkylgroep, minst gehinderd), H naar C3. Beide van dezelfde kant.",
+    "Na oxidatie staat OH waar B stond. Op C3 komt H erbij, zodat C3 H, CH3, C2H5 en C2 draagt.",
+    "E geeft (2R,3S) + (2S,3R); Z geeft (2R,3R) + (2S,3S). Met H2O/H2SO4 krijg je via het tertiaire kation 3-methylpentaan-3-ol."
+   ],
+   "answer_key": "1. Hydroborering (één stap, vierledige overgangstoestand): pijl van de π-binding C2=C3 naar B, pijl van de B–H-binding naar C3. B op C2 (minst gehinderd; gedeeltelijke + op het meer gesubstitueerde C3). H en B syn.\n2. Oxidatie met HOO⁻: aanval op B, alkylmigratie van B naar O met retentie; hydrolyse geeft OH op C2 met dezelfde oriëntatie als B.\nProduct 3-methylpentaan-2-ol. CIP: C2: OH > C3 > CH3 > H. C3: C2 (O,C,H) > C2H5 > CH3 > H.\nUit het E-alkeen (CH3 van C2 trans aan C2H5): C[C@H](O)[C@H](C)CC (2S,3R) en C[C@@H](O)[C@@H](C)CC (2R,3S), racemaat (BH3 van beide vlakken). Nagerekend met een 3D-model (OH op C2 en H op C3 aan de voorkant).\nUit het Z-alkeen: C[C@H](O)[C@@H](C)CC (2S,3S) en C[C@@H](O)[C@H](C)CC (2R,3R): het andere diastereomeer.\nMet H2O/H2SO4: Markovnikov: protonering op C2 geeft het tertiaire kation CC[C+](C)CC, product 3-methylpentaan-3-ol CCC(C)(O)CC, achiraal; geen stereospecificiteit.\nBeoordeling: anti-Markovnikov (OH op C2), syn, retentie bij oxidatie, juiste R/S-paren voor E, Z geeft ander diastereomeer, zure hydratatie geeft tertiair alcohol. Typische fouten: OH op C3, OH en nieuwe H trans tekenen, of een enkel enantiomeer opgeven.",
+   "in_course": true
+  },
+  {
+   "title": "A.13 (R)-Linalool + H2/Pd: wordt R ineens S?",
+   "topic": "Les 8 · Hydrogenering en CIP-prioriteit",
+   "difficulty": "hard",
+   "source": "[zelf] variant op Oefencasus Lavendel, vraag 16",
+   "question": "(R)-Linalool reageert met een overmaat H2 en Pd/C tot een verbinding C10H22O. Teken het product met wig. Hoeveel stereo-isomeren ontstaan er? Geef R/S van het product en leg uit waarom het label verandert terwijl geen enkele binding aan het stereocentrum is verbroken.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)=CCC[C@@](C)(O)C=C",
+      "label": "(R)-linalool"
+     }
+    ],
+    "above": "H2 (overmaat), Pd/C",
+    "below": ""
+   },
+   "hints": [
+    "Linalool is C10H18O met twee C=C. Hoeveel H2 komt erbij voor C10H22O? Ontstaat er een nieuw stereocentrum?",
+    "Het stereocentrum (C3) houdt zijn ruimtelijke bouw. Maar de groepen eraan veranderen: vinyl wordt ethyl. Zet de vier groepen opnieuw op volgorde.",
+    "Vóór: OH > vinyl > CH2-keten > CH3. Na: OH > CH2-keten > ethyl > CH3. Twee groepen ruilen van plaats in de volgorde: (S)-3,7-dimethyloctaan-3-ol."
+   ],
+   "answer_key": "1. Beide C=C worden syn gehydrogeneerd (H2 op Pd, twee H van het oppervlak); C10H18O + 2 H2 → C10H22O. Product 3,7-dimethyloctaan-3-ol: CC(C)CCC[C@@](C)(O)CC.\n2. Nieuwe stereocentra? C6 en C7 van de oude C6=C7 (driegesubstitueerd): C7 draagt al twee CH3 en krijgt een H → geen stereocentrum; C6 wordt CH2. De vinylgroep wordt ethyl. Dus geen nieuwe stereocentra; syn-additie maakt niets uit. Eén stereo-isomeer.\n3. Het stereocentrum C3 houdt zijn ruimtelijke bouw (geen binding verbroken). CIP vóór: OH > CH=CH2 (C,C,H door duplicaat) > CH2CH2... (C,H,H) > CH3 → (R). CIP na: OH > CH2CH2CH2CH(CH3)2 vs CH2CH3: beide (C,H,H) op het eerste atoom; volgende sfeer: CH2 (C,H,H) wint van CH3 (H,H,H) → keten > ethyl > CH3. Groep 2 en 3 ruilen van plaats in de volgorde → label wordt (S): (S)-3,7-dimethyloctaan-3-ol. RDKit: beginstof (R), product (S), zelfde @@ in dezelfde schrijfvolgorde.\nBeoordeling: twee equivalenten H2, één stereo-isomeer, ruimtelijke bouw behouden, nieuw label (S) met juiste prioriteitenargument. Typische fouten: 'geen stereocentrum meer' (C3 heeft nog OH, CH3, ethyl en de keten), 'racemaat', of zeggen dat de configuratie is geïnverteerd (alleen het label verandert).",
+   "in_course": true
+  },
+  {
+   "title": "A.14 1,2-Dimethylcyclopenteen: welk reagens geeft een meso-verbinding?",
+   "topic": "Les 1 en 8 · Vergelijking stereochemie additiereacties",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 1 en les 8",
+   "question": "1,2-Dimethylcyclopenteen reageert apart met (a) H2, Pt, (b) OsO4, H2O2, (c) 1) BH3·THF 2) H2O2, NaOH, (d) Br2 en (e) H2O/H2SO4. Teken elk product met wiggen. Geef aan of het product meso, een racemaat, of een mengsel van diastereomeren is, met R/S. Welke reagentia geven een meso-verbinding? Welk reagens kies je om 1,2-dimethylcyclopentanol met de twee CH3-groepen cis te maken?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1=C(C)CCC1",
+      "label": "1,2-dimethylcyclopenteen"
+     }
+    ],
+    "above": "(a) H2, Pt  (b) OsO4, H2O2  (c) BH3; H2O2/NaOH",
+    "below": "(d) Br2  (e) H2O/H2SO4"
+   },
+   "hints": [
+    "Bepaal per reagens eerst: komen de twee nieuwe groepen syn, anti of zonder vaste stereo? En zijn die twee nieuwe groepen gelijk of verschillend?",
+    "Bij een symmetrisch alkeen geven twee gelijke nieuwe groepen syn een meso-verbinding en anti een racemaat. Bij hydroborering komen er twee verschillende groepen (H en OH) bij, dus geen meso; let op hoe de twee CH3 dan staan.",
+    "Meso: (a) en (b). Racemaat: (c) (CH3 cis) en (d) (Br trans). Mengsel: (e) via het vlakke kation."
+   ],
+   "answer_key": "(a) H2, Pt: syn → cis-1,2-dimethylcyclopentaan C[C@H]1CCC[C@H]1C (1R,2S), meso.\n(b) OsO4, H2O2: syn via cyclisch osmaatester → cis-1,2-dimethylcyclopentaan-1,2-diol C[C@]1(O)CCC[C@@]1(C)O (1S,2R): beide OH cis en beide CH3 cis, meso.\n(c) Hydroborering-oxidatie: H en OH syn. C1 krijgt OH, C2 krijgt H, aan dezelfde kant; dus beide CH3 aan de andere kant, cis: C[C@]1(O)CCC[C@@H]1C (1S,2S) + C[C@@]1(O)CCC[C@H]1C (1R,2R), racemaat (B kan van beide vlakken; regiochemie speelt niet want beide C zijn gelijk gesubstitueerd).\n(d) Br2: bromoniumion + anti-aanval van Br⁻ → trans-1,2-dibroom-1,2-dimethylcyclopentaan C[C@]1(Br)CCC[C@]1(C)Br (1S,2S) + C[C@@]1(Br)CCC[C@@]1(C)Br (1R,2R), racemaat.\n(e) H2O/H2SO4: protonering geeft het tertiaire kation C[C+]1CCCC1C (C2 nu CH met CH3, gevormd zonder stereocontrole), water valt van beide kanten aan: 1,2-dimethylcyclopentanol als mengsel van cis en trans (beide racemisch). Niet stereospecifiek.\nMeso: (a) en (b). cis-Dimethyl-alcohol selectief: (c).\nBeoordeling: syn/anti per reagens, meso alleen bij twee gelijke groepen syn, racemaat bij (c) en (d), mengsel bij (e), juiste wiggen. Typische fouten: (c) meso noemen, bij (d) Br cis tekenen, bij (e) één stereo-isomeer opgeven.",
+   "in_course": true
+  },
+  {
+   "title": "A.15 Cyclisatie van (S,E)-6-methyloct-6-en-2-ol: nieuw stereocentrum in de ring",
+   "topic": "Les 1 · Intramoleculaire ethervorming met diastereomeren (lavandulol-type)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 1 en Oefencasus Lavendel (cyclisatie lavandulol)",
+   "question": "(2S,6E)-6-Methyloct-6-en-2-ol cycliseert met een zure katalysator tot een cyclische ether C9H18O. Teken het mechanisme met gebogen pijlen en alle tussenproducten met formele lading. Teken alle producten met wiggen en geef R/S. Zijn het enantiomeren of diastereomeren? Maakt het uit of je het (E)- of (Z)-alkeen gebruikt?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@H](O)CCC/C(C)=C/C",
+      "label": "(2S,6E)-6-methyloct-6-en-2-ol"
+     }
+    ],
+    "above": "H2SO4 (kat.)",
+    "below": "H2O"
+   },
+   "hints": [
+    "Markovnikov: de H komt op C7, de + op C6 (tertiair). Welke drie groepen draagt dat kation?",
+    "De OH op C2 valt aan op C6+ en maakt een zesring. C6 krijgt CH3, C2H5, de ring-CH2 en O: een nieuw stereocentrum aan een vlak kation.",
+    "Twee diastereomeren van 2-ethyl-2,6-dimethyloxaan: (2R,6S) en (2S,6S). E of Z maakt niet uit: de geometrie verdwijnt in het kation."
+   ],
+   "answer_key": "1. Protonering: pijl van de π-binding C6=C7 naar H van H3O+, pijl van O–H naar O+. H op C7 (wordt CH2 van de ethylgroep), tertiair kation op C6: C[C@H](O)CCC[C+](C)CC. Het kation is vlak; de E/Z-informatie van de dubbele binding is weg (C7 is nu een CH2).\n2. Ringsluiting: pijl van een vrij paar van de OH-zuurstof (op C2) naar C6+. Ring: O, C2, C3, C4, C5, C6 = zesring. O kan van beide kanten van het vlakke C6 komen. Oxonium bv. C[C@H]([OH+]1)CCC[C@@]1(C)CC.\n3. Deprotonering: pijl van een vrij paar van H2O naar H op O+, pijl van O–H naar O+.\nProducten (2-ethyl-2,6-dimethyloxaan; ring-C met ethyl = C2, ring-CH = C6):\n- C[C@H](O1)CCC[C@@]1(C)CC: (2R,6S), de twee CH3 trans, ethyl cis aan 6-CH3;\n- C[C@H](O1)CCC[C@]1(C)CC: (2S,6S), de twee CH3 cis.\nHet oude stereocentrum (nu C6) houdt zijn configuratie en label (S) (O > ring-CH2 > CH3 > H). De producten verschillen alleen op het nieuwe centrum: diastereomeren, niet 1:1 (in de stoelvorm zit de grotere ethylgroep liever equatoriaal), optisch actief mengsel. E of Z maakt niet uit: beide geven hetzelfde kation.\nBeoordeling: tertiair kation op C6, zesring via vrij paar van O, oxonium met +, deprotonering, twee diastereomeren met juiste R/S, oude centrum (S) onveranderd, E/Z irrelevant met argument. Typische fouten: een zevenring tekenen (via het secundaire kation op C7; anti-Markovnikov), 'racemaat', het oude stereocentrum laten meedoen, of de OH protoneren en laten vertrekken.",
+   "in_course": true
+  }
+ ]
+}

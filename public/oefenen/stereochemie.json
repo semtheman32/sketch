@@ -1,0 +1,253 @@
+{
+ "title": "Stereochemie",
+ "exercises": [
+  {
+   "title": "ST4.1 SN2 met inversie (Walden)",
+   "topic": "Stereochemie (zwaar) · Les 4 Reactiesturing",
+   "difficulty": "hard",
+   "source": "Organische Synthese 2, les 4 (SN2: inversie, dia 19)",
+   "question": "(R)-2-Broombutaan reageert met NaCN in DMSO. Teken het mechanisme met de overgangstoestand en teken het product met wig/streepjeswig. Geef de R/S-configuratie van het product en leg uit waarom die verandert.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@@H](Br)CC",
+      "label": "(R)-2-broombutaan"
+     }
+    ],
+    "above": "NaCN",
+    "below": "DMSO"
+   },
+   "hints": [
+    "Primair of secundair substraat, sterk nucleofiel, polair aprotisch: welk mechanisme, en van welke kant komt CN-?",
+    "Teken de overgangstoestand tussen haken met ‡: C half gebonden aan CN en aan Br, de drie andere groepen in één vlak.",
+    "De drie groepen klappen om als een paraplu in de wind. Bepaal daarna de prioriteiten: komt CN op dezelfde prioriteitsplek als Br?"
+   ],
+   "answer_key": "Eén stap (SN2): vrij paar van het C van CN- naar het C met Br, aan de kant tegenover Br (backside attack); pijl van de C–Br-binding naar Br. Overgangstoestand [NC···C(H)(CH3)(C2H5)···Br]‡ met vijf bindingen, CH3/H/Et vlak.\nProduct: (S)-2-methylbutaannitril CC[C@H](C)C#N + Br-. Inversie van de ruimtelijke bouw (Walden). CIP: Br had prioriteit 1, CN (C met N,N,N) krijgt ook prioriteit 1 > ethyl > methyl > H, dus de omklapping geeft R → S.\nBeoordeling: aanval van de achterkant zichtbaar (wig/streep tegenovergesteld aan Br), product correct met wiggen getekend en (S) benoemd. Fout: racemisch mengsel (dat is SN1), of 'retentie'. Let op: inversie betekent niet altijd een ander R/S-label; hier wel omdat CN dezelfde prioriteitsplek inneemt.",
+   "in_course": true
+  },
+  {
+   "title": "ST4.2 SN1 en racemisatie",
+   "topic": "Stereochemie (zwaar) · Les 4 Reactiesturing",
+   "difficulty": "hard",
+   "source": "Organische Synthese 2, les 4 (SN1, dia 27) / les 3 (Kinetiek)",
+   "question": "(R)-3-Broom-3-methylhexaan wordt opgelost in water/aceton. Teken het SN1-mechanisme en beide stereo-isomere producten met wiggen. Is het product optisch actief?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCC[C@](C)(Br)CC",
+      "label": "(R)-3-broom-3-methylhexaan"
+     }
+    ],
+    "above": "H2O",
+    "below": "aceton"
+   },
+   "hints": [
+    "Tertiair substraat, zwak nucleofiel, polair protisch: wat vertrekt er eerst?",
+    "Welke vorm heeft het carbokation? Van hoeveel kanten kan water aanvallen?",
+    "Teken water één keer van voren en één keer van achteren; vergeet de deprotonering niet."
+   ],
+   "answer_key": "Stap 1 (snelheidsbepalend): C–Br-binding naar Br; tertiair carbokation CCC[C+](C)CC, sp2, vlak; het stereocentrum is weg.\nStap 2: H2O valt aan van boven OF van onder (vrij paar O naar C+): twee oxoniumionen.\nStap 3: H2O deprotoneert. Producten: (R)- en (S)-3-methyl-3-hexanol CCC[C@](C)(O)CC en CCC[C@@](C)(O)CC, ongeveer 1:1: racemisch mengsel, niet optisch actief.\nBeoordeling: vlak kation benoemd/getekend, beide enantiomeren met wiggen (OH één keer wig, één keer streep), 'racemisch'. Opmerking: in de praktijk lichte overmaat inversie (ionpaar), niet vereist.",
+   "in_course": true
+  },
+  {
+   "title": "ST4.3 SN2 in een ring: cis wordt trans",
+   "topic": "Stereochemie (zwaar) · Les 4 Reactiesturing",
+   "difficulty": "hard",
+   "source": "Organische Synthese 2, les 4 (SN2-inversie) [zelf]",
+   "question": "cis-1-Broom-4-methylcyclohexaan reageert met NaCN in DMSO. Teken het mechanisme en het product met wiggen. Is het product cis of trans?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@H]1CC[C@@H](Br)CC1",
+      "label": "cis-1-broom-4-methylcyclohexaan"
+     }
+    ],
+    "above": "NaCN",
+    "below": "DMSO"
+   },
+   "hints": [
+    "In de tekening staan CH3 en Br aan dezelfde kant van de ring (beide streepjeswig).",
+    "SN2: CN- komt van de kant tegenover Br.",
+    "Als Br naar achteren stond, waar staat CN dan?"
+   ],
+   "answer_key": "Eén stap SN2: vrij paar C van CN- naar het ring-C met Br, van de voorkant (tegenover Br dat naar achteren staat); C–Br-binding naar Br.\nProduct: trans-4-methylcyclohexaancarbonitril C[C@H]1CC[C@H](C#N)CC1: CH3 streepjeswig, CN wig. Achiraal (spiegelvlak), dus geen R/S-paar.\nBeoordeling: CN aan de tegenovergestelde kant van waar Br stond, 'trans' benoemd. Fout: cis-product (retentie) of mengsel (SN1). E2 is een bijreactie (secundair C), mag genoemd worden.",
+   "in_course": true
+  },
+  {
+   "title": "ST8.1 Bromering van trans-stilbeen: meso",
+   "topic": "Stereochemie (zwaar) · Les 8 Additie 2 / VD1",
+   "difficulty": "hard",
+   "source": "VD1 additie-eliminatie (Bromination_stilbene) / les 8 (anti-additie, dia 14)",
+   "question": "trans-Stilbeen reageert met Br2 in CH2Cl2. Teken het mechanisme via het bromoniumion en het product met wiggen. Leg uit waarom er één stof ontstaat (meso) en geen racemisch mengsel.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "c1ccc(cc1)/C=C/c1ccccc1",
+      "label": "trans-stilbeen"
+     }
+    ],
+    "above": "Br2",
+    "below": "CH2Cl2"
+   },
+   "hints": [
+    "Stap 1: bromoniumion boven (of onder) het vlak van het alkeen.",
+    "Br- komt van de achterkant: anti-additie. Teken de twee Br's één met wig en één met streepjeswig.",
+    "Heeft het product een inwendig spiegelvlak? Bepaal R/S van beide C-atomen."
+   ],
+   "answer_key": "Stap 1: C=C pi naar Br van Br2; Br–Br naar Br-; vrij paar Br terug naar het tweede C: cyclisch bromoniumion (de twee Ph's blijven trans).\nStap 2: Br- valt één van de twee C's van de achterkant aan (anti); C–Br+-binding naar Br.\nProduct: meso-1,2-dibroom-1,2-difenylethaan (1R,2S) Br[C@H](c1ccccc1)[C@@H](Br)c1ccccc1. Aanval op C1 of C2, of bromoniumion van boven of onder, geeft steeds dezelfde stof: inwendig spiegelvlak, achiraal, één stereo-isomeer.\nVergelijk: cis-stilbeen geeft het racemische (1R,2R)/(1S,2S)-dibromide.\nBeoordeling: bromoniumion, anti-aanval, wiggen correct (anti), meso benoemd met argument (spiegelvlak of R,S).",
+   "in_course": true
+  },
+  {
+   "title": "ST8.2 Broomhydrine van 1-methylcyclohexeen",
+   "topic": "Stereochemie (zwaar) · Les 8 Additie 2",
+   "difficulty": "hard",
+   "source": "Organische Synthese 2, les 8 (halohydrine, dia 13) / opgave 21",
+   "question": "1-Methylcyclohexeen reageert met Br2 in water. Teken het mechanisme en het product met wiggen (regio én stereo). Teken ook het enantiomeer.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1=CCCCC1",
+      "label": "1-methylcyclohexeen"
+     }
+    ],
+    "above": "Br2",
+    "below": "H2O"
+   },
+   "hints": [
+    "Het bromoniumion is asymmetrisch: welk C draagt de meeste positieve lading?",
+    "Water valt dat C aan, van de achterkant.",
+    "OH en Br komen anti, in de ring dus trans. De CH3 zit op hetzelfde C als de OH."
+   ],
+   "answer_key": "Stap 1: C=C pi naar Br; Br–Br naar Br-; bromoniumion (asymmetrisch: C1 met CH3 draagt meer positieve lading).\nStap 2: H2O valt C1 (tertiair) aan van de achterkant; C1–Br+-binding naar Br. Oxoniumion.\nStap 3: H2O deprotoneert.\nProduct: trans-2-broom-1-methylcyclohexanol, OH op C1 (met CH3), Br op C2, OH en Br trans: C[C@@]1(O)CCCC[C@H]1Br plus enantiomeer C[C@]1(O)CCCC[C@@H]1Br (racemisch).\nBeoordeling: regio (OH op tertiair C, Markovnikov), anti/trans met wiggen, enantiomeer of 'racemisch' genoemd.",
+   "in_course": true
+  },
+  {
+   "title": "ST8.3 HBr aan 1,2-dimethylcyclohexeen: hoeveel stereo-isomeren?",
+   "topic": "Stereochemie (zwaar) · Les 8 / Les 1 Additie",
+   "difficulty": "hard",
+   "source": "Organische Synthese 2, les 1 + les 8 (opgave 16a, vlak kation)",
+   "question": "1,2-Dimethylcyclohexeen reageert met HBr. Teken het mechanisme. Teken alle stereo-isomere producten met wiggen en zeg welke enantiomeren en welke diastereomeren zijn.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1=C(C)CCCC1",
+      "label": "1,2-dimethylcyclohexeen"
+     }
+    ],
+    "above": "HBr"
+   },
+   "hints": [
+    "Het H+ komt van boven of van onder op C2. Daarmee ligt de stand van de CH3 op C2 vast.",
+    "Het tertiaire kation op C1 is vlak: Br- kan van twee kanten komen.",
+    "Je krijgt Br cis of trans t.o.v. de CH3 op C2, en van elk ook het spiegelbeeld."
+   ],
+   "answer_key": "Stap 1: C=C pi naar H van HBr; H–Br naar Br. H op C2 (van boven of onder) → tertiair kation op C1 (vlak). C2 wordt een stereocentrum.\nStap 2: Br- valt C1 aan van boven of onder.\nProducten: 1-broom-1,2-dimethylcyclohexaan als twee diastereomeren (de CH3-groepen cis of trans; ofwel Br cis/trans t.o.v. CH3 op C2), elk als racemisch mengsel: in totaal 4 stereo-isomeren ((1R,2R), (1S,2S), (1R,2S), (1S,2R)).\nBeoordeling: vlak kation als reden, minstens de twee diastereomeren met wiggen, 'elk racemisch' of 4 stereo-isomeren. Fout: alleen trans (dat zou een anti-additie via een cyclisch ion zijn).",
+   "in_course": true
+  },
+  {
+   "title": "ST11.1 trans-2-Buteen → epoxide → diol: meso",
+   "topic": "Stereochemie (zwaar) · Les 11 Epoxides",
+   "difficulty": "hard",
+   "source": "Organische Synthese 2, les 11 (dia 2, 3, 5) [zelf: combinatie]",
+   "question": "(E)-2-Buteen reageert eerst met mCPBA, daarna met verdund H2SO4 in water. Teken beide mechanismen met wiggen. Welk stereo-isomeer van 2,3-butaandiol ontstaat: meso of racemisch?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C/C=C/C",
+      "label": "(E)-2-buteen"
+     }
+    ],
+    "above": "1) mCPBA, CH2Cl2",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Epoxidatie is syn en gaat in één stap: trans-alkeen geeft trans-epoxide (welke R/S?).",
+    "Zure opening: water valt één C aan van de achterkant, met inversie op dat C. Het andere C houdt zijn configuratie.",
+    "Ga na of het product een spiegelvlak heeft. Bepaal R/S van beide C's."
+   ],
+   "answer_key": "Stap A (mCPBA, één stap, syn): trans-2,3-dimethyloxiraan, als racemaat (2R,3R)/(2S,3S), bv. C[C@H]1O[C@@H]1C.\nStap B1: epoxide-O pakt H+ (geprotoneerd epoxide).\nStap B2: H2O valt C2 (of C3) aan van de achterkant; C–O+-binding naar O. Inversie op het aangevallen C: (R,R) → (S,R).\nStap B3: deprotonering.\nProduct: meso-2,3-butaandiol (2R,3S) C[C@@H](O)[C@H](C)O. Uit beide epoxide-enantiomeren en aanval op beide C's krijg je steeds dezelfde meso-stof. Netto: anti-dihydroxylering. (Ter vergelijking: OsO4 = syn geeft uit het trans-alkeen het racemische (R,R)/(S,S)-diol.)\nBeoordeling: syn-epoxidatie, anti-opening met inversie op één C, meso met argument.",
+   "in_course": true
+  },
+  {
+   "title": "ST11.2 Grignard opent een chiraal epoxide",
+   "topic": "Stereochemie (zwaar) · Les 11 + Les 15",
+   "difficulty": "hard",
+   "source": "Organische Synthese 2, les 11 (basische opening) + les 15 (Grignard) [zelf]",
+   "question": "(R)-2-Methyloxiraan reageert met fenylmagnesiumbromide, daarna zure opwerking. Teken het mechanisme en het product met wig/streepjeswig. Treedt er inversie op aan het stereocentrum? Geef de R/S-configuratie van het product.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@@H]1CO1",
+      "label": "(R)-2-methyloxiraan"
+     },
+     {
+      "smiles": "Br[Mg]c1ccccc1",
+      "label": "PhMgBr"
+     }
+    ],
+    "above": "1) droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Grignard = sterk nucleofiel: welk C van het epoxide valt het aan?",
+    "Wordt de binding aan het stereocentrum zelf verbroken?",
+    "Bepaal R/S opnieuw met CIP: OH > CH2Ph > CH3 > H."
+   ],
+   "answer_key": "Stap 1 (SN2 op het minst gehinderde C): C–Mg-binding van PhMgBr naar het CH2 van het epoxide; CH2–O-binding naar O. Inversie op het CH2 (geen stereocentrum). Alkoxide C[C@@H]([O-])Cc1ccccc1.\nStap 2: O- pakt H van H3O+.\nProduct: (R)-1-fenyl-2-propanol C[C@@H](O)Cc1ccccc1. Het stereocentrum (C2) wordt niet aangevallen: de C2–O-binding blijft, dus de ruimtelijke bouw blijft behouden (retentie). CIP: OH > CH2Ph > CH3 > H geeft weer (R).\nBeoordeling: aanval op CH2, stereocentrum ongewijzigd met juiste wig, (R). Fout: aanval op C2 of inversie op C2.",
+   "in_course": true
+  },
+  {
+   "title": "STLAV.1 Cyclisatie van (R)-lavandulol met stereochemie",
+   "topic": "Stereochemie (zwaar) · Oefencasus Lavendel",
+   "difficulty": "hard",
+   "source": "Oefencasus Lavendel, vraag 1 + 9",
+   "question": "(R)-Lavandulol cycliseert met een zure katalysator tot lavendeloxide. Teken het mechanisme met het stereocentrum als wig/streepjeswig in elk tussenproduct. Verandert de configuratie? Geef R/S van het product met CIP-prioriteiten.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)=CC[C@@H](CO)C(C)=C",
+      "label": "(R)-lavandulol"
+     }
+    ],
+    "above": "H+ (kat.)"
+   },
+   "hints": [
+    "Doet het stereocentrum (het C met CH2OH) zelf mee aan de reactie? Welke bindingen worden gemaakt en verbroken?",
+    "Teken de wig van het stereocentrum in elk tussenproduct op dezelfde manier.",
+    "CIP in het product: CH2–O (ring) > isopropenyl > CH2 (ring) > H."
+   ],
+   "answer_key": "Mechanisme zoals LAV.4: protonering van (CH3)2C=CH- (H op CH), tertiair kation, aanval door het O van CH2OH (zesring), deprotonering.\nStereo: alle gemaakte en verbroken bindingen zitten niet aan het stereocentrum, dus de ruimtelijke bouw blijft gelijk (retentie). Het nieuwe C(CH3)2 in de ring is geen stereocentrum (twee CH3).\nProduct: (R)-lavendeloxide CC1(C)CC[C@@H](CO1)C(C)=C. CIP rond het stereocentrum: CH2O (O) > isopropenyl (C,C,C) > ring-CH2 (C,H,H) > H: dezelfde volgorde als in lavandulol (CH2OH > isopropenyl > CH2 > H), dus R blijft R.\nBeoordeling: stereocentrum consequent getekend, retentie beargumenteerd, R/S met prioriteiten. Kleine fout: R/S fout terwijl de tekening klopt = bijna.",
+   "in_course": true
+  },
+  {
+   "title": "STLAV.2 HOCl op (S)-linalylacetaat: diastereomeren",
+   "topic": "Stereochemie (zwaar) · Oefencasus Lavendel",
+   "difficulty": "hard",
+   "source": "Oefencasus Lavendel, vraag 19 (11b → 12b)",
+   "question": "(S)-Linalylacetaat reageert met HOCl in water/CH2Cl2 tot het chloorhydrine 12b. Teken het mechanisme. Hoeveel stereo-isomeren van 12b ontstaan, en zijn dat enantiomeren of diastereomeren? Teken ze met wiggen.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)=CCC[C@](C)(OC(C)=O)C=C",
+      "label": "(S)-linalylacetaat"
+     }
+    ],
+    "above": "HOCl / H2O",
+    "below": "CH2Cl2",
+    "product": [
+     {
+      "smiles": "CC(=O)OC(C)(CCC(Cl)C(C)(C)O)C=C",
+      "label": "12b (stereo zelf aangeven)"
+     }
+    ]
+   },
+   "hints": [
+    "Welke C-atomen in 12b zijn stereocentra? Kijk naar het C met Cl en het C met OH.",
+    "Het C(CH3)2OH heeft twee gelijke CH3-groepen. Het C met Cl is nieuw: het chloroniumion kan boven of onder het alkeen ontstaan.",
+    "Het oude stereocentrum (C3, met OAc) doet niet mee. Wat zijn twee stoffen die alleen op één van twee stereocentra verschillen?"
+   ],
+   "answer_key": "Mechanisme: trigesubstitueerde C=C valt Cl van HOCl aan → chloroniumion (boven of onder het vlak); H2O valt het tertiaire C(CH3)2 aan van de achterkant; deprotonering. Cl op CH, OH op C(CH3)2.\nStereo: het C met OH heeft twee CH3-groepen: geen stereocentrum. Het C met Cl is een nieuw stereocentrum, R of S (beide kanten even goed). C3 (OAc) blijft S.\nDus twee stereo-isomeren: (3S,6R) en (3S,6S) — diastereomeren (ze verschillen op één van twee stereocentra), niet 1:1 vast te leggen maar ongeveer gelijk. Geen enantiomeren, want C3 is in beide S.\nBeoordeling: twee producten met Cl één keer wig, één keer streep en de OAc-wig gelijk; 'diastereomeren' met argument. Antwoordmodel noemt dit niet expliciet; het hoort wel bij volledige stereo.",
+   "in_course": true
+  }
+ ]
+}
