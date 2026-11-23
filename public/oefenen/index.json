@@ -3,5 +3,35 @@
   "id": "ms-splitsing",
   "title": "MS-splitsing (les 9 en 12)",
   "file": "ms-splitsing.json"
+ },
+ {
+  "id": "osy2-basis",
+  "title": "OSY2 basisopgaven (les 1–17)",
+  "file": "osy2-basis.json"
+ },
+ {
+  "id": "stereochemie",
+  "title": "Stereochemie",
+  "file": "stereochemie.json"
+ },
+ {
+  "id": "batch-a",
+  "title": "Extra opgaven A",
+  "file": "batch-a.json"
+ },
+ {
+  "id": "batch-b",
+  "title": "Extra opgaven B",
+  "file": "batch-b.json"
+ },
+ {
+  "id": "batch-c",
+  "title": "Extra opgaven C",
+  "file": "batch-c.json"
+ },
+ {
+  "id": "batch-d",
+  "title": "Extra opgaven D",
+  "file": "batch-d.json"
  }
 ]

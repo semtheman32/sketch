@@ -1,0 +1,369 @@
+{
+ "title": "Extra opgaven C",
+ "exercises": [
+  {
+   "title": "C.01 Br₂ op (Z)-3-hexeen: meso of racemaat?",
+   "topic": "Les 8 · halogenering (anti-additie)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 8 (halogenering, dia 12-14) en VD1",
+   "question": "(Z)-3-Hexeen reageert met Br₂ in CH₂Cl₂. Teken het volledige mechanisme met gebogen pijlen, vrije elektronenparen en formele ladingen. Teken het product met wiggen en geef de R/S-configuratie van elk stereocentrum. Ontstaat er een meso-verbinding of een racemaat? Leg daarna in één zin uit wat (E)-3-hexeen zou geven.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC/C=C\\CC",
+      "label": "(Z)-3-hexeen"
+     }
+    ],
+    "above": "Br₂",
+    "below": "CH₂Cl₂"
+   },
+   "hints": [
+    "Het tussenproduct is geen carbokation maar een cyclisch bromoniumion.",
+    "Br⁻ valt het bromoniumion van de achterkant aan: anti-additie. In het cis-bromoniumion zijn C3 en C4 elkaars spiegelbeeld.",
+    "Uit een cis-alkeen geeft anti-additie het racemaat (3R,4R)/(3S,4S); uit een trans-alkeen de meso-vorm."
+   ],
+   "answer_key": "1. Bromoniumion. Pijl 1: van de C=C (π-binding) naar het dichtstbijzijnde Br van Br₂. Pijl 2: van de Br–Br-binding naar het verste Br (dat vertrekt als Br⁻ met vier vrije paren). Pijl 3: van een vrij paar van het eerste Br naar het andere alkeen-C. Tussenproduct: cyclisch bromoniumion CC[C@@H]1[C@H](CC)[Br+]1 (Br⁺ met twee vrije paren, twee bindingen). Omdat het alkeen cis is, staan beide ethylgroepen aan dezelfde kant; dit bromoniumion is achiraal (het heeft een spiegelvlak), dus het maakt niet uit van welke kant Br₂ komt.\n2. Ringopening. Pijl 1: van een vrij paar van Br⁻ naar C3 (of C4), van de achterkant, tegenover het Br⁺. Pijl 2: van de C3–Br⁺-binding naar Br⁺ (wordt neutraal Br aan C4). Dit is anti-additie.\n3. Product: 3,4-dibroomhexaan. Aanval op C3 geeft CC[C@@H](Br)[C@@H](CC)Br = (3R,4R); aanval op C4 geeft het spiegelbeeld CC[C@H](Br)[C@H](CC)Br = (3S,4S). Beide aanvallen zijn even waarschijnlijk: racemaat (1:1), optisch inactief maar geen meso.\n4. (E)-3-hexeen: het bromoniumion is chiraal (twee enantiomere ionen, 50:50), maar elke anti-opening geeft dezelfde stof: meso-3,4-dibroomhexaan (3R,4S), CC[C@@H](Br)[C@H](CC)Br. Regel: cis + anti = racemaat; trans + anti = meso (bij symmetrische alkenen).\nBeoordeling: bromoniumion met Br⁺ en drie pijlen in stap 1; aanval van de achterkant; beide Br anti; juiste labels (3R,4R) + (3S,4S); het woord racemaat. Typische fouten: carbokation tekenen, syn-additie, of 'meso' zeggen omdat de twee helften gelijk zijn.",
+   "in_course": true
+  },
+  {
+   "title": "C.02 Cl₂ op (E)-2-penteen: meso of niet?",
+   "topic": "Les 8 · halogenering (anti-additie)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 8 (halogenering)",
+   "question": "(E)-2-Penteen reageert met Cl₂ in CH₂Cl₂. Geef het mechanisme met gebogen pijlen en het chloroniumion als tussenproduct. Teken alle stereo-isomeren die ontstaan met wiggen, geef hun R/S-configuratie en zeg of het product meso, een racemaat of een enkel enantiomeer is. Leg uit waarom het antwoord anders is dan bij (E)-2-buteen.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C/C=C/CC",
+      "label": "(E)-2-penteen"
+     }
+    ],
+    "above": "Cl₂",
+    "below": "CH₂Cl₂"
+   },
+   "hints": [
+    "Cl₂ reageert net als Br₂: eerst een cyclisch chloroniumion, dan anti-aanval door Cl⁻.",
+    "Beide C-atomen in het chloroniumion zijn secundair; Cl⁻ kan op allebei aanvallen. Krijg je dan een andere constitutie?",
+    "Een meso-verbinding heeft een inwendig spiegelvlak. Kan dat met een methyl aan de ene en een ethyl aan de andere kant?"
+   ],
+   "answer_key": "1. Chloroniumion: pijl van de C=C naar Cl, pijl van de Cl–Cl-binding naar het andere Cl (Cl⁻), pijl van een vrij paar van het eerste Cl naar het tweede alkeen-C. Tussenproduct (één van twee enantiomere ionen): C[C@@H]1[C@@H](CC)[Cl+]1. Cl₂ kan van boven of van onder komen: beide enantiomere chloroniumionen ontstaan 50:50.\n2. Anti-opening: vrij paar van Cl⁻ naar C2 of C3 (achterkant), C–Cl⁺-binding naar Cl⁺. Beide aanvallen geven dezelfde constitutie: 2,3-dichloorpentaan.\n3. Stereo: aanval op C3 geeft C[C@@H](Cl)[C@H](CC)Cl = (2R,3S); aanval op C2 geeft C[C@H](Cl)[C@@H](CC)Cl = (2S,3R). Het andere chloroniumion geeft dezelfde twee. Uitkomst: racemaat van (2R,3S)- en (2S,3R)-2,3-dichloorpentaan.\n4. Vergelijking: bij (E)-2-buteen geeft dezelfde anti-additie meso-2,3-dibroom/dichloorbutaan (2R,3S), omdat beide helften gelijk zijn (CH₃ en CH₃) en het molecuul een spiegelvlak heeft. Hier zijn de helften verschillend (CH₃ tegenover C₂H₅): geen spiegelvlak, dus chiraal. (2R,3S) en (2S,3R) zijn hier geen dezelfde stof maar enantiomeren. Het label 'R,S' betekent dus niet automatisch meso.\nBeoordeling: chloroniumion (geen carbokation), anti-additie, beide enantiomeren met correcte R/S, en het argument 'geen spiegelvlak door ongelijke uiteinden'. Fout: 'meso' omdat het een R en een S heeft; ook fout: (2R,3R)/(2S,3S) (dat zou syn-additie aan het E-alkeen zijn, of anti aan het Z-alkeen).",
+   "in_course": true
+  },
+  {
+   "title": "C.03 Br₂ op 1,2-dimethylcyclopenteen",
+   "topic": "Les 8 · halogenering in een ring",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 8 (Br₂ aan cyclopenteen, opgave 18a)",
+   "question": "1,2-Dimethylcyclopenteen reageert met Br₂ in CH₂Cl₂. Geef het mechanisme met gebogen pijlen. Teken het product met wiggen (cis of trans?) en geef de R/S-configuratie van beide stereocentra. Is het product chiraal? Ontstaat een racemaat of een meso-verbinding?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1=C(C)CCC1",
+      "label": "1,2-dimethylcyclopenteen"
+     }
+    ],
+    "above": "Br₂",
+    "below": "CH₂Cl₂"
+   },
+   "hints": [
+    "Het bromoniumion zit aan één kant van de ring; Br⁻ komt van de andere kant.",
+    "De twee Br-atomen eindigen trans. Dan staan de twee methylgroepen ook trans.",
+    "Teken het spiegelbeeld van je product. Kun je het erop leggen? Zo nee: twee enantiomeren, 50:50."
+   ],
+   "answer_key": "1. Bromoniumion: pijl van de C=C naar Br, pijl van Br–Br naar het verste Br (Br⁻), pijl van een vrij paar van het eerste Br naar het tweede ring-C. Br⁺ zit als een brug aan één kant van de ring (boven of onder, 50:50). Beide ring-C's zijn tertiair maar gelijk.\n2. Br⁻ valt C1 of C2 van de achterkant aan (vrij paar van Br⁻ naar C, C–Br⁺-binding naar Br⁺). Beide Br komen trans te staan.\n3. Product: trans-1,2-dibroom-1,2-dimethylcyclopentaan, C[C@]1(Br)CCC[C@]1(C)Br = (1S,2S) en het spiegelbeeld C[C@@]1(Br)CCC[C@@]1(C)Br = (1R,2R). In de wiggentekening: methyl op C1 wig en Br op C1 streep, methyl op C2 streep en Br op C2 wig (of omgekeerd).\n4. De trans-verbinding heeft geen spiegelvlak (wel een C₂-as) en is chiraal: racemaat. De cis-verbinding (beide Br aan één kant, (1R,2S)) zou meso zijn, maar die ontstaat niet bij anti-additie.\nBeoordeling: anti-additie, trans-product, labels (1R,2R)/(1S,2S) gelijk aan elkaar (C₂-symmetrie), racemaat. Typische fout: het trans-product 'meso' noemen, of één enantiomeer tekenen zonder te vermelden dat het spiegelbeeld evenveel ontstaat.",
+   "in_course": true
+  },
+  {
+   "title": "C.04 Br₂/H₂O op (E)-3-methyl-2-penteen: regio en stereo",
+   "topic": "Les 8 · halohydrine (Markovnikov, anti)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 8 (halohydrines, dia 13) en VD2",
+   "question": "(E)-3-Methyl-2-penteen reageert met Br₂ in water. Geef het volledige mechanisme (drie stappen) met gebogen pijlen, vrije elektronenparen en ladingen. Op welk C komt de OH en op welk C het Br? Leg uit waarom. Teken het product met wiggen, geef de R/S-configuratie en zeg welke stereo-isomeren ontstaan en in welke verhouding.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C/C=C(/CC)C",
+      "label": "(E)-3-methyl-2-penteen"
+     }
+    ],
+    "above": "Br₂",
+    "below": "H₂O"
+   },
+   "hints": [
+    "Water is in grote overmaat en vangt het bromoniumion weg voordat Br⁻ dat doet.",
+    "In het bromoniumion draagt het tertiaire C (C3) de meeste plus-lading; daar valt water aan, van de achterkant.",
+    "Het Br eindigt op C2 (het C met de H). Product: 2-broom-3-methyl-3-pentanol, als racemaat van één diastereomeer."
+   ],
+   "answer_key": "1. Bromoniumion: pijl van de C=C naar Br, pijl van Br–Br naar het verste Br (Br⁻), pijl van een vrij paar van het eerste Br naar het andere alkeen-C. Eén van de twee enantiomere ionen: C[C@@H]1[C@](CC)(C)[Br+]1 (het CH₃ op C2 staat trans aan de ethylgroep, zoals in het E-alkeen).\n2. Wateraanval: pijl van een vrij paar van H₂O naar C3 (het tertiaire C), van de achterkant; pijl van de C3–Br⁺-binding naar Br⁺. Waarom C3: de C3–Br⁺-binding is de langste/zwakste en C3 draagt de meeste plus-lading (tertiair, Markovnikov; les 8 dia 13). Tussenproduct: oxoniumion C[C@@H](Br)[C@@](CC)(C)[OH2+].\n3. Deprotonering: pijl van een vrij paar van een tweede H₂O naar een H op O⁺, pijl van de O–H-binding naar O⁺. H₃O⁺ ontstaat.\n4. Product: 2-broom-3-methyl-3-pentanol. Uit het getekende bromoniumion: C[C@@H](Br)[C@@](CC)(C)O = (2R,3S). Het andere bromoniumion (Br₂ van de andere kant) geeft het spiegelbeeld C[C@H](Br)[C@](CC)(C)O = (2S,3R). Verhouding 1:1: racemaat. De diastereomeren (2R,3R)/(2S,3S) ontstaan niet, omdat de additie stereospecifiek anti is.\nBeoordeling: OH op het tertiaire C en Br op het secundaire C; drie stappen met de deprotonering; anti (OH en Br aan tegenoverliggende kanten in de getekende conformatie); juiste labels (2R,3S)+(2S,3R). Typische fouten: OH op C2 (anti-Markovnikov), carbokation met omlegging, vergeten te deprotoneren, of één enantiomeer zonder het woord racemaat.",
+   "in_course": true
+  },
+  {
+   "title": "C.05 1-Methylcyclopenteen → chloorhydrine → epoxide",
+   "topic": "Les 8 en 11 · halohydrine en ringsluiting",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 8 (opgave 21a) en les 11, VD2/VD3",
+   "question": "1-Methylcyclopenteen reageert eerst met Cl₂ in water. Het product wordt daarna behandeld met NaOH. Geef van beide stappen het mechanisme met gebogen pijlen. Teken het chloorhydrine en het epoxide met wiggen en geef de R/S-configuratie van de stereocentra in beide producten (één enantiomeer uitwerken, en zeg wat er met het andere gebeurt).",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1=CCCC1",
+      "label": "1-methylcyclopenteen"
+     }
+    ],
+    "above": "1) Cl₂, H₂O",
+    "below": "2) NaOH"
+   },
+   "hints": [
+    "Denk aan Markovnikov: welk C van het chloroniumion draagt de meeste plus-lading, en van welke kant komt het water?",
+    "Stap 2: NaOH deprotoneert de OH. De O⁻ valt het C met Cl van de achterkant aan (interne SN2).",
+    "Dat kan alleen omdat O⁻ en Cl trans staan. Op het C met Cl keert de configuratie om; het C met O houdt zijn configuratie."
+   ],
+   "answer_key": "Stap 1 (chloorhydrine): (a) pijl van de C=C naar Cl, pijl van Cl–Cl naar het verste Cl (Cl⁻), vrij paar van Cl naar het andere ring-C: chloroniumion aan één kant van de ring. (b) Vrij paar van H₂O naar C1 (tertiair, meeste plus-lading), van de achterkant; C1–Cl⁺-binding naar Cl⁺. (c) Tweede H₂O neemt een H van het oxoniumion over. Product: trans-2-chloor-1-methylcyclopentanol, C[C@]1(O)CCC[C@@H]1Cl = (1S,2S) en het spiegelbeeld (1R,2R), racemaat. Wiggen: CH₃ op C1 wig, OH streep, Cl op C2 wig (OH en Cl trans).\nStap 2 (epoxide): (a) pijl van een vrij paar van ⁻OH naar de H van de OH-groep, pijl van de O–H-binding naar O: alkoxide C[C@]1([O-])CCC[C@@H]1Cl en H₂O. (b) Pijl van een vrij paar van O⁻ naar C2, van de achterkant (tegenover Cl); pijl van de C2–Cl-binding naar Cl (Cl⁻ vertrekt). Interne SN2, inversie op C2; C1 houdt zijn configuratie. Product: 1-methyl-6-oxabicyclo[3.1.0]hexaan (1,2-epoxy-1-methylcyclopentaan), uit het (1S,2S)-chloorhydrine C[C@]1(O2)CCC[C@H]12 = (1S,5R). Het (1R,2R)-chloorhydrine geeft het spiegelbeeld (1R,5S): het epoxide ontstaat ook als racemaat.\nBeoordeling: Markovnikov in stap 1, trans-chloorhydrine, deprotonering vóór de ringsluiting, aanval van de achterkant op het C met Cl, cis-gefuseerd epoxide. Hetzelfde epoxide (racemisch) krijg je met mCPBA in één stap. Typische fouten: Cl op het tertiaire C, OH⁻ die Cl direct vervangt (SN2 van buiten) in plaats van de interne aanval, of het epoxide-O op C2 met behoud van configuratie.",
+   "in_course": true
+  },
+  {
+   "title": "C.06 Trans- en cis-2-chloorcyclopentanol met NaOH",
+   "topic": "Les 11 · epoxide uit een halohydrine (anti-vereiste)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 11",
+   "question": "Je hebt twee stereo-isomeren van 2-chloorcyclopentanol: (1R,2R) en (1R,2S). Beide worden behandeld met NaOH in water. (a) Welke is cis en welke trans? Teken ze met wiggen. (b) Welke geeft een epoxide? Geef het mechanisme met gebogen pijlen en teken het epoxide met wiggen. (c) Is het epoxide chiraal? Wat gebeurt er dus met de optische activiteit? (d) Waarom geeft de andere geen epoxide?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "O[C@@H]1CCC[C@H]1Cl",
+      "label": "(1R,2R)-2-chloorcyclopentanol"
+     },
+     {
+      "smiles": "O[C@@H]1CCC[C@@H]1Cl",
+      "label": "(1R,2S)-2-chloorcyclopentanol"
+     }
+    ],
+    "above": "NaOH",
+    "below": "H₂O"
+   },
+   "hints": [
+    "Bepaal met wiggen: staan OH en Cl aan dezelfde kant of aan verschillende kanten van de ring?",
+    "De ringsluiting is een interne SN2: de O⁻ moet het C met Cl van de achterkant aanvallen, dus O⁻ en Cl moeten anti staan.",
+    "Cyclopenteenoxide heeft een spiegelvlak door het O-atoom en het midden van de ring."
+   ],
+   "answer_key": "(a) (1R,2R) = trans (OH wig, Cl streep). (1R,2S) = cis (OH en Cl beide wig of beide streep).\n(b) Alleen het trans-isomeer. Stap 1: pijl van een vrij paar van ⁻OH naar de H van de OH-groep, pijl van de O–H-binding naar O: alkoxide [O-][C@@H]1CCC[C@H]1Cl. Stap 2: pijl van een vrij paar van O⁻ naar C2, van de achterkant (O⁻ zit aan de andere kant van de ring dan Cl), pijl van de C2–Cl-binding naar Cl⁻. Inversie op C2, C1 houdt zijn configuratie. Product: 6-oxabicyclo[3.1.0]hexaan (cyclopenteenoxide, 1,2-epoxycyclopentaan), O2[C@@H]1CCC[C@@H]12 = (1R,5S); O en beide H's aan dezelfde kant, cis-gefuseerd.\n(c) Het epoxide is meso (spiegelvlak): achiraal. Het optisch actieve (1R,2R)-chloorhydrine geeft dus een optisch inactief product; het (1S,2S)-enantiomeer zou precies hetzelfde epoxide geven. De chiraliteit gaat verloren omdat C2 inverteert.\n(d) In het cis-isomeer zitten O⁻ en Cl aan dezelfde kant van de ring. De O⁻ kan het C met Cl niet van de achterkant bereiken (dan zou hij door de ring heen moeten), en een aanval van de voorkant is geen SN2. Een trans-gefuseerd epoxide op een vijfring is bovendien onmogelijk gespannen. Er ontstaat dus geen epoxide (alleen trage nevenreacties zoals substitutie of eliminatie, die hier niet gevraagd worden).\nBeoordeling: juiste cis/trans-toewijzing uit R/S, deprotonering eerst, aanval van de achterkant met inversie op het C-Cl, meso-epoxide herkennen, en het anti-argument voor de cis-verbinding. Typische fout: denken dat beide isomeren hetzelfde epoxide geven, of het epoxide chiraal noemen.",
+   "in_course": true
+  },
+  {
+   "title": "C.07 (2R,3S)-3-Broom-2-butanol: welk epoxide?",
+   "topic": "Les 11 · epoxide uit een open halohydrine",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 11 en les 8",
+   "question": "(2R,3S)-3-Broom-2-butanol wordt met NaOH behandeld. (a) Teken het halohydrine met wiggen en daarna in een Newman-projectie langs de C2–C3-binding in de conformatie waarin de ringsluiting kan plaatsvinden. (b) Geef het mechanisme met gebogen pijlen. (c) Ontstaat cis- of trans-2,3-dimethyloxiraan? Geef de R/S-configuratie van het epoxide. (d) Welk alkeen geeft met Br₂/H₂O dit halohydrine (als racemaat)? (e) Wat geeft het (2R,3R)-isomeer?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@@H](O)[C@@H](Br)C",
+      "label": "(2R,3S)-3-broom-2-butanol"
+     }
+    ],
+    "above": "NaOH",
+    "below": "H₂O"
+   },
+   "hints": [
+    "In een open keten kan de C2–C3-binding draaien. Draai tot O⁻ en Br anti-periplanair staan (180°).",
+    "Kijk in die Newman-projectie naar de twee methylgroepen: staan ze naast elkaar (gauche) of tegenover elkaar (anti)? Dat wordt cis of trans in het epoxide.",
+    "C3 inverteert, C2 niet. Het epoxide is (2R,3R): chiraal, trans."
+   ],
+   "answer_key": "1. Deprotonering: pijl van een vrij paar van ⁻OH naar de H van de OH-groep, pijl van de O–H-binding naar O: C[C@@H]([O-])[C@@H](Br)C.\n2. Conformatie: draai om C2–C3 tot O⁻ (op C2) en Br (op C3) anti staan. In die conformatie staan de twee CH₃-groepen anti (180°) en de twee H's ook anti.\n3. Ringsluiting: pijl van een vrij paar van O⁻ naar C3, van de achterkant (tegenover Br); pijl van de C3–Br-binding naar Br (Br⁻ vertrekt). Inversie op C3; C2 houdt zijn configuratie.\n4. Product: trans-2,3-dimethyloxiraan, C[C@H]1O[C@@H]1C = (2R,3R). Omdat het halohydrine enantiozuiver is, ontstaat één enantiomeer (geen racemaat). De methylgroepen die in de anti-conformatie tegenover elkaar stonden, staan in het epoxide trans.\n5. (d) (E)-2-buteen + Br₂/H₂O geeft (anti-additie) het racemaat (2R,3S)/(2S,3R)-3-broom-2-butanol; dus dit halohydrine komt (als racemaat) uit (E)-2-buteen. Netto: E-alkeen → trans-epoxide, net als met mCPBA (anti + anti = syn).\n6. (e) (2R,3R)-3-broom-2-butanol: in de conformatie met O⁻ en Br anti staan de methylgroepen gauche; dat geeft cis-2,3-dimethyloxiraan, C[C@@H]1[C@H](C)O1 = (2R,3S), meso en achiraal.\nBeoordeling: anti-periplanaire conformatie expliciet, inversie alleen op C3, trans-(2R,3R)-epoxide, link met (E)-2-buteen. Let op: in een open keten kunnen beide diastereomeren een epoxide vormen (draaien kan); het verschil zit in cis/trans van het product. Typische fout: de cis/trans-regel van ringhalohydrines toepassen ('alleen trans werkt') op een open keten.",
+   "in_course": true
+  },
+  {
+   "title": "C.08 (Z)-3-Methyl-2-penteen: chloorhydrine en epoxide",
+   "topic": "Les 8 en 11 · halohydrine-route vs mCPBA",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 8 en les 11 (opgave 27)",
+   "question": "(Z)-3-Methyl-2-penteen reageert met Cl₂ in water, daarna met NaOH. (a) Geef het mechanisme van beide stappen met gebogen pijlen. (b) Teken het chloorhydrine en het epoxide met wiggen en geef van beide de R/S-configuratie (beide enantiomeren). (c) Laat zien dat mCPBA hetzelfde epoxide oplevert, en leg uit waarom de twee routes stereochemisch op hetzelfde neerkomen.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C/C=C(\\CC)C",
+      "label": "(Z)-3-methyl-2-penteen"
+     }
+    ],
+    "above": "1) Cl₂, H₂O",
+    "below": "2) NaOH"
+   },
+   "hints": [
+    "Welk C van het chloroniumion draagt de meeste plus-lading? Daar valt water aan, en van welke kant?",
+    "Stap 2: de O⁻ op C3 valt C2 aan van de achterkant; Cl⁻ vertrekt. Inversie op C2.",
+    "Twee anti-stappen (twee inversies) geven netto syn: de geometrie van het alkeen blijft bewaard, net als bij mCPBA. Het epoxide is 2-ethyl-2,3-dimethyloxiraan, het substraat van les 11 opgave 27."
+   ],
+   "answer_key": "Stap 1. (a) Pijl van de C=C naar Cl, pijl van Cl–Cl naar het verste Cl (Cl⁻), pijl van een vrij paar van het eerste Cl naar het andere alkeen-C. Chloroniumion, bv. C[C@@H]1[C@](C)(CC)[Cl+]1 (Z: het CH₃ op C2 staat cis aan de ethylgroep). (b) Vrij paar van H₂O naar C3 (tertiair), achterkant; C3–Cl⁺-binding naar Cl⁺. Oxoniumion C[C@@H](Cl)[C@@](C)(CC)[OH2+]. (c) H₂O neemt een H⁺ over. Chloorhydrine: 2-chloor-3-methyl-3-pentanol, C[C@@H](Cl)[C@@](C)(CC)O = (2R,3R), en spiegelbeeld C[C@H](Cl)[C@](C)(CC)O = (2S,3S): racemaat.\nStap 2. (a) ⁻OH neemt de H van de OH (vrij paar naar H, O–H-binding naar O): alkoxide C[C@@H](Cl)[C@@](C)(CC)[O-]. (b) Vrij paar van O⁻ naar C2, achterkant (O⁻ en Cl anti-periplanair na draaien om C2–C3); C2–Cl-binding naar Cl⁻. Inversie op C2. Epoxide: 2-ethyl-2,3-dimethyloxiraan. Uit (2R,3R)-chloorhydrine: C[C@H]1[C@@](C)(CC)O1 = (2R,3S); uit (2S,3S): C[C@@H]1[C@](C)(CC)O1 = (2S,3R). Racemaat. (Nummering: C2 = het C met ethyl en methyl.) In beide staat de ethylgroep cis aan het CH₃ op het andere ring-C, net als in het Z-alkeen.\n(c) mCPBA: één gecoördineerde stap met vier pijlen in een kring (π-binding naar het buitenste O van het peroxyzuur, O–O-binding breekt, carbonyl-O pakt de H, O–H-binding vormt de tweede C–O-binding), syn: cis blijft cis. Van boven of van onder: hetzelfde racemaat (2R,3S)/(2S,3R). Halohydrine-route: anti-additie (inversie aan C3 t.o.v. het chloroniumion) en daarna interne SN2 (inversie aan C2): twee keer omgekeerd = netto syn. Dit is het (racemische) epoxide uit les 11 opgave 27 ((2S,3R) is dat substraat).\nBeoordeling: OH op het tertiaire C, twee inversies op verschillende C's, juiste labels, en de conclusie 'zelfde racemisch epoxide als mCPBA'. Typische fouten: de ringsluiting met O⁻ op het C met Cl zonder inversie, of denken dat de halohydrine-route het trans-epoxide geeft.",
+   "in_course": true
+  },
+  {
+   "title": "C.09 mCPBA op (Z)-2-penteen: meso of racemaat?",
+   "topic": "Les 11 · epoxidatie met een peroxyzuur",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 11 (dia 2-3)",
+   "question": "(Z)-2-Penteen reageert met mCPBA in CH₂Cl₂. Geef het mechanisme met gebogen pijlen (één stap; benoem het bijproduct). Teken het epoxide met wiggen, geef de R/S-configuratie van alle stereo-isomeren die ontstaan, en zeg of het product meso, racemisch of enantiozuiver is. Vergelijk met cis-2-buteen + mCPBA.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C/C=C\\CC",
+      "label": "(Z)-2-penteen"
+     }
+    ],
+    "above": "mCPBA",
+    "below": "CH₂Cl₂"
+   },
+   "hints": [
+    "Alle bindingen worden in één stap gemaakt en gebroken; beide C–O-bindingen komen aan dezelfde kant.",
+    "Cis blijft cis: CH₃ en C₂H₅ staan in het epoxide aan dezelfde kant.",
+    "mCPBA kan van boven of van onder komen. Is het product van boven het spiegelbeeld van dat van onder, of dezelfde stof?"
+   ],
+   "answer_key": "1. Mechanisme (één gecoördineerde stap, vier pijlen in een kring): pijl 1 van de C=C (π-binding) naar het buitenste O (het O met de H) van mCPBA; pijl 2 van de O–O-binding naar de binding tussen het binnenste O en het carbonyl-C (wordt een nieuwe C=O); pijl 3 van de oude C=O-π-binding naar het carbonyl-O, dat met een vrij paar de H pakt; pijl 4 van de O–H-binding naar het buitenste O, dat zo de tweede C–O-binding met het andere alkeen-C maakt. Bijproduct: m-chloorbenzoëzuur.\n2. Syn-additie: cis-2-ethyl-3-methyloxiraan. Aanval van boven en van onder geven de twee enantiomeren C[C@@H]1[C@H](CC)O1 = (2S,3R) en C[C@H]1[C@@H](CC)O1 = (2R,3S) (C2 = CH met ethyl). Racemaat 1:1.\n3. Vergelijking: cis-2-buteen geeft het meso-epoxide (2R,3S)-2,3-dimethyloxiraan; dat heeft een spiegelvlak, dus boven en onder geven dezelfde stof. Bij 2-penteen zijn de uiteinden verschillend (CH₃ vs C₂H₅), dus geen spiegelvlak: chiraal, en de twee aanvalskanten geven enantiomeren.\nBeoordeling: één stap, syn, cis-epoxide, beide enantiomeren met labels en het woord racemaat, en de uitleg waarom niet meso. Typische fouten: een carbokation-tussenproduct, trans-epoxide, of 'meso' omdat het cis is.",
+   "in_course": true
+  },
+  {
+   "title": "C.10 1-Methylcyclohexeenoxide: zuur vs base met methanol",
+   "topic": "Les 11 · regio- en stereochemie van de ringopening",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 11 (opgave 27c en 27d)",
+   "question": "Enantiozuiver (1S,6R)-1-methyl-7-oxabicyclo[4.1.0]heptaan reageert (a) met CH₃OH en een beetje H₂SO₄, en (b) met NaOCH₃ in CH₃OH. Geef van beide het mechanisme met gebogen pijlen, vrije elektronenparen en ladingen. Teken beide producten met wiggen, geef hun naam en de R/S-configuratie, en zeg op welk C de configuratie omkeert.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@]1(O2)CCCC[C@H]12",
+      "label": "(1S,6R)-1-methyl-7-oxabicyclo[4.1.0]heptaan"
+     }
+    ],
+    "above": "(a) CH₃OH, H⁺  of  (b) CH₃O⁻ Na⁺",
+    "below": "CH₃OH"
+   },
+   "hints": [
+    "Vraag je per route af: wordt het epoxide eerst geprotoneerd? Zo ja, waar zit dan de meeste plus-lading; zo nee, welk ring-C is het minst gehinderd?",
+    "In beide gevallen komt het nucleofiel van de achterkant: OCH₃ en OH eindigen trans.",
+    "Alleen het aangevallen C inverteert. Zuur: OCH₃ op het C met CH₃; base: OCH₃ op het C met H."
+   ],
+   "answer_key": "(a) Zuur. Stap 1: pijl van een vrij paar van de epoxide-O naar de H van CH₃OH₂⁺; O–H-binding naar het O van methanol. Geprotoneerd epoxide C[C@]1([OH+]2)CCCC[C@H]12. Stap 2: pijl van een vrij paar van CH₃OH naar C1 (tertiair, draagt de meeste plus-lading), van de achterkant; pijl van de C1–O⁺-binding naar O⁺. Inversie op C1, C6 behoudt. Tussenproduct C[C@@]1([OH+]C)CCCC[C@H]1O. Stap 3: een tweede CH₃OH neemt de H van het O⁺CH₃ over (vrij paar naar H, O–H-binding naar O). Product: trans-2-methoxy-2-methylcyclohexanol, C[C@@]1(OC)CCCC[C@H]1O = (1R,2R) (C1 = CHOH, C2 = C(CH₃)(OCH₃)). Wiggen: CH₃ streep, OCH₃ wig, OH streep.\n(b) Base. Stap 1: pijl van een vrij paar van CH₃O⁻ naar C6 (het CH, minst gehinderd), van de achterkant; pijl van de C6–O-binding naar O. Inversie op C6, C1 behoudt. Alkoxide C[C@]1([O-])CCCC[C@@H]1OC. Stap 2: O⁻ neemt een H van CH₃OH (vrij paar van O⁻ naar H, O–H-binding naar O van methanol); CH₃O⁻ is terug. Product: trans-2-methoxy-1-methylcyclohexanol, C[C@]1(O)CCCC[C@@H]1OC = (1S,2S) (C1 = C(CH₃)(OH), C2 = CHOCH₃). Wiggen: CH₃ wig, OH streep, OCH₃ wig.\nConclusie: zelfde epoxide, twee constitutie-isomeren; in beide trans (anti-opening) en enantiozuiver, omdat het epoxide enantiozuiver was en maar één C per route reageert. Let op: de R/S-labels moet je opnieuw bepalen; 'inversie' betekent omklappen in de ruimte, niet automatisch R ↔ S.\nBeoordeling: protonering alleen bij (a), juiste regiokeuze (tertiair bij zuur, secundair bij base), inversie alleen op het aangevallen C, trans-producten, labels (1R,2R) en (1S,2S). Typische fouten: bij base het tertiaire C aanvallen, cis-producten, of beide C's laten inverteren.",
+   "in_course": true
+  },
+  {
+   "title": "C.11 (S)-2-Ethyl-2-methyloxiraan: zuur met CH₃OH of NaCN",
+   "topic": "Les 11 · ringopening met inversie op het aangevallen C",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 11 (opgave 27) en les 4",
+   "question": "(S)-2-Ethyl-2-methyloxiraan reageert (a) met CH₃OH en een beetje zuur en (b) met NaCN in een polair oplosmiddel, gevolgd door water. Geef van beide het mechanisme met gebogen pijlen en ladingen. Teken beide producten met wiggen, geef hun naam en R/S-configuratie. Leg bij elk uit of het stereocentrum wordt aangevallen en of het label R/S verandert.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC[C@@]1(C)CO1",
+      "label": "(S)-2-ethyl-2-methyloxiraan"
+     }
+    ],
+    "above": "(a) CH₃OH, H⁺  of  (b) 1) NaCN 2) H₂O",
+    "below": "(b) polair aprotisch oplosmiddel"
+   },
+   "hints": [
+    "Het stereocentrum is het quaternaire C2. Het andere ring-C is een CH₂.",
+    "Zuur: aanval op C2 (tertiair), van de achterkant: inversie op het stereocentrum. Base/CN⁻: aanval op de CH₂; het stereocentrum wordt niet aangeraakt.",
+    "Bij (b) blijft de ruimtelijke ordening gelijk, maar er zit een nieuwe substituent (CH₂CN in plaats van de ring-CH₂–O). Bepaal het label dus opnieuw met de CIP-regels."
+   ],
+   "answer_key": "(a) Zuur. Stap 1: vrij paar van de epoxide-O naar H⁺ (van CH₃OH₂⁺), O–H-binding naar O van methanol: geprotoneerd epoxide CC[C@@]1(C)C[OH+]1. Stap 2: vrij paar van CH₃OH naar C2 (tertiair, meeste plus-lading), van de achterkant; C2–O⁺-binding naar O⁺ (de O blijft op de CH₂). Inversie op C2: CC[C@]([OH+]C)(C)CO. Stap 3: CH₃OH neemt de H van het O⁺ over. Product: (R)-2-methoxy-2-methyl-1-butanol, CC[C@](OC)(C)CO. Het stereocentrum is aangevallen en ruimtelijk omgeklapt; hier verandert het label van S naar R.\n(b) CN⁻. Stap 1: vrij paar van het C van ⁻C≡N naar de CH₂ (minst gehinderd), van de achterkant; CH₂–O-binding naar O. Alkoxide CC[C@@]([O-])(C)CC#N. Het stereocentrum (C2) doet niet mee: de C2–O-binding blijft. Stap 2 (H₂O): O⁻ neemt een H van water. Product: (S)-3-hydroxy-3-methylpentaannitril, CC[C@@](O)(C)CC#N. Ruimtelijk behoud; het label blijft S. Prioriteiten: OH > CH₂CN > CH₂CH₃ > CH₃ (CH₂CN wint van ethyl in de tweede sfeer: (N,N,N) tegen (H,H,H)); dat is hetzelfde patroon als in het epoxide (O > ring-CH₂O > ethyl > CH₃), dus bij ruimtelijk behoud blijft het label S.\nConclusie: zuur valt het stereocentrum aan (inversie), base valt de CH₂ aan (behoud). Beide producten zijn enantiozuiver.\nBeoordeling: protonering alleen bij (a); regio (tertiair vs CH₂); inversie bij (a) en behoud bij (b); C als nucleofiel atoom van cyanide (niet N); juiste labels (R) en (S). Typische fouten: bij (b) toch inversie tekenen, bij (a) de CH₂ aanvallen, of het label automatisch omdraaien zonder na te rekenen.",
+   "in_course": true
+  },
+  {
+   "title": "C.12 cis-2,3-Dimethyloxiraan met NH₃: stereochemie van het aminoalcohol",
+   "topic": "Les 11 · ringopening met ammoniak",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 11 (etheenoxide met ammoniak, dia 8)",
+   "question": "cis-2,3-Dimethyloxiraan reageert met een overmaat NH₃ in water. Geef het mechanisme met gebogen pijlen, inclusief het zwitterionische tussenproduct met formele ladingen en vrije elektronenparen. Teken het product met wiggen en geef de R/S-configuratie. Hoeveel stereo-isomeren ontstaan, en in welke verhouding? Leg uit waarom een achiraal epoxide toch een chiraal product geeft. Waarom gebruik je een overmaat NH₃?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@@H]1[C@H](C)O1",
+      "label": "cis-2,3-dimethyloxiraan"
+     }
+    ],
+    "above": "NH₃ (overmaat)",
+    "below": "H₂O"
+   },
+   "hints": [
+    "NH₃ is een goed nucleofiel; er is geen zuur nodig. Het valt een ring-C van de achterkant aan.",
+    "Na de aanval heeft N vier bindingen (+) en O een min-lading. Een protonoverdracht maakt het neutraal.",
+    "C2 en C3 zijn elkaars spiegelbeeld in het meso-epoxide. Aanval op C2 geeft het spiegelbeeld van aanval op C3."
+   ],
+   "answer_key": "1. Aanval: pijl van het vrije paar van N (NH₃) naar C3, van de achterkant; pijl van de C3–O-binding naar O. Inversie op C3, C2 behoudt. Zwitterion: C[C@@H]([O-])[C@@H](C)[NH3+] (N⁺ zonder vrij paar, O⁻ met drie vrije paren).\n2. Protonoverdracht: pijl van een vrij paar van O⁻ naar een H op N⁺ (of via water), N–H-binding naar N. Neutraal product: 3-amino-2-butanol, C[C@@H](O)[C@@H](C)N = (2R,3R).\n3. Aanval op C2 (even waarschijnlijk, want C2 en C3 zijn spiegelbeeldig gelijk) geeft het spiegelbeeld C[C@H](O)[C@H](C)N = (2S,3S). Racemaat 1:1. De diastereomeren (2R,3S)/(2S,3R) ontstaan niet (die vergen syn-opening).\n4. Waarom chiraal: het meso-epoxide heeft een spiegelvlak, maar de aanval op één van de twee C's breekt die symmetrie. De twee C's zijn enantiotoop; zonder chirale invloed worden ze even vaak aangevallen: racemaat, optisch inactief.\n5. Overmaat NH₃: het product (een amine met nog een vrij paar op N) kan zelf een volgend epoxide openen (zoals ethanolamine → di- en triethanolamine, dia 8). Met veel NH₃ wint NH₃ die concurrentie.\nBeoordeling: geen protonering vooraf; N⁺ en O⁻ in het tussenproduct; anti-opening; (2R,3R)+(2S,3S) als racemaat; argument enantiotope C's; reden voor de overmaat. Typische fouten: NH₂⁻ als nucleofiel, protonering door zuur tekenen, of één enantiomeer opgeven zonder het andere.",
+   "in_course": true
+  },
+  {
+   "title": "C.13 (E)-3-Hexeen: netto anti-dihydroxylering via halohydrine en epoxide",
+   "topic": "Les 8 en 11 · meerstapsroute, netto anti vs syn",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 8 en les 11",
+   "question": "(E)-3-Hexeen wordt in drie stappen omgezet: 1) Br₂, H₂O; 2) NaOH; 3) NaOH, H₂O, warmte. Geef van elke stap het product met wiggen en R/S-configuratie, en het mechanisme met gebogen pijlen. Is het eindproduct meso of een racemaat? Vergelijk met OsO₄ (gevolgd door NaHSO₃/H₂O) op hetzelfde alkeen, en verklaar het verschil met 'syn' en 'anti'.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC/C=C/CC",
+      "label": "(E)-3-hexeen"
+     }
+    ],
+    "above": "1) Br₂, H₂O  2) NaOH",
+    "below": "3) NaOH, H₂O, Δ"
+   },
+   "hints": [
+    "Stap 1 en 2 samen geven hetzelfde epoxide als mCPBA: trans blijft trans.",
+    "Stap 3 is een basische ringopening: ⁻OH valt een ring-C van de achterkant aan. Netto zijn de twee OH-groepen anti toegevoegd.",
+    "E-alkeen + anti-dihydroxylering = meso; E-alkeen + syn (OsO₄) = racemaat."
+   ],
+   "answer_key": "Stap 1 (bromohydrine). Bromoniumion (pijl C=C naar Br, Br–Br naar Br⁻, vrij paar Br naar het tweede C), bv. CC[C@@H]1[C@@H](CC)[Br+]1. Water valt C4 van de achterkant aan (C3 en C4 zijn gelijk), C4–Br⁺-binding naar Br⁺: CC[C@@H](Br)[C@H](CC)[OH2+]; daarna H⁺ naar water. Product: 4-broom-3-hexanol, CC[C@@H](Br)[C@H](CC)O = (3S,4R), en het spiegelbeeld (3R,4S): racemaat.\nStap 2 (epoxide). ⁻OH neemt de H van OH: CC[C@@H](Br)[C@H](CC)[O-]. Na draaien staan O⁻ en Br anti; vrij paar van O⁻ naar C4 (het C met Br), achterkant; C–Br-binding naar Br⁻. Inversie op het C-Br. Product: trans-2,3-diethyloxiraan, CC[C@H]1[C@H](CC)O1 = (2S,3S), en het spiegelbeeld (2R,3R): racemaat. (Hetzelfde als mCPBA op het E-alkeen.)\nStap 3 (basische opening). Vrij paar van ⁻OH naar een ring-C, achterkant; C–O-binding naar O: CC[C@H]([O-])[C@@H](CC)O. Dan O⁻ + H₂O → OH + ⁻OH. Product: 3,4-hexaandiol, CC[C@H](O)[C@@H](CC)O = (3R,4S): meso. Het andere epoxide-enantiomeer, en aanval op het andere C, geven dezelfde meso-verbinding.\nNetto: stap 1+2 = syn (twee inversies), stap 3 = anti: totaal anti-dihydroxylering → meso.\nOsO₄: syn-additie van twee OH aan hetzelfde vlak van het E-alkeen → racemaat (3R,4R)/(3S,4S)-3,4-hexaandiol, CC[C@@H](O)[C@@H](CC)O en spiegelbeeld.\nBeoordeling: per stap correct (anti, inversie, anti), trans-epoxide als tussenproduct, meso-eindproduct (3R,4S), OsO₄ → racemaat. Typische fouten: in stap 3 behoud van configuratie, het eindproduct racemisch noemen, of OsO₄ als anti behandelen.",
+   "in_course": true
+  },
+  {
+   "title": "C.14 Cis- of trans-1-methylcyclopentaan-1,2-diol maken",
+   "topic": "Les 8 en 11 · synthesekeuze syn vs anti",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 8 en les 11",
+   "question": "Je wilt uit 1-methylcyclopenteen zowel cis- als trans-1-methylcyclopentaan-1,2-diol maken. (a) Geef voor elk diol de reagentia. (b) Geef voor de trans-route het mechanisme met gebogen pijlen van de ringopening, inclusief welk C wordt aangevallen. (c) Teken beide diolen met wiggen en geef de R/S-configuratie van één enantiomeer van elk. (d) Zijn de producten racemisch, meso of enantiozuiver? (e) Geeft de route Cl₂/H₂O → NaOH → H₃O⁺ cis of trans?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1=CCCC1",
+      "label": "1-methylcyclopenteen"
+     }
+    ],
+    "above": "?",
+    "below": ""
+   },
+   "hints": [
+    "Welke reactie zet twee OH-groepen tegelijk aan dezelfde kant van de ring, en welke tweestapsroute zet ze aan tegenoverliggende kanten?",
+    "Bij de zure opening valt water het tertiaire C1 aan, van de achterkant.",
+    "De halohydrine-route geeft hetzelfde epoxide als mCPBA; daarna komt dezelfde anti-opening."
+   ],
+   "answer_key": "(a) cis-diol: OsO₄ (daarna NaHSO₃/H₂O), syn-additie. trans-diol: mCPBA in CH₂Cl₂ (epoxide), daarna H₃O⁺/H₂O (of ⁻OH/H₂O).\n(b) Zure opening van 1-methyl-6-oxabicyclo[3.1.0]hexaan: (1) vrij paar van de epoxide-O naar H van H₃O⁺, O–H-binding naar O van water; (2) vrij paar van H₂O naar C1 (tertiair, meeste plus-lading), achterkant; C1–O⁺-binding naar O⁺ (O blijft op C2); (3) H₂O neemt een H⁺ van het nieuwe oxoniumion over. Inversie op C1.\n(c) trans-1-methylcyclopentaan-1,2-diol: C[C@]1(O)CCC[C@@H]1O = (1S,2S) (CH₃ wig, OH op C1 streep, OH op C2 wig); spiegelbeeld (1R,2R). cis-1-methylcyclopentaan-1,2-diol: C[C@@]1(O)CCC[C@@H]1O = (1R,2S) (beide OH wig); spiegelbeeld (1S,2R).\n(d) Beide als racemaat: het alkeen is achiraal en het reagens komt even vaak van boven als van onder. Geen meso: C1 draagt een CH₃, C2 een H, dus geen spiegelvlak.\n(e) trans: Cl₂/H₂O (anti) + NaOH (interne SN2, inversie) = netto syn epoxide, daarna anti-opening = trans-diol. (Met base in plaats van zuur in de laatste stap valt ⁻OH C2 aan i.p.v. C1, maar omdat beide nucleofielen OH zijn, ontstaat hetzelfde trans-diol.)\nBeoordeling: OsO₄ ↔ cis, epoxide + opening ↔ trans; aanval op C1 bij zuur, van de achterkant; juiste labels; racemaat. Typische fout: mCPBA en daarna zuur 'cis' noemen omdat mCPBA syn is.",
+   "in_course": true
+  },
+  {
+   "title": "C.15 Hydrolyse van (2R,3S)-2,3-diethyl-2-methyloxiraan: zuur vs base",
+   "topic": "Les 11 · zure vs basische opening met water (stijl opgave 27c/27d)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 11 (opgave 27a-d)",
+   "question": "Enantiozuiver (2R,3S)-2,3-diethyl-2-methyloxiraan wordt (a) met water en een beetje H₂SO₄ en (b) met NaOH in water verwarmd. Beide routes geven 3-methyl-3,4-hexaandiol. Geef van beide het mechanisme met gebogen pijlen en ladingen. Teken beide producten met wiggen en geef de R/S-configuratie. Wat is de stereochemische relatie tussen de twee producten? Verklaar dit.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC[C@]1(C)[C@H](CC)O1",
+      "label": "(2R,3S)-2,3-diethyl-2-methyloxiraan"
+     }
+    ],
+    "above": "(a) H₂O, H₂SO₄ (kat.)  of  (b) NaOH, H₂O",
+    "below": "Δ"
+   },
+   "hints": [
+    "Vraag je per route af: wordt het epoxide eerst geprotoneerd? Welk ring-C wordt dan aangevallen: het meest gesubstitueerde of het minst gehinderde?",
+    "In elke route keert alleen het aangevallen C om. Het nucleofiel (H₂O of ⁻OH) en de oude O worden allebei een OH-groep.",
+    "Route (a): C2 omgekeerd, C3 behouden. Route (b): C2 behouden, C3 omgekeerd. Vergelijk dat met het spiegelbeeld van product (a)."
+   ],
+   "answer_key": "(a) Zuur. Stap 1: vrij paar van de epoxide-O naar H van H₃O⁺, O–H-binding naar O van water: CC[C@]1(C)[C@H](CC)[OH+]1. Stap 2: vrij paar van H₂O naar C2 (tertiair, meeste plus-lading), achterkant; C2–O⁺-binding naar O⁺ (de oude O blijft op C3). Inversie op C2: CC[C@@]([OH2+])(C)[C@H](CC)O. Stap 3: H₂O neemt een H⁺ over. Product: CC[C@@](O)(C)[C@H](CC)O = (3S,4S)-3-methyl-3,4-hexaandiol.\n(b) Base. Stap 1: vrij paar van ⁻OH naar C3 (secundair, minst gehinderd), achterkant; C3–O-binding naar O. Inversie op C3, C2 behoudt: CC[C@]([O-])(C)[C@@H](CC)O. Stap 2: O⁻ neemt een H van water, ⁻OH terug. Product: CC[C@](O)(C)[C@@H](CC)O = (3R,4R)-3-methyl-3,4-hexaandiol.\nRelatie: (3S,4S) en (3R,4R) zijn enantiomeren. Verklaring: in het diol zijn beide O's gelijk (OH). Route (a) inverteert alleen C2, route (b) alleen C3. Product (b) heeft dus op elk stereocentrum de 'andere' ordening dan product (a): dat is precies het spiegelbeeld. Vergelijk les 11 opgave 27c/27d: daar is het nucleofiel CH₃OH, dus de twee O's verschillen en krijg je constitutie-isomeren; hier met water zijn het enantiomeren. Elk product is enantiozuiver (het epoxide was dat ook).\nBeoordeling: protonering alleen in (a), juiste regiokeuze, inversie alleen op het aangevallen C, labels (3S,4S) en (3R,4R), het woord enantiomeren met de verklaring. Typische fouten: beide routes hetzelfde product noemen omdat de constitutie gelijk is, of diastereomeren zeggen.",
+   "in_course": true
+  }
+ ]
+}

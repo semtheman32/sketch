@@ -1,0 +1,744 @@
+{
+ "title": "OSY2 basisopgaven (les 1–17)",
+ "exercises": [
+  {
+   "title": "L1.1 HBr-additie aan propeen",
+   "topic": "Les 1 · Additiereacties 1",
+   "difficulty": "easy",
+   "source": "Organische Synthese 2, les 1 (Additiereacties 1)",
+   "question": "Teken het volledige mechanisme van de additie van HBr aan propeen. Laat met gebogen pijlen zien welk carbokation ontstaat en waarom het Markovnikov-product wordt gevormd.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C=CC",
+      "label": "propeen"
+     }
+    ],
+    "above": "HBr",
+    "product": [
+     {
+      "smiles": "CC(Br)C",
+      "label": "2-broompropaan"
+     }
+    ]
+   },
+   "hints": [
+    "Welk C-atoom van de dubbele binding krijgt het H+? Kijk welk kation dan overblijft.",
+    "Een secundair carbokation is stabieler dan een primair.",
+    "Stap 1: pi-binding naar H, H–Br-binding naar Br. Stap 2: Br- valt het kation aan."
+   ],
+   "answer_key": "Stap 1 (snelheidsbepalend): pijl van de C=C pi-binding naar H van HBr; pijl van de H–Br-binding naar Br (Br-). H gaat naar C1 (CH2), secundair kation C[CH+]C ontstaat. Primair kation [CH2+]CC niet (minder stabiel).\nStap 2: vrij elektronenpaar van Br- naar C+. Product CC(Br)C (Markovnikov).\nBeoordeling: H op C1, kation op C2, twee stappen, juiste ladingen.",
+   "in_course": true
+  },
+  {
+   "title": "L1.2 HCl-additie aan 1-methylcyclohexeen",
+   "topic": "Les 1 · Additiereacties 1",
+   "difficulty": "easy",
+   "source": "Organische Synthese 2, les 1 (Additiereacties 1)",
+   "question": "Voorspel het hoofdproduct van 1-methylcyclohexeen met HCl en teken het mechanisme.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1=CCCCC1",
+      "label": "1-methylcyclohexeen"
+     }
+    ],
+    "above": "HCl"
+   },
+   "hints": [
+    "Welk ring-C draagt de methylgroep, en welk kation is dus het stabielst?",
+    "Het H komt op het CH van de dubbele binding."
+   ],
+   "answer_key": "Stap 1: C=C pi-binding naar H van HCl; H–Cl-binding naar Cl. H op het CH (C2), tertiair kation op C1 (met methyl): C[C+]1CCCCC1.\nStap 2: Cl- (vrij paar) naar C+. Product 1-chloor-1-methylcyclohexaan CC1(Cl)CCCCC1.\nFout: Cl op het secundaire C (anti-Markovnikov, dat vraagt peroxide-condities met HBr).",
+   "in_course": true
+  },
+  {
+   "title": "L1.3 Zuurgekatalyseerde hydratatie",
+   "topic": "Les 1 · Additiereacties 1",
+   "difficulty": "easy",
+   "source": "Organische Synthese 2, les 1 (Additiereacties 1)",
+   "question": "2-Methylpropeen wordt met water en een beetje zwavelzuur omgezet in een alcohol. Teken het mechanisme en laat zien dat H+ een katalysator is.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C=C(C)C",
+      "label": "2-methylpropeen"
+     }
+    ],
+    "above": "H2O",
+    "below": "H2SO4 (kat.)",
+    "product": [
+     {
+      "smiles": "CC(C)(C)O",
+      "label": "2-methyl-2-propanol"
+     }
+    ]
+   },
+   "hints": [
+    "Het elektrofiel is H3O+ (niet H2O).",
+    "Na het kation valt water aan; dan heb je nog een O met een plus.",
+    "Drie stappen: protoneren, water aanvallen, deprotoneren."
+   ],
+   "answer_key": "Stap 1: C=C pi-binding naar H van H3O+; O–H-binding naar O (H2O vrij). Tertiair kation C[C+](C)C.\nStap 2: vrij paar O van H2O naar C+. Oxoniumion CC(C)(C)[OH2+].\nStap 3: H2O neemt H van O+ (pijl vrij paar O naar H; O–H-binding naar O+). Product CC(C)(C)O + H3O+ terug.\nBeoordeling: H3O+ als elektrofiel, oxoniumion getekend, deprotonering, H+ teruggewonnen.",
+   "in_course": true
+  },
+  {
+   "title": "L1.4 Hydride-shift bij HBr-additie",
+   "topic": "Les 1 · Additiereacties 1",
+   "difficulty": "medium",
+   "source": "Organische Synthese 2, les 1 (Additiereacties 1)",
+   "question": "3-Methyl-1-buteen reageert met HBr. Het hoofdproduct is 2-broom-2-methylbutaan, niet 2-broom-3-methylbutaan. Teken het volledige mechanisme inclusief de omlegging.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C=CC(C)C",
+      "label": "3-methyl-1-buteen"
+     }
+    ],
+    "above": "HBr",
+    "product": [
+     {
+      "smiles": "CCC(C)(C)Br",
+      "label": "2-broom-2-methylbutaan"
+     }
+    ]
+   },
+   "hints": [
+    "Bepaal eerst welk carbokation ontstaat na protonering volgens Markovnikov.",
+    "Naast het positieve C zit een C met één H en twee methylgroepen. Wat wint het kation als dat H verhuist?",
+    "Een 1,2-hydride-shift zet een secundair kation om in een tertiair kation."
+   ],
+   "answer_key": "Stap 1: C=C pi-binding naar H van HBr (H naar C1); H–Br-binding naar Br. Secundair kation C[CH+]C(C)C.\nStap 2: 1,2-hydride-shift: pijl van de C3–H-binding naar C2+. Tertiair kation CC[C+](C)C.\nStap 3: Br- naar het tertiaire C+. Product CCC(C)(C)Br.\nBeoordeling: shift-pijl begint in de C–H-binding (niet bij het H-atoom) en wijst naar het kation. Directe aanval van Br- op het secundaire kation geeft het bijproduct 2-broom-3-methylbutaan.",
+   "in_course": true
+  },
+  {
+   "title": "L1.5 Methyl-shift bij HCl-additie",
+   "topic": "Les 1 · Additiereacties 1",
+   "difficulty": "medium",
+   "source": "Organische Synthese 2, les 1 (Additiereacties 1)",
+   "question": "3,3-Dimethyl-1-buteen reageert met HCl. Voorspel het hoofdproduct en teken het mechanisme. Let op: er is geen H dat kan verhuizen.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C=CC(C)(C)C",
+      "label": "3,3-dimethyl-1-buteen"
+     }
+    ],
+    "above": "HCl"
+   },
+   "hints": [
+    "Het C naast het kation heeft geen H, maar wel drie methylgroepen.",
+    "Een 1,2-methyl-shift werkt net als een hydride-shift: de C–CH3-binding verhuist."
+   ],
+   "answer_key": "Stap 1: C=C pi naar H van HCl (H op C1); H–Cl naar Cl. Secundair kation C[CH+]C(C)(C)C.\nStap 2: 1,2-methyl-shift: pijl van de C3–CH3-binding naar C2+. Tertiair kation CC(C)[C+](C)C (lading op het oude C3).\nStap 3: Cl- naar C+. Hoofdproduct 2-chloor-2,3-dimethylbutaan CC(C)C(C)(C)Cl.\nBijproduct zonder omlegging: 3-chloor-2,2-dimethylbutaan CC(Cl)C(C)(C)C.",
+   "in_course": true
+  },
+  {
+   "title": "L4.1 SN2: 1-broombutaan met cyanide",
+   "topic": "Les 4 · Reactiesturing (SN1/SN2/E1/E2)",
+   "difficulty": "easy",
+   "source": "Organische Synthese 2, les 4 (Reactiesturing substitutie-eliminatie)",
+   "question": "1-Broombutaan reageert met NaCN in DMSO. Voorspel het product en teken het mechanisme. Leg uit waarom dit SN2 is.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCCCBr",
+      "label": "1-broombutaan"
+     },
+     {
+      "smiles": "[C-]#N",
+      "label": "cyanide (Na+)"
+     }
+    ],
+    "above": "DMSO"
+   },
+   "hints": [
+    "Primair substraat, goed nucleofiel, polair aprotisch oplosmiddel: welk mechanisme?",
+    "Eén stap: twee pijlen tegelijk, aanval van de achterkant."
+   ],
+   "answer_key": "Eén stap (SN2): vrij paar van het C van CN- naar het C-Br (achterkant); pijl van de C–Br-binding naar Br. Product pentaannitril CCCCC#N + Br-.\nWaarom SN2: primair C (geen stabiel kation, weinig hindering), sterk nucleofiel, polair aprotisch oplosmiddel (nucleofiel niet gesolvateerd).\nAccepteer: aanval via N (isonitril) is fout als hoofdproduct. Geen kation tekenen.",
+   "in_course": true
+  },
+  {
+   "title": "L4.2 SN1: solvolyse van tert-butylbromide",
+   "topic": "Les 4 · Reactiesturing (SN1/SN2/E1/E2)",
+   "difficulty": "easy",
+   "source": "Organische Synthese 2, les 4 (Reactiesturing) / les 3 (Kinetiek)",
+   "question": "tert-Butylbromide wordt opgelost in water (kamertemperatuur). Teken het SN1-mechanisme. Welke stap bepaalt de snelheid, en van welke orde is de reactie?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)(C)Br",
+      "label": "tert-butylbromide"
+     }
+    ],
+    "above": "H2O",
+    "product": [
+     {
+      "smiles": "CC(C)(C)O",
+      "label": "tert-butanol"
+     }
+    ]
+   },
+   "hints": [
+    "Het vertrekken van Br- gebeurt eerst, zonder hulp van het nucleofiel.",
+    "Water is een zwak nucleofiel; na de aanval moet er nog een H af."
+   ],
+   "answer_key": "Stap 1 (snelheidsbepalend, langzaam): pijl van de C–Br-binding naar Br. Tertiair kation C[C+](C)C + Br-.\nStap 2: vrij paar O van H2O naar C+. Oxoniumion CC(C)(C)[OH2+].\nStap 3: tweede H2O deprotoneert. Product CC(C)(C)O + H3O+.\nKinetiek: eerste orde, v = k[tBuBr]; water zit niet in de snelheidsbepalende stap. Bijproduct E1: 2-methylpropeen C=C(C)C.",
+   "in_course": true
+  },
+  {
+   "title": "L4.3 E1: tert-butylbromide verwarmen",
+   "topic": "Les 4 · Reactiesturing (SN1/SN2/E1/E2)",
+   "difficulty": "easy",
+   "source": "Organische Synthese 2, les 4 (Reactiesturing)",
+   "question": "Teken het mechanisme met curly arrows, inclusief alle tussenproducten en formele ladingen, voor de E1-eliminatie van tert-butylbromide in water bij verhitting.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)(C)Br",
+      "label": "tert-butylbromide"
+     }
+    ],
+    "above": "H2O",
+    "below": "warmte",
+    "product": [
+     {
+      "smiles": "CC(C)=C",
+      "label": "2-methylpropeen"
+     }
+    ]
+   },
+   "hints": [
+    "Eerste stap is dezelfde als bij SN1.",
+    "Water treedt nu op als base: welk H haalt het weg?",
+    "Pijl van de C–H-binding naast het kation naar de C–C+-binding."
+   ],
+   "answer_key": "Stap 1: C–Br-binding naar Br. Tertiair kation C[C+](C)C + Br-.\nStap 2: vrij paar O van H2O naar een H op een CH3 naast C+; pijl van die C–H-binding naar de C–C+-binding (nieuwe pi-binding). Product CC(C)=C + H3O+.\nBeoordeling: twee stappen, kation getekend, water als base (niet als nucleofiel). Warmte bevoordeelt eliminatie boven substitutie (entropie).",
+   "in_course": true
+  },
+  {
+   "title": "L4.4 E2 met ethoxide (Zaitsev)",
+   "topic": "Les 4 · Reactiesturing (SN1/SN2/E1/E2)",
+   "difficulty": "medium",
+   "source": "Organische Synthese 2, les 4 (Reactiesturing)",
+   "question": "2-Broombutaan wordt verwarmd met natriumethoxide in ethanol. Voorspel het hoofdproduct en teken het E2-mechanisme.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(Br)CC",
+      "label": "2-broombutaan"
+     }
+    ],
+    "above": "NaOCH2CH3",
+    "below": "ethanol, warmte"
+   },
+   "hints": [
+    "Ethoxide is een sterke, kleine base. Welk alkeen is het stabielst?",
+    "E2 is één stap met drie pijlen; H en Br anti-periplanair."
+   ],
+   "answer_key": "Eén stap (E2): (1) vrij paar O- van ethoxide naar een H op C3 (de CH2); (2) C3–H-binding naar C2–C3 (nieuwe pi); (3) C2–Br-binding naar Br. Hoofdproduct 2-buteen CC=CC (Zaitsev, meest gesubstitueerd; trans > cis), + EtOH + Br-.\nBijproduct: 1-buteen C=CCC (Hofmann). Ook wat SN2-ether CCOC(C)CC mogelijk.\nFout: kation tekenen (dat is E1).",
+   "in_course": true
+  },
+  {
+   "title": "L8.1 Broomadditie aan cyclohexeen",
+   "topic": "Les 8 · Additiereacties 2 (halogeen, halohydrine)",
+   "difficulty": "easy",
+   "source": "Organische Synthese 2, les 8 (Additiereacties 2) / VD1",
+   "question": "Cyclohexeen reageert met Br2 in CH2Cl2. Teken het mechanisme via het bromoniumion en laat met wiggen zien dat het trans-product ontstaat.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C1=CCCCC1",
+      "label": "cyclohexeen"
+     }
+    ],
+    "above": "Br2",
+    "below": "CH2Cl2",
+    "product": [
+     {
+      "smiles": "BrC1CCCCC1Br",
+      "label": "trans-1,2-dibroomcyclohexaan"
+     }
+    ]
+   },
+   "hints": [
+    "De pi-binding valt één Br van Br2 aan; het andere Br vertrekt als Br-.",
+    "Het bromoniumion blokkeert één kant van de ring. Van welke kant moet Br- komen?"
+   ],
+   "answer_key": "Stap 1: C=C pi naar Br; Br–Br-binding naar het andere Br (Br-); vrij paar van het aangevallen Br naar het tweede C: cyclisch bromoniumion.\nStap 2: Br- valt een C van de achterkant aan (anti); C–Br+-binding naar Br. Product trans-1,2-dibroomcyclohexaan (Br's wig/streep tegenover elkaar), racemisch.\nBeoordeling: bromoniumion, anti-aanval, trans-stereochemie. Open kation zonder brug: bijna goed.",
+   "in_course": true
+  },
+  {
+   "title": "L8.2 Broomhydrine uit cyclohexeen",
+   "topic": "Les 8 · Additiereacties 2 (halogeen, halohydrine)",
+   "difficulty": "medium",
+   "source": "Organische Synthese 2, les 8 (Additiereacties 2) / VD2 halohydrine",
+   "question": "Cyclohexeen reageert met Br2 in water. Teken het mechanisme via het bromoniumion en laat zien waarom het product trans-2-broomcyclohexanol is. Waarom eindigt er geen tweede Br in het product?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C1=CCCCC1",
+      "label": "cyclohexeen"
+     }
+    ],
+    "above": "Br2",
+    "below": "H2O (oplosmiddel)",
+    "product": [
+     {
+      "smiles": "OC1CCCCC1Br",
+      "label": "trans-2-broomcyclohexanol"
+     }
+    ]
+   },
+   "hints": [
+    "Stap 1 is dezelfde als bij broomadditie.",
+    "Welk nucleofiel is in veel grotere overmaat aanwezig dan Br-?",
+    "Water valt aan van de kant tegenover de Br-brug; daarna nog deprotoneren."
+   ],
+   "answer_key": "Stap 1: C=C pi naar Br van Br2; Br–Br naar Br-; bromoniumion.\nStap 2: H2O (overmaat, wint van Br-) valt een C van de achterkant aan; C–Br+-binding naar Br. Oxoniumion [OH2+]C1CCCCC1Br, trans.\nStap 3: tweede H2O deprotoneert. Product trans-2-broomcyclohexanol OC1CCCCC1Br + H3O+.\nBeoordeling: bromoniumion, water als nucleofiel, deprotonering, trans (wig/streep). Antwoord vraag: water is in enorme overmaat.",
+   "in_course": true
+  },
+  {
+   "title": "L11.1 Epoxide uit een halohydrine",
+   "topic": "Les 11 · Epoxides",
+   "difficulty": "medium",
+   "source": "Organische Synthese 2, les 11 (Epoxides) / VD3 epoxide",
+   "question": "trans-2-Broomcyclohexanol wordt met NaOH omgezet in cyclohexeenoxide. Teken het mechanisme. Leg uit waarom de trans-configuratie nodig is.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "OC1CCCCC1Br",
+      "label": "trans-2-broomcyclohexanol"
+     }
+    ],
+    "above": "NaOH",
+    "below": "H2O",
+    "product": [
+     {
+      "smiles": "C1CCC2OC2C1",
+      "label": "cyclohexeenoxide"
+     }
+    ]
+   },
+   "hints": [
+    "Wat doet OH- als eerste: nucleofiel of base?",
+    "Het alkoxide valt het C-Br van binnenuit aan.",
+    "SN2 vraagt aanval van de achterkant: O- en Br moeten anti staan."
+   ],
+   "answer_key": "Stap 1: vrij paar OH- naar H van de OH-groep; O–H naar O. Alkoxide [O-]C1CCCCC1Br.\nStap 2 (intramoleculaire SN2): vrij paar O- naar het C met Br; C–Br naar Br. Epoxide C1CCC2OC2C1 + Br-.\nTrans nodig: backside attack, O- en Br anti (trans-diaxiaal).\nBeoordeling: eerst deprotoneren, ringsluitingspijl van O- naar C, Br- vertrekt.",
+   "in_course": true
+  },
+  {
+   "title": "L11.2 Epoxide openen onder zure condities",
+   "topic": "Les 11 · Epoxides",
+   "difficulty": "medium",
+   "source": "Organische Synthese 2, les 11 (Epoxides)",
+   "question": "2,2-Dimethyloxiraan reageert met methanol en een beetje zwavelzuur. Voorspel het hoofdproduct en teken het mechanisme. Op welk C valt methanol aan, en waarom?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1(C)CO1",
+      "label": "2,2-dimethyloxiraan"
+     }
+    ],
+    "above": "CH3OH",
+    "below": "H2SO4 (kat.)"
+   },
+   "hints": [
+    "Eerst wordt het epoxide-O geprotoneerd.",
+    "In het geprotoneerde epoxide draagt het meest gesubstitueerde C het meeste positieve karakter (SN1-achtig).",
+    "Na de aanval zit er een + op het O van methanol."
+   ],
+   "answer_key": "Stap 1: vrij paar epoxide-O naar H+ (van CH3OH2+); geprotoneerd epoxide CC1(C)C[OH+]1.\nStap 2: vrij paar O van CH3OH naar het tertiaire C (meeste positieve lading); pijl van C(tert)–O+-binding naar O. Ring open: CC(C)([OH+]C)CO.\nStap 3: deprotonering door CH3OH. Hoofdproduct 2-methoxy-2-methyl-1-propanol CC(C)(OC)CO.\nBeoordeling: protonering eerst, aanval op het meest gesubstitueerde C (onder zure condities), deprotonering. Aanval op CH2 hier: fout (dat is de basische route, zie L11.3).",
+   "in_course": true
+  },
+  {
+   "title": "L11.3 Epoxide openen onder basische condities",
+   "topic": "Les 11 · Epoxides",
+   "difficulty": "medium",
+   "source": "Organische Synthese 2, les 11 (Epoxides)",
+   "question": "Hetzelfde 2,2-dimethyloxiraan reageert nu met natriummethoxide in methanol. Voorspel het hoofdproduct, teken het mechanisme en vergelijk met de zure opening.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1(C)CO1",
+      "label": "2,2-dimethyloxiraan"
+     }
+    ],
+    "above": "NaOCH3",
+    "below": "CH3OH"
+   },
+   "hints": [
+    "Methoxide is een sterk nucleofiel; het epoxide wordt niet eerst geprotoneerd.",
+    "Bij SN2 telt sterische hindering het zwaarst."
+   ],
+   "answer_key": "Stap 1 (SN2): vrij paar O- van CH3O- naar het CH2 (minst gehinderd); pijl van CH2–O-binding naar O. Alkoxide CC(C)([O-])COC.\nStap 2: alkoxide pakt H van CH3OH (methoxide teruggevormd). Product 1-methoxy-2-methyl-2-propanol CC(C)(O)COC.\nVergelijking: basisch = SN2 op het minst gehinderde C; zuur = aanval op het meest gesubstitueerde C.",
+   "in_course": true
+  },
+  {
+   "title": "L11.4 Epoxidering met mCPBA",
+   "topic": "Les 11 · Epoxides",
+   "difficulty": "medium",
+   "source": "Oefencasus Lavendel, vraag 10 / les 11 (Epoxides)",
+   "question": "Lavendeloxide wordt in één stap omgezet in het epoxide. Welk reagens gebruik je? Teken het (gecoördineerde) mechanisme met mCPBA.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(=C)C1CCC(C)(C)OC1",
+      "label": "lavendeloxide"
+     }
+    ],
+    "above": "mCPBA",
+    "below": "CH2Cl2",
+    "product": [
+     {
+      "smiles": "CC1(CO1)C1CCC(C)(C)OC1",
+      "label": "epoxide"
+     }
+    ]
+   },
+   "hints": [
+    "Een perzuur R-C(=O)-O-O-H heeft een zwakke O–O-binding: het buitenste O is elektrofiel.",
+    "Eén stap (concerted, 'butterfly'): vier pijlen tegelijk.",
+    "Bijproduct is het carbonzuur (m-chloorbenzoëzuur)."
+   ],
+   "answer_key": "Reagens: perzuur, bv. mCPBA (ClC6H4CO3H) of perazijnzuur, in CH2Cl2.\nPerzuur: R–C(=O_c)–O_p–O_d–H, met H in waterstofbrug naar O_c.\nEén stap, vier pijlen: (1) C=C pi-binding naar O_d; (2) O_d–O_p-binding naar de O_p–C-binding (wordt C=O_p); (3) C=O_c pi-binding naar O_c, dat met een vrij paar het H oppakt; (4) O_d–H-binding naar het tweede alkeen-C (tweede C–O-binding). Producten: epoxide CC1(CO1)C1CCC(C)(C)OC1 + m-chloorbenzoëzuur.\nAccepteer elke consistente set pijlen die één O in één stap overdraagt (syn). Fout: carbokation-route of tweestaps.",
+   "in_course": true
+  },
+  {
+   "title": "L15.1 Grignard + aceton",
+   "topic": "Les 15 · Grignard",
+   "difficulty": "easy",
+   "source": "Organische Synthese 2, les 15 (Grignard) / VD4",
+   "question": "Fenylmagnesiumbromide reageert met aceton; daarna volgt een zure opwerking. Voorspel het product en teken het mechanisme.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "Br[Mg]c1ccccc1",
+      "label": "fenylmagnesiumbromide"
+     },
+     {
+      "smiles": "CC(C)=O",
+      "label": "aceton"
+     }
+    ],
+    "above": "1) droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Welk atoom in PhMgBr is nucleofiel?",
+    "Het nucleofiel valt het carbonyl-C aan; welk tussenproduct krijg je?"
+   ],
+   "answer_key": "Stap 1: pijl van de C–Mg-binding naar het carbonyl-C; C=O pi naar O. Alkoxide CC(C)([O-])c1ccccc1 (MgBr+).\nStap 2: O- pakt H van H3O+. Product 2-fenyl-2-propanol CC(C)(O)c1ccccc1.\nBeoordeling: pijl vanaf de C–Mg-binding (niet vanaf Mg), alkoxide, protonering. Droog werken: water zou PhMgBr protoneren tot benzeen.",
+   "in_course": true
+  },
+  {
+   "title": "L15.2 Grignard + CO2",
+   "topic": "Les 15 · Grignard",
+   "difficulty": "medium",
+   "source": "Organische Synthese 2, les 15 (Grignard) / VD4 synthese van benzoëzuur",
+   "question": "Fenylmagnesiumbromide wordt over droogijs (vast CO2) gegoten en daarna aangezuurd. Teken het mechanisme naar het product.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "Br[Mg]c1ccccc1",
+      "label": "fenylmagnesiumbromide"
+     },
+     {
+      "smiles": "O=C=O",
+      "label": "CO2"
+     }
+    ],
+    "above": "1) droge ether",
+    "below": "2) H3O+",
+    "product": [
+     {
+      "smiles": "OC(=O)c1ccccc1",
+      "label": "benzoëzuur"
+     }
+    ]
+   },
+   "hints": [
+    "Het C van CO2 is elektrofiel, net als een carbonyl-C.",
+    "Na de aanval heb je een carboxylaat; wat doet het zuur bij de opwerking?"
+   ],
+   "answer_key": "Stap 1: C–Mg-binding naar het C van CO2; één C=O pi-binding naar O. Carboxylaat [O-]C(=O)c1ccccc1 (MgBr+).\nStap 2: carboxylaat-O pakt H van H3O+. Benzoëzuur OC(=O)c1ccccc1.\nBijproduct in de praktijk: bifenyl (koppeling). Overmaat CO2 voorkomt een tweede Grignard-aanval.",
+   "in_course": true
+  },
+  {
+   "title": "L15.3 Grignard + ester (2 equivalenten)",
+   "topic": "Les 15 · Grignard",
+   "difficulty": "hard",
+   "source": "Organische Synthese 2, les 15 (Grignard)",
+   "question": "Methylacetaat reageert met een overmaat methylmagnesiumbromide (2 equivalenten), daarna zure opwerking. Teken het volledige mechanisme. Waarom stopt de reactie niet bij het keton?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "COC(C)=O",
+      "label": "methylacetaat"
+     },
+     {
+      "smiles": "C[Mg]Br",
+      "label": "CH3MgBr (2 eq)"
+     }
+    ],
+    "above": "1) droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Eerste aanval geeft een tetraëdrisch tussenproduct met een goede vertrekkende groep.",
+    "Het gevormde keton is reactiever dan de ester.",
+    "Na de tweede aanval: alkoxide, dan opwerking."
+   ],
+   "answer_key": "Stap 1: C–Mg-binding naar het carbonyl-C van de ester; C=O pi naar O. Tetraëdrisch tussenproduct COC(C)(C)[O-].\nStap 2: O- vrij paar terug naar C (C=O); C–OCH3-binding naar O: methoxide vertrekt. Aceton CC(C)=O.\nStap 3: tweede CH3MgBr: C–Mg naar carbonyl-C; C=O pi naar O. Alkoxide CC(C)(C)[O-].\nStap 4: H3O+ protoneert. Product tert-butanol CC(C)(C)O (+ CH3OH).\nUitleg: keton is elektrofieler dan de ester (geen resonantiedonatie van OR), dus reageert direct verder.",
+   "in_course": true
+  },
+  {
+   "title": "L18.1 Dehydratatie van cyclohexanol",
+   "topic": "Les 18 · Reacties van alcoholen",
+   "difficulty": "medium",
+   "source": "Organische Synthese 2, les 18 (Reacties van alcoholen)",
+   "question": "Cyclohexanol wordt verwarmd met geconcentreerd fosforzuur of zwavelzuur en het product wordt direct afgedestilleerd. Teken het E1-mechanisme. Waarom destilleer je het product meteen af?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "OC1CCCCC1",
+      "label": "cyclohexanol"
+     }
+    ],
+    "above": "H3PO4 (kat.)",
+    "below": "warmte",
+    "product": [
+     {
+      "smiles": "C1=CCCCC1",
+      "label": "cyclohexeen"
+     },
+     {
+      "smiles": "O",
+      "label": "water"
+     }
+    ]
+   },
+   "hints": [
+    "OH- is een slechte vertrekkende groep. Hoe maak je er een goede van?",
+    "Na het vertrek van water heb je een kation; wie haalt een H weg?"
+   ],
+   "answer_key": "Stap 1: vrij paar O van OH naar H+ (H3O+/H3PO4). Oxoniumion [OH2+]C1CCCCC1.\nStap 2: C–O+-binding naar O: water vertrekt. Secundair kation [CH+]1CCCCC1.\nStap 3: H2O (of H2PO4-) neemt een H van een naburig C; C–H-binding naar C–C+ (pi). Cyclohexeen + H3O+.\nAfdestilleren: evenwicht; het laagkokende alkeen verwijderen schuift het evenwicht naar rechts (Le Chatelier) en voorkomt terugreactie (hydratatie).",
+   "in_course": true
+  },
+  {
+   "title": "L18.2 tert-Butanol + HBr",
+   "topic": "Les 18 · Reacties van alcoholen",
+   "difficulty": "medium",
+   "source": "Organische Synthese 2, les 18 (Reacties van alcoholen)",
+   "question": "tert-Butanol wordt geschud met geconcentreerd HBr. Teken het mechanisme (SN1) naar tert-butylbromide.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)(C)O",
+      "label": "tert-butanol"
+     }
+    ],
+    "above": "HBr (geconc.)",
+    "product": [
+     {
+      "smiles": "CC(C)(C)Br",
+      "label": "tert-butylbromide"
+     }
+    ]
+   },
+   "hints": [
+    "Eerst protoneren: maak van OH een goede vertrekkende groep.",
+    "Tertiair substraat: vertrekt water vóór de aanval van Br-?"
+   ],
+   "answer_key": "Stap 1: vrij paar O naar H van HBr; H–Br naar Br. Oxoniumion CC(C)(C)[OH2+] + Br-.\nStap 2: C–O+-binding naar O: water vertrekt. Tertiair kation C[C+](C)C.\nStap 3: Br- naar C+. Product CC(C)(C)Br.\nFout: SN2 (tertiair C, te gehinderd). Bijproduct E1: 2-methylpropeen.",
+   "in_course": true
+  },
+  {
+   "title": "LAV.1 Synthese van linalool (organolithium + keton)",
+   "topic": "Oefencasus Lavendel",
+   "difficulty": "medium",
+   "source": "Oefencasus Lavendel, vraag 8 / les 15 (Grignard)",
+   "question": "In artikel 1 wordt uit 1-chloor-4-methyl-3-penteen en lithium een organolithiumverbinding gemaakt. Die reageert met methylvinylketon; na opwerking ontstaat linalool. Teken het mechanisme vanaf de organolithiumverbinding.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "[Li]CCC=C(C)C",
+      "label": "4-methyl-3-pentenyllithium"
+     },
+     {
+      "smiles": "C=CC(C)=O",
+      "label": "methylvinylketon"
+     }
+    ],
+    "above": "1) ether, -70 °C",
+    "below": "2) H3O+ (opwerking)",
+    "product": [
+     {
+      "smiles": "CC(C)=CCCC(C)(O)C=C",
+      "label": "linalool"
+     }
+    ]
+   },
+   "hints": [
+    "De C–Li-binding is sterk gepolariseerd: welk C-atoom gedraagt zich als carbanion?",
+    "Waar zit het elektrofiele C-atoom in methylvinylketon?",
+    "Na de aanval heb je een alkoxide. Wat gebeurt er bij de opwerking?"
+   ],
+   "answer_key": "Polarisatie: C(delta-)–Li(delta+).\nStap 1 (1,2-additie): pijl van de C–Li-binding naar het carbonyl-C; C=O pi naar O. Lithiumalkoxide CC(C)=CCCC(C)([O-])C=C (Li+).\nStap 2: O- pakt H van H3O+ (of alcohol/water). Linalool CC(C)=CCCC(C)(O)C=C (racemisch).\nBeoordeling: pijl vanaf de C–Li-binding naar het carbonyl-C. 1,4-additie aan de vinyl-CH2 is fout (organolithium = hard nucleofiel, 1,2). Watervrij werken nodig.",
+   "in_course": true
+  },
+  {
+   "title": "LAV.2 Linalylacetaat uit linalool",
+   "topic": "Oefencasus Lavendel",
+   "difficulty": "hard",
+   "source": "Oefencasus Lavendel, vraag 18",
+   "question": "Linalool wordt onder reflux met azijnzuur omgezet in linalylacetaat. Teken het mechanisme van deze zuurgekatalyseerde verestering (Fischer).",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)=CCCC(C)(O)C=C",
+      "label": "linalool"
+     },
+     {
+      "smiles": "CC(=O)O",
+      "label": "azijnzuur"
+     }
+    ],
+    "above": "H+ (kat.)",
+    "below": "reflux",
+    "product": [
+     {
+      "smiles": "CC(=O)OC(C)(CCC=C(C)C)C=C",
+      "label": "linalylacetaat"
+     },
+     {
+      "smiles": "O",
+      "label": "water"
+     }
+    ]
+   },
+   "hints": [
+    "Activeer eerst het carbonzuur: waar komt het H+ op?",
+    "Het O van linalool valt het carbonyl-C aan: tetraëdrisch tussenproduct.",
+    "Na protonoverdracht vertrekt water; tot slot deprotonering van C=O+–H."
+   ],
+   "answer_key": "Stap 1: carbonyl-O van azijnzuur pakt H+; geprotoneerd zuur.\nStap 2: vrij paar O van linalool naar het carbonyl-C; C=O pi naar O(H). Tetraëdrisch tussenproduct met R–O+(H).\nStap 3: protonoverdracht naar een OH (via oplosmiddel mag).\nStap 4: vrij paar van de andere OH terug naar C (C=O+H); C–OH2+-binding naar O: water vertrekt.\nStap 5: deprotonering: linalylacetaat CC(C)=CCCC(C)(OC(C)=O)C=C + H+.\nEvenwichtspijlen, H+ katalysator. Alternatief: SN1 via het tertiaire (allylische) kation met azijnzuur als nucleofiel: goed rekenen als pijlen en ladingen kloppen. Evenwicht naar rechts: overmaat azijnzuur / water verwijderen.",
+   "in_course": true
+  },
+  {
+   "title": "LAV.3 HOCl-additie aan linalylacetaat",
+   "topic": "Oefencasus Lavendel",
+   "difficulty": "hard",
+   "source": "Oefencasus Lavendel, vraag 19 (11b naar 12b)",
+   "question": "Linalylacetaat reageert met HOCl in water/CH2Cl2. Slechts één van de twee dubbele bindingen reageert. Teken het mechanisme naar het chloorhydrine en verklaar welke dubbele binding reageert en waar OH en Cl terechtkomen.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(=O)OC(C)(CCC=C(C)C)C=C",
+      "label": "linalylacetaat (11b)"
+     }
+    ],
+    "above": "HOCl / H2O",
+    "below": "CH2Cl2",
+    "product": [
+     {
+      "smiles": "CC(=O)OC(C)(CCC(Cl)C(C)(C)O)C=C",
+      "label": "chloorhydrine (12b)"
+     }
+    ]
+   },
+   "hints": [
+    "Welke dubbele binding is het elektronenrijkst?",
+    "HOCl levert Cl+ (Cl is het elektrofiele deel). Er ontstaat een chloroniumion.",
+    "Water valt het C aan dat een positieve lading het best kan dragen."
+   ],
+   "answer_key": "Chemoselectiviteit: de trigesubstitueerde C=C ((CH3)2C=CH-) is elektronenrijker en geeft een tertiair kationisch karakter; de vinylgroep reageert niet.\nStap 1: die pi-binding naar Cl van HO–Cl; Cl–O-binding naar O (OH-/H2O vertrekt); chloroniumion over C(CH3)2 en CH.\nStap 2: H2O valt het tertiaire C(CH3)2 aan, anti t.o.v. Cl; C–Cl+-binding naar Cl. Oxoniumion.\nStap 3: H2O deprotoneert. Product: Cl op CH, OH op C(CH3)2: CC(=O)OC(C)(CCC(Cl)C(C)(C)O)C=C.\nOpen tertiair kation i.p.v. chloroniumion: bijna goed.",
+   "in_course": true
+  },
+  {
+   "title": "LAV.4 Cyclisatie van lavandulol",
+   "topic": "Oefencasus Lavendel",
+   "difficulty": "hard",
+   "source": "Oefencasus Lavendel, vraag 9",
+   "question": "Onder invloed van een zure katalysator cycliseert lavandulol tot lavendeloxide. Teken het volledige mechanisme met gebogen pijlen.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)=CCC(CO)C(C)=C",
+      "label": "lavandulol"
+     }
+    ],
+    "above": "H+ (kat.)",
+    "product": [
+     {
+      "smiles": "CC(=C)C1CCC(C)(C)OC1",
+      "label": "lavendeloxide"
+     }
+    ]
+   },
+   "hints": [
+    "Welke dubbele binding geeft na protonering het kation dat tot een zesring kan sluiten?",
+    "Het nucleofiel zit in hetzelfde molecuul. Tel hoe groot de ring wordt.",
+    "De katalysator (H+) komt aan het eind terug."
+   ],
+   "answer_key": "Stap 1: pi-binding van (CH3)2C=CH- naar H+ (H op het CH); tertiair kation C[C+](C)CCC(CO)C(C)=C.\nStap 2: vrij paar O van CH2OH naar C+. Zesring (O, CH2, CH, CH2, CH2, C(CH3)2), oxoniumion.\nStap 3: H2O/A- neemt H van O+. Lavendeloxide CC(=C)C1CCC(C)(C)OC1 + H+.\nBeoordeling: Markovnikov-protonering, aanval door het eigen alcohol-O, ladingen, deprotonering. Isopropenylgroep blijft intact (protoneren daarvan zou tot een 4-ring leiden).",
+   "in_course": true
+  },
+  {
+   "title": "LAV.5 Grignard opent het epoxide",
+   "topic": "Oefencasus Lavendel",
+   "difficulty": "hard",
+   "source": "Oefencasus Lavendel, vraag 12 / les 15 (Grignard)",
+   "question": "Het epoxide reageert met CH3CH2Br en Mg in droge ether, daarna volgt een zure opwerking. Geef het volledige mechanisme naar het hoofdproduct (vorming van het Grignard-reagens mag als één stap).",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1(CO1)C1CCC(C)(C)OC1",
+      "label": "epoxide"
+     }
+    ],
+    "above": "1) CH3CH2Br, Mg, droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Eerst ontstaat CH3CH2MgBr. Welk C-atoom is daarin het nucleofiel?",
+    "Onder basische/nucleofiele omstandigheden valt het nucleofiel het minst gehinderde C van het epoxide aan.",
+    "Na de ringopening heb je een alkoxide."
+   ],
+   "answer_key": "Stap 0: CH3CH2Br + Mg -> CH3CH2MgBr (geen pijlen vereist).\nStap 1 (SN2): C–Mg-binding naar het CH2 van het epoxide; CH2–O-binding naar O. Alkoxide CCCC(C)([O-])C1CCC(C)(C)OC1.\nStap 2: O- pakt H van H3O+. Hoofdproduct CCCC(C)(O)C1CCC(C)(C)OC1.\nBeoordeling: aanval op CH2 (niet op het quaternaire C), pijl vanaf C–Mg, alkoxide, protonering. Ether in de ring reageert niet.",
+   "in_course": true
+  },
+  {
+   "title": "LAV.6 E2 van 13c naar 14c",
+   "topic": "Oefencasus Lavendel",
+   "difficulty": "hard",
+   "source": "Oefencasus Lavendel, vraag 22",
+   "question": "Chloride 13c wordt met kalium-tert-butoxide in tert-butanol omgezet in het geconjugeerde trieen 14c. Teken het mechanisme.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C=C(c1ccccc1)C(Cl)CCC(C)(OC(C)=O)C=C",
+      "label": "13c"
+     }
+    ],
+    "above": "KOC(CH3)3",
+    "below": "tert-butanol",
+    "product": [
+     {
+      "smiles": "C=C(c1ccccc1)C=CCC(C)(OC(C)=O)C=C",
+      "label": "14c"
+     }
+    ]
+   },
+   "hints": [
+    "Welke H's staan beta t.o.v. het C met Cl? Er is maar één kant waar een H zit.",
+    "Eén stap: base pakt H, nieuwe pi-binding, Cl- vertrekt.",
+    "Waarom geen SN2 of aanval op de ester? Denk aan de omvang van tBuO-."
+   ],
+   "answer_key": "Eén stap (E2): (1) vrij paar O- van tBuO- naar een H op de CH2 naast CHCl; (2) die C–H-binding naar de C–C-binding met CHCl (nieuwe pi); (3) C–Cl-binding naar Cl. Product 14c C=C(c1ccccc1)C=CCC(C)(OC(C)=O)C=C (E-isomeer, geconjugeerd met het andere alkeen en de fenylring) + tBuOH + Cl-.\nDrijvende kracht: geconjugeerd dieen (stabiel). tBuO- is omvangrijk: geen SN2, geen aanval op de acetaatgroep.\nAccepteer E1cb-achtige of E2 tekening zolang pijlen/ladingen kloppen; E1 via kation is minder logisch met sterke base.",
+   "in_course": true
+  }
+ ]
+}

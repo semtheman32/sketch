@@ -1,0 +1,305 @@
+{
+ "title": "Extra opgaven B",
+ "exercises": [
+  {
+   "title": "B.01 SN2 met inversie, maar het label blijft R",
+   "topic": "Les 4 · SN2 en stereochemie",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 3 en 4 (SN2, Walden-inversie)",
+   "question": "(R)-2-broom-1-methoxypropaan reageert met NaCN in DMSO. (a) Teken het mechanisme met gebogen pijlen, inclusief de overgangstoestand, en teken het product met wig/streepjeswig. (b) Benoem het product met R/S. (c) Leg uit waarom het CIP-label gelijk blijft terwijl er toch inversie optreedt. (d) Welk label krijg je als je NaCN vervangt door NaSCH3? Leg het verschil uit.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "COC[C@@H](C)Br",
+      "label": "(R)-2-broom-1-methoxypropaan"
+     },
+     {
+      "smiles": "[C-]#N",
+      "label": "cyanide (uit NaCN)"
+     }
+    ],
+    "above": "NaCN",
+    "below": "DMSO, 25 °C"
+   },
+   "hints": [
+    "Secundair substraat, sterk nucleofiel dat een zwakke base is, polair aprotisch oplosmiddel: welk mechanisme?",
+    "Het cyanide valt aan aan de achterkant, 180° tegenover de C-Br-binding. De drie andere groepen klappen om als een paraplu.",
+    "Bepaal de prioriteiten in het product opnieuw: CH2OCH3 (O,H,H) tegenover C≡N (N,N,N). Bij het eerste verschilpunt wint O van N."
+   ],
+   "answer_key": "1. Mechanisme (SN2, één stap): het vrije elektronenpaar op het koolstofatoom van CN- (formele lading -1 op C) valt C2 aan vanaf de achterkant; tegelijk klapt de C2-Br-bindingselektronen naar Br, dat vertrekt als Br-. Twee pijlen: C(CN) vrij paar → C2; C2-Br-binding → Br. Overgangstoestand: [NC···C(H)(CH3)(CH2OCH3)···Br]‡ met trigonaal-bipiramidaal C2, partiële negatieve lading op CN en Br.\n2. Product: (R)-3-methoxy-2-methylpropaannitril, `COC[C@H](C)C#N`. Geometrisch is C2 omgeklapt (Walden-inversie): de CN zit aan de kant tegenover waar Br zat.\n3. Waarom het label R blijft: in het substraat is de volgorde Br > CH2OCH3 > CH3 > H. In het product is de volgorde CH2OCH3 (O,H,H) > CN (N,N,N) > CH3 > H, omdat bij het eerste verschilpunt O (Z=8) wint van N (Z=7). De nieuwe groep krijgt dus prioriteit 2 in plaats van 1. Die verschuiving van prioriteiten keert het label één keer om, de geometrische inversie keert het nog een keer om: netto blijft het R. Inversie is een geometrisch begrip, R/S is een naamgevingsregel; ze hoeven niet samen op te gaan.\n4. Met NaSCH3: product `COC[C@H](C)SC`, (S)-1-methoxy-2-(methylthio)propaan. S (Z=16) heeft de hoogste prioriteit, net als Br; de rangorde blijft dus S > CH2OCH3 > CH3 > H en het label klapt mee met de geometrie: R → S.\nAlternatieven: E2 is verwaarloosbaar (CN- en CH3S- zijn zwakke basen, DMSO bevordert SN2). Beoordeling: achterkantaanval en omgeklapte wig/streep moeten kloppen; R voor het nitril en S voor de thio-ether. Typische fout: 'SN2 geeft altijd het omgekeerde label', dus S voor het nitril invullen.",
+   "in_course": true
+  },
+  {
+   "title": "B.02 SN2 op een substraat met twee stereocentra",
+   "topic": "Les 4 · SN2, diastereomeren",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 4 (SN2/SN1, stereochemie)",
+   "question": "(2S,3S)-2-broom-3-methylpentaan reageert met NaN3 in DMF. (a) Teken het mechanisme en het product met wiggen en benoem alle stereocentra met R/S. (b) Is het product een enantiomeer of een diastereomeer van het product dat je uit (2R,3S)-2-broom-3-methylpentaan zou krijgen? (c) Leg uit waarom je onder SN1-omstandigheden (bijvoorbeeld in methanol) geen racemaat zou krijgen, en welke extra complicatie dan optreedt.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@H](Br)[C@@H](C)CC",
+      "label": "(2S,3S)-2-broom-3-methylpentaan"
+     },
+     {
+      "smiles": "[N-]=[N+]=[N-]",
+      "label": "azide (uit NaN3)"
+     }
+    ],
+    "above": "NaN3",
+    "below": "DMF, 25 °C"
+   },
+   "hints": [
+    "Azide is een uitstekend nucleofiel en een zwakke base. Alleen het koolstofatoom met Br doet mee.",
+    "C3 wordt niet aangeraakt: zijn configuratie en label blijven gelijk. C2 klapt om.",
+    "Onder SN1 ontstaat een vlak kation op C2, maar C3 is nog chiraal. Bovendien kan een 1,2-hydrideverschuiving vanaf C3 een tertiair kation geven."
+   ],
+   "answer_key": "1. SN2: het eindstandige N van N3- (vrij paar, lading -1) valt C2 aan vanaf de achterkant; de C2-Br-binding gaat naar Br (vertrekt als Br-). Eén stap, inversie op C2.\n2. Product: (2R,3S)-2-azido-3-methylpentaan, `C[C@@H](N=[N+]=[N-])[C@@H](C)CC`. Op C2 is de rangorde N3 > C3 > CH3 > H, dezelfde volgorde als met Br, dus de geometrische inversie geeft ook labelwissel S → R. C3 blijft S (rangorde CH(X)CH3 > CH2CH3 > CH3 > H blijft gelijk).\n3. (b) Uit (2R,3S)-broomide krijg je (2S,3S)-azide. (2R,3S) en (2S,3S) verschillen in één van de twee centra: diastereomeren, geen enantiomeren. Het enantiomeer van het (2R,3S)-product is (2S,3R).\n4. (c) SN1: C2-Br ioniseert tot een vlak secundair kation `C[CH+][C@@H](C)CC`. Aanval van beide kanten geeft (2R,3S) en (2S,3S): diastereomeren, die niet in gelijke hoeveelheden ontstaan en ook geen racemaat vormen, want C3 blijft S. Complicatie: 1,2-hydrideverschuiving van C3 naar C2 geeft het tertiaire kation `CC[C+](C)CC` (3-methylpent-3-yl, achiraal); daarmee gaat de stereo-informatie van C3 helemaal verloren en krijg je 3-methoxy-3-methylpentaan plus E1-alkenen.\nBeoordeling: C2 omklappen, C3 onveranderd laten, (2R,3S) correct; begrip diastereomeer vs enantiomeer. Typische fouten: ook C3 omklappen; bij SN1 'racemaat' antwoorden.",
+   "in_course": true
+  },
+  {
+   "title": "B.03 Benzylisch broomide: SN1 met racemisatie of SN2 met inversie",
+   "topic": "Les 4 · SN1 vs SN2, racemisatie",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 3 en 4 (carbokationstabiliteit, oplosmiddel)",
+   "question": "(S)-1-broom-1-fenylethaan wordt (a) verwarmd in ethanol zonder toegevoegde base en (b) geroerd met NaN3 in DMSO. Geef voor beide het mechanisme met gebogen pijlen, alle tussenproducten met ladingen, en het product met stereochemie (racemaat of één enantiomeer met R/S). Verklaar waarom een secundair substraat hier via SN1 kan reageren.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@H](Br)c1ccccc1",
+      "label": "(S)-1-broom-1-fenylethaan"
+     }
+    ],
+    "above": "a) EtOH, Δ   b) NaN3",
+    "below": "b) DMSO"
+   },
+   "hints": [
+    "Het kation dat ontstaat is benzylisch. Teken de resonantiestructuren.",
+    "Ethanol is een zwak nucleofiel en polair protisch: oplosmiddel én nucleofiel (solvolyse).",
+    "Na aanval van ethanol moet het oxoniumion nog een proton kwijt."
+   ],
+   "answer_key": "(a) SN1-solvolyse:\n1. Ionisatie (snelheidsbepalend): C1-Br-binding → Br. Tussenproduct: benzylisch kation `C[CH+]c1ccccc1`, vlak (sp2), gestabiliseerd door resonantie met de ring (positieve lading ook op ortho- en para-C).\n2. Vrij paar van O in EtOH → C1, van boven of onder het vlak. Tussenproduct: oxoniumion `CC[OH+]C(C)c1ccccc1` (lading +1 op O).\n3. Een tweede EtOH (vrij paar O) neemt H van O+; O-H-binding → O. Product: 1-ethoxy-1-fenylethaan als (nagenoeg) racemaat: `CCO[C@H](C)c1ccccc1` (R) + `CCO[C@@H](C)c1ccccc1` (S). Een klein overschot inversie (R) door ionpaar-afscherming is een correcte nuance maar geen vereiste. Bijproduct: E1 tot styreen `C=Cc1ccccc1` (meer bij hogere temperatuur), plus HBr.\n(b) SN2: N3- (vrij paar, -1) valt C1 aan vanaf de achterkant, C-Br → Br. Product (R)-(1-azidoethyl)benzeen `C[C@@H](N=[N+]=[N-])c1ccccc1`: rangorde N3 > fenyl > CH3 > H is gelijk aan Br > fenyl > CH3 > H, dus inversie geeft S → R. Benzylische substraten reageren ook in SN2 snel (p-orbitaaloverlap in de overgangstoestand).\nWaarom SN1 kan: het benzylische kation is door resonantie ongeveer zo stabiel als een tertiair kation, en ethanol stabiliseert ionen en is een zwak nucleofiel.\nBeoordeling: resonantiegestabiliseerd vlak kation, deprotoneringsstap niet vergeten, racemaat bij (a), R bij (b). Typische fouten: bij (a) één enantiomeer tekenen; bij (b) racemaat.",
+   "in_course": true
+  },
+  {
+   "title": "B.04 SN1 in een ring met een tweede stereocentrum: geen racemaat",
+   "topic": "Les 4 · SN1, diastereomeren in ringen",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 4 (SN1, stereochemische uitkomst)",
+   "question": "(1S,3R)-1-broom-1,3-dimethylcyclohexaan wordt opgelost in water/aceton bij kamertemperatuur. (a) Teken het mechanisme met gebogen pijlen en het kation-tussenproduct. (b) Teken alle substitutieproducten met wiggen, geef R/S en geef aan of OH cis of trans staat ten opzichte van de 3-methylgroep. (c) Is het productmengsel een racemaat, een meso-verbinding of een mengsel van diastereomeren? Is het optisch actief? (d) Noem de mogelijke E1-bijproducten.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@]1(Br)CCC[C@@H](C)C1",
+      "label": "(1S,3R)-1-broom-1,3-dimethylcyclohexaan"
+     }
+    ],
+    "above": "H2O",
+    "below": "aceton, 25 °C"
+   },
+   "hints": [
+    "Tertiair broomide in een polair protisch oplosmiddel, zwak nucleofiel.",
+    "Het kation op C1 is vlak, maar C3 blijft een stereocentrum met dezelfde configuratie.",
+    "Aanval van boven of onder geeft twee producten die alleen op C1 verschillen. Wat is dan hun relatie?"
+   ],
+   "answer_key": "1. Ionisatie: C1-Br-binding → Br. Tussenproduct: tertiair kation `C[C+]1CCC[C@@H](C)C1`, vlak op C1; C3 blijft R.\n2. Vrij paar van O (H2O) → C1, van beide kanten van het vlak. Tussenproduct: alkyloxoniumion met +1 op O.\n3. H2O (vrij paar) neemt een H van O+; O-H-binding → O. Producten:\n   - `C[C@]1(O)CCC[C@@H](C)C1` = (1S,3R)-1,3-dimethylcyclohexanol: de twee methylgroepen trans, OH cis aan de 3-methyl (retentie op C1).\n   - `C[C@@]1(O)CCC[C@@H](C)C1` = (1R,3R)-1,3-dimethylcyclohexanol: methylgroepen cis, OH trans aan de 3-methyl (inversie op C1).\n4. (c) De twee producten verschillen alleen in C1 en zijn dus diastereomeren. Ze ontstaan niet per se 1:1 (de twee kanten van het kation zijn niet gelijkwaardig door de 3-methylgroep en de stoelvorm). Geen racemaat en geen meso: beide moleculen zijn chiraal en C3 is in beide R, dus het mengsel is optisch actief.\n5. (d) E1 (deprotonering van een buur-C van het kation): 1,3-dimethylcyclohexeen (`CC1=CC(C)CCC1`, H van C2), 1,5-dimethylcyclohexeen (`CC1=CCCC(C)C1`, H van C6) en methyleen-3-methylcyclohexaan (`C=C1CCCC(C)C1`). Het stereocentrum C3 blijft in alle drie behouden. Bij 25 °C is SN1 hoofdreactie.\nBeoordeling: C3 ongewijzigd, twee diastereomeren met juiste labels, conclusie 'optisch actief mengsel van diastereomeren'. Typische fout: 'SN1 geeft racemaat' zonder naar het tweede stereocentrum te kijken.",
+   "in_course": true
+  },
+  {
+   "title": "B.09 Secundair alcohol met HBr: hydrideverschuiving wist het stereocentrum",
+   "topic": "Les 18 · alcoholen + HX (SN1, omlegging)",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 1, 4 en 18",
+   "question": "(S)-3-methylbutaan-2-ol wordt verwarmd met geconcentreerd HBr. Het hoofdproduct is niet 2-broom-3-methylbutaan. Teken het volledige mechanisme met gebogen pijlen, alle tussenproducten met formele ladingen, en het hoofdproduct. Wat gebeurt er met de stereochemie? Welk bijproduct verwacht je, en is dat optisch zuiver?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)[C@H](C)O",
+      "label": "(S)-3-methylbutaan-2-ol"
+     }
+    ],
+    "above": "HBr (geconc.)",
+    "below": "Δ"
+   },
+   "hints": [
+    "OH is een slechte vertrekkende groep. Wat moet er eerst gebeuren?",
+    "Na vertrek van water ontstaat een secundair kation naast een tertiair C-H.",
+    "1,2-hydrideverschuiving: de C3-H-binding schuift met beide elektronen naar C2."
+   ],
+   "answer_key": "1. Protoneren: vrij paar van O → H van HBr; H-Br-binding → Br. Tussenproduct alkyloxoniumion `CC(C)[C@H](C)[OH2+]` (+1 op O) + Br-.\n2. Vertrek van water: C2-O-binding → O (H2O vertrekt). Tussenproduct secundair kation `C[CH+]C(C)C` (vlak; stereo-informatie van C2 weg).\n3. 1,2-hydrideverschuiving: C3-H-binding → C2 (H verhuist met het elektronenpaar). Tussenproduct tertiair kation `CC[C+](C)C` (2-methylbut-2-yl).\n4. Vrij paar van Br- → C+. Hoofdproduct 2-broom-2-methylbutaan `CCC(C)(C)Br`, achiraal.\nStereochemie: het oorspronkelijke stereocentrum verdwijnt al in stap 2 (vlak kation) en het product heeft geen stereocentrum meer. Bijproduct: 2-broom-3-methylbutaan (Br- vangt het secundaire kation vóór de verschuiving) als (nagenoeg) racemaat; eventueel ook alkenen (2-methylbut-2-een) door E1. Een deel SN2 op het oxoniumion (met inversie, (R)-2-broom-3-methylbutaan) is als nuance goed.\nBeoordeling: protoneringsstap, water als vertrekkende groep, hydrideverschuiving met juiste pijl (van de C-H-binding, niet van H), tertiair broomide. Typische fouten: OH- laten vertrekken; methylverschuiving tekenen; SN2 met inversie als hoofdproduct.",
+   "in_course": true
+  },
+  {
+   "title": "B.10 Primair chiraal alcohol met HBr: SN2 zonder omlegging",
+   "topic": "Les 18 · alcoholen + HX (SN2)",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 4 en 18",
+   "question": "(S)-2-methylbutaan-1-ol wordt verwarmd met HBr (geconc. H2SO4 als katalysator). (a) Teken het mechanisme met gebogen pijlen en het product met wig/streepjeswig en R/S. (b) Waarom treedt hier géén hydrideverschuiving naar het tertiaire C2 op, terwijl C2 een H draagt? (c) Wordt het stereocentrum geïnverteerd?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC[C@H](C)CO",
+      "label": "(S)-2-methylbutaan-1-ol"
+     }
+    ],
+    "above": "HBr, H2SO4 (kat.)",
+    "below": "Δ"
+   },
+   "hints": [
+    "Een primair kation is te instabiel om te ontstaan. Welk mechanisme blijft over?",
+    "Br- valt het geprotoneerde alcohol aan op C1, niet op C2.",
+    "Bij welk koolstofatoom vindt de inversie plaats, en is dat een stereocentrum?"
+   ],
+   "answer_key": "1. Protoneren: vrij paar O → H van HBr (of H2SO4); H-Br → Br. Tussenproduct `CC[C@H](C)C[OH2+]`.\n2. SN2: vrij paar Br- → C1 achterkant; C1-O-binding → O (H2O vertrekt). Eén stap, geen kation.\n3. Product (S)-1-broom-2-methylbutaan `CC[C@H](C)CBr`.\n(b) Omdat er geen kation wordt gevormd (primair kation te instabiel; de SN2-aanval op het onbelemmerde C1 is sneller), is er niets om een hydride naartoe te verschuiven. Een omlegging vraagt een carbokation.\n(c) Inversie treedt op aan C1, maar C1 (CH2) is geen stereocentrum. C2 wordt niet aangeraakt: configuratie behouden en label blijft S (rangorde CH2Br > C2H5 > CH3 > H is dezelfde als CH2OH > C2H5 > CH3 > H).\nBeoordeling: SN2 op C1, geen kation, S-product. Typische fouten: primair kation tekenen gevolgd door hydrideverschuiving naar 2-broom-2-methylbutaan; C2 omklappen ('SN2 = inversie').",
+   "in_course": true
+  },
+  {
+   "title": "B.11 Zure dehydratatie met methylverschuiving: 2,2-dimethylcyclohexanol",
+   "topic": "Les 18 · E1-dehydratatie met omlegging",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 1 en 18 (E1, 1,2-methylverschuiving)",
+   "question": "2,2-Dimethylcyclohexanol wordt verwarmd met geconcentreerd H2SO4. Het hoofdproduct is een viervoudig gesubstitueerd alkeen met de formule C8H14. Teken het volledige mechanisme met gebogen pijlen en alle tussenproducten met ladingen. Leg uit waarom het verwachte 3,3-dimethylcyclohexeen nauwelijks ontstaat. Er ontstaat ook een tweede viervoudig gesubstitueerd alkeen via een andere verschuiving: welk?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC1(C)CCCCC1O",
+      "label": "2,2-dimethylcyclohexanol"
+     }
+    ],
+    "above": "H2SO4 (geconc.)",
+    "below": "Δ"
+   },
+   "hints": [
+    "Protoneren, water laten vertrekken: welk soort kation krijg je op C1?",
+    "C2 draagt geen H, maar wel twee methylgroepen. Wat kan er naar C1 schuiven?",
+    "Na de verschuiving staat het kation op C2; C1 draagt nu één H en een methyl."
+   ],
+   "answer_key": "1. Protoneren: vrij paar O → H van H2SO4 (H-O-binding → O van HSO4-). Tussenproduct `CC1(C)CCCCC1[OH2+]`.\n2. C1-O-binding → O, water vertrekt. Secundair kation `CC1(C)CCCC[CH+]1`.\n3. 1,2-Methylverschuiving: de C2-CH3-binding schuift naar C1. Tertiair kation `C[C+]1CCCCC1C` (lading op het oude C2).\n4. E1: H2O of HSO4- (vrij paar) neemt H van C1 (nu CH(CH3)); C1-H-binding → C1=C2. Hoofdproduct 1,2-dimethylcyclohexeen `CC1=C(C)CCCC1` (viervoudig gesubstitueerd, Zaitsev).\nWaarom geen 3,3-dimethylcyclohexeen: dat vraagt eliminatie uit het secundaire kation vóór de verschuiving; de verschuiving naar het stabielere tertiaire kation is sneller. Bovendien is 3,3-dimethylcyclohexeen maar tweevoudig gesubstitueerd en dus minder stabiel dan het viervoudig gesubstitueerde alkeen.\nTweede alkeen: ringvernauwing. In stap 3 schuift in plaats van een methyl de ringbinding C2-C3 naar C1; dan ontstaat een (cyclopentyl)dimethylcarbeniumion `C[C+](C)C1CCCC1` en na deprotonering isopropylideencyclopentaan `CC(C)=C1CCCC1`. Andere bijproducten (1-isopropenylcyclopenteen, 2,3-dimethylcyclohexeen-isomeren) zijn ook acceptabel als bijproduct.\nBeoordeling: protonering, water vertrekt, methylverschuiving met pijl vanuit de C-CH3-binding, deprotonering op het juiste C, viervoudig gesubstitueerd hoofdproduct. Typische fouten: OH- als vertrekkende groep; proberen een H van het kation-C (oud C2) weg te halen, terwijl dat na de verschuiving geen H draagt (alleen CH3 en twee ringbindingen); E2 tekenen.",
+   "in_course": true
+  },
+  {
+   "title": "B.12 Ringvergroting bij dehydratatie van 1-cyclobutylethanol",
+   "topic": "Les 18 · E1 met omlegging (ringvergroting)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 1 en 18 (omleggingen, ringspanning)",
+   "question": "(R)-1-Cyclobutylethanol wordt verwarmd met H3PO4. Het hoofdproduct is 1-methylcyclopenteen. (a) Teken het mechanisme met gebogen pijlen en alle tussenproducten met ladingen. (b) Welke omlegging treedt op, en wat is de drijvende kracht? (c) Vanuit het omgelegde kation zijn twee wegen naar 1-methylcyclopenteen denkbaar: directe deprotonering, of eerst een 1,2-hydrideverschuiving gevolgd door deprotonering. Teken er één en leg uit waarom beide hetzelfde product geven. (d) Wat gebeurt er met het stereocentrum van het substraat?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@@H](O)C1CCC1",
+      "label": "(R)-1-cyclobutylethanol"
+     }
+    ],
+    "above": "H3PO4",
+    "below": "Δ"
+   },
+   "hints": [
+    "Het eerste kation is secundair en zit naast een gespannen vierring.",
+    "Een ringbinding (C1'-C2' van de cyclobutaan) schuift naar het kation-C: de ring wordt een vijfring.",
+    "Het nieuwe kation is secundair; het buur-C draagt de methylgroep en één H. Haal je die H direct weg, of verschuif je hem eerst als hydride: welk alkeen krijg je in beide gevallen?"
+   ],
+   "answer_key": "Nummering: Cα = CH(OH)CH3, C1' = ring-CH, C2'/C4' = buren in de ring.\n1. Protoneren: vrij paar O → H van H3PO4; H-O-binding → O van H2PO4-. Tussenproduct `C[C@@H]([OH2+])C1CCC1` (+1 op O).\n2. Cα-O-binding → O, water vertrekt. Secundair kation `C[CH+]C1CCC1` (vlak; stereo-informatie van Cα weg).\n3. Ringvergroting (1,2-alkylverschuiving): de C1'-C2'-binding schuift naar Cα. Cα zit nu in de ring en de positieve lading staat op C1'. Tussenproduct 2-methylcyclopentylkation `CC1CCC[CH+]1` (secundair). Drijvende kracht: verlies van ringspanning (cyclobutaan ca. 110 kJ/mol, cyclopentaan ca. 25 kJ/mol); het kation blijft secundair, dus de winst zit in de spanning.\n4. Naar het product, twee gelijkwaardige wegen (beide goed):\n   a) Direct E1: H2O of H2PO4- (vrij paar) neemt de H van Cα (het C met de methylgroep, naast C1'+); Cα-H-binding → Cα=C1'. Product 1-methylcyclopenteen `CC1=CCCC1`.\n   b) Eerst 1,2-hydrideverschuiving: Cα-H-binding → C1'. Tertiair kation `C[C+]1CCCC1` (1-methylcyclopentyl; drijvende kracht secundair → tertiair). Daarna E1: base neemt H van een ring-CH2 naast C+; C-H → C=C. Product 1-methylcyclopenteen (Zaitsev, drievoudig gesubstitueerd); bijproduct methyleencyclopentaan `C=C1CCCC1`.\n   Beide wegen geven hetzelfde product omdat in beide gevallen de dubbele binding uitkomt tussen het methyl-dragende C en een buur-C; onder warme zure omstandigheden equilibreren de alkenen bovendien naar het stabielste, 1-methylcyclopenteen.\nBijproducten (niet vereist): 3-methylcyclopenteen (deprotonering van C4' in het secundaire kation), methyleencyclopentaan, vinylcyclobutaan (E1 vóór de omlegging).\nStereochemie: het (R)-centrum gaat verloren bij de vorming van het vlakke kation (of uiterlijk bij de deprotonering); het product is achiraal, dus de (R)-configuratie van het substraat doet er niet toe.\nAlternatief dat ook goed is: ionisatie en ringvergroting gelijktijdig (het vrije secundaire kation hoeft niet getekend). Beoordeling: protonering, water vertrekt, ringvergroting met de pijl vanuit de C1'-C2'-binding naar Cα, lading daarna op C1', correct eindproduct 1-methylcyclopenteen; route a of b zijn allebei goed. Typische fouten: vinylcyclobutaan als hoofdproduct; ringvergroting met een pijl naar het verkeerde C of de lading op Cα laten staan; methylverschuiving tekenen.",
+   "in_course": true
+  },
+  {
+   "title": "B.13 Tosylaat (retentie) en daarna SN2 (inversie)",
+   "topic": "Les 18 · alcohol activeren met TsCl",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 4 en 18 (tosylaat/mesylaat, retentie, SN2)",
+   "question": "(S)-Octaan-2-ol wordt eerst met tosylchloride (TsCl) in pyridine omgezet en het product daarna met NaCN in DMSO behandeld. (a) Teken beide stappen met gebogen pijlen en teken het tussenproduct en het eindproduct met wiggen en R/S. (b) Waarom treedt in stap 1 retentie op? (c) Een student stelt voor om direct met HBr te broomeren en dan NaCN toe te voegen. Noem twee redenen waarom de tosylaatroute stereochemisch beter is.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCCCCC[C@H](C)O",
+      "label": "(S)-octaan-2-ol"
+     }
+    ],
+    "above": "1. TsCl, pyridine  2. NaCN",
+    "below": "2. DMSO"
+   },
+   "hints": [
+    "In stap 1 valt het O-atoom van het alcohol het zwavelatoom aan. Welke binding in het substraat wordt dus niet verbroken?",
+    "Tosylaat (TsO-) is een zeer goede vertrekkende groep: de negatieve lading is verdeeld over drie O-atomen.",
+    "Stap 2 is een gewone SN2 op een secundair C met een goed nucleofiel dat een zwakke base is."
+   ],
+   "answer_key": "Stap 1 (tosylering):\n1. Vrij paar O van het alcohol → S van TsCl; S-Cl-binding → Cl (Cl- vertrekt; als alternatief: S=O π-binding naar O en daarna terug, additie-eliminatie, ook goed). Tussenproduct `CCCCCC[C@H](C)[OH+]S(=O)(=O)c1ccc(C)cc1` (+1 op O).\n2. Pyridine (vrij paar N) neemt het H van O+; O-H → O. Product (S)-octaan-2-yltosylaat `CCCCCC[C@H](C)OS(=O)(=O)c1ccc(C)cc1` + pyridiniumchloride.\n(b) Retentie: de C2-O-binding blijft intact, alleen de O-H-binding wordt O-S. Label blijft S (OTs > hexyl > CH3 > H, zelfde volgorde als OH).\nStap 2 (SN2): vrij paar C van CN- → C2 achterkant; C2-O-binding → O (TsO- vertrekt, resonantiegestabiliseerd). Product (R)-2-methyloctaannitril `CCCCCC[C@@H](C)C#N`: inversie, en omdat CN (N,N,N) > hexyl (C,H,H) > CH3 > H dezelfde rangorde heeft als OTs, wordt S → R. Netto: één inversie over twee stappen.\n(c) HBr met een secundair alcohol: (1) deels SN1 via een vlak secundair kation, dus (gedeeltelijke) racemisatie in plaats van zuivere inversie; (2) het secundaire kation kan via een 1,2-hydrideverschuiving 3-broomoctaan geven (verkeerd regio-isomeer); daarnaast E1 tot octenen en sterk zure omstandigheden. Bovendien zou zelfs een zuivere SN2 met HBr al een inversie geven, zodat de daaropvolgende SN2 met CN- netto retentie oplevert: (S)-2-methyloctaannitril in plaats van (R). Met het mengsel van SN1 en SN2 is de uitkomst niet goed te voorspellen; de tosylaatroute geeft één schone inversie.\nBeoordeling: retentie in stap 1 met argument, inversie in stap 2, (R)-nitril. Typische fouten: in stap 1 het C aanvallen (inversie); in stap 2 TsO- vergeten of Ts als vertrekkende groep zonder O; R/S niet herberekend.",
+   "in_course": true
+  },
+  {
+   "title": "B.14 Intramoleculaire Williamson: cis of trans-2,5-dimethyloxolaan?",
+   "topic": "Les 18 · ethervorming, intramoleculaire SN2",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 4, 11 en 18",
+   "question": "(2R,5S)-5-Broomhexaan-2-ol wordt behandeld met NaH in THF. Er ontstaat een cyclische ether C6H12O. (a) Teken het mechanisme met gebogen pijlen en het product met wiggen. (b) Benoem het product met R/S en geef aan of het cis of trans is, en of het chiraal of meso is. (c) Welk product krijg je uit (2R,5R)-5-broomhexaan-2-ol?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@@H](O)CC[C@H](C)Br",
+      "label": "(2R,5S)-5-broomhexaan-2-ol"
+     }
+    ],
+    "above": "NaH",
+    "below": "THF"
+   },
+   "hints": [
+    "NaH is een sterke base, geen nucleofiel: het maakt een alkoxide.",
+    "Tel de ringgrootte: O, C2, C3, C4, C5. Welk C wordt aangevallen, en welk C houdt zijn C-O-binding?",
+    "Op C5 inversie, op C2 retentie. Cis-2,5-dimethyloxolaan heeft een spiegelvlak."
+   ],
+   "answer_key": "1. Deprotoneren: vrij paar van H- (NaH) → H van O-H; O-H-binding → O. Tussenproduct alkoxide `C[C@@H]([O-])CC[C@H](C)Br` (-1 op O) + H2.\n2. Intramoleculaire SN2 (5-exo-tet): vrij paar van O- → C5, vanaf de kant tegenover Br; C5-Br-binding → Br. Ring: O, C2, C3, C4, C5 = vijfring (oxolaan).\n3. Product: (2R,5R)-2,5-dimethyloxolaan `C[C@@H]1CC[C@@H](C)O1`.\n(b) C2 retentie (de C2-O-binding blijft): R. C5 inversie; de rangorde O > C4 > CH3 > H is dezelfde als Br > C4 > CH3 > H, dus S → R. (R,R): de twee methylgroepen staan trans; trans-2,5-dimethyloxolaan is chiraal (C2-symmetrie, geen spiegelvlak). Ter controle: retentie op C5 zou (2R,5S) = cis = meso geven.\n(c) Uit (2R,5R)-substraat: inversie op C5 geeft (2R,5S)-2,5-dimethyloxolaan, de cis-, meso-verbinding (achiraal).\nAlternatieven/bijreacties: intermoleculaire ethervorming en E2 zijn ondergeschikt (intramoleculaire vijfringvorming is snel). Beoordeling: alkoxide eerst, achterkantaanval op C5, juiste vijfring, (2R,5R) trans en chiraal. Typische fouten: retentie op C5 tekenen (dan meso); NaH als nucleofiel; zesring tellen.",
+   "in_course": true
+  },
+  {
+   "title": "B.15 Williamson-ethersynthese: twee routes, twee enantiomeren",
+   "topic": "Les 18 · ethervorming, SN2 vs E2",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 4 en 18 (Williamson, reactiesturing)",
+   "question": "Je wilt 2-methoxybutaan maken. Route A: (R)-butaan-2-ol met NaH en daarna CH3I. Route B: (R)-2-broombutaan met NaOCH3 in methanol. (a) Teken voor beide routes het mechanisme met gebogen pijlen en het product met wig/streepjeswig en R/S. (b) Welke route geeft de hoogste opbrengst, en welke bijproducten geeft de andere? (c) Hoe maak je tert-butylmethylether: KOtBu + CH3I of NaOCH3 + tert-butylbromide? Leg uit.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC[C@@H](C)O",
+      "label": "(R)-butaan-2-ol"
+     },
+     {
+      "smiles": "CC[C@@H](C)Br",
+      "label": "(R)-2-broombutaan"
+     }
+    ],
+    "above": "A: 1. NaH 2. CH3I   B: NaOCH3",
+    "below": "A: THF   B: CH3OH"
+   },
+   "hints": [
+    "Kijk in elke route welk koolstofatoom door het nucleofiel wordt aangevallen.",
+    "In route A wordt het stereocentrum niet aangeraakt. In route B wel.",
+    "Methoxide is een sterke base; een secundair alkylhalide met een sterke base geeft veel E2. CH3I kan niet elimineren."
+   ],
+   "answer_key": "Route A:\n1. H- (NaH) neemt H van O-H; O-H → O. Alkoxide `CC[C@@H](C)[O-]` + H2.\n2. SN2 op CH3I: vrij paar O- → C van CH3I; C-I → I. Product (R)-2-methoxybutaan `CC[C@@H](C)OC`: retentie, want de C2-O-binding blijft. Label blijft R.\nRoute B:\n1. SN2: vrij paar O van CH3O- → C2 achterkant; C2-Br → Br. Product (S)-2-methoxybutaan `CC[C@H](C)OC` (inversie, rangorde OCH3 > C2H5 > CH3 > H gelijk aan Br, dus R → S).\n2. Concurrentie E2: CH3O- neemt een anti-periplanair β-H; producten (E)-but-2-een `C/C=C/C` (hoofd-alkeen), (Z)-but-2-een en but-1-een `C=CCC`. Bij een secundair broomide met een sterke base is E2 vaak de hoofdreactie.\n(b) Route A: hoge opbrengst, alleen SN2 op een methylhalide (geen β-H, geen E2), en het (R)-enantiomeer. Route B: lagere opbrengst door E2 en geeft het andere enantiomeer (S). De twee routes leveren dus enantiomeren.\n(c) KOtBu + CH3I: tBuO- (vrij paar O) → C van CH3I, SN2 op methyl, product `COC(C)(C)C`. Omgekeerd (NaOCH3 + tBuBr): SN2 op tertiair C is onmogelijk; CH3O- werkt als base → E2 → 2-methylpropeen `C=C(C)C`.\nBeoordeling: retentie in A, inversie in B, A en B enantiomeren, E2 als bijreactie in B, juiste keuze in (c). Typische fouten: in A ook inversie tekenen; denken dat beide routes hetzelfde product geven.",
+   "in_course": true
+  },
+  {
+   "title": "B.16 Zuurgekatalyseerde ringsluiting van een 1,4-diol (SN1)",
+   "topic": "Les 18 · ethervorming via OH2+ (SN1)",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 18 en Oefencasus Lavendel",
+   "question": "(S)-2-Methylhexaan-2,5-diol wordt verwarmd met een katalytische hoeveelheid H2SO4. Er ontstaat een cyclische ether C7H14O. (a) Welke van de twee OH-groepen wordt (effectief) geprotoneerd en vertrekt? Motiveer. (b) Teken het mechanisme met gebogen pijlen, alle tussenproducten met ladingen, en het product met wig/streepjeswig en R/S. (c) Welke stereochemie zou je krijgen als in plaats daarvan de secundaire OH vertrekt en de tertiaire OH via SN2 aanvalt? Waarom is dat hier niet de hoofdroute? (d) Laat zien dat de E1-alkenen die als bijproduct ontstaan onder deze omstandigheden ook naar dezelfde ether kunnen leiden.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)(O)CC[C@H](C)O",
+      "label": "(S)-2-methylhexaan-2,5-diol"
+     }
+    ],
+    "above": "H2SO4 (kat.)",
+    "below": "Δ"
+   },
+   "hints": [
+    "Beide OH-groepen kunnen geprotoneerd worden, maar vertrek van water levert alleen bij één ervan een stabiel kation.",
+    "Na vertrek van water valt het andere O-atoom intramoleculair aan: tel de ringgrootte.",
+    "Het stereocentrum C5 houdt zijn C-O-binding in de route via het tertiaire kation."
+   ],
+   "answer_key": "(a) De tertiaire OH op C2: na protonering en vertrek van water ontstaat een tertiair kation (SN1). Vertrek van water op C5 zou een secundair kation geven (veel trager).\n(b)\n1. Vrij paar O2 → H van H3O+/H2SO4. Tussenproduct `CC(C)([OH2+])CC[C@H](C)O`.\n2. C2-O-binding → O; water vertrekt. Tertiair kation `C[C+](C)CC[C@H](C)O`.\n3. Vrij paar van O5 → C2 (intramoleculair, vijfring: O5, C2, C3, C4, C5). Tussenproduct cyclisch oxoniumion `CC1(C)CC[C@H](C)[OH+]1` (+1 op O).\n4. H2O (vrij paar) neemt H van O+; O-H → O. Product (S)-2,2,5-trimethyloxolaan `CC1(C)CC[C@H](C)O1`, katalysator teruggevormd.\nStereo: C5 behoudt zijn C-O-binding (retentie); rangorde O > C4 > CH3 > H blijft, dus S. C2 is geen stereocentrum (twee methylgroepen).\n(c) Protonering van O5 en SN2-aanval van O2 op C5 zou inversie op C5 geven: (R)-2,2,5-trimethyloxolaan. Dat is hier ondergeschikt omdat de tertiaire OH een slecht (sterisch gehinderd) nucleofiel is en de SN1-ionisatie op C2 veel sneller verloopt. Waarom de retentie eenduidig is: in de SN1-route wordt geen enkele binding aan C5 verbroken of gevormd (O5 blijft aan C5 vastzitten en valt alleen met zijn vrije paar aan). Ook als het product onder de zure omstandigheden weer geprotoneerd wordt, opent de ring alleen naar het tertiaire kation op C2, nooit op C5 (dat zou een secundair kation vragen); C5 kan dus niet racemiseren.\n(d) E1 uit het tertiaire kation geeft (S)-5-methylhex-4-een-2-ol `CC(C)=CC[C@H](C)O` en (S)-5-methylhex-5-een-2-ol `C=C(C)CC[C@H](C)O`. Onder zure omstandigheden worden deze volgens Markovnikov opnieuw geprotoneerd tot hetzelfde tertiaire kation, dat ringsluit tot dezelfde ether. De ether is het thermodynamisch gunstige eindpunt.\nBeoordeling: tertiaire OH vertrekt, kation, intramoleculaire aanval, deprotonering, (S) met retentie. Typische fouten: OH- laten vertrekken; deprotoneringsstap vergeten; inversie op C5 tekenen; zesring tellen.",
+   "in_course": true
+  }
+ ]
+}

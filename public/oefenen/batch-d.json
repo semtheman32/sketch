@@ -1,0 +1,287 @@
+{
+ "title": "Extra opgaven D",
+ "exercises": [
+  {
+   "title": "D.01 PhMgBr op (R)-3-methylcyclohexanon: diastereomeren",
+   "topic": "Les 15 · Grignard op een keton met bestaand stereocentrum",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 15",
+   "question": "(R)-3-Methylcyclohexanon reageert met fenylmagnesiumbromide in droge ether; daarna wordt aangezuurd. Teken het volledige mechanisme met gebogen pijlen, vrije elektronenparen en ladingen. Teken alle stereo-isomere producten met wiggen en streepjeswiggen, geef van elk stereocentrum R of S, en leg uit of je een racemaat, één stof of een mengsel van diastereomeren krijgt. Geef ook aan of OH cis of trans staat ten opzichte van CH3.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@@H]1CCCC(=O)C1",
+      "label": "(R)-3-methylcyclohexanon"
+     },
+     {
+      "smiles": "Br[Mg]c1ccccc1",
+      "label": "fenylmagnesiumbromide"
+     }
+    ],
+    "above": "1) droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Het C-atoom van de C=O is vlak (sp2). Van welke twee kanten kan het fenyl-anion aanvallen?",
+    "Raakt de reactie het C-atoom met CH3 aan? Wat gebeurt er dus met de R-configuratie daar?",
+    "Twee aanvalskanten geven twee producten die in één stereocentrum verschillen en in het andere gelijk zijn: zijn dat enantiomeren of diastereomeren?"
+   ],
+   "answer_key": "Polarisatie: C(delta-)–Mg(delta+); het fenyl-C gedraagt zich als carbanion (nucleofiel), het carbonyl-C is delta+.\nStap 1 (nucleofiele additie): pijl van de C–Mg-binding naar het carbonyl-C (C1); pijl van de pi-binding C=O naar het O-atoom. Tussenproduct: magnesiumalkoxide C[C@@H]1CCCC([O-])(c2ccccc2)C1 met +MgBr (O draagt drie vrije paren en een min-lading).\nStap 2 (aanzuren): pijl van een vrij paar van O- naar een H van H3O+; pijl van die O–H-binding naar het O van H3O+ (water ontstaat).\nProducten: twee diastereomeren van 3-methyl-1-fenylcyclohexan-1-ol:\n(a) C[C@@H]1CCC[C@](O)(c2ccccc2)C1 = (1R,3R): CH3 op wig, OH op streepjeswig, dus OH trans t.o.v. CH3 (fenyl cis).\n(b) C[C@@H]1CCC[C@@](O)(c2ccccc2)C1 = (1S,3R): CH3 en OH beide op wig, dus OH cis t.o.v. CH3.\nStereo-argument: C1 is sp2 en vlak; PhMgBr kan van boven en van onder aanvallen, zodat C1 een nieuw stereocentrum wordt in beide configuraties. C3 doet niet mee (geen binding verbroken) en blijft R (CIP nagerekend: R in beide producten). De producten verschillen alleen in C1 en zijn dus diastereomeren, geen enantiomeren. Omdat de beginstof chiraal is, zijn de twee kanten van de C=O niet gelijkwaardig (diastereotoop): de twee producten ontstaan niet 1:1 en hebben andere fysische eigenschappen (scheidbaar). Welke de overmaat is, hoeft niet voorspeld te worden.\nAlternatieven die goed zijn: MgBr+ bij het alkoxide weglaten of als O–MgBr tekenen; aanzuren met H3O+ of NH4+.\nBeoordeling: pijl vanaf de C–Mg-binding (niet vanaf Mg of Br); C=O-pi naar O; min-lading op O; aanzuurstap getekend; twee producten met C3 = R in beide; het woord diastereomeren. Typische fouten: 'racemaat' noemen (dan zou C3 ook omklappen), C3 als S tekenen, maar één product geven, of de configuratie van C3 laten verdwijnen.",
+   "in_course": true
+  },
+  {
+   "title": "D.02 1-Fenyl-1-propanol: twee Grignardroutes en een racemaat",
+   "topic": "Les 15 · retrosynthese met Grignard",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 15 (retrosynthese met Grignard)",
+   "question": "Je wilt 1-fenylpropan-1-ol maken met een Grignardreactie. a) Teken het mechanisme van de getekende combinatie (ethylmagnesiumbromide + benzaldehyde), inclusief aanzuren. b) Geef een tweede combinatie van Grignardreagens en carbonylverbinding die hetzelfde alcohol geeft. c) Teken beide enantiomeren van het product met wig/streepjeswig, geef R/S, en leg uit in welke verhouding ze ontstaan en of het productmengsel optisch actief is.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "O=Cc1ccccc1",
+      "label": "benzaldehyde"
+     },
+     {
+      "smiles": "CC[Mg]Br",
+      "label": "ethylmagnesiumbromide"
+     }
+    ],
+    "above": "1) droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Knip in gedachten de binding tussen het C-atoom met OH en één van zijn C-buren door: het ene stuk wordt R–MgBr, het andere de C=O.",
+    "Een secundair alcohol komt uit een aldehyde.",
+    "Het aldehyde-C is vlak en de beginstoffen zijn niet chiraal: zijn beide aanvalskanten even waarschijnlijk?"
+   ],
+   "answer_key": "a) Stap 1: pijl van de C–Mg-binding van CH3CH2MgBr naar het carbonyl-C van benzaldehyde; pijl van de C=O-pi-binding naar O. Alkoxide CC[C@H]([O-])c1ccccc1 / CC[C@@H]([O-])c1ccccc1 (beide, met +MgBr).\nStap 2: vrij paar van O- naar H van H3O+; O–H-binding naar O van water. Product 1-fenylpropan-1-ol.\nb) Fenylmagnesiumbromide (Br[Mg]c1ccccc1) + propanal (CCC=O). Andere Grignard + carbonyl-combinaties zijn er niet; een ester kan niet, want die geeft twee gelijke nieuwe groepen op het carbinol-C.\nc) (S)-1-fenylpropan-1-ol CC[C@H](O)c1ccccc1 en (R)-1-fenylpropan-1-ol CC[C@@H](O)c1ccccc1 (CIP nagerekend: OH > fenyl > ethyl > H). Ze ontstaan 1:1 (racemaat): het vlakke aldehyde-C wordt van boven en van onder even vaak aangevallen, omdat er geen chiraal centrum, oplosmiddel of katalysator is. Het racemaat is optisch inactief: de draaiingen heffen elkaar op.\nBeoordeling: juiste pijlrichting (vanaf C–Mg), min-lading op O, aanzuurstap, de tweede route PhMgBr + propanal, beide enantiomeren als spiegelbeeld met juiste R/S, het woord racemaat en de 1:1-reden. Typische fouten: 'optisch actief' of één enantiomeer tekenen; PhMgBr + propanon noemen (geeft een tertiair alcohol).",
+   "in_course": true
+  },
+  {
+   "title": "D.04 Chirale ester plus 2 MeMgBr: blijft het stereocentrum?",
+   "topic": "Les 15 · Grignard op esters, retentie",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 15 (dia 12)",
+   "question": "Ethyl-(S)-2-methylbutanoaat reageert met twee equivalenten methylmagnesiumbromide; daarna wordt aangezuurd. Teken het volledige mechanisme met alle tussenproducten. Teken het product met wig of streepjeswig, geef de R/S-aanduiding en beargumenteer hoeveel stereo-isomeren er ontstaan. Verandert de CIP-letter?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC[C@H](C)C(=O)OCC",
+      "label": "ethyl-(S)-2-methylbutanoaat"
+     },
+     {
+      "smiles": "C[Mg]Br",
+      "label": "methylmagnesiumbromide (2 eq)"
+     }
+    ],
+    "above": "1) 2 eq CH3MgBr, droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Ester + Grignard: additie, eliminatie van ethoxide, dan een tweede additie aan het keton.",
+    "Welke bindingen worden er gemaakt en verbroken? Zit één daarvan aan het stereocentrum?",
+    "Het nieuwe carbinol-C draagt twee CH3-groepen: is dat een stereocentrum?"
+   ],
+   "answer_key": "Stap 1: pijl van C–Mg (CH3MgBr) naar het carbonyl-C; C=O-pi naar O. Tetraëdrisch alkoxide CC[C@H](C)C(C)([O-])OCC.\nStap 2: vrij paar O- terug naar C (C=O); C–OEt-binding naar O: ethoxide vertrekt (EtO- MgBr+). Keton (S)-3-methylpentan-2-on CC[C@H](C)C(C)=O.\nStap 3: tweede CH3MgBr: C–Mg naar keton-C; C=O-pi naar O. Alkoxide CC[C@H](C)C(C)(C)[O-].\nStap 4: aanzuren: O- pakt H van H3O+ (ook EtO- wordt ethanol). Product (S)-2,3-dimethylpentan-2-ol CC[C@H](C)C(C)(C)O.\nStereo: alle gemaakte en verbroken bindingen zitten aan het carbonyl-C, niet aan C3 (het oude C2 van de ester); dat stereocentrum houdt zijn ruimtelijke bouw (retentie). Het carbinol-C draagt twee CH3-groepen en is dus geen stereocentrum. Er ontstaat één stereo-isomeer, enantiozuiver. CIP (nagerekend): in de ester C(=O)OEt > ethyl > methyl > H = S; in het product C(OH)(CH3)2 > ethyl > methyl > H = S. De letter blijft S, omdat de groep met O de hoogste prioriteit houdt.\nNoot: in de praktijk kan een Grignard een klein deel van het keton-tussenproduct via een enolaat racemiseren; op tentamenniveau geldt retentie.\nBeoordeling: twee addities plus eliminatie van ethoxide, ketontussenproduct met S, eindproduct S met correcte wig, 'één stereo-isomeer' met het argument dat het carbinol-C twee gelijke groepen heeft. Typische fouten: twee diastereomeren noemen, racemaat noemen, of het stereocentrum omklappen.",
+   "in_course": true
+  },
+  {
+   "title": "D.05 Van broomcyclopentaan naar een methylester (CO2 + Fischer)",
+   "topic": "Les 15 · Grignard op CO2 en Fischer-verestering",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 15 en VD4",
+   "question": "Broomcyclopentaan wordt omgezet in methylcyclopentaancarboxylaat via de getoonde reeks. a) Teken het mechanisme van de reactie van het Grignardreagens met CO2 en van het aanzuren. b) Teken het volledige mechanisme van de zuur-gekatalyseerde verestering met methanol (alle protoneringen en deprotoneringen, evenwichtspijlen). c) Waarom gebruik je een grote overmaat droogijs, en waarom moet er vóór stap 4 aangezuurd worden? d) Hoe schuif je het evenwicht van stap 4 naar rechts?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "BrC1CCCC1",
+      "label": "broomcyclopentaan"
+     }
+    ],
+    "above": "1) Mg, droge ether  2) CO2 (droogijs)  3) H3O+",
+    "below": "4) CH3OH (overmaat), H2SO4 (kat.), reflux",
+    "product": [
+     {
+      "smiles": "COC(=O)C1CCCC1",
+      "label": "methylcyclopentaancarboxylaat"
+     }
+    ]
+   },
+   "hints": [
+    "CO2 is een elektrofiel: het C-atoom zit tussen twee O-atomen. Het Grignard-C valt dat C aan.",
+    "Na stap 2 heb je een carboxylaat (RCOO- +MgBr). Kan dat anion verestert worden?",
+    "Fischer: protoneer de C=O, laat methanol aanvallen, verplaats een proton, laat water vertrekken, deprotoneer."
+   ],
+   "answer_key": "Stap 1 (reagens): C5H9Br + Mg -> cyclopentylmagnesiumbromide Br[Mg]C1CCCC1 (geen pijlen vereist).\na) Stap 2: pijl van de C–Mg-binding naar het C van O=C=O (O=C=O); pijl van één C=O-pi-binding naar dat O. Carboxylaat O=C([O-])C1CCCC1 (+MgBr).\nStap 3: vrij paar van O- naar H van H3O+; O–H-binding naar O. Cyclopentaancarbonzuur OC(=O)C1CCCC1.\nb) Fischer (alle stappen evenwicht):\n4a: vrij paar van het carbonyl-O naar H+ (H2SO4/CH3OH2+): OC(=[OH+])C1CCCC1 (resonantie: positieve lading ook op het carbonyl-C).\n4b: vrij paar van het O van CH3OH naar het carbonyl-C; C=O-pi (C=OH+) naar O. Tetraëdrisch oxoniumion C[OH+]C(O)(O)C1CCCC1.\n4c: protonoverdracht: CH3O+–H wordt gedeprotoneerd en een OH wordt geprotoneerd (via oplosmiddel mag): COC(O)([OH2+])C1CCCC1.\n4d: vrij paar van de resterende OH naar C (nieuwe C=O+H); C–OH2+-binding naar O: water vertrekt. COC(=[OH+])C1CCCC1.\n4e: base (CH3OH of HSO4-) haalt H van C=O+H; O–H-binding naar O. Ester COC(=O)C1CCCC1 + H+ terug.\nc) Overmaat CO2: zodat elk RMgBr een CO2 vindt en niet een carboxylaat of keton aanvalt (zijreactie) en het droogijs koelt; droogijs moet vers zijn (geen ijs/water erop, dat protoneert RMgBr tot cyclopentaan). Aanzuren vóór stap 4: het carboxylaat is negatief en het carbonyl-C is daardoor niet elektrofiel; bovendien moet Mg-zout weg. Pas het vrije zuur kan geprotoneerd worden en verestert.\nd) Overmaat methanol en/of water verwijderen (Le Chatelier).\nBeoordeling: pijl vanaf C–Mg naar het C van CO2; carboxylaat met lading; aanzuren; Fischer met vijf deelstappen, juiste ladingen, water vertrekt als H2O (niet als OH-), H+ als katalysator terug. Typische fouten: methanol valt het geprotoneerde O aan; OH- als vertrekkende groep; geen evenwichtspijlen; CO2 laten aanvallen door Mg.",
+   "in_course": true
+  },
+  {
+   "title": "D.06 trans-2,3-Dimethyloxiraan plus EtMgBr (en de meso-variant)",
+   "topic": "Les 15 · Grignard op epoxides, inversie",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 11 en les 15",
+   "question": "(2R,3R)-2,3-Dimethyloxiraan reageert met ethylmagnesiumbromide; daarna wordt aangezuurd. a) Teken het mechanisme. b) Teken het product met wiggen en geef van elk stereocentrum R/S. Maakt het uit welk C-atoom van de ring wordt aangevallen? c) Wat krijg je als je in plaats daarvan het meso-epoxide (cis-2,3-dimethyloxiraan, (2R,3S)) gebruikt? Teken alle producten met R/S en benoem de relatie tussen de producten.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C[C@@H]1[C@@H](C)O1",
+      "label": "(2R,3R)-2,3-dimethyloxiraan"
+     },
+     {
+      "smiles": "CC[Mg]Br",
+      "label": "ethylmagnesiumbromide"
+     }
+    ],
+    "above": "1) droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "De aanval is een SN2 op een ring-C: achterkantsaanval, het O vertrekt aan de andere kant.",
+    "Het aangevallen C keert om (inversie), het andere C houdt zijn bindingen (retentie). Let op: de CIP-letter kan toch gelijk blijven, omdat O wordt vervangen door een ethylgroep.",
+    "In het trans-epoxide zijn beide ring-C's gelijkwaardig (C2-symmetrie). In het meso-epoxide zijn ze elkaars spiegelbeeld."
+   ],
+   "answer_key": "a) Stap 1 (SN2): pijl van de C–Mg-binding van EtMgBr naar een ring-C (bijvoorbeeld C3), van de kant tegenover O; pijl van de C3–O-binding naar O. Alkoxide C[C@H](CC)[C@@H](C)[O-] (+MgBr).\nStap 2: vrij paar O- naar H van H3O+; O–H-binding naar O.\nb) Product (2R,3R)-3-methylpentan-2-ol C[C@H](CC)[C@@H](C)O (canoniek CC[C@@H](C)[C@@H](C)O; CIP nagerekend: C2 = R, C3 = R). Op C3 is inversie opgetreden (Et komt binnen tegenover het vertrekkende O); de letter blijft R omdat de prioriteiten veranderen (O was hoogste, nu is CH(OH)CH3 de hoogste). C2 houdt zijn ruimtelijke bouw en blijft R. Aanval op het andere ring-C geeft door de C2-symmetrie exact hetzelfde molecuul (nagerekend: C[C@@H](O)[C@H](C)CC is dezelfde stof). Eén stereo-isomeer, enantiozuiver.\nc) Meso-epoxide C[C@@H]1[C@H](C)O1: beide ring-C's zijn even gehinderd en elkaars spiegelbeeld. Aanval op het ene C geeft C[C@H](CC)[C@H](C)O = (2S,3R)-3-methylpentan-2-ol; aanval op het andere C geeft C[C@@H](O)[C@@H](C)CC = (2R,3S)-3-methylpentan-2-ol. Deze zijn enantiomeren en ontstaan 1:1: een racemaat van één diastereomeer. Ten opzichte van het product uit b) zijn ze diastereomeren.\nBeoordeling: SN2-pijlen (vanaf C–Mg, C–O naar O), inversie op het aangevallen C, retentie op het andere, juiste R/S (inclusief 'letter blijft R ondanks inversie'), C2-symmetrie-argument, racemaat bij meso-epoxide. Typische fouten: retentie op het aangevallen C, R/S afleiden uit 'inversie = letter wisselt', vier stereo-isomeren noemen, of bij c) een meso-product claimen.",
+   "in_course": true
+  },
+  {
+   "title": "D.07 Cyclohexeenoxide plus methyllithium: trans en racemisch",
+   "topic": "Les 15 · organolithium op een epoxide",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 11 en les 15",
+   "question": "Cyclohexeenoxide (7-oxabicyclo[4.1.0]heptaan) reageert met methyllithium in droge ether; daarna wordt aangezuurd. Teken het mechanisme. Teken het product met wiggen, geef aan of CH3 en OH cis of trans staan, geef R/S en leg uit of het product optisch actief is.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "C1CC[C@H]2O[C@H]2C1",
+      "label": "cyclohexeenoxide"
+     },
+     {
+      "smiles": "C[Li]",
+      "label": "methyllithium"
+     }
+    ],
+    "above": "1) droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "CH3- valt een ring-C aan van de kant tegenover het epoxide-O (SN2).",
+    "Staat de nieuwe CH3 aan dezelfde kant van de ring als de OH, of aan de andere kant?",
+    "Het epoxide is meso: de twee ring-C's zijn elkaars spiegelbeeld."
+   ],
+   "answer_key": "Stap 1 (SN2): pijl van de C–Li-binding naar een van de twee epoxide-C's, van de onderkant als O boven zit; pijl van de C–O-binding naar O. Lithiumalkoxide C[C@@H]1CCCC[C@H]1[O-] (+Li) en zijn spiegelbeeld.\nStap 2: vrij paar O- naar H van H3O+; O–H-binding naar O.\nProduct: trans-2-methylcyclohexan-1-ol. Aanval op het ene C geeft (1R,2R) C[C@@H]1CCCC[C@H]1O (CH3 op wig, OH op streepjeswig = trans, nagerekend met _wedge); aanval op het andere C geeft (1S,2S) C[C@H]1CCCC[C@@H]1O. Het nucleofiel komt binnen tegenover O, dus CH3 en OH komen aan tegenovergestelde kanten van de ring (anti-opening, trans).\nOptische activiteit: het epoxide is meso (achiraal); de twee C's zijn even gehinderd en worden even vaak aangevallen. De producten zijn enantiomeren in 1:1: racemaat, optisch inactief.\nBeoordeling: SN2-pijlen, trans-product met juiste wig/streep, beide enantiomeren of het woord racemaat, R/S (1R,2R)/(1S,2S). Typische fouten: cis-product, (1R,2S) noemen (dat is cis), één enantiomeer als enige product, of een carbokation tekenen.",
+   "in_course": true
+  },
+  {
+   "title": "D.08 PhMgBr en een zure H: 4-hydroxybenzaldehyde",
+   "topic": "Les 15 · zure H's vernietigen het Grignardreagens",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 15 (oefencasus vraag 13)",
+   "question": "4-Hydroxybenzaldehyde wordt behandeld met fenylmagnesiumbromide in droge ether, daarna wordt aangezuurd. a) Een student gebruikt 1 equivalent PhMgBr. Teken het mechanisme van wat er gebeurt en geef wat hij na het aanzuren terugvindt. b) Met 2 equivalenten ontstaat wel een nieuw alcohol. Teken het mechanisme en het product; teken beide enantiomeren met wig/streepjeswig en R/S, en zeg in welke verhouding ze ontstaan. c) Teken het mechanisme van PhMgBr met water en leg uit waarom de ether droog moet zijn.",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "O=Cc1ccc(O)cc1",
+      "label": "4-hydroxybenzaldehyde"
+     },
+     {
+      "smiles": "Br[Mg]c1ccccc1",
+      "label": "fenylmagnesiumbromide"
+     }
+    ],
+    "above": "1) PhMgBr, droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Een Grignardreagens is ook een zeer sterke base (het geconjugeerde zuur, benzeen, heeft pKa ongeveer 43). Welke H in de beginstof is zuur?",
+    "Een zuur-basereactie (protonoverdracht) is veel sneller dan een C–C-additie aan de C=O.",
+    "Het eerste equivalent gaat 'verloren' als benzeen. Het tweede doet de additie."
+   ],
+   "answer_key": "a) Zuur-base (snel): pijl van de C–Mg-binding naar de H van de fenol-OH; pijl van de O–H-binding naar O. Producten: benzeen (c1ccccc1) en magnesiumfenolaat O=Cc1ccc([O-])cc1 (+MgBr). Het reagens is op. Na aanzuren (vrij paar O- naar H van H3O+) vindt de student 4-hydroxybenzaldehyde terug plus benzeen; geen nieuw alcohol.\nb) Eerste eq: als a). Tweede eq: pijl van C–Mg naar het aldehyde-C; C=O-pi naar O. Dialkoxide [O-]C(c1ccccc1)c1ccc([O-])cc1. Aanzuren: beide O- pakken een H+. Product (4-hydroxyfenyl)fenylmethanol: (R) O[C@H](c1ccccc1)c1ccc(O)cc1 en (S) O[C@@H](c1ccccc1)c1ccc(O)cc1 (CIP nagerekend). Het aldehyde-C is vlak, de beginstof achiraal: aanval van beide kanten even vaak, dus racemaat 1:1.\nc) PhMgBr + H2O: pijl van de C–Mg-binding naar een H van water; pijl van de O–H-binding naar O. Producten benzeen + HO- (+MgBr). Water (pKa ongeveer 16) is veel zuurder dan benzeen (pKa ongeveer 43), dus het evenwicht ligt volledig rechts: het carbanion wordt geprotoneerd en is niet meer nucleofiel. Hetzelfde gebeurt met alcoholen, carbonzuren en andere O–H of N–H. Daarom droge ether, gedroogd glaswerk en N2.\nBeoordeling: de zuur-basereactie vóór de additie; benzeen als product; bij a) beginstof terug; bij b) twee equivalenten met dialkoxide en racemaat; bij c) pijl vanaf C–Mg naar H (niet vanaf O naar Mg als hoofdpijl). Typische fouten: bij 1 eq toch het alcohol tekenen; denken dat de C=O eerst reageert; pijl van H naar C tekenen; vergeten dat het fenolaat na aanzuren weer fenol wordt.",
+   "in_course": true
+  },
+  {
+   "title": "D.09 EtMgBr op (R)-2-isopropyl-2-methyloxiraan: retentie, toch een andere letter",
+   "topic": "Les 15 · Grignard op epoxide, retentie en CIP-prioriteiten",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 15 (oefencasus vraag 12) en les 17 (vraag 8)",
+   "question": "(R)-2-Isopropyl-2-methyloxiraan reageert met ethylmagnesiumbromide in droge ether; daarna wordt aangezuurd. a) Teken het mechanisme met gebogen pijlen, vrije elektronenparen en ladingen. Welk C-atoom van het epoxide wordt aangevallen en waarom? b) Teken het product met wig/streepjeswig en geef R/S van het carbinol-C. Is er inversie of retentie, en verandert de CIP-letter? Reken het na. c) Waarom ontstaat hier geen racemaat, terwijl linalool uit methylvinylketon en een organolithium (casus vraag 8) wel racemisch is? d) Wat zou je krijgen als je het racemische epoxide gebruikt?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(C)[C@]1(C)CO1",
+      "label": "(R)-2-isopropyl-2-methyloxiraan"
+     },
+     {
+      "smiles": "CC[Mg]Br",
+      "label": "ethylmagnesiumbromide"
+     }
+    ],
+    "above": "1) droge ether",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Onder basische/nucleofiele omstandigheden: welk epoxide-C is het minst gehinderd, het CH2 of het quaternaire C?",
+    "Wordt er een binding aan het stereocentrum verbroken of gemaakt? Zo niet, dan blijft de ruimtelijke bouw gelijk.",
+    "Zet de vier groepen op het stereocentrum in het epoxide en in het product op volgorde. Welke twee groepen wisselen van plaats in de rangorde?"
+   ],
+   "answer_key": "a) Stap 1 (SN2): pijl van de C–Mg-binding van CH3CH2MgBr naar het CH2 van het epoxide (minst gehinderd; het andere ring-C is quaternair), van de kant tegenover O; pijl van de CH2–O-binding naar O. Alkoxide CC(C)[C@]([O-])(C)CCC (+MgBr; O met drie vrije paren en min-lading).\nStap 2: vrij paar van O- naar een H van H3O+; O–H-binding naar O van water.\nb) Product (S)-2,3-dimethylhexan-3-ol CC(C)[C@](O)(C)CCC (canoniek CCC[C@](C)(O)C(C)C; CIP nagerekend: C3 = S). Retentie: het aangevallen C is het CH2 (geen stereocentrum); aan C3 wordt geen binding verbroken of gemaakt, de C3–O-binding blijft heel. Wig/streep: zelfde ruimtelijke ligging als in het epoxide; de nieuwe CH2CH2CH3-keten staat waar het ring-CH2 stond. De letter verandert van R naar S door de prioriteiten: in het epoxide O > CH2–O (ring) > isopropyl > CH3; in het product OH > isopropyl > CH2CH2CH3 > CH3. De groep op de plaats van het oude ring-CH2 zakt van 2 naar 3 en isopropyl stijgt van 3 naar 2; omdat CH3 (laagste) op zijn plaats blijft, keert de draairichting om.\nc) De beginstof is enantiozuiver en het stereocentrum wordt niet aangeraakt: er is geen vlak sp2-C dat van twee kanten wordt aangevallen. Bij casus vraag 8 wordt een vlakke C=O van beide kanten even vaak aangevallen: racemaat.\nd) Uit het racemische epoxide ontstaat racemisch 2,3-dimethylhexan-3-ol: elk enantiomeer reageert met retentie, (R)-epoxide geeft (S)-alcohol en (S)-epoxide geeft (R)-alcohol CC(C)[C@@](O)(C)CCC.\nAlternatieven die goed zijn: MgBr+ bij het alkoxide weglaten of als O–MgBr tekenen; aanzuren met NH4+.\nBeoordeling: aanval op het CH2 met SN2-pijlen (vanaf C–Mg, C–O naar O); alkoxide met lading; aanzuren; C3 = S met retentie-argument en de prioriteitswissel; uitleg waarom geen racemaat. Typische fouten: aanval op het quaternaire C; inversie op C3 tekenen; \"retentie, dus blijft R\" zonder te rekenen; de letterwissel toeschrijven aan inversie.",
+   "in_course": true
+  },
+  {
+   "title": "D.13 Linalool met vinylmagnesiumbromide en de retrosynthese",
+   "topic": "Les 15 / 17 · retrosynthese linalool",
+   "difficulty": "hard",
+   "source": "[zelf] op basis van les 15 en oefencasus Lavendel (vraag 8)",
+   "question": "In de industrie wordt linalool gemaakt uit 6-methylhept-5-en-2-on en vinylmagnesiumbromide. a) Teken het mechanisme met aanzuren. b) Teken beide enantiomeren met wig/streepjeswig en R/S. In welke verhouding ontstaan ze? c) Geef de drie mogelijke Grignard/organometaal + keton-combinaties voor linalool (één daarvan is casus vraag 8) en leg uit waarom geen enkele ester + 2 eq Grignard linalool kan geven. d) Waarom reageert alleen de C=O en niet de C=C van het keton met het Grignardreagens?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CC(=O)CCC=C(C)C",
+      "label": "6-methylhept-5-en-2-on"
+     },
+     {
+      "smiles": "C=C[Mg]Br",
+      "label": "vinylmagnesiumbromide"
+     }
+    ],
+    "above": "1) droge THF, N2",
+    "below": "2) H3O+ (verdund, koud)"
+   },
+   "hints": [
+    "Het vinyl-C dat aan Mg zit, is het nucleofiel.",
+    "Linalool heeft op het carbinol-C drie verschillende C-groepen: CH3, vinyl en de 4-methylpent-3-enylketen. Elk kan van het Grignardreagens komen.",
+    "Een ester levert bij 2 eq Grignard twee gelijke groepen op het carbinol-C."
+   ],
+   "answer_key": "a) Stap 1: pijl van de C–Mg-binding van CH2=CH–MgBr naar het carbonyl-C; C=O-pi naar O. Alkoxide CC([O-])(CCC=C(C)C)C=C (+MgBr). Stap 2: vrij paar O- naar H van H3O+; O–H-binding naar O. Linalool CC(C)=CCCC(C)(O)C=C.\nb) (R)-linalool CC(C)=CCC[C@@](C)(O)C=C en (S)-linalool CC(C)=CCC[C@](C)(O)C=C (CIP nagerekend: OH > vinyl > CH2CH2 > CH3). Het keton is vlak en achiraal; aanval van beide kanten even vaak: racemaat 1:1, optisch inactief.\nc) (1) vinylMgBr + 6-methylhept-5-en-2-on (deze reactie); (2) CH3MgBr + 7-methylocta-1,6-dien-3-on C=CC(=O)CCC=C(C)C; (3) 4-methylpent-3-enyllithium of -magnesiumchloride + methylvinylketon C=CC(C)=O (casus vraag 8). Ester: R–CO–OR' + 2 R''MgX geeft R–C(OH)(R'')2 met twee gelijke groepen; linalool heeft drie verschillende groepen op het carbinol-C, dus kan het niet.\nd) De C=O is gepolariseerd (C delta+); de trigesubstitueerde C=C is niet gepolariseerd en juist elektronenrijk, dus geen elektrofiel voor een carbanion.\nNoot: bij route (2) en (3) is het keton een alfa,beta-onverzadigd keton; Grignard/organolithium doet daar vooral 1,2-additie (aan de C=O), zoals in de casus.\nBeoordeling: pijl vanaf C–Mg naar carbonyl-C; alkoxide; aanzuren; racemaat met juiste R/S; drie combinaties; ester-argument (twee gelijke groepen). Typische fouten: (+)-linalool als enige product, aanval op de C=C, ester + 2 vinylMgBr voorstellen.",
+   "in_course": true
+  },
+  {
+   "title": "D.14 Ethylformiaat plus twee lavendel-Grignards",
+   "topic": "Les 15 · Grignard op een formiaatester; is er een stereocentrum?",
+   "difficulty": "medium",
+   "source": "[zelf] op basis van les 15 en oefencasus Lavendel (vraag 8)",
+   "question": "Uit 1-chloor-4-methyl-3-penteen en Mg wordt in droge ether onder N2 het Grignardreagens gemaakt. Twee equivalenten daarvan reageren met ethylformiaat; daarna wordt aangezuurd. a) Teken het volledige mechanisme met alle tussenproducten. b) Geef het product en de naam. Welk soort alcohol is het? c) Heeft het product een stereocentrum? Ontstaan er E/Z-isomeren? d) Waarom werk je onder N2 en in droge ether?",
+   "setup": {
+    "reactants": [
+     {
+      "smiles": "CCOC=O",
+      "label": "ethylformiaat (ethylmethanoaat)"
+     },
+     {
+      "smiles": "CC(C)=CCC[Mg]Cl",
+      "label": "4-methylpent-3-enylmagnesiumchloride (2 eq)"
+     }
+    ],
+    "above": "1) 2 eq RMgCl, droge ether, N2",
+    "below": "2) H3O+"
+   },
+   "hints": [
+    "Welke groepen zitten er op het carbonyl-C van een formiaatester? Wat houd je over na de eerste additie en het vertrek van ethoxide?",
+    "Het aldehyde reageert met het tweede equivalent: welk soort alcohol geeft een aldehyde?",
+    "Kijk naar de vier groepen op het carbinol-C: zijn er twee gelijk?"
+   ],
+   "answer_key": "a) Stap 1: pijl van de C–Mg-binding naar het carbonyl-C van HCOOEt; C=O-pi naar O. Tetraëdrisch alkoxide CC(C)=CCCC(OCC)[O-].\nStap 2: vrij paar O- terug naar C (C=O); C–OEt-binding naar O: ethoxide vertrekt. Aldehyde 5-methylhex-4-enal CC(C)=CCCC=O.\nStap 3: tweede RMgCl: C–Mg naar aldehyde-C; C=O-pi naar O. Alkoxide CC(C)=CCCC([O-])CCC=C(C)C.\nStap 4: aanzuren: O- pakt H van H3O+ (ook ethoxide wordt ethanol).\nb) 2,10-Dimethylundeca-2,9-dien-6-ol CC(C)=CCCC(O)CCC=C(C)C, een secundair alcohol (formiaat + 2 RMgX geeft altijd R2CHOH).\nc) Geen stereocentrum: C6 draagt H, OH en twee identieke 4-methylpent-3-enylgroepen. Geen E/Z: elke C=C heeft aan één kant twee CH3-groepen. Eén product, achiraal; geen wiggen nodig.\nd) Water en O2 (en CO2) uit de lucht reageren met RMgCl: water protoneert het carbanion (pijl van C–Mg naar H van H2O, geeft 2-methylpent-2-een CC(C)=CCC), O2 en CO2 vormen bijproducten. N2 en droge ether houden die weg; ether stabiliseert bovendien het Mg via de vrije paren van O.\nBeoordeling: aldehyde als tussenproduct, tweede additie, secundair alcohol, 'geen stereocentrum' met het argument van twee gelijke groepen, geen E/Z. Typische fouten: tertiair alcohol tekenen (H vergeten), een stereocentrum aanwijzen, racemaat noemen.",
+   "in_course": true
+  }
+ ]
+}
