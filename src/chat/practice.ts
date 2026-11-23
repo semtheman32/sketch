@@ -72,6 +72,8 @@ interface PracticeState {
   /** Exercise ids in the order they were opened, like browser history; historyPos is where Back/Next stand. */
   history: string[]
   historyPos: number
+  /** Ids of the exercise sets shipped with the app (public/oefenen) that were already added, so a set comes in once. */
+  importedSets?: string[]
 }
 
 const STORAGE_KEY = 'sketch-practice'
@@ -169,6 +171,39 @@ export function toExercise(raw: any, source?: string): Exercise {
     inCourse: typeof raw.in_course === 'boolean' ? raw.in_course : typeof raw.inCourse === 'boolean' ? raw.inCourse : undefined,
   }
 }
+
+/**
+ * Exercise sets shipped with the app in public/oefenen (index.json lists them), so they are there on every
+ * computer that runs Sketch, not only in the browser where they were made. Each set is added once; an exercise
+ * whose question is already in the list (e.g. added earlier through the bridge) is skipped, and one you delete
+ * stays deleted.
+ */
+export async function loadBundledSets() {
+  const base = `${import.meta.env.BASE_URL}oefenen/`
+  try {
+    const res = await fetch(base + 'index.json')
+    if (!res.ok) return
+    const sets: { id: string; title?: string; file: string }[] = await res.json()
+    const done = new Set(state.importedSets ?? [])
+    const known = new Set(state.exercises.map(e => e.question))
+    const added: Exercise[] = []
+    for (const s of sets) {
+      if (!s?.id || !s.file || done.has(s.id)) continue
+      const r = await fetch(base + s.file)
+      if (!r.ok) continue
+      const data = await r.json()
+      const raw: any[] = Array.isArray(data) ? data : data.exercises ?? []
+      raw.forEach((x, i) => {
+        const ex = { ...toExercise(x, s.title ?? data.title), id: `${s.id}-${i + 1}` }
+        if (!known.has(ex.question) && !state.exercises.some(e => e.id === ex.id)) { added.push(ex); known.add(ex.question) }
+      })
+      done.add(s.id)
+    }
+    if (done.size !== (state.importedSets ?? []).length || added.length)
+      set({ exercises: [...state.exercises, ...added], importedSets: [...done] })
+  } catch { /* offline or no sets: nothing to add */ }
+}
+void loadBundledSets()
 
 /** Add exercises to the list. Returns their ids. With `open`, opens the first new one. */
 export async function addExercises(list: Exercise[], { replace = false, open = true } = {}) {
