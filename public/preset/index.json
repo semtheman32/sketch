@@ -1,0 +1,246 @@
+[
+ {
+  "title": "Les 1 · Additiereacties (1)",
+  "color": "#2563eb",
+  "items": [
+   {
+    "t": "1.1 · Werkcollege les 1, opgave 1",
+    "q": "Geef het mechanisme van de reactie van cyclohexeen met HCl.",
+    "file": "items/01.chem.json"
+   },
+   {
+    "t": "1.2 · Werkcollege les 1, opgave 8a",
+    "q": "Teken de gebogen pijlen. Geef aan wat het elektrofiel en wat het nucleofiel is.",
+    "file": "items/02.chem.json"
+   },
+   {
+    "t": "1.3 · Werkcollege les 1, opgave 8b",
+    "q": "Teken de gebogen pijlen. Geef aan wat het elektrofiel en wat het nucleofiel is.",
+    "file": "items/03.chem.json"
+   },
+   {
+    "t": "1.4 · Werkcollege les 1, opgave 8c",
+    "q": "Teken de gebogen pijlen. Geef aan wat het elektrofiel en wat het nucleofiel is.",
+    "file": "items/04.chem.json"
+   },
+   {
+    "t": "1.5 · Werkcollege les 1, opgave 9a",
+    "q": "Teken de gebogen pijlen.",
+    "file": "items/05.chem.json"
+   },
+   {
+    "t": "1.6 · Werkcollege les 1, opgave 9b",
+    "q": "Teken de gebogen pijlen.",
+    "file": "items/06.chem.json"
+   },
+   {
+    "t": "1.7 · Werkcollege les 1, opgave 9c",
+    "q": "Teken de gebogen pijlen.",
+    "file": "items/07.chem.json"
+   }
+  ]
+ },
+ {
+  "title": "Les 3 · Kinetiek",
+  "color": "#7c3aed",
+  "items": [
+   {
+    "t": "3.1 · Werkcollege les 3, Wade 4-11",
+    "q": "Geef het mechanisme van de reactie van tert-butylchloride in methanol.",
+    "file": "items/08.chem.json"
+   },
+   {
+    "t": "3.2 · Werkcollege les 3, Wade 4-34",
+    "q": "Geef het mechanisme van de reactie van 1-broompropaan met methoxide.",
+    "file": "items/09.chem.json"
+   },
+   {
+    "t": "3.3 · Werkcollege les 3, Wade 7-60a",
+    "q": "Geef het mechanisme met natriummethoxide en teken het energiediagram.",
+    "file": "items/10.chem.json"
+   },
+   {
+    "t": "3.4 · Werkcollege les 3, Wade 7-60b",
+    "q": "Geef het mechanisme bij verwarmen in methanol (zonder sterke base) en teken het energiediagram.",
+    "file": "items/11.chem.json"
+   }
+  ]
+ },
+ {
+  "title": "Les 4 · Reactiesturing substitutie-eliminatie",
+  "color": "#0891b2",
+  "items": [
+   {
+    "t": "4.1 · Werkcollege les 4, Wade 7-17a",
+    "q": "Geef het mechanisme van de solvolyse in methanol.",
+    "file": "items/12.chem.json"
+   },
+   {
+    "t": "4.2 · Werkcollege les 4, Wade 7-49b",
+    "q": "Geef het mechanisme van de zuurgekatalyseerde dehydratatie, voor elk alkeen dat kan ontstaan.",
+    "file": "items/13.chem.json"
+   },
+   {
+    "t": "4.3 · Werkcollege les 4, Wade 7-49c",
+    "q": "Geef het mechanisme van de zuurgekatalyseerde dehydratatie, voor elk alkeen dat kan ontstaan.",
+    "file": "items/14.chem.json"
+   }
+  ]
+ },
+ {
+  "title": "Les 8 · Additiereacties (2)",
+  "color": "#16a34a",
+  "items": [
+   {
+    "t": "8.1 · Werkcollege les 8, Wade 8-3a",
+    "q": "Geef het mechanisme (initiatie en propagatie) en het hoofdproduct.",
+    "file": "items/15.chem.json"
+   },
+   {
+    "t": "8.2 · Werkcollege les 8, Wade 8-3b",
+    "q": "Geef het mechanisme (initiatie en propagatie) en het hoofdproduct.",
+    "file": "items/16.chem.json"
+   },
+   {
+    "t": "8.3 · Werkcollege les 8, Wade 8-18a",
+    "q": "Geef het mechanisme en de producten met stereochemie.",
+    "file": "items/17.chem.json"
+   },
+   {
+    "t": "8.4 · Werkcollege les 8, Wade 8-18b",
+    "q": "Geef het mechanisme voor de additie aan beide dubbele bindingen en de producten met stereochemie.",
+    "file": "items/18.chem.json"
+   },
+   {
+    "t": "8.5 · Werkcollege les 8, Wade 8-18c",
+    "q": "Geef het mechanisme en de producten met stereochemie.",
+    "file": "items/19.chem.json"
+   },
+   {
+    "t": "8.6 · Werkcollege les 8, Wade 8-18d",
+    "q": "Geef het mechanisme en de producten met stereochemie.",
+    "file": "items/20.chem.json"
+   },
+   {
+    "t": "8.7 · Werkcollege les 8, Wade 8-19",
+    "q": "Geef het mechanisme en de producten met stereochemie.",
+    "file": "items/21.chem.json"
+   }
+  ]
+ },
+ {
+  "title": "Les 11 · Epoxides",
+  "color": "#ea580c",
+  "items": [
+   {
+    "t": "11.1 · Werkcollege les 11, Wade 14-27a",
+    "q": "Geef het mechanisme en laat zien waar het ¹⁸O terechtkomt.",
+    "file": "items/22.chem.json"
+   },
+   {
+    "t": "11.2 · Werkcollege les 11, Wade 14-27b",
+    "q": "Geef het mechanisme en laat zien waar het ¹⁸O terechtkomt.",
+    "file": "items/23.chem.json"
+   },
+   {
+    "t": "11.3 · Werkcollege les 11, Wade 14-27c",
+    "q": "Geef het mechanisme voor (2S,3R)-2-ethyl-2,3-dimethyloxiraan en het product met stereochemie.",
+    "file": "items/24.chem.json"
+   },
+   {
+    "t": "11.4 · Werkcollege les 11, Wade 14-27d",
+    "q": "Geef het mechanisme voor (2S,3R)-2-ethyl-2,3-dimethyloxiraan en het product met stereochemie.",
+    "file": "items/25.chem.json"
+   }
+  ]
+ },
+ {
+  "title": "Les 15 · Grignard",
+  "color": "#db2777",
+  "items": [
+   {
+    "t": "15.1 · Les 15, vraag 7 (werkwijze lit. 24)",
+    "q": "Geef het mechanisme van ethylmagnesiumbromide (overmaat) met diethylcarbonaat, tot en met de opwerking.",
+    "file": "items/26.chem.json"
+   }
+  ]
+ },
+ {
+  "title": "Vaardigheden (werkplan: teken het reactiemechanisme)",
+  "color": "#4d7c0f",
+  "items": [
+   {
+    "t": "VD1 · Bromering van (E)-stilbeen",
+    "q": "Geef het mechanisme via het bromoniumion en via het carbokation, en de producten met stereochemie (meso of dl).",
+    "file": "items/27.chem.json"
+   },
+   {
+    "t": "VD4 · Synthese van benzoëzuur",
+    "q": "Geef het mechanisme van fenylmagnesiumbromide met CO₂, tot en met het aanzuren.",
+    "file": "items/28.chem.json"
+   }
+  ]
+ },
+ {
+  "title": "Oefencasus Lavendel",
+  "color": "#9333ea",
+  "items": [
+   {
+    "t": "Lavendel · vraag 8",
+    "q": "Geef het mechanisme van de synthese van (+)-linalool.",
+    "file": "items/29.chem.json"
+   },
+   {
+    "t": "Lavendel · vraag 9",
+    "q": "Geef het volledige mechanisme van de cyclisatie van (−)-lavandulol tot lavendeloxide.",
+    "file": "items/30.chem.json"
+   },
+   {
+    "t": "Lavendel · vraag 11",
+    "q": "Geef het volledige mechanisme wanneer het epoxide via een halohydrine gemaakt wordt.",
+    "file": "items/31.chem.json"
+   },
+   {
+    "t": "Lavendel · vraag 12",
+    "q": "Geef het volledige mechanisme tot het hoofdproduct.",
+    "file": "items/32.chem.json"
+   },
+   {
+    "t": "Lavendel · vraag 18",
+    "q": "Geef het mechanisme van de vorming van linalylacetaat (11b) uit (+)-linalool.",
+    "file": "items/33.chem.json"
+   },
+   {
+    "t": "Lavendel · vraag 19",
+    "q": "Geef het volledige mechanisme van 11b naar 12b.",
+    "file": "items/34.chem.json"
+   },
+   {
+    "t": "Lavendel · vraag 22",
+    "q": "Teken het mechanisme van de vorming van 14c uit 13c.",
+    "file": "items/35.chem.json"
+   }
+  ]
+ },
+ {
+  "title": "Les 17 · Casustoets doorgronden",
+  "color": "#b45309",
+  "items": [
+   {
+    "t": "Prozac · vraag 1b",
+    "q": "Geef het volledige mechanisme van 2 → 3 (in water; extra NaCl versnelt de reactie niet).",
+    "file": "items/36.chem.json"
+   },
+   {
+    "t": "Prozac · vraag 2e",
+    "q": "Maak met het mechanisme duidelijk waarom Cl op C-1 komt en niet op C-2 van 8.",
+    "file": "items/37.chem.json"
+   },
+   {
+    "t": "Betaxolol · vraag 1b",
+    "q": "Geef het volledige mechanisme van de vorming van 4-vinylbenzyloxybenzeen (5).",
+    "file": "items/38.chem.json"
+   }
+  ]
+ }
+]

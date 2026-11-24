@@ -1,0 +1,504 @@
+{
+  "atoms": {
+    "a741": {
+      "id": "a741",
+      "x": 50.37624613480351,
+      "y": 128.65609201395998,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a742": {
+      "id": "a742",
+      "x": 50.552247394977044,
+      "y": 168.65637841703597,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a743": {
+      "id": "a743",
+      "x": 16,
+      "y": 188.800522649625,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a744": {
+      "id": "a744",
+      "x": 85.28849610740824,
+      "y": 188.50452053024227,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a745": {
+      "id": "a745",
+      "x": 119.84074350238527,
+      "y": 168.3523762403726,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a746": {
+      "id": "a746",
+      "x": 154.56899215753583,
+      "y": 188.2005183535789,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a747": {
+      "id": "a747",
+      "x": 189.12123955251286,
+      "y": 168.04837406370922,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a748": {
+      "id": "a748",
+      "x": 209.27338384238254,
+      "y": 202.60062145868625,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a749": {
+      "id": "a749",
+      "x": 229.12152595558882,
+      "y": 167.87237280353568,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a750": {
+      "id": "a750",
+      "x": 249.26567018817786,
+      "y": 202.42462019851268,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a751": {
+      "id": "a751",
+      "x": 289.2659565912538,
+      "y": 202.24861893833918,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a752": {
+      "id": "a752",
+      "x": 229.41752807497159,
+      "y": 237.15286885366328,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a753": {
+      "id": "a753",
+      "x": 188.94523829233933,
+      "y": 128.04808766063323,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a754": {
+      "id": "a754",
+      "x": 154.21698963718876,
+      "y": 108.19994554742692,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a755": {
+      "id": "a755",
+      "x": 699.7875728543926,
+      "y": 133.26572166493338,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a756": {
+      "id": "a756",
+      "x": 679.8102115506122,
+      "y": 167.9240833661656,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a757": {
+      "id": "a757",
+      "x": 714.4685732518444,
+      "y": 187.89344412477033,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a758": {
+      "id": "a758",
+      "x": 659.7848469757773,
+      "y": 133.29772384563628,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a759": {
+      "id": "a759",
+      "x": 645.1838520300828,
+      "y": 187.9494479410004,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a760": {
+      "id": "a760",
+      "x": 645.2158542107857,
+      "y": 227.9521738196156,
+      "element": "Cl",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a761": {
+      "id": "a761",
+      "x": 610.5254903288505,
+      "y": 167.98008718239566,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a762": {
+      "id": "a762",
+      "x": 575.8991308083212,
+      "y": 188.00545175723045,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a763": {
+      "id": "a763",
+      "x": 541.240769107089,
+      "y": 168.03609099862572,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a764": {
+      "id": "a764",
+      "x": 521.2714083484843,
+      "y": 202.69445269985795,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a765": {
+      "id": "a765",
+      "x": 501.23804322847377,
+      "y": 168.06809317932863,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a766": {
+      "id": "a766",
+      "x": 481.2686824698691,
+      "y": 202.72645488056085,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a767": {
+      "id": "a767",
+      "x": 441.2659565912538,
+      "y": 202.75845706126375,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a768": {
+      "id": "a768",
+      "x": 501.2940470447038,
+      "y": 237.3528144010902,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a769": {
+      "id": "a769",
+      "x": 541.208766926386,
+      "y": 128.0333651200105,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a770": {
+      "id": "a770",
+      "x": 575.8431269920911,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b669": {
+      "id": "b669",
+      "a1": "a741",
+      "a2": "a742",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b670": {
+      "id": "b670",
+      "a1": "a742",
+      "a2": "a743",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b671": {
+      "id": "b671",
+      "a1": "a742",
+      "a2": "a744",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b672": {
+      "id": "b672",
+      "a1": "a744",
+      "a2": "a745",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b673": {
+      "id": "b673",
+      "a1": "a745",
+      "a2": "a746",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b674": {
+      "id": "b674",
+      "a1": "a746",
+      "a2": "a747",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b675": {
+      "id": "b675",
+      "a1": "a747",
+      "a2": "a748",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b676": {
+      "id": "b676",
+      "a1": "a747",
+      "a2": "a749",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b677": {
+      "id": "b677",
+      "a1": "a749",
+      "a2": "a750",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b678": {
+      "id": "b678",
+      "a1": "a750",
+      "a2": "a751",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b679": {
+      "id": "b679",
+      "a1": "a750",
+      "a2": "a752",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b680": {
+      "id": "b680",
+      "a1": "a747",
+      "a2": "a753",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b681": {
+      "id": "b681",
+      "a1": "a753",
+      "a2": "a754",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b682": {
+      "id": "b682",
+      "a1": "a755",
+      "a2": "a756",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b683": {
+      "id": "b683",
+      "a1": "a756",
+      "a2": "a757",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b684": {
+      "id": "b684",
+      "a1": "a756",
+      "a2": "a758",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b685": {
+      "id": "b685",
+      "a1": "a756",
+      "a2": "a759",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b686": {
+      "id": "b686",
+      "a1": "a759",
+      "a2": "a760",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b687": {
+      "id": "b687",
+      "a1": "a759",
+      "a2": "a761",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b688": {
+      "id": "b688",
+      "a1": "a761",
+      "a2": "a762",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b689": {
+      "id": "b689",
+      "a1": "a762",
+      "a2": "a763",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b690": {
+      "id": "b690",
+      "a1": "a763",
+      "a2": "a764",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b691": {
+      "id": "b691",
+      "a1": "a763",
+      "a2": "a765",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b692": {
+      "id": "b692",
+      "a1": "a765",
+      "a2": "a766",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b693": {
+      "id": "b693",
+      "a1": "a766",
+      "a2": "a767",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b694": {
+      "id": "b694",
+      "a1": "a766",
+      "a2": "a768",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b695": {
+      "id": "b695",
+      "a1": "a763",
+      "a2": "a769",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b696": {
+      "id": "b696",
+      "a1": "a769",
+      "a2": "a770",
+      "order": 2,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r72": {
+      "id": "r72",
+      "kind": "forward",
+      "x1": 317.2659565912538,
+      "y1": 172.6764072005451,
+      "x2": 407.2659565912538,
+      "y2": 172.6764072005451,
+      "above": "HOCl/H₂O",
+      "below": "CH₂Cl₂"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t206": {
+      "id": "t206",
+      "text": "Lavendel · vraag 19",
+      "x": 0,
+      "y": 0,
+      "color": "#9333ea",
+      "bold": true,
+      "size": 18
+    },
+    "t207": {
+      "id": "t207",
+      "text": "Geef het volledige mechanisme van 11b naar 12b.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    }
+  },
+  "brackets": {}
+}

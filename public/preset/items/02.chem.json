@@ -1,0 +1,152 @@
+{
+  "atoms": {
+    "a436": {
+      "id": "a436",
+      "x": 16,
+      "y": 147.86744280879782,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a437": {
+      "id": "a437",
+      "x": 50.7110996057542,
+      "y": 127.99595826842138,
+      "element": "C",
+      "charge": 1,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a438": {
+      "id": "a438",
+      "x": 85.27820294672304,
+      "y": 148.1234361684162,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a439": {
+      "id": "a439",
+      "x": 165.27820294672304,
+      "y": 138.0596972184188,
+      "element": "Cl",
+      "charge": -1,
+      "lonePairs": 4,
+      "radical": false
+    },
+    "a440": {
+      "id": "a440",
+      "x": 408.56211482682323,
+      "y": 168.11939443683758,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a441": {
+      "id": "a441",
+      "x": 373.99216295223744,
+      "y": 148.0022585912819,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a442": {
+      "id": "a442",
+      "x": 339.278202946723,
+      "y": 167.87538065943076,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a443": {
+      "id": "a443",
+      "x": 374.13617108316606,
+      "y": 108,
+      "element": "Cl",
+      "charge": 0,
+      "lonePairs": 3,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b399": {
+      "id": "b399",
+      "a1": "a436",
+      "a2": "a437",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b400": {
+      "id": "b400",
+      "a1": "a437",
+      "a2": "a438",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b401": {
+      "id": "b401",
+      "a1": "a440",
+      "a2": "a441",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b402": {
+      "id": "b402",
+      "a1": "a441",
+      "a2": "a442",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b403": {
+      "id": "b403",
+      "a1": "a441",
+      "a2": "a443",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r40": {
+      "id": "r40",
+      "kind": "forward",
+      "x1": 215.27820294672304,
+      "y1": 138.0596972184188,
+      "x2": 305.278202946723,
+      "y2": 138.0596972184188,
+      "above": " ",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t96": {
+      "id": "t96",
+      "text": "1.2 · Werkcollege les 1, opgave 8a",
+      "x": 0,
+      "y": 0,
+      "color": "#2563eb",
+      "bold": true,
+      "size": 18
+    },
+    "t97": {
+      "id": "t97",
+      "text": "Teken de gebogen pijlen. Geef aan wat het elektrofiel en wat het nucleofiel is.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t98": {
+      "id": "t98",
+      "text": "+",
+      "x": 105.27820294672304,
+      "y": 145.0596972184188,
+      "size": 20
+    }
+  },
+  "brackets": {}
+}

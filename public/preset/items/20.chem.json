@@ -1,0 +1,199 @@
+{
+  "atoms": {
+    "a581": {
+      "id": "a581",
+      "x": 292.82481925732145,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a582": {
+      "id": "a582",
+      "x": 258.2577159163526,
+      "y": 128.11947810750675,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a583": {
+      "id": "a583",
+      "x": 258.40171218113795,
+      "y": 168.118440547878,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a584": {
+      "id": "a584",
+      "x": 223.8346088401691,
+      "y": 188.24591844787284,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a585": {
+      "id": "a585",
+      "x": 189.1235092344149,
+      "y": 168.36643411500833,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a586": {
+      "id": "a586",
+      "x": 154.55640589344605,
+      "y": 188.49391201500316,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a587": {
+      "id": "a587",
+      "x": 119.84530628769187,
+      "y": 168.61442768213863,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a588": {
+      "id": "a588",
+      "x": 85.27820294672301,
+      "y": 188.74190558213346,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a589": {
+      "id": "a589",
+      "x": 50.56710334096881,
+      "y": 168.86242124926892,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a590": {
+      "id": "a590",
+      "x": 16,
+      "y": 188.98989914926375,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b515": {
+      "id": "b515",
+      "a1": "a581",
+      "a2": "a582",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b516": {
+      "id": "b516",
+      "a1": "a582",
+      "a2": "a583",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b517": {
+      "id": "b517",
+      "a1": "a583",
+      "a2": "a584",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b518": {
+      "id": "b518",
+      "a1": "a584",
+      "a2": "a585",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b519": {
+      "id": "b519",
+      "a1": "a585",
+      "a2": "a586",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b520": {
+      "id": "b520",
+      "a1": "a586",
+      "a2": "a587",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b521": {
+      "id": "b521",
+      "a1": "a587",
+      "a2": "a588",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b522": {
+      "id": "b522",
+      "a1": "a588",
+      "a2": "a589",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b523": {
+      "id": "b523",
+      "a1": "a589",
+      "a2": "a590",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r58": {
+      "id": "r58",
+      "kind": "forward",
+      "x1": 320.82481925732145,
+      "y1": 148.49494957463187,
+      "x2": 410.82481925732145,
+      "y2": 148.49494957463187,
+      "above": "Br₂",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t158": {
+      "id": "t158",
+      "text": "8.6 · Werkcollege les 8, Wade 8-18d",
+      "x": 0,
+      "y": 0,
+      "color": "#16a34a",
+      "bold": true,
+      "size": 18
+    },
+    "t159": {
+      "id": "t159",
+      "text": "Geef het mechanisme en de producten met stereochemie.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t160": {
+      "id": "t160",
+      "text": "?",
+      "x": 446.82481925732145,
+      "y": 158.49494957463187,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

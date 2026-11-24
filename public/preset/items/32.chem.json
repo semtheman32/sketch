@@ -1,0 +1,245 @@
+{
+  "atoms": {
+    "a714": {
+      "id": "a714",
+      "x": 68.87321371855151,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a715": {
+      "id": "a715",
+      "x": 55.43290519272815,
+      "y": 145.66886469871386,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a716": {
+      "id": "a716",
+      "x": 16,
+      "y": 138.97271098674116,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a717": {
+      "id": "a717",
+      "x": 29.920319544602748,
+      "y": 176.48157201252855,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a718": {
+      "id": "a718",
+      "x": 90.20170331964977,
+      "y": 165.44931876424855,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a719": {
+      "id": "a719",
+      "x": 124.71449556988902,
+      "y": 145.23285468998924,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a720": {
+      "id": "a720",
+      "x": 159.48329369681065,
+      "y": 165.00530857187758,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a721": {
+      "id": "a721",
+      "x": 159.73929957349299,
+      "y": 205.0062268034947,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a722": {
+      "id": "a722",
+      "x": 173.6676193017421,
+      "y": 242.50308755381263,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a723": {
+      "id": "a723",
+      "x": 199.0842027461116,
+      "y": 197.80606152180363,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a724": {
+      "id": "a724",
+      "x": 125.22650732325373,
+      "y": 225.2266909695772,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a725": {
+      "id": "a725",
+      "x": 90.45770919633212,
+      "y": 205.4462369040425,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b643": {
+      "id": "b643",
+      "a1": "a714",
+      "a2": "a715",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b644": {
+      "id": "b644",
+      "a1": "a715",
+      "a2": "a716",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b645": {
+      "id": "b645",
+      "a1": "a716",
+      "a2": "a717",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b646": {
+      "id": "b646",
+      "a1": "a715",
+      "a2": "a718",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b647": {
+      "id": "b647",
+      "a1": "a718",
+      "a2": "a719",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b648": {
+      "id": "b648",
+      "a1": "a719",
+      "a2": "a720",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b649": {
+      "id": "b649",
+      "a1": "a720",
+      "a2": "a721",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b650": {
+      "id": "b650",
+      "a1": "a721",
+      "a2": "a722",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b651": {
+      "id": "b651",
+      "a1": "a721",
+      "a2": "a723",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b652": {
+      "id": "b652",
+      "a1": "a721",
+      "a2": "a724",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b653": {
+      "id": "b653",
+      "a1": "a724",
+      "a2": "a725",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b654": {
+      "id": "b654",
+      "a1": "a717",
+      "a2": "a715",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b655": {
+      "id": "b655",
+      "a1": "a725",
+      "a2": "a718",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r70": {
+      "id": "r70",
+      "kind": "forward",
+      "x1": 227.0842027461116,
+      "y1": 175.25154377690632,
+      "x2": 341.0842027461116,
+      "y2": 175.25154377690632,
+      "above": "CH₃CH₂Br, Mg",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t199": {
+      "id": "t199",
+      "text": "Lavendel · vraag 12",
+      "x": 0,
+      "y": 0,
+      "color": "#9333ea",
+      "bold": true,
+      "size": 18
+    },
+    "t200": {
+      "id": "t200",
+      "text": "Geef het volledige mechanisme tot het hoofdproduct.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t201": {
+      "id": "t201",
+      "text": "?",
+      "x": 377.0842027461116,
+      "y": 185.25154377690632,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

@@ -1,4 +1,4 @@
-// Bouwt public/preset/mechanismen.chem.json (het Preset-tabblad).
+// Bouwt public/preset/mechanismen.chem.json (alles op één blad) en per opgave public/preset/items/NN.chem.json + index.json (het Preset-menu).
 // Draai vanuit de repo-map terwijl 'npm run dev' loopt: node scripts/preset/build.mjs
 // De opgaven staan in data.mjs: alleen de opgave en de uitgangsstoffen, nooit het antwoord.
 import { open } from './lib.mjs'
@@ -35,4 +35,26 @@ for (const sec of SECTIONS) {
 }
 console.log('opdrachten', n)
 await call('export_drawing', { format: 'json', path: 'public/preset/mechanismen.chem.json' })
+
+// Per opgave een eigen klein blad: titel, vraag en uitgangsstoffen.
+const index = []
+let k = 0
+for (const sec of SECTIONS) {
+  const items = []
+  for (const it of sec.items) {
+    k++
+    await call('clear_canvas')
+    await call('add_text', { text: it.t, x: 0, y: 0, size: 18, bold: true, color: sec.color })
+    let ty = 34
+    for (const l of wrap(it.q, 90)) { await call('add_text', { text: l, x: 0, y: ty, size: 15 }); ty += 22 }
+    await call('draw_mechanism', { x: 10, y: ty + 10, width: 900, lone_pairs: it.lp ?? 'none', steps: it.steps })
+    const file = `items/${String(k).padStart(2, '0')}.chem.json`
+    await call('export_drawing', { format: 'json', path: 'public/preset/' + file })
+    items.push({ t: it.t, q: it.q, file })
+  }
+  index.push({ title: sec.title, color: sec.color, items })
+}
+const fs = await import('node:fs')
+fs.writeFileSync('public/preset/index.json', JSON.stringify(index, null, 1) + '\n')
+console.log('losse bladen', k)
 await close(); process.exit(0)

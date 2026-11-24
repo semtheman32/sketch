@@ -1,0 +1,167 @@
+{
+  "atoms": {
+    "a515": {
+      "id": "a515",
+      "x": 105.12956512890563,
+      "y": 197.61757369841138,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a516": {
+      "id": "a516",
+      "x": 85.28921672932876,
+      "y": 162.88096371818443,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a517": {
+      "id": "a517",
+      "x": 120.01782656907199,
+      "y": 143.04061531860756,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a518": {
+      "id": "a518",
+      "x": 65.13686285088757,
+      "y": 197.43357046728624,
+      "element": "Br",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a519": {
+      "id": "a519",
+      "x": 50.728609839743235,
+      "y": 142.73660998022694,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a520": {
+      "id": "a520",
+      "x": 70.88096371818442,
+      "y": 108.18400323112513,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a521": {
+      "id": "a521",
+      "x": 30.888261440166353,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a522": {
+      "id": "a522",
+      "x": 15.999999999999993,
+      "y": 162.5769583798038,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b452": {
+      "id": "b452",
+      "a1": "a515",
+      "a2": "a516",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b453": {
+      "id": "b453",
+      "a1": "a516",
+      "a2": "a517",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b454": {
+      "id": "b454",
+      "a1": "a516",
+      "a2": "a518",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b455": {
+      "id": "b455",
+      "a1": "a516",
+      "a2": "a519",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b456": {
+      "id": "b456",
+      "a1": "a519",
+      "a2": "a520",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b457": {
+      "id": "b457",
+      "a1": "a519",
+      "a2": "a521",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b458": {
+      "id": "b458",
+      "a1": "a519",
+      "a2": "a522",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r50": {
+      "id": "r50",
+      "kind": "forward",
+      "x1": 148.01782656907199,
+      "y1": 152.8087868492057,
+      "x2": 238.01782656907199,
+      "y2": 152.8087868492057,
+      "above": "CH₃OH",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t131": {
+      "id": "t131",
+      "text": "4.1 · Werkcollege les 4, Wade 7-17a",
+      "x": 0,
+      "y": 0,
+      "color": "#0891b2",
+      "bold": true,
+      "size": 18
+    },
+    "t132": {
+      "id": "t132",
+      "text": "Geef het mechanisme van de solvolyse in methanol.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t133": {
+      "id": "t133",
+      "text": "?",
+      "x": 274.017826569072,
+      "y": 162.8087868492057,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

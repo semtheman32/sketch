@@ -1,0 +1,284 @@
+{
+  "atoms": {
+    "a632": {
+      "id": "a632",
+      "x": 259.12729392822837,
+      "y": 248.6675600802044,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a633": {
+      "id": "a633",
+      "x": 258.8712862478828,
+      "y": 208.66636002620172,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a634": {
+      "id": "a634",
+      "x": 224.10224316094363,
+      "y": 188.88976671950277,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a635": {
+      "id": "a635",
+      "x": 189.5892077543501,
+      "y": 209.10637322679574,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a636": {
+      "id": "a636",
+      "x": 189.84521543469572,
+      "y": 249.10757328079842,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a637": {
+      "id": "a637",
+      "x": 224.61425852163487,
+      "y": 268.88416658749736,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a638": {
+      "id": "a638",
+      "x": 154.82016466741095,
+      "y": 189.3297799200968,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a639": {
+      "id": "a639",
+      "x": 120.30712926081742,
+      "y": 209.55438666740056,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a640": {
+      "id": "a640",
+      "x": 85.53808617387828,
+      "y": 189.77779336070162,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a641": {
+      "id": "a641",
+      "x": 51.02505076728477,
+      "y": 209.9943998679946,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a642": {
+      "id": "a642",
+      "x": 16.256007680345633,
+      "y": 190.21780656129567,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a643": {
+      "id": "a643",
+      "x": 16,
+      "y": 150.21660650729297,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a644": {
+      "id": "a644",
+      "x": 50.51303540659353,
+      "y": 130,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a645": {
+      "id": "a645",
+      "x": 85.28207849353268,
+      "y": 149.77659330669894,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b563": {
+      "id": "b563",
+      "a1": "a632",
+      "a2": "a633",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b564": {
+      "id": "b564",
+      "a1": "a633",
+      "a2": "a634",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b565": {
+      "id": "b565",
+      "a1": "a634",
+      "a2": "a635",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b566": {
+      "id": "b566",
+      "a1": "a635",
+      "a2": "a636",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b567": {
+      "id": "b567",
+      "a1": "a636",
+      "a2": "a637",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b568": {
+      "id": "b568",
+      "a1": "a635",
+      "a2": "a638",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b569": {
+      "id": "b569",
+      "a1": "a638",
+      "a2": "a639",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b570": {
+      "id": "b570",
+      "a1": "a639",
+      "a2": "a640",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b571": {
+      "id": "b571",
+      "a1": "a640",
+      "a2": "a641",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b572": {
+      "id": "b572",
+      "a1": "a641",
+      "a2": "a642",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b573": {
+      "id": "b573",
+      "a1": "a642",
+      "a2": "a643",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b574": {
+      "id": "b574",
+      "a1": "a643",
+      "a2": "a644",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b575": {
+      "id": "b575",
+      "a1": "a644",
+      "a2": "a645",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b576": {
+      "id": "b576",
+      "a1": "a637",
+      "a2": "a632",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b577": {
+      "id": "b577",
+      "a1": "a645",
+      "a2": "a640",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r65": {
+      "id": "r65",
+      "kind": "forward",
+      "x1": 287.12729392822837,
+      "y1": 199.44208329374868,
+      "x2": 377.12729392822837,
+      "y2": 199.44208329374868,
+      "above": "Br₂",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t183": {
+      "id": "t183",
+      "text": "VD1 · Bromering van (E)-stilbeen",
+      "x": 0,
+      "y": 0,
+      "color": "#4d7c0f",
+      "bold": true,
+      "size": 18
+    },
+    "t184": {
+      "id": "t184",
+      "text": "Geef het mechanisme via het bromoniumion en via het carbokation, en de producten met",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t185": {
+      "id": "t185",
+      "text": "stereochemie (meso of dl).",
+      "x": 0,
+      "y": 56,
+      "size": 15
+    },
+    "t186": {
+      "id": "t186",
+      "text": "?",
+      "x": 413.12729392822837,
+      "y": 209.44208329374868,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

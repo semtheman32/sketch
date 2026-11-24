@@ -1,0 +1,279 @@
+{
+  "atoms": {
+    "a726": {
+      "id": "a726",
+      "x": 50.59435733982646,
+      "y": 108.0456519916938,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a727": {
+      "id": "a727",
+      "x": 50.62635952052935,
+      "y": 148.048377870309,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a728": {
+      "id": "a728",
+      "x": 16.000000000000014,
+      "y": 168.07374244514378,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a729": {
+      "id": "a729",
+      "x": 85.28472122176157,
+      "y": 168.01773862891372,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a730": {
+      "id": "a730",
+      "x": 119.91108074229089,
+      "y": 147.99237405407894,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a731": {
+      "id": "a731",
+      "x": 154.56944244352312,
+      "y": 167.96173481268366,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a732": {
+      "id": "a732",
+      "x": 189.19580196405246,
+      "y": 147.93637023784888,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a733": {
+      "id": "a733",
+      "x": 209.16516272265716,
+      "y": 113.27800853661665,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a734": {
+      "id": "a734",
+      "x": 169.16243684404196,
+      "y": 113.31001071731956,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a735": {
+      "id": "a735",
+      "x": 223.8541636652847,
+      "y": 167.9057309964536,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a736": {
+      "id": "a736",
+      "x": 258.48052318581404,
+      "y": 147.88036642161882,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a737": {
+      "id": "a737",
+      "x": 316.480523185814,
+      "y": 167.87538065943076,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a738": {
+      "id": "a738",
+      "x": 351.1944831913284,
+      "y": 148.0022585912819,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a739": {
+      "id": "a739",
+      "x": 351.338491322257,
+      "y": 108,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a740": {
+      "id": "a740",
+      "x": 385.7644350659142,
+      "y": 168.11939443683758,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b656": {
+      "id": "b656",
+      "a1": "a726",
+      "a2": "a727",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b657": {
+      "id": "b657",
+      "a1": "a727",
+      "a2": "a728",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b658": {
+      "id": "b658",
+      "a1": "a727",
+      "a2": "a729",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b659": {
+      "id": "b659",
+      "a1": "a729",
+      "a2": "a730",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b660": {
+      "id": "b660",
+      "a1": "a730",
+      "a2": "a731",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b661": {
+      "id": "b661",
+      "a1": "a731",
+      "a2": "a732",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b662": {
+      "id": "b662",
+      "a1": "a732",
+      "a2": "a733",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b663": {
+      "id": "b663",
+      "a1": "a732",
+      "a2": "a734",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b664": {
+      "id": "b664",
+      "a1": "a732",
+      "a2": "a735",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b665": {
+      "id": "b665",
+      "a1": "a735",
+      "a2": "a736",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b666": {
+      "id": "b666",
+      "a1": "a737",
+      "a2": "a738",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b667": {
+      "id": "b667",
+      "a1": "a738",
+      "a2": "a739",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b668": {
+      "id": "b668",
+      "a1": "a738",
+      "a2": "a740",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r71": {
+      "id": "r71",
+      "kind": "forward",
+      "x1": 429.7644350659142,
+      "y1": 138.0596972184188,
+      "x2": 519.7644350659142,
+      "y2": 138.0596972184188,
+      "above": "reflux",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t202": {
+      "id": "t202",
+      "text": "Lavendel · vraag 18",
+      "x": 0,
+      "y": 0,
+      "color": "#9333ea",
+      "bold": true,
+      "size": 18
+    },
+    "t203": {
+      "id": "t203",
+      "text": "Geef het mechanisme van de vorming van linalylacetaat (11b) uit (+)-linalool.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t204": {
+      "id": "t204",
+      "text": "+",
+      "x": 278.480523185814,
+      "y": 145.0596972184188,
+      "size": 20
+    },
+    "t205": {
+      "id": "t205",
+      "text": "?",
+      "x": 555.7644350659142,
+      "y": 148.0596972184188,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

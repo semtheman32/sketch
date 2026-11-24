@@ -1,0 +1,454 @@
+{
+  "atoms": {
+    "a791": {
+      "id": "a791",
+      "x": 16,
+      "y": 147.50297530611067,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a792": {
+      "id": "a792",
+      "x": 50.56710334096883,
+      "y": 167.6304532061055,
+      "element": "N",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a793": {
+      "id": "a793",
+      "x": 50.42310707618351,
+      "y": 207.6214158539887,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a794": {
+      "id": "a794",
+      "x": 85.28620273921112,
+      "y": 147.750968873241,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a795": {
+      "id": "a795",
+      "x": 119.85330608018,
+      "y": 167.87844677323582,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a796": {
+      "id": "a796",
+      "x": 154.5644056859342,
+      "y": 147.9989624403713,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a797": {
+      "id": "a797",
+      "x": 154.70840195071955,
+      "y": 108,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a798": {
+      "id": "a798",
+      "x": 189.123509234415,
+      "y": 168.11844054787804,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a799": {
+      "id": "a799",
+      "x": 223.84260863265726,
+      "y": 148.24695600750158,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a800": {
+      "id": "a800",
+      "x": 258.40971197362614,
+      "y": 168.3744339074964,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a801": {
+      "id": "a801",
+      "x": 258.2657157088408,
+      "y": 208.3733963478677,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a802": {
+      "id": "a802",
+      "x": 223.55461610308657,
+      "y": 228.24488088824415,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a803": {
+      "id": "a803",
+      "x": 188.98751276211772,
+      "y": 208.11740298824932,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a804": {
+      "id": "a804",
+      "x": 410.40971197362614,
+      "y": 147.50297530611067,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a805": {
+      "id": "a805",
+      "x": 444.976815314595,
+      "y": 167.6304532061055,
+      "element": "N",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a806": {
+      "id": "a806",
+      "x": 444.8328190498097,
+      "y": 207.6214158539887,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a807": {
+      "id": "a807",
+      "x": 479.6959147128373,
+      "y": 147.750968873241,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a808": {
+      "id": "a808",
+      "x": 514.2630180538061,
+      "y": 167.87844677323582,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a809": {
+      "id": "a809",
+      "x": 548.9741176595604,
+      "y": 147.9989624403713,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a810": {
+      "id": "a810",
+      "x": 549.1181139243457,
+      "y": 108,
+      "element": "Cl",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a811": {
+      "id": "a811",
+      "x": 583.5332212080411,
+      "y": 168.11844054787804,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a812": {
+      "id": "a812",
+      "x": 618.2523206062834,
+      "y": 148.24695600750158,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a813": {
+      "id": "a813",
+      "x": 652.8194239472523,
+      "y": 168.3744339074964,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a814": {
+      "id": "a814",
+      "x": 652.675427682467,
+      "y": 208.3733963478677,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a815": {
+      "id": "a815",
+      "x": 617.9643280767127,
+      "y": 228.24488088824415,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a816": {
+      "id": "a816",
+      "x": 583.3972247357439,
+      "y": 208.11740298824932,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b717": {
+      "id": "b717",
+      "a1": "a791",
+      "a2": "a792",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b718": {
+      "id": "b718",
+      "a1": "a792",
+      "a2": "a793",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b719": {
+      "id": "b719",
+      "a1": "a792",
+      "a2": "a794",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b720": {
+      "id": "b720",
+      "a1": "a794",
+      "a2": "a795",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b721": {
+      "id": "b721",
+      "a1": "a795",
+      "a2": "a796",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b722": {
+      "id": "b722",
+      "a1": "a796",
+      "a2": "a797",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b723": {
+      "id": "b723",
+      "a1": "a796",
+      "a2": "a798",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b724": {
+      "id": "b724",
+      "a1": "a798",
+      "a2": "a799",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b725": {
+      "id": "b725",
+      "a1": "a799",
+      "a2": "a800",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b726": {
+      "id": "b726",
+      "a1": "a800",
+      "a2": "a801",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b727": {
+      "id": "b727",
+      "a1": "a801",
+      "a2": "a802",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b728": {
+      "id": "b728",
+      "a1": "a802",
+      "a2": "a803",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b729": {
+      "id": "b729",
+      "a1": "a803",
+      "a2": "a798",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b730": {
+      "id": "b730",
+      "a1": "a804",
+      "a2": "a805",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b731": {
+      "id": "b731",
+      "a1": "a805",
+      "a2": "a806",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b732": {
+      "id": "b732",
+      "a1": "a805",
+      "a2": "a807",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b733": {
+      "id": "b733",
+      "a1": "a807",
+      "a2": "a808",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b734": {
+      "id": "b734",
+      "a1": "a808",
+      "a2": "a809",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b735": {
+      "id": "b735",
+      "a1": "a809",
+      "a2": "a810",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b736": {
+      "id": "b736",
+      "a1": "a809",
+      "a2": "a811",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b737": {
+      "id": "b737",
+      "a1": "a811",
+      "a2": "a812",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b738": {
+      "id": "b738",
+      "a1": "a812",
+      "a2": "a813",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b739": {
+      "id": "b739",
+      "a1": "a813",
+      "a2": "a814",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b740": {
+      "id": "b740",
+      "a1": "a814",
+      "a2": "a815",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b741": {
+      "id": "b741",
+      "a1": "a815",
+      "a2": "a816",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b742": {
+      "id": "b742",
+      "a1": "a816",
+      "a2": "a811",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r74": {
+      "id": "r74",
+      "kind": "forward",
+      "x1": 286.40971197362614,
+      "y1": 168.12244044412208,
+      "x2": 376.40971197362614,
+      "y2": 168.12244044412208,
+      "above": "HCl",
+      "below": "H₂O"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t211": {
+      "id": "t211",
+      "text": "Prozac · vraag 1b",
+      "x": 0,
+      "y": 0,
+      "color": "#b45309",
+      "bold": true,
+      "size": 18
+    },
+    "t212": {
+      "id": "t212",
+      "text": "Geef het volledige mechanisme van 2 → 3 (in water; extra NaCl versnelt de reactie niet).",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    }
+  },
+  "brackets": {}
+}

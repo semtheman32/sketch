@@ -1,0 +1,197 @@
+{
+  "atoms": {
+    "a523": {
+      "id": "a523",
+      "x": 16,
+      "y": 190.03198078976922,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a524": {
+      "id": "a524",
+      "x": 50.62398892032534,
+      "y": 169.99998720000613,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a525": {
+      "id": "a525",
+      "x": 50.59198893056533,
+      "y": 130,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a526": {
+      "id": "a526",
+      "x": 85.27997783041066,
+      "y": 189.9759808076892,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a527": {
+      "id": "a527",
+      "x": 85.31197782017067,
+      "y": 229.97596800769537,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a528": {
+      "id": "a528",
+      "x": 119.96796673025598,
+      "y": 249.95196161537842,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a529": {
+      "id": "a529",
+      "x": 154.5919556505813,
+      "y": 229.91996802561533,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a530": {
+      "id": "a530",
+      "x": 154.5599556608213,
+      "y": 189.9199808256092,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a531": {
+      "id": "a531",
+      "x": 119.90396675073598,
+      "y": 169.95198721536613,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b459": {
+      "id": "b459",
+      "a1": "a523",
+      "a2": "a524",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b460": {
+      "id": "b460",
+      "a1": "a524",
+      "a2": "a525",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b461": {
+      "id": "b461",
+      "a1": "a524",
+      "a2": "a526",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b462": {
+      "id": "b462",
+      "a1": "a526",
+      "a2": "a527",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b463": {
+      "id": "b463",
+      "a1": "a527",
+      "a2": "a528",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b464": {
+      "id": "b464",
+      "a1": "a528",
+      "a2": "a529",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b465": {
+      "id": "b465",
+      "a1": "a529",
+      "a2": "a530",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b466": {
+      "id": "b466",
+      "a1": "a530",
+      "a2": "a531",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b467": {
+      "id": "b467",
+      "a1": "a531",
+      "a2": "a526",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r51": {
+      "id": "r51",
+      "kind": "forward",
+      "x1": 182.5919556505813,
+      "y1": 189.9759808076892,
+      "x2": 272.5919556505813,
+      "y2": 189.9759808076892,
+      "above": "H₂SO₄",
+      "below": "Δ"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t134": {
+      "id": "t134",
+      "text": "4.2 · Werkcollege les 4, Wade 7-49b",
+      "x": 0,
+      "y": 0,
+      "color": "#0891b2",
+      "bold": true,
+      "size": 18
+    },
+    "t135": {
+      "id": "t135",
+      "text": "Geef het mechanisme van de zuurgekatalyseerde dehydratatie, voor elk alkeen dat kan",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t136": {
+      "id": "t136",
+      "text": "ontstaan.",
+      "x": 0,
+      "y": 56,
+      "size": 15
+    },
+    "t137": {
+      "id": "t137",
+      "text": "?",
+      "x": 308.5919556505813,
+      "y": 199.9759808076892,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}
