@@ -5,6 +5,7 @@ import { allIds, emptyDoc, exists, kindOf } from './model/types'
 import { canRedo, canUndo, closeTab, commit, cycleTab, getDoc, isEmptyDoc, newId, newTab, redo, replaceDoc, switchTab, undo, useDoc, useTabs } from './model/store'
 import { TabBar } from './ui/TabBar'
 import { openLesson, lessonTabName, useLessons } from './ui/LessonMenu'
+import { openPreset } from './ui/PresetButton'
 import { TextStyleBar } from './ui/TextStyleBar'
 import {
   applyBondStyle, contentBounds, copyItems, flipItems, growBond, pasteFragment, removeItems, rotateItems, selectionBounds, straightenTriple,
@@ -329,6 +330,7 @@ export default function App() {
 
   const { lessons } = useLessons()
   const commands = useMemo<Command[]>(() => [
+    { id: 'preset-mechanismen', group: 'Lesstof', label: 'Preset: mechanismen tekenen', hint: 'alle OSY2-opdrachten, zonder antwoorden', run: () => { openPreset().then(() => { requestAnimationFrame(() => fitTop()); setTimeout(() => fitTop(), 300) }).catch(() => {}) } },
     ...(lessons ?? []).map(l => ({ id: `lesstof-${l.file}`, group: 'Lesstof', label: `Lesstof: ${lessonTabName(l)}`, hint: l.group ?? '', run: () => { openLesson(l).then(() => { requestAnimationFrame(() => fitTop()); setTimeout(() => fitTop(), 300) }).catch(() => {}) } })),
     ...TOOLS.map(t => ({ id: `tool-${t.id}`, group: 'Tools', label: `${t.label} tool`, keys: t.key, run: () => setTool(t.id) })),
     { id: 'undo', group: 'Edit', label: 'Undo', keys: 'Ctrl+Z', run: () => undo() },

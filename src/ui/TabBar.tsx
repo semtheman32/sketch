@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { closeTab, getDoc, isEmptyDoc, moveTab, newTab, renameTab, switchTab, useTabs } from '../model/store'
 import { Icon } from './Icons'
 import { LessonMenu } from './LessonMenu'
+import { PresetButton } from './PresetButton'
 
 /** Browser-style tabs above the canvas: each tab is its own drawing with its own undo history. */
 export function TabBar({ onLessonOpened }: { onLessonOpened?: () => void } = {}) {
@@ -62,7 +63,10 @@ export function TabBar({ onLessonOpened }: { onLessonOpened?: () => void } = {})
         </div>
       ))}
       <button className="tab-new" onClick={() => newTab()} title="New tab (Alt+T)" aria-label="New tab"><Icon name="plus" size={15} /></button>
-      <LessonMenu onOpened={onLessonOpened} />
+      <div className="tabbar-tools">
+        <PresetButton onOpened={onLessonOpened} />
+        <LessonMenu onOpened={onLessonOpened} />
+      </div>
     </div>
   )
 }
