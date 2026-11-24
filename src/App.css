@@ -525,8 +525,11 @@ kbd {
 }
 .tab-new:hover { background: var(--soft); color: var(--text); }
 
+/* Right end of the tab bar: Preset button and Lesstof menu */
+.tabbar-tools { margin-left: auto; align-self: center; flex: none; position: sticky; right: 0; display: flex; align-items: center; gap: 2px; }
+
 /* Lesstof menu on the tab bar: open a lesson sheet as a tab */
-.lesson-menu { margin-left: auto; align-self: center; flex: none; position: sticky; right: 0; }
+.lesson-menu { flex: none; }
 .lesson-btn {
   display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border: 0; border-radius: var(--radius);
   background: transparent; color: var(--muted); font: inherit; font-size: 12.5px; cursor: pointer;
@@ -554,3 +557,4 @@ kbd {
 .lesson-open { flex: none; color: var(--accent); font-size: 10px; padding-top: 6px; }
 .lesson-err { color: var(--muted); font-size: 12.5px; margin: 4px 8px; }
 .lesson-group { font-size: 11px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin: 10px 8px 2px; }
+.lesson-btn .lesson-open { padding-top: 0; }
