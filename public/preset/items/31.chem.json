@@ -1,0 +1,413 @@
+{
+  "atoms": {
+    "a691": {
+      "id": "a691",
+      "x": 92.03983292380649,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a692": {
+      "id": "a692",
+      "x": 57.439916655502536,
+      "y": 128.07195142593633,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a693": {
+      "id": "a693",
+      "x": 22.760000580797893,
+      "y": 108.1359996708812,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a694": {
+      "id": "a694",
+      "x": 57.51991646190324,
+      "y": 168.07185462628772,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a695": {
+      "id": "a695",
+      "x": 92.19983253660789,
+      "y": 187.99980640070277,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a696": {
+      "id": "a696",
+      "x": 92.28783232364867,
+      "y": 227.99970960105418,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a697": {
+      "id": "a697",
+      "x": 57.67991607470465,
+      "y": 248.06366104635043,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a698": {
+      "id": "a698",
+      "x": 32.03197814263934,
+      "y": 278.75958676230005,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a699": {
+      "id": "a699",
+      "x": 83.45585369701108,
+      "y": 278.65558701397913,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a700": {
+      "id": "a700",
+      "x": 23,
+      "y": 228.13570927193535,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a701": {
+      "id": "a701",
+      "x": 22.920000193599293,
+      "y": 188.13580607158397,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a702": {
+      "id": "a702",
+      "x": 343.6610460422002,
+      "y": 126.1282496042437,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a703": {
+      "id": "a703",
+      "x": 330.22073751637686,
+      "y": 163.79711430295757,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a704": {
+      "id": "a704",
+      "x": 290.7878323236487,
+      "y": 157.10096059098487,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a705": {
+      "id": "a705",
+      "x": 304.70815186825143,
+      "y": 194.60982161677225,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a706": {
+      "id": "a706",
+      "x": 364.98953564329844,
+      "y": 183.57756836849225,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a707": {
+      "id": "a707",
+      "x": 399.5023278935377,
+      "y": 163.36110429423294,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a708": {
+      "id": "a708",
+      "x": 434.27112602045935,
+      "y": 183.13355817612128,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a709": {
+      "id": "a709",
+      "x": 434.52713189714166,
+      "y": 223.13447640773842,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a710": {
+      "id": "a710",
+      "x": 448.45545162539077,
+      "y": 260.63133715805634,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a711": {
+      "id": "a711",
+      "x": 473.8720350697603,
+      "y": 215.93431112604733,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a712": {
+      "id": "a712",
+      "x": 400.01433964690244,
+      "y": 243.3549405738209,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a713": {
+      "id": "a713",
+      "x": 365.2455415199808,
+      "y": 223.5744865082862,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b619": {
+      "id": "b619",
+      "a1": "a691",
+      "a2": "a692",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b620": {
+      "id": "b620",
+      "a1": "a692",
+      "a2": "a693",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b621": {
+      "id": "b621",
+      "a1": "a692",
+      "a2": "a694",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b622": {
+      "id": "b622",
+      "a1": "a694",
+      "a2": "a695",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b623": {
+      "id": "b623",
+      "a1": "a695",
+      "a2": "a696",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b624": {
+      "id": "b624",
+      "a1": "a696",
+      "a2": "a697",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b625": {
+      "id": "b625",
+      "a1": "a697",
+      "a2": "a698",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b626": {
+      "id": "b626",
+      "a1": "a697",
+      "a2": "a699",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b627": {
+      "id": "b627",
+      "a1": "a697",
+      "a2": "a700",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b628": {
+      "id": "b628",
+      "a1": "a700",
+      "a2": "a701",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b629": {
+      "id": "b629",
+      "a1": "a701",
+      "a2": "a694",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b630": {
+      "id": "b630",
+      "a1": "a702",
+      "a2": "a703",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b631": {
+      "id": "b631",
+      "a1": "a703",
+      "a2": "a704",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b632": {
+      "id": "b632",
+      "a1": "a704",
+      "a2": "a705",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b633": {
+      "id": "b633",
+      "a1": "a703",
+      "a2": "a706",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b634": {
+      "id": "b634",
+      "a1": "a706",
+      "a2": "a707",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b635": {
+      "id": "b635",
+      "a1": "a707",
+      "a2": "a708",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b636": {
+      "id": "b636",
+      "a1": "a708",
+      "a2": "a709",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b637": {
+      "id": "b637",
+      "a1": "a709",
+      "a2": "a710",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b638": {
+      "id": "b638",
+      "a1": "a709",
+      "a2": "a711",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b639": {
+      "id": "b639",
+      "a1": "a709",
+      "a2": "a712",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b640": {
+      "id": "b640",
+      "a1": "a712",
+      "a2": "a713",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b641": {
+      "id": "b641",
+      "a1": "a705",
+      "a2": "a703",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b642": {
+      "id": "b642",
+      "a1": "a713",
+      "a2": "a706",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r69": {
+      "id": "r69",
+      "kind": "forward",
+      "x1": 120.28783232364867,
+      "y1": 193.37979338115002,
+      "x2": 256.7878323236487,
+      "y2": 193.37979338115002,
+      "above": "via halohydrine",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t197": {
+      "id": "t197",
+      "text": "Lavendel · vraag 11",
+      "x": 0,
+      "y": 0,
+      "color": "#9333ea",
+      "bold": true,
+      "size": 18
+    },
+    "t198": {
+      "id": "t198",
+      "text": "Geef het volledige mechanisme wanneer het epoxide via een halohydrine gemaakt wordt.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    }
+  },
+  "brackets": {}
+}

@@ -1,0 +1,152 @@
+{
+  "atoms": {
+    "a472": {
+      "id": "a472",
+      "x": 16,
+      "y": 122,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a473": {
+      "id": "a473",
+      "x": 56,
+      "y": 122,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a474": {
+      "id": "a474",
+      "x": 96,
+      "y": 122,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a475": {
+      "id": "a475",
+      "x": 177,
+      "y": 122,
+      "element": "N",
+      "charge": -1,
+      "lonePairs": 2,
+      "radical": false
+    },
+    "a476": {
+      "id": "a476",
+      "x": 352,
+      "y": 122,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a477": {
+      "id": "a477",
+      "x": 392,
+      "y": 122,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a478": {
+      "id": "a478",
+      "x": 432,
+      "y": 122,
+      "element": "C",
+      "charge": -1,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a479": {
+      "id": "a479",
+      "x": 520,
+      "y": 122,
+      "element": "N",
+      "charge": 0,
+      "lonePairs": 1,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b422": {
+      "id": "b422",
+      "a1": "a472",
+      "a2": "a473",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b423": {
+      "id": "b423",
+      "a1": "a473",
+      "a2": "a474",
+      "order": 3,
+      "stereo": "none"
+    },
+    "b424": {
+      "id": "b424",
+      "a1": "a476",
+      "a2": "a477",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b425": {
+      "id": "b425",
+      "a1": "a477",
+      "a2": "a478",
+      "order": 3,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r44": {
+      "id": "r44",
+      "kind": "forward",
+      "x1": 228,
+      "y1": 122,
+      "x2": 318,
+      "y2": 122,
+      "above": " ",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t109": {
+      "id": "t109",
+      "text": "1.6 · Werkcollege les 1, opgave 9b",
+      "x": 0,
+      "y": 0,
+      "color": "#2563eb",
+      "bold": true,
+      "size": 18
+    },
+    "t110": {
+      "id": "t110",
+      "text": "Teken de gebogen pijlen.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t111": {
+      "id": "t111",
+      "text": "+",
+      "x": 116,
+      "y": 129,
+      "size": 20
+    },
+    "t112": {
+      "id": "t112",
+      "text": "+",
+      "x": 459,
+      "y": 129,
+      "size": 20
+    }
+  },
+  "brackets": {}
+}

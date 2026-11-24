@@ -1,0 +1,126 @@
+{
+  "atoms": {
+    "a601": {
+      "id": "a601",
+      "x": 16,
+      "y": 138.68209074889785,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a602": {
+      "id": "a602",
+      "x": 55.394684445260275,
+      "y": 145.5945617807226,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a603": {
+      "id": "a603",
+      "x": 69.05161506021952,
+      "y": 107.99999999999999,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a604": {
+      "id": "a604",
+      "x": 90.0530461464925,
+      "y": 165.57192308450303,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a605": {
+      "id": "a605",
+      "x": 55.42668662596317,
+      "y": 185.59728765933778,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b534": {
+      "id": "b534",
+      "a1": "a601",
+      "a2": "a602",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b535": {
+      "id": "b535",
+      "a1": "a602",
+      "a2": "a603",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b536": {
+      "id": "b536",
+      "a1": "a602",
+      "a2": "a604",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b537": {
+      "id": "b537",
+      "a1": "a604",
+      "a2": "a605",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b538": {
+      "id": "b538",
+      "a1": "a605",
+      "a2": "a602",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r61": {
+      "id": "r61",
+      "kind": "forward",
+      "x1": 118.0530461464925,
+      "y1": 146.7986438296689,
+      "x2": 208.0530461464925,
+      "y2": 146.7986438296689,
+      "above": "¹⁸OH⁻",
+      "below": "H₂¹⁸O"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t167": {
+      "id": "t167",
+      "text": "11.2 · Werkcollege les 11, Wade 14-27b",
+      "x": 0,
+      "y": 0,
+      "color": "#ea580c",
+      "bold": true,
+      "size": 18
+    },
+    "t168": {
+      "id": "t168",
+      "text": "Geef het mechanisme en laat zien waar het ¹⁸O terechtkomt.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t169": {
+      "id": "t169",
+      "text": "?",
+      "x": 244.0530461464925,
+      "y": 156.7986438296689,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

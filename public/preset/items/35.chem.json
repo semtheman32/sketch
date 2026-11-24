@@ -1,0 +1,366 @@
+{
+  "atoms": {
+    "a771": {
+      "id": "a771",
+      "x": 206.7116325771023,
+      "y": 247.9277201448396,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a772": {
+      "id": "a772",
+      "x": 172.03170193689425,
+      "y": 227.99976000072002,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a773": {
+      "id": "a773",
+      "x": 171.95170209689377,
+      "y": 187.99984000048005,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a774": {
+      "id": "a774",
+      "x": 137.27177145668566,
+      "y": 168.07187985636045,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a775": {
+      "id": "a775",
+      "x": 137.19177161668517,
+      "y": 128.07195985612043,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a776": {
+      "id": "a776",
+      "x": 171.7917024168928,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a777": {
+      "id": "a777",
+      "x": 206.47163305710086,
+      "y": 127.92796014411957,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a778": {
+      "id": "a778",
+      "x": 206.55163289710134,
+      "y": 167.92788014435956,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a779": {
+      "id": "a779",
+      "x": 137.43177113668662,
+      "y": 248.0637198728404,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a780": {
+      "id": "a780",
+      "x": 102.75184049647854,
+      "y": 228.13575972872084,
+      "element": "Cl",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a781": {
+      "id": "a781",
+      "x": 137.5117709766871,
+      "y": 288.06363987308043,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a782": {
+      "id": "a782",
+      "x": 102.91184017647949,
+      "y": 308.13559972920086,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a783": {
+      "id": "a783",
+      "x": 102.99184001647997,
+      "y": 348.1355197294409,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a784": {
+      "id": "a784",
+      "x": 62.99192001623996,
+      "y": 348.21551956944137,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a785": {
+      "id": "a785",
+      "x": 83.0638798723604,
+      "y": 382.815450369649,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a786": {
+      "id": "a786",
+      "x": 43.06395987212038,
+      "y": 382.8954502096494,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a787": {
+      "id": "a787",
+      "x": 23.13599972800081,
+      "y": 417.57538084985754,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a788": {
+      "id": "a788",
+      "x": 23,
+      "y": 348.29551940944185,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a789": {
+      "id": "a789",
+      "x": 137.67177065668807,
+      "y": 368.0634798735605,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a790": {
+      "id": "a790",
+      "x": 172.27970144089574,
+      "y": 347.99152001744005,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b697": {
+      "id": "b697",
+      "a1": "a771",
+      "a2": "a772",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b698": {
+      "id": "b698",
+      "a1": "a772",
+      "a2": "a773",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b699": {
+      "id": "b699",
+      "a1": "a773",
+      "a2": "a774",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b700": {
+      "id": "b700",
+      "a1": "a774",
+      "a2": "a775",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b701": {
+      "id": "b701",
+      "a1": "a775",
+      "a2": "a776",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b702": {
+      "id": "b702",
+      "a1": "a776",
+      "a2": "a777",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b703": {
+      "id": "b703",
+      "a1": "a777",
+      "a2": "a778",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b704": {
+      "id": "b704",
+      "a1": "a772",
+      "a2": "a779",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b705": {
+      "id": "b705",
+      "a1": "a779",
+      "a2": "a780",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b706": {
+      "id": "b706",
+      "a1": "a779",
+      "a2": "a781",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b707": {
+      "id": "b707",
+      "a1": "a781",
+      "a2": "a782",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b708": {
+      "id": "b708",
+      "a1": "a782",
+      "a2": "a783",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b709": {
+      "id": "b709",
+      "a1": "a783",
+      "a2": "a784",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b710": {
+      "id": "b710",
+      "a1": "a783",
+      "a2": "a785",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b711": {
+      "id": "b711",
+      "a1": "a785",
+      "a2": "a786",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b712": {
+      "id": "b712",
+      "a1": "a786",
+      "a2": "a787",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b713": {
+      "id": "b713",
+      "a1": "a786",
+      "a2": "a788",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b714": {
+      "id": "b714",
+      "a1": "a783",
+      "a2": "a789",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b715": {
+      "id": "b715",
+      "a1": "a789",
+      "a2": "a790",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b716": {
+      "id": "b716",
+      "a1": "a778",
+      "a2": "a773",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r73": {
+      "id": "r73",
+      "kind": "forward",
+      "x1": 234.7116325771023,
+      "y1": 262.78769042492877,
+      "x2": 348.7116325771023,
+      "y2": 262.78769042492877,
+      "above": "(CH₃)₃CO⁻",
+      "below": "tert-butanol"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t208": {
+      "id": "t208",
+      "text": "Lavendel · vraag 22",
+      "x": 0,
+      "y": 0,
+      "color": "#9333ea",
+      "bold": true,
+      "size": 18
+    },
+    "t209": {
+      "id": "t209",
+      "text": "Teken het mechanisme van de vorming van 14c uit 13c.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t210": {
+      "id": "t210",
+      "text": "?",
+      "x": 384.7116325771023,
+      "y": 272.78769042492877,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

@@ -1,0 +1,126 @@
+{
+  "atoms": {
+    "a596": {
+      "id": "a596",
+      "x": 16,
+      "y": 138.68209074889785,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a597": {
+      "id": "a597",
+      "x": 55.394684445260275,
+      "y": 145.5945617807226,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a598": {
+      "id": "a598",
+      "x": 69.05161506021952,
+      "y": 107.99999999999999,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a599": {
+      "id": "a599",
+      "x": 90.0530461464925,
+      "y": 165.57192308450303,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a600": {
+      "id": "a600",
+      "x": 55.42668662596317,
+      "y": 185.59728765933778,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b529": {
+      "id": "b529",
+      "a1": "a596",
+      "a2": "a597",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b530": {
+      "id": "b530",
+      "a1": "a597",
+      "a2": "a598",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b531": {
+      "id": "b531",
+      "a1": "a597",
+      "a2": "a599",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b532": {
+      "id": "b532",
+      "a1": "a599",
+      "a2": "a600",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b533": {
+      "id": "b533",
+      "a1": "a600",
+      "a2": "a597",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r60": {
+      "id": "r60",
+      "kind": "forward",
+      "x1": 118.0530461464925,
+      "y1": 146.7986438296689,
+      "x2": 208.0530461464925,
+      "y2": 146.7986438296689,
+      "above": "H⁺",
+      "below": "H₂¹⁸O"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t164": {
+      "id": "t164",
+      "text": "11.1 · Werkcollege les 11, Wade 14-27a",
+      "x": 0,
+      "y": 0,
+      "color": "#ea580c",
+      "bold": true,
+      "size": 18
+    },
+    "t165": {
+      "id": "t165",
+      "text": "Geef het mechanisme en laat zien waar het ¹⁸O terechtkomt.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t166": {
+      "id": "t166",
+      "text": "?",
+      "x": 244.0530461464925,
+      "y": 156.7986438296689,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

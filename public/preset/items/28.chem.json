@@ -1,0 +1,222 @@
+{
+  "atoms": {
+    "a646": {
+      "id": "a646",
+      "x": 85.51986096041713,
+      "y": 107.99999999999999,
+      "element": "Br",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a647": {
+      "id": "a647",
+      "x": 50.83993032020905,
+      "y": 127.9359601281196,
+      "element": "Mg",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a648": {
+      "id": "a648",
+      "x": 50.75993048020857,
+      "y": 167.92788014435956,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a649": {
+      "id": "a649",
+      "x": 16.079999840000482,
+      "y": 187.86384027247917,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a650": {
+      "id": "a650",
+      "x": 16,
+      "y": 227.86376027271916,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a651": {
+      "id": "a651",
+      "x": 50.59993080020761,
+      "y": 247.92772014483955,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a652": {
+      "id": "a652",
+      "x": 85.27986144041569,
+      "y": 227.99976000072,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a653": {
+      "id": "a653",
+      "x": 85.35986128041617,
+      "y": 187.99984000048,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a654": {
+      "id": "a654",
+      "x": 165.51986096041713,
+      "y": 177.96386007241978,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a655": {
+      "id": "a655",
+      "x": 205.51986096041713,
+      "y": 177.96386007241978,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a656": {
+      "id": "a656",
+      "x": 245.51986096041713,
+      "y": 177.96386007241978,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b578": {
+      "id": "b578",
+      "a1": "a646",
+      "a2": "a647",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b579": {
+      "id": "b579",
+      "a1": "a647",
+      "a2": "a648",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b580": {
+      "id": "b580",
+      "a1": "a648",
+      "a2": "a649",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b581": {
+      "id": "b581",
+      "a1": "a649",
+      "a2": "a650",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b582": {
+      "id": "b582",
+      "a1": "a650",
+      "a2": "a651",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b583": {
+      "id": "b583",
+      "a1": "a651",
+      "a2": "a652",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b584": {
+      "id": "b584",
+      "a1": "a652",
+      "a2": "a653",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b585": {
+      "id": "b585",
+      "a1": "a653",
+      "a2": "a648",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b586": {
+      "id": "b586",
+      "a1": "a654",
+      "a2": "a655",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b587": {
+      "id": "b587",
+      "a1": "a655",
+      "a2": "a656",
+      "order": 2,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r66": {
+      "id": "r66",
+      "kind": "forward",
+      "x1": 280.51986096041713,
+      "y1": 177.96386007241978,
+      "x2": 409.51986096041713,
+      "y2": 177.96386007241978,
+      "above": "1) droge ether",
+      "below": "2) H₃O⁺"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t187": {
+      "id": "t187",
+      "text": "VD4 · Synthese van benzoëzuur",
+      "x": 0,
+      "y": 0,
+      "color": "#4d7c0f",
+      "bold": true,
+      "size": 18
+    },
+    "t188": {
+      "id": "t188",
+      "text": "Geef het mechanisme van fenylmagnesiumbromide met CO₂, tot en met het aanzuren.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t189": {
+      "id": "t189",
+      "text": "+",
+      "x": 120.51986096041713,
+      "y": 184.96386007241978,
+      "size": 20
+    },
+    "t190": {
+      "id": "t190",
+      "text": "?",
+      "x": 445.51986096041713,
+      "y": 187.96386007241978,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

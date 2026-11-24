@@ -184,11 +184,31 @@ export default function App() {
     try { await fn() } catch (e) { flash(e instanceof Error ? e.message : 'Something went wrong') } finally { setBusy(false) }
   }, [flash])
 
+  /** A free spot in the part of the drawing you are looking at, so a new molecule lands in view. */
+  const spotInView = useCallback((): { x: number; y: number } | undefined => {
+    const el = stageRef.current
+    const d = getDoc()
+    if (!el || !Object.keys(d.atoms).length) return undefined
+    const { width, height } = el.getBoundingClientRect()
+    const v = viewRef.current
+    const c = { x: (width / 2 - v.x) / v.k, y: (height / 2 - v.y) / v.k }
+    const atoms = Object.values(d.atoms)
+    const crowded = (p: { x: number; y: number }) => atoms.some(a => Math.abs(a.x - p.x) < 90 && Math.abs(a.y - p.y) < 60)
+    // Walk outward from the middle of the screen until there is room.
+    for (let r = 0; r < 12; r++) for (const [dx, dy] of [[0, 0], [1, 0], [0, 1], [-1, 0], [0, -1], [1, 1], [-1, 1]]) {
+      const p = { x: c.x + dx * r * 70, y: c.y + dy * r * 50 }
+      if (!crowded(p)) return p
+    }
+    return c
+  }, [])
+
   const addByName = useCallback((text: string) => run(async () => {
-    const res = await addMolecule(text)
+    const wasEmpty = isEmptyDoc(getDoc())
+    const res = await addMolecule(text, spotInView())
     setSelection(res.atomIds)
-    requestAnimationFrame(fit)
-  }), [run, fit])
+    // Only zoom on an empty canvas; on a big sheet keep looking where you were.
+    if (wasEmpty) requestAnimationFrame(() => fit())
+  }), [run, fit, spotInView])
 
   const submitMolecule = async () => {
     if (!molInput.trim() || busy) return
@@ -252,10 +272,20 @@ export default function App() {
     const c = clip.current && clip.current.frag === frag ? clip.current : null
     const step = 24 * ((c?.pastes ?? 0) + 1)
     if (c) c.pastes++
-    const ids = commit(d => pasteFragment(d, frag, step, step))
+    // Copied in another tab (or far away on a big sheet): paste in the middle of what you see, not off-screen.
+    let dx = step, dy = step
+    const b = contentBounds(frag), el = stageRef.current
+    if (b && el) {
+      const { width, height } = el.getBoundingClientRect()
+      const v = viewRef.current
+      const vx1 = -v.x / v.k, vy1 = -v.y / v.k, vx2 = (width - v.x) / v.k, vy2 = (height - v.y) / v.k
+      const cx = (b.x1 + b.x2) / 2, cy = (b.y1 + b.y2) / 2
+      if (cx < vx1 || cx > vx2 || cy < vy1 || cy > vy2) { const spot = spotInView() ?? { x: (vx1 + vx2) / 2, y: (vy1 + vy2) / 2 }; dx = spot.x - cx; dy = spot.y - cy }
+    }
+    const ids = commit(d => pasteFragment(d, frag, dx, dy))
     setSelection(ids)
     setTool('select')
-  }, [])
+  }, [spotInView])
 
   const duplicate = useCallback(() => {
     if (!selection.length) return

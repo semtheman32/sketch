@@ -1,0 +1,325 @@
+{
+  "atoms": {
+    "a842": {
+      "id": "a842",
+      "x": 170.65595563010126,
+      "y": 117.98787926473058,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a843": {
+      "id": "a843",
+      "x": 170.62395564034125,
+      "y": 157.98786646473673,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a844": {
+      "id": "a844",
+      "x": 135.96796673025594,
+      "y": 177.96386007241978,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a845": {
+      "id": "a845",
+      "x": 135.93596674049593,
+      "y": 217.9638472724259,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a846": {
+      "id": "a846",
+      "x": 101.27997783041063,
+      "y": 237.939840880109,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a847": {
+      "id": "a847",
+      "x": 66.65598891008531,
+      "y": 217.9078472903459,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a848": {
+      "id": "a848",
+      "x": 32,
+      "y": 237.88384089802898,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a849": {
+      "id": "a849",
+      "x": 66.68798889984532,
+      "y": 177.90786009033977,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a850": {
+      "id": "a850",
+      "x": 101.34397780993064,
+      "y": 157.9398664800967,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a851": {
+      "id": "a851",
+      "x": 298.17581659051837,
+      "y": 107.99999999999999,
+      "element": "Br",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a852": {
+      "id": "a852",
+      "x": 263.4958859503103,
+      "y": 127.9359601281196,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a853": {
+      "id": "a853",
+      "x": 263.4158861103098,
+      "y": 167.92788014435956,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a854": {
+      "id": "a854",
+      "x": 228.73595547010174,
+      "y": 187.86384027247917,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a855": {
+      "id": "a855",
+      "x": 228.65595563010126,
+      "y": 227.86376027271916,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a856": {
+      "id": "a856",
+      "x": 263.25588643030886,
+      "y": 247.92772014483955,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a857": {
+      "id": "a857",
+      "x": 297.935817070517,
+      "y": 227.99976000072,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a858": {
+      "id": "a858",
+      "x": 298.01581691051746,
+      "y": 187.99984000048,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b768": {
+      "id": "b768",
+      "a1": "a842",
+      "a2": "a843",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b769": {
+      "id": "b769",
+      "a1": "a843",
+      "a2": "a844",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b770": {
+      "id": "b770",
+      "a1": "a844",
+      "a2": "a845",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b771": {
+      "id": "b771",
+      "a1": "a845",
+      "a2": "a846",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b772": {
+      "id": "b772",
+      "a1": "a846",
+      "a2": "a847",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b773": {
+      "id": "b773",
+      "a1": "a847",
+      "a2": "a848",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b774": {
+      "id": "b774",
+      "a1": "a847",
+      "a2": "a849",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b775": {
+      "id": "b775",
+      "a1": "a849",
+      "a2": "a850",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b776": {
+      "id": "b776",
+      "a1": "a850",
+      "a2": "a844",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b777": {
+      "id": "b777",
+      "a1": "a851",
+      "a2": "a852",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b778": {
+      "id": "b778",
+      "a1": "a852",
+      "a2": "a853",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b779": {
+      "id": "b779",
+      "a1": "a853",
+      "a2": "a854",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b780": {
+      "id": "b780",
+      "a1": "a854",
+      "a2": "a855",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b781": {
+      "id": "b781",
+      "a1": "a855",
+      "a2": "a856",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b782": {
+      "id": "b782",
+      "a1": "a856",
+      "a2": "a857",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b783": {
+      "id": "b783",
+      "a1": "a857",
+      "a2": "a858",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b784": {
+      "id": "b784",
+      "a1": "a858",
+      "a2": "a853",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r76": {
+      "id": "r76",
+      "kind": "forward",
+      "x1": 341.17581659051837,
+      "y1": 177.96386007241978,
+      "x2": 431.17581659051837,
+      "y2": 177.96386007241978,
+      "above": "KOH, FTK",
+      "below": "THF"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t215": {
+      "id": "t215",
+      "text": "Betaxolol · vraag 1b",
+      "x": 0,
+      "y": 0,
+      "color": "#b45309",
+      "bold": true,
+      "size": 18
+    },
+    "t216": {
+      "id": "t216",
+      "text": "Geef het volledige mechanisme van de vorming van 4-vinylbenzyloxybenzeen (5).",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t217": {
+      "id": "t217",
+      "text": "+",
+      "x": 190.65595563010126,
+      "y": 184.96386007241978,
+      "size": 20
+    },
+    "t218": {
+      "id": "t218",
+      "text": "?",
+      "x": 467.17581659051837,
+      "y": 187.96386007241978,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

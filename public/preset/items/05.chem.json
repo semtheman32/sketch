@@ -1,0 +1,216 @@
+{
+  "atoms": {
+    "a460": {
+      "id": "a460",
+      "x": 105.2457992257263,
+      "y": 110.71637149651735,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a461": {
+      "id": "a461",
+      "x": 85.27829161839277,
+      "y": 145.37151691116833,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a462": {
+      "id": "a462",
+      "x": 119.93343703304376,
+      "y": 165.34702432122916,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a463": {
+      "id": "a463",
+      "x": 65.24678558924087,
+      "y": 110.74837070742655,
+      "element": "O",
+      "charge": -1,
+      "lonePairs": 3,
+      "radical": false
+    },
+    "a464": {
+      "id": "a464",
+      "x": 50.65514541465098,
+      "y": 165.40302294032023,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 2,
+      "radical": false
+    },
+    "a465": {
+      "id": "a465",
+      "x": 16,
+      "y": 145.4275155302594,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a466": {
+      "id": "a466",
+      "x": 341.217348913144,
+      "y": 168.11939443683758,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a467": {
+      "id": "a467",
+      "x": 306.6473970385582,
+      "y": 148.0022585912819,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a468": {
+      "id": "a468",
+      "x": 271.9334370330438,
+      "y": 167.87538065943076,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a469": {
+      "id": "a469",
+      "x": 306.79140516948684,
+      "y": 108,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 2,
+      "radical": false
+    },
+    "a470": {
+      "id": "a470",
+      "x": 399.21734891314406,
+      "y": 138.0596972184188,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a471": {
+      "id": "a471",
+      "x": 439.21734891314406,
+      "y": 138.0596972184188,
+      "element": "O",
+      "charge": -1,
+      "lonePairs": 3,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b413": {
+      "id": "b413",
+      "a1": "a460",
+      "a2": "a461",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b414": {
+      "id": "b414",
+      "a1": "a461",
+      "a2": "a462",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b415": {
+      "id": "b415",
+      "a1": "a461",
+      "a2": "a463",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b416": {
+      "id": "b416",
+      "a1": "a461",
+      "a2": "a464",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b417": {
+      "id": "b417",
+      "a1": "a464",
+      "a2": "a465",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b418": {
+      "id": "b418",
+      "a1": "a466",
+      "a2": "a467",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b419": {
+      "id": "b419",
+      "a1": "a467",
+      "a2": "a468",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b420": {
+      "id": "b420",
+      "a1": "a467",
+      "a2": "a469",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b421": {
+      "id": "b421",
+      "a1": "a470",
+      "a2": "a471",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r43": {
+      "id": "r43",
+      "kind": "forward",
+      "x1": 147.93343703304376,
+      "y1": 138.0596972184188,
+      "x2": 237.93343703304376,
+      "y2": 138.0596972184188,
+      "above": " ",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t106": {
+      "id": "t106",
+      "text": "1.5 · Werkcollege les 1, opgave 9a",
+      "x": 0,
+      "y": 0,
+      "color": "#2563eb",
+      "bold": true,
+      "size": 18
+    },
+    "t107": {
+      "id": "t107",
+      "text": "Teken de gebogen pijlen.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t108": {
+      "id": "t108",
+      "text": "+",
+      "x": 361.21734891314406,
+      "y": 145.0596972184188,
+      "size": 20
+    }
+  },
+  "brackets": {}
+}

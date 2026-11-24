@@ -1,0 +1,438 @@
+{
+  "atoms": {
+    "a817": {
+      "id": "a817",
+      "x": 16,
+      "y": 208.49539318331085,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a818": {
+      "id": "a818",
+      "x": 50.56710334096884,
+      "y": 188.367915283316,
+      "element": "N",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a819": {
+      "id": "a819",
+      "x": 50.42310707618353,
+      "y": 148.3689528429447,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a820": {
+      "id": "a820",
+      "x": 85.27820294672306,
+      "y": 208.25139951242457,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a821": {
+      "id": "a821",
+      "x": 119.84530628769193,
+      "y": 188.1199217161857,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a822": {
+      "id": "a822",
+      "x": 154.5564058934461,
+      "y": 208.00340594529428,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a823": {
+      "id": "a823",
+      "x": 189.123509234415,
+      "y": 187.87592804529945,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a824": {
+      "id": "a824",
+      "x": 223.8346088401692,
+      "y": 207.75141248191994,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a825": {
+      "id": "a825",
+      "x": 258.40171218113807,
+      "y": 187.62793447816915,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a826": {
+      "id": "a826",
+      "x": 258.26571570884084,
+      "y": 147.62897203779784,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a827": {
+      "id": "a827",
+      "x": 223.54661631059855,
+      "y": 127.74948770493332,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a828": {
+      "id": "a828",
+      "x": 188.98751276211772,
+      "y": 147.87696560492816,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a829": {
+      "id": "a829",
+      "x": 410.401712181138,
+      "y": 147.50297530611067,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a830": {
+      "id": "a830",
+      "x": 444.96881552210687,
+      "y": 167.6304532061055,
+      "element": "N",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a831": {
+      "id": "a831",
+      "x": 444.82481925732156,
+      "y": 207.6214158539887,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a832": {
+      "id": "a832",
+      "x": 479.68791492034916,
+      "y": 147.750968873241,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a833": {
+      "id": "a833",
+      "x": 514.255018261318,
+      "y": 167.87844677323582,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a834": {
+      "id": "a834",
+      "x": 548.9661178670723,
+      "y": 147.9989624403713,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a835": {
+      "id": "a835",
+      "x": 549.1101141318576,
+      "y": 108,
+      "element": "Cl",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a836": {
+      "id": "a836",
+      "x": 583.525221415553,
+      "y": 168.11844054787804,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a837": {
+      "id": "a837",
+      "x": 618.2443208137953,
+      "y": 148.24695600750158,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a838": {
+      "id": "a838",
+      "x": 652.8114241547642,
+      "y": 168.3744339074964,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a839": {
+      "id": "a839",
+      "x": 652.6674278899789,
+      "y": 208.3733963478677,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a840": {
+      "id": "a840",
+      "x": 617.9563282842246,
+      "y": 228.24488088824415,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a841": {
+      "id": "a841",
+      "x": 583.3892249432557,
+      "y": 208.11740298824932,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b743": {
+      "id": "b743",
+      "a1": "a817",
+      "a2": "a818",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b744": {
+      "id": "b744",
+      "a1": "a818",
+      "a2": "a819",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b745": {
+      "id": "b745",
+      "a1": "a818",
+      "a2": "a820",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b746": {
+      "id": "b746",
+      "a1": "a820",
+      "a2": "a821",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b747": {
+      "id": "b747",
+      "a1": "a821",
+      "a2": "a822",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b748": {
+      "id": "b748",
+      "a1": "a822",
+      "a2": "a823",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b749": {
+      "id": "b749",
+      "a1": "a823",
+      "a2": "a824",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b750": {
+      "id": "b750",
+      "a1": "a824",
+      "a2": "a825",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b751": {
+      "id": "b751",
+      "a1": "a825",
+      "a2": "a826",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b752": {
+      "id": "b752",
+      "a1": "a826",
+      "a2": "a827",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b753": {
+      "id": "b753",
+      "a1": "a827",
+      "a2": "a828",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b754": {
+      "id": "b754",
+      "a1": "a828",
+      "a2": "a823",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b755": {
+      "id": "b755",
+      "a1": "a829",
+      "a2": "a830",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b756": {
+      "id": "b756",
+      "a1": "a830",
+      "a2": "a831",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b757": {
+      "id": "b757",
+      "a1": "a830",
+      "a2": "a832",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b758": {
+      "id": "b758",
+      "a1": "a832",
+      "a2": "a833",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b759": {
+      "id": "b759",
+      "a1": "a833",
+      "a2": "a834",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b760": {
+      "id": "b760",
+      "a1": "a834",
+      "a2": "a835",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b761": {
+      "id": "b761",
+      "a1": "a834",
+      "a2": "a836",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b762": {
+      "id": "b762",
+      "a1": "a836",
+      "a2": "a837",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b763": {
+      "id": "b763",
+      "a1": "a837",
+      "a2": "a838",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b764": {
+      "id": "b764",
+      "a1": "a838",
+      "a2": "a839",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b765": {
+      "id": "b765",
+      "a1": "a839",
+      "a2": "a840",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b766": {
+      "id": "b766",
+      "a1": "a840",
+      "a2": "a841",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b767": {
+      "id": "b767",
+      "a1": "a841",
+      "a2": "a836",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r75": {
+      "id": "r75",
+      "kind": "forward",
+      "x1": 286.40171218113807,
+      "y1": 168.12244044412208,
+      "x2": 376.40171218113807,
+      "y2": 168.12244044412208,
+      "above": "gec. HCl",
+      "below": "H₂O"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t213": {
+      "id": "t213",
+      "text": "Prozac · vraag 2e",
+      "x": 0,
+      "y": 0,
+      "color": "#b45309",
+      "bold": true,
+      "size": 18
+    },
+    "t214": {
+      "id": "t214",
+      "text": "Maak met het mechanisme duidelijk waarom Cl op C-1 komt en niet op C-2 van 8.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    }
+  },
+  "brackets": {}
+}

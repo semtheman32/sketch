@@ -1,0 +1,238 @@
+{
+  "atoms": {
+    "a620": {
+      "id": "a620",
+      "x": 134.93343703304376,
+      "y": 169.9997447826895,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a621": {
+      "id": "a621",
+      "x": 100.27829161839279,
+      "y": 150.02423737262868,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a622": {
+      "id": "a622",
+      "x": 65.65514541465097,
+      "y": 170.05574340178057,
+      "element": "Mg",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a623": {
+      "id": "a623",
+      "x": 31,
+      "y": 150.08023599171975,
+      "element": "Br",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a624": {
+      "id": "a624",
+      "x": 192.93343703304373,
+      "y": 189.9199808256092,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a625": {
+      "id": "a625",
+      "x": 227.58142594568903,
+      "y": 169.94398721792615,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a626": {
+      "id": "a626",
+      "x": 262.2134148634544,
+      "y": 189.9759808076892,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a627": {
+      "id": "a627",
+      "x": 296.8614037760997,
+      "y": 169.99998720000616,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a628": {
+      "id": "a628",
+      "x": 296.89340376585966,
+      "y": 130,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a629": {
+      "id": "a629",
+      "x": 331.493392693865,
+      "y": 190.0239807923292,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a630": {
+      "id": "a630",
+      "x": 366.1413816065103,
+      "y": 170.05598718208617,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a631": {
+      "id": "a631",
+      "x": 400.7733705242756,
+      "y": 190.07998077440925,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b553": {
+      "id": "b553",
+      "a1": "a620",
+      "a2": "a621",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b554": {
+      "id": "b554",
+      "a1": "a621",
+      "a2": "a622",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b555": {
+      "id": "b555",
+      "a1": "a622",
+      "a2": "a623",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b556": {
+      "id": "b556",
+      "a1": "a624",
+      "a2": "a625",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b557": {
+      "id": "b557",
+      "a1": "a625",
+      "a2": "a626",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b558": {
+      "id": "b558",
+      "a1": "a626",
+      "a2": "a627",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b559": {
+      "id": "b559",
+      "a1": "a627",
+      "a2": "a628",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b560": {
+      "id": "b560",
+      "a1": "a627",
+      "a2": "a629",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b561": {
+      "id": "b561",
+      "a1": "a629",
+      "a2": "a630",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b562": {
+      "id": "b562",
+      "a1": "a630",
+      "a2": "a631",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r64": {
+      "id": "r64",
+      "kind": "forward",
+      "x1": 428.7733705242756,
+      "y1": 160.03999038720463,
+      "x2": 580.2733705242756,
+      "y2": 160.03999038720463,
+      "above": "droge MTBE",
+      "below": "daarna NH₄Cl (aq)"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t178": {
+      "id": "t178",
+      "text": "15.1 · Les 15, vraag 7 (werkwijze lit. 24)",
+      "x": 0,
+      "y": 0,
+      "color": "#db2777",
+      "bold": true,
+      "size": 18
+    },
+    "t179": {
+      "id": "t179",
+      "text": "Geef het mechanisme van ethylmagnesiumbromide (overmaat) met diethylcarbonaat, tot en met",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t180": {
+      "id": "t180",
+      "text": "de opwerking.",
+      "x": 0,
+      "y": 56,
+      "size": 15
+    },
+    "t181": {
+      "id": "t181",
+      "text": "+",
+      "x": 154.93343703304376,
+      "y": 167.03999038720463,
+      "size": 20
+    },
+    "t182": {
+      "id": "t182",
+      "text": "?",
+      "x": 616.2733705242756,
+      "y": 170.03999038720463,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

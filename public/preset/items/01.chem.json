@@ -1,0 +1,142 @@
+{
+  "atoms": {
+    "a430": {
+      "id": "a430",
+      "x": 16,
+      "y": 167.9759808076892,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a431": {
+      "id": "a431",
+      "x": 16.031999989760003,
+      "y": 127.97599360768305,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a432": {
+      "id": "a432",
+      "x": 50.687988899845315,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a433": {
+      "id": "a433",
+      "x": 85.31197782017063,
+      "y": 128.02399359232305,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a434": {
+      "id": "a434",
+      "x": 85.27997783041062,
+      "y": 168.0239807923292,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a435": {
+      "id": "a435",
+      "x": 50.6239889203253,
+      "y": 187.99997440001226,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b393": {
+      "id": "b393",
+      "a1": "a430",
+      "a2": "a431",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b394": {
+      "id": "b394",
+      "a1": "a431",
+      "a2": "a432",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b395": {
+      "id": "b395",
+      "a1": "a432",
+      "a2": "a433",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b396": {
+      "id": "b396",
+      "a1": "a433",
+      "a2": "a434",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b397": {
+      "id": "b397",
+      "a1": "a434",
+      "a2": "a435",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b398": {
+      "id": "b398",
+      "a1": "a435",
+      "a2": "a430",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r39": {
+      "id": "r39",
+      "kind": "forward",
+      "x1": 113.31197782017063,
+      "y1": 147.99998720000613,
+      "x2": 203.31197782017063,
+      "y2": 147.99998720000613,
+      "above": "HCl",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t93": {
+      "id": "t93",
+      "text": "1.1 · Werkcollege les 1, opgave 1",
+      "x": 0,
+      "y": 0,
+      "color": "#2563eb",
+      "bold": true,
+      "size": 18
+    },
+    "t94": {
+      "id": "t94",
+      "text": "Geef het mechanisme van de reactie van cyclohexeen met HCl.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t95": {
+      "id": "t95",
+      "text": "?",
+      "x": 239.31197782017063,
+      "y": 157.99998720000613,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

@@ -1,0 +1,383 @@
+{
+  "atoms": {
+    "a669": {
+      "id": "a669",
+      "x": 50.59435733982643,
+      "y": 133.4597102875723,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a670": {
+      "id": "a670",
+      "x": 50.62635952052932,
+      "y": 173.4624361661875,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a671": {
+      "id": "a671",
+      "x": 16,
+      "y": 193.48780074102228,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a672": {
+      "id": "a672",
+      "x": 85.28472122176154,
+      "y": 193.43179692479222,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a673": {
+      "id": "a673",
+      "x": 119.91108074229086,
+      "y": 173.40643234995744,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a674": {
+      "id": "a674",
+      "x": 154.5694424435231,
+      "y": 193.37579310856216,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a675": {
+      "id": "a675",
+      "x": 154.60144462422596,
+      "y": 233.37851898717736,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a676": {
+      "id": "a676",
+      "x": 119.97508510369666,
+      "y": 253.41188410718786,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a677": {
+      "id": "a677",
+      "x": 189.1958019640524,
+      "y": 173.35042853372738,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a678": {
+      "id": "a678",
+      "x": 223.85416366528463,
+      "y": 193.3197892923321,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a679": {
+      "id": "a679",
+      "x": 189.16379978334953,
+      "y": 133.3477026551122,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a680": {
+      "id": "a680",
+      "x": 505.8939965890911,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a681": {
+      "id": "a681",
+      "x": 471.2940803207872,
+      "y": 128.07195142593633,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a682": {
+      "id": "a682",
+      "x": 436.6141642460825,
+      "y": 108.1359996708812,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a683": {
+      "id": "a683",
+      "x": 471.3740801271879,
+      "y": 168.07185462628772,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a684": {
+      "id": "a684",
+      "x": 506.0539962018925,
+      "y": 187.99980640070277,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a685": {
+      "id": "a685",
+      "x": 506.14199598893333,
+      "y": 227.99970960105418,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a686": {
+      "id": "a686",
+      "x": 471.5340797399893,
+      "y": 248.06366104635043,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a687": {
+      "id": "a687",
+      "x": 445.886141807924,
+      "y": 278.75958676230005,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a688": {
+      "id": "a688",
+      "x": 497.31001736229575,
+      "y": 278.65558701397913,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a689": {
+      "id": "a689",
+      "x": 436.85416366528466,
+      "y": 228.13570927193535,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a690": {
+      "id": "a690",
+      "x": 436.7741638588839,
+      "y": 188.13580607158397,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b598": {
+      "id": "b598",
+      "a1": "a669",
+      "a2": "a670",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b599": {
+      "id": "b599",
+      "a1": "a670",
+      "a2": "a671",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b600": {
+      "id": "b600",
+      "a1": "a670",
+      "a2": "a672",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b601": {
+      "id": "b601",
+      "a1": "a672",
+      "a2": "a673",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b602": {
+      "id": "b602",
+      "a1": "a673",
+      "a2": "a674",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b603": {
+      "id": "b603",
+      "a1": "a674",
+      "a2": "a675",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b604": {
+      "id": "b604",
+      "a1": "a675",
+      "a2": "a676",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b605": {
+      "id": "b605",
+      "a1": "a674",
+      "a2": "a677",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b606": {
+      "id": "b606",
+      "a1": "a677",
+      "a2": "a678",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b607": {
+      "id": "b607",
+      "a1": "a677",
+      "a2": "a679",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b608": {
+      "id": "b608",
+      "a1": "a680",
+      "a2": "a681",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b609": {
+      "id": "b609",
+      "a1": "a681",
+      "a2": "a682",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b610": {
+      "id": "b610",
+      "a1": "a681",
+      "a2": "a683",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b611": {
+      "id": "b611",
+      "a1": "a683",
+      "a2": "a684",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b612": {
+      "id": "b612",
+      "a1": "a684",
+      "a2": "a685",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b613": {
+      "id": "b613",
+      "a1": "a685",
+      "a2": "a686",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b614": {
+      "id": "b614",
+      "a1": "a686",
+      "a2": "a687",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b615": {
+      "id": "b615",
+      "a1": "a686",
+      "a2": "a688",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b616": {
+      "id": "b616",
+      "a1": "a686",
+      "a2": "a689",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b617": {
+      "id": "b617",
+      "a1": "a689",
+      "a2": "a690",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b618": {
+      "id": "b618",
+      "a1": "a690",
+      "a2": "a683",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r68": {
+      "id": "r68",
+      "kind": "forward",
+      "x1": 251.85416366528463,
+      "y1": 193.37979338115002,
+      "x2": 395.85416366528466,
+      "y2": 193.37979338115002,
+      "above": "zure katalysator",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t195": {
+      "id": "t195",
+      "text": "Lavendel · vraag 9",
+      "x": 0,
+      "y": 0,
+      "color": "#9333ea",
+      "bold": true,
+      "size": 18
+    },
+    "t196": {
+      "id": "t196",
+      "text": "Geef het volledige mechanisme van de cyclisatie van (−)-lavandulol tot lavendeloxide.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    }
+  },
+  "brackets": {}
+}

@@ -1,0 +1,135 @@
+{
+  "atoms": {
+    "a495": {
+      "id": "a495",
+      "x": 134.93343703304376,
+      "y": 108.05599861909107,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a496": {
+      "id": "a496",
+      "x": 100.27829161839279,
+      "y": 128.0315060291519,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a497": {
+      "id": "a497",
+      "x": 65.65514541465097,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a498": {
+      "id": "a498",
+      "x": 31,
+      "y": 127.97550741006083,
+      "element": "Br",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a499": {
+      "id": "a499",
+      "x": 192.93343703304376,
+      "y": 118.01575301457595,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a500": {
+      "id": "a500",
+      "x": 232.93343703304376,
+      "y": 118.01575301457595,
+      "element": "O",
+      "charge": -1,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b436": {
+      "id": "b436",
+      "a1": "a495",
+      "a2": "a496",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b437": {
+      "id": "b437",
+      "a1": "a496",
+      "a2": "a497",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b438": {
+      "id": "b438",
+      "a1": "a497",
+      "a2": "a498",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b439": {
+      "id": "b439",
+      "a1": "a499",
+      "a2": "a500",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r47": {
+      "id": "r47",
+      "kind": "forward",
+      "x1": 267.9334370330438,
+      "y1": 118.01575301457595,
+      "x2": 357.9334370330438,
+      "y2": 118.01575301457595,
+      "above": "",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t120": {
+      "id": "t120",
+      "text": "3.2 · Werkcollege les 3, Wade 4-34",
+      "x": 0,
+      "y": 0,
+      "color": "#7c3aed",
+      "bold": true,
+      "size": 18
+    },
+    "t121": {
+      "id": "t121",
+      "text": "Geef het mechanisme van de reactie van 1-broompropaan met methoxide.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t122": {
+      "id": "t122",
+      "text": "+",
+      "x": 154.93343703304376,
+      "y": 125.01575301457595,
+      "size": 20
+    },
+    "t123": {
+      "id": "t123",
+      "text": "?",
+      "x": 393.9334370330438,
+      "y": 128.01575301457595,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

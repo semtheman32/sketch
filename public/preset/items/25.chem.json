@@ -1,0 +1,165 @@
+{
+  "atoms": {
+    "a613": {
+      "id": "a613",
+      "x": 16,
+      "y": 193.30561431374775,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a614": {
+      "id": "a614",
+      "x": 50.64088335378842,
+      "y": 213.2981241292483,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a615": {
+      "id": "a615",
+      "x": 85.28176670757684,
+      "y": 193.29761410973998,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a616": {
+      "id": "a616",
+      "x": 110.99442238865674,
+      "y": 223.93039525561892,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a617": {
+      "id": "a617",
+      "x": 110.98642218464894,
+      "y": 162.6488325558454,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a618": {
+      "id": "a618",
+      "x": 71.59341765022533,
+      "y": 155.71265568107992,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a619": {
+      "id": "a619",
+      "x": 40.94463609633078,
+      "y": 130,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b546": {
+      "id": "b546",
+      "a1": "a613",
+      "a2": "a614",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b547": {
+      "id": "b547",
+      "a1": "a614",
+      "a2": "a615",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b548": {
+      "id": "b548",
+      "a1": "a615",
+      "a2": "a616",
+      "order": 1,
+      "stereo": "dash"
+    },
+    "b549": {
+      "id": "b549",
+      "a1": "a615",
+      "a2": "a617",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b550": {
+      "id": "b550",
+      "a1": "a617",
+      "a2": "a618",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b551": {
+      "id": "b551",
+      "a1": "a618",
+      "a2": "a619",
+      "order": 1,
+      "stereo": "wedge"
+    },
+    "b552": {
+      "id": "b552",
+      "a1": "a618",
+      "a2": "a615",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r63": {
+      "id": "r63",
+      "kind": "forward",
+      "x1": 145.98642218464894,
+      "y1": 176.96519762780946,
+      "x2": 235.98642218464894,
+      "y2": 176.96519762780946,
+      "above": "H⁺",
+      "below": "CH₃OH"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t174": {
+      "id": "t174",
+      "text": "11.4 · Werkcollege les 11, Wade 14-27d",
+      "x": 0,
+      "y": 0,
+      "color": "#ea580c",
+      "bold": true,
+      "size": 18
+    },
+    "t175": {
+      "id": "t175",
+      "text": "Geef het mechanisme voor (2S,3R)-2-ethyl-2,3-dimethyloxiraan en het product met",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t176": {
+      "id": "t176",
+      "text": "stereochemie.",
+      "x": 0,
+      "y": 56,
+      "size": 15
+    },
+    "t177": {
+      "id": "t177",
+      "text": "?",
+      "x": 271.986422184649,
+      "y": 186.96519762780946,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

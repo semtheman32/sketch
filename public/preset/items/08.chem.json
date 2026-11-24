@@ -1,0 +1,119 @@
+{
+  "atoms": {
+    "a490": {
+      "id": "a490",
+      "x": 30.792084906811052,
+      "y": 108.00000000000001,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a491": {
+      "id": "a491",
+      "x": 50.69619915675475,
+      "y": 142.69619915675477,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a492": {
+      "id": "a492",
+      "x": 85.28039767062396,
+      "y": 162.79231450878794,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a493": {
+      "id": "a493",
+      "x": 16,
+      "y": 162.60031340669846,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a494": {
+      "id": "a494",
+      "x": 70.79231450878794,
+      "y": 108.11200064288555,
+      "element": "Cl",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b432": {
+      "id": "b432",
+      "a1": "a490",
+      "a2": "a491",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b433": {
+      "id": "b433",
+      "a1": "a491",
+      "a2": "a492",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b434": {
+      "id": "b434",
+      "a1": "a491",
+      "a2": "a493",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b435": {
+      "id": "b435",
+      "a1": "a491",
+      "a2": "a494",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r46": {
+      "id": "r46",
+      "kind": "forward",
+      "x1": 113.79231450878794,
+      "y1": 135.39615725439398,
+      "x2": 203.79231450878794,
+      "y2": 135.39615725439398,
+      "above": "CH₃OH",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t117": {
+      "id": "t117",
+      "text": "3.1 · Werkcollege les 3, Wade 4-11",
+      "x": 0,
+      "y": 0,
+      "color": "#7c3aed",
+      "bold": true,
+      "size": 18
+    },
+    "t118": {
+      "id": "t118",
+      "text": "Geef het mechanisme van de reactie van tert-butylchloride in methanol.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t119": {
+      "id": "t119",
+      "text": "?",
+      "x": 239.79231450878794,
+      "y": 145.39615725439398,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

@@ -1,0 +1,126 @@
+{
+  "atoms": {
+    "a591": {
+      "id": "a591",
+      "x": 72.22576664134225,
+      "y": 166.98585336462955,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a592": {
+      "id": "a592",
+      "x": 32.464517323261575,
+      "y": 171.37799136777366,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a593": {
+      "id": "a593",
+      "x": 16,
+      "y": 134.9208458662659,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a594": {
+      "id": "a594",
+      "x": 45.58492957309101,
+      "y": 108.00000000000001,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a595": {
+      "id": "a595",
+      "x": 80.33002128102348,
+      "y": 127.81662264806558,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b524": {
+      "id": "b524",
+      "a1": "a591",
+      "a2": "a592",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b525": {
+      "id": "b525",
+      "a1": "a592",
+      "a2": "a593",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b526": {
+      "id": "b526",
+      "a1": "a593",
+      "a2": "a594",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b527": {
+      "id": "b527",
+      "a1": "a594",
+      "a2": "a595",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b528": {
+      "id": "b528",
+      "a1": "a595",
+      "a2": "a591",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r59": {
+      "id": "r59",
+      "kind": "forward",
+      "x1": 108.33002128102348,
+      "y1": 139.68899568388684,
+      "x2": 198.33002128102348,
+      "y2": 139.68899568388684,
+      "above": "Br₂",
+      "below": "H₂O"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t161": {
+      "id": "t161",
+      "text": "8.7 · Werkcollege les 8, Wade 8-19",
+      "x": 0,
+      "y": 0,
+      "color": "#16a34a",
+      "bold": true,
+      "size": 18
+    },
+    "t162": {
+      "id": "t162",
+      "text": "Geef het mechanisme en de producten met stereochemie.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t163": {
+      "id": "t163",
+      "text": "?",
+      "x": 234.33002128102348,
+      "y": 149.68899568388684,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

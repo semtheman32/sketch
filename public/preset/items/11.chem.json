@@ -1,0 +1,158 @@
+{
+  "atoms": {
+    "a508": {
+      "id": "a508",
+      "x": 16,
+      "y": 189.97208663721995,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a509": {
+      "id": "a509",
+      "x": 50.658361701232224,
+      "y": 170.00272587861522,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a510": {
+      "id": "a510",
+      "x": 50.69036388193511,
+      "y": 130,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a511": {
+      "id": "a511",
+      "x": 85.28472122176156,
+      "y": 190.02809045345,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a512": {
+      "id": "a512",
+      "x": 105.25408198036627,
+      "y": 224.68645215468223,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a513": {
+      "id": "a513",
+      "x": 119.94308292299377,
+      "y": 170.05872969484528,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a514": {
+      "id": "a514",
+      "x": 65.25135610175106,
+      "y": 224.65444997397933,
+      "element": "Br",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b446": {
+      "id": "b446",
+      "a1": "a508",
+      "a2": "a509",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b447": {
+      "id": "b447",
+      "a1": "a509",
+      "a2": "a510",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b448": {
+      "id": "b448",
+      "a1": "a509",
+      "a2": "a511",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b449": {
+      "id": "b449",
+      "a1": "a511",
+      "a2": "a512",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b450": {
+      "id": "b450",
+      "a1": "a511",
+      "a2": "a513",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b451": {
+      "id": "b451",
+      "a1": "a511",
+      "a2": "a514",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r49": {
+      "id": "r49",
+      "kind": "forward",
+      "x1": 147.94308292299377,
+      "y1": 177.34322607734111,
+      "x2": 237.94308292299377,
+      "y2": 177.34322607734111,
+      "above": "CH₃OH",
+      "below": "Δ"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t127": {
+      "id": "t127",
+      "text": "3.4 · Werkcollege les 3, Wade 7-60b",
+      "x": 0,
+      "y": 0,
+      "color": "#7c3aed",
+      "bold": true,
+      "size": 18
+    },
+    "t128": {
+      "id": "t128",
+      "text": "Geef het mechanisme bij verwarmen in methanol (zonder sterke base) en teken het",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t129": {
+      "id": "t129",
+      "text": "energiediagram.",
+      "x": 0,
+      "y": 56,
+      "size": 15
+    },
+    "t130": {
+      "id": "t130",
+      "text": "?",
+      "x": 273.94308292299377,
+      "y": 187.34322607734111,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

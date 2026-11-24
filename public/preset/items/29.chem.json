@@ -1,0 +1,231 @@
+{
+  "atoms": {
+    "a657": {
+      "id": "a657",
+      "x": 31,
+      "y": 168.10304523894686,
+      "element": "Cl",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a658": {
+      "id": "a658",
+      "x": 65.65514541465097,
+      "y": 188.0785526490077,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a659": {
+      "id": "a659",
+      "x": 100.27829161839276,
+      "y": 168.0470466198558,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a660": {
+      "id": "a660",
+      "x": 134.93343703304373,
+      "y": 188.02255402991662,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a661": {
+      "id": "a661",
+      "x": 169.5565832367855,
+      "y": 167.9910480007647,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a662": {
+      "id": "a662",
+      "x": 204.2117286514365,
+      "y": 187.96655541082552,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a663": {
+      "id": "a663",
+      "x": 169.52458402587632,
+      "y": 127.99203436427928,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a664": {
+      "id": "a664",
+      "x": 338.41075156813105,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a665": {
+      "id": "a665",
+      "x": 338.490750438555,
+      "y": 147.99943521196218,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a666": {
+      "id": "a666",
+      "x": 303.8912389802077,
+      "y": 168.0711518013248,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a667": {
+      "id": "a667",
+      "x": 303.9712378506316,
+      "y": 208.07058701328697,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a668": {
+      "id": "a668",
+      "x": 269.2117286514365,
+      "y": 148.13543329168286,
+      "element": "O",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b588": {
+      "id": "b588",
+      "a1": "a657",
+      "a2": "a658",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b589": {
+      "id": "b589",
+      "a1": "a658",
+      "a2": "a659",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b590": {
+      "id": "b590",
+      "a1": "a659",
+      "a2": "a660",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b591": {
+      "id": "b591",
+      "a1": "a660",
+      "a2": "a661",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b592": {
+      "id": "b592",
+      "a1": "a661",
+      "a2": "a662",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b593": {
+      "id": "b593",
+      "a1": "a661",
+      "a2": "a663",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b594": {
+      "id": "b594",
+      "a1": "a664",
+      "a2": "a665",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b595": {
+      "id": "b595",
+      "a1": "a665",
+      "a2": "a666",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b596": {
+      "id": "b596",
+      "a1": "a666",
+      "a2": "a667",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b597": {
+      "id": "b597",
+      "a1": "a666",
+      "a2": "a668",
+      "order": 2,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r67": {
+      "id": "r67",
+      "kind": "forward",
+      "x1": 366.490750438555,
+      "y1": 158.03529350664348,
+      "x2": 562.990750438555,
+      "y2": 158.03529350664348,
+      "above": "Li, ether, N₂",
+      "below": "−70 °C, daarna opwerken"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t191": {
+      "id": "t191",
+      "text": "Lavendel · vraag 8",
+      "x": 0,
+      "y": 0,
+      "color": "#9333ea",
+      "bold": true,
+      "size": 18
+    },
+    "t192": {
+      "id": "t192",
+      "text": "Geef het mechanisme van de synthese van (+)-linalool.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t193": {
+      "id": "t193",
+      "text": "+",
+      "x": 224.2117286514365,
+      "y": 165.03529350664348,
+      "size": 20
+    },
+    "t194": {
+      "id": "t194",
+      "text": "?",
+      "x": 598.990750438555,
+      "y": 168.03529350664348,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

@@ -1,0 +1,142 @@
+{
+  "atoms": {
+    "a539": {
+      "id": "a539",
+      "x": 16,
+      "y": 176.0081169740618,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a540": {
+      "id": "a540",
+      "x": 50.66405962223383,
+      "y": 156.04808264277324,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a541": {
+      "id": "a541",
+      "x": 87.19212245055593,
+      "y": 172.3521106857256,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a542": {
+      "id": "a542",
+      "x": 113.98416853291482,
+      "y": 142.66405962223382,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a543": {
+      "id": "a543",
+      "x": 94.02413420162625,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a544": {
+      "id": "a544",
+      "x": 54.888066887532574,
+      "y": 116.27201422787671,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b474": {
+      "id": "b474",
+      "a1": "a539",
+      "a2": "a540",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b475": {
+      "id": "b475",
+      "a1": "a540",
+      "a2": "a541",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b476": {
+      "id": "b476",
+      "a1": "a541",
+      "a2": "a542",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b477": {
+      "id": "b477",
+      "a1": "a542",
+      "a2": "a543",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b478": {
+      "id": "b478",
+      "a1": "a543",
+      "a2": "a544",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b479": {
+      "id": "b479",
+      "a1": "a544",
+      "a2": "a540",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r53": {
+      "id": "r53",
+      "kind": "forward",
+      "x1": 141.98416853291482,
+      "y1": 142.0040584870309,
+      "x2": 293.48416853291485,
+      "y2": 142.0040584870309,
+      "above": "HBr",
+      "below": "CH₃CO-OO-COCH₃, Δ"
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t142": {
+      "id": "t142",
+      "text": "8.1 · Werkcollege les 8, Wade 8-3a",
+      "x": 0,
+      "y": 0,
+      "color": "#16a34a",
+      "bold": true,
+      "size": 18
+    },
+    "t143": {
+      "id": "t143",
+      "text": "Geef het mechanisme (initiatie en propagatie) en het hoofdproduct.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t144": {
+      "id": "t144",
+      "text": "?",
+      "x": 329.48416853291485,
+      "y": 152.0040584870309,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

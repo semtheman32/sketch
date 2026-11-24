@@ -1,0 +1,151 @@
+{
+  "atoms": {
+    "a501": {
+      "id": "a501",
+      "x": 16,
+      "y": 167.97208663721995,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a502": {
+      "id": "a502",
+      "x": 50.658361701232224,
+      "y": 148.00272587861522,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a503": {
+      "id": "a503",
+      "x": 50.69036388193511,
+      "y": 108,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a504": {
+      "id": "a504",
+      "x": 85.28472122176156,
+      "y": 168.02809045345,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a505": {
+      "id": "a505",
+      "x": 105.25408198036627,
+      "y": 202.68645215468223,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a506": {
+      "id": "a506",
+      "x": 119.94308292299377,
+      "y": 148.05872969484528,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a507": {
+      "id": "a507",
+      "x": 65.25135610175106,
+      "y": 202.65444997397933,
+      "element": "Br",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b440": {
+      "id": "b440",
+      "a1": "a501",
+      "a2": "a502",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b441": {
+      "id": "b441",
+      "a1": "a502",
+      "a2": "a503",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b442": {
+      "id": "b442",
+      "a1": "a502",
+      "a2": "a504",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b443": {
+      "id": "b443",
+      "a1": "a504",
+      "a2": "a505",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b444": {
+      "id": "b444",
+      "a1": "a504",
+      "a2": "a506",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b445": {
+      "id": "b445",
+      "a1": "a504",
+      "a2": "a507",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r48": {
+      "id": "r48",
+      "kind": "forward",
+      "x1": 147.94308292299377,
+      "y1": 155.34322607734111,
+      "x2": 237.94308292299377,
+      "y2": 155.34322607734111,
+      "above": "NaOCH₃",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t124": {
+      "id": "t124",
+      "text": "3.3 · Werkcollege les 3, Wade 7-60a",
+      "x": 0,
+      "y": 0,
+      "color": "#7c3aed",
+      "bold": true,
+      "size": 18
+    },
+    "t125": {
+      "id": "t125",
+      "text": "Geef het mechanisme met natriummethoxide en teken het energiediagram.",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t126": {
+      "id": "t126",
+      "text": "?",
+      "x": 273.94308292299377,
+      "y": 165.34322607734111,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}

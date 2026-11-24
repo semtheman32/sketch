@@ -1,0 +1,213 @@
+{
+  "atoms": {
+    "a561": {
+      "id": "a561",
+      "x": 50.99993000021001,
+      "y": 310.06363987308043,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a562": {
+      "id": "a562",
+      "x": 50.919930160209525,
+      "y": 270.0637198728404,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a563": {
+      "id": "a563",
+      "x": 85.51986096041713,
+      "y": 249.99176001671998,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a564": {
+      "id": "a564",
+      "x": 85.43986112041665,
+      "y": 209.99184001647996,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a565": {
+      "id": "a565",
+      "x": 50.75993048020857,
+      "y": 190.0638798723604,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a566": {
+      "id": "a566",
+      "x": 16.159999680000958,
+      "y": 210.13583972848082,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a567": {
+      "id": "a567",
+      "x": 16.23999952000144,
+      "y": 250.13575972872084,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a568": {
+      "id": "a568",
+      "x": 50.679930640208084,
+      "y": 150.0639598721204,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a569": {
+      "id": "a569",
+      "x": 16,
+      "y": 130.1359997280008,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    },
+    "a570": {
+      "id": "a570",
+      "x": 85.2798614404157,
+      "y": 130,
+      "element": "C",
+      "charge": 0,
+      "lonePairs": 0,
+      "radical": false
+    }
+  },
+  "bonds": {
+    "b496": {
+      "id": "b496",
+      "a1": "a561",
+      "a2": "a562",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b497": {
+      "id": "b497",
+      "a1": "a562",
+      "a2": "a563",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b498": {
+      "id": "b498",
+      "a1": "a563",
+      "a2": "a564",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b499": {
+      "id": "b499",
+      "a1": "a564",
+      "a2": "a565",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b500": {
+      "id": "b500",
+      "a1": "a565",
+      "a2": "a566",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b501": {
+      "id": "b501",
+      "a1": "a566",
+      "a2": "a567",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b502": {
+      "id": "b502",
+      "a1": "a565",
+      "a2": "a568",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b503": {
+      "id": "b503",
+      "a1": "a568",
+      "a2": "a569",
+      "order": 1,
+      "stereo": "none"
+    },
+    "b504": {
+      "id": "b504",
+      "a1": "a568",
+      "a2": "a570",
+      "order": 2,
+      "stereo": "none"
+    },
+    "b505": {
+      "id": "b505",
+      "a1": "a567",
+      "a2": "a562",
+      "order": 1,
+      "stereo": "none"
+    }
+  },
+  "arrows": {
+    "r56": {
+      "id": "r56",
+      "kind": "forward",
+      "x1": 113.51986096041713,
+      "y1": 220.03181993654022,
+      "x2": 242.51986096041713,
+      "y2": 220.03181993654022,
+      "above": "Br₂ (overmaat)",
+      "below": ""
+    }
+  },
+  "curlies": {},
+  "texts": {
+    "t151": {
+      "id": "t151",
+      "text": "8.4 · Werkcollege les 8, Wade 8-18b",
+      "x": 0,
+      "y": 0,
+      "color": "#16a34a",
+      "bold": true,
+      "size": 18
+    },
+    "t152": {
+      "id": "t152",
+      "text": "Geef het mechanisme voor de additie aan beide dubbele bindingen en de producten met",
+      "x": 0,
+      "y": 34,
+      "size": 15
+    },
+    "t153": {
+      "id": "t153",
+      "text": "stereochemie.",
+      "x": 0,
+      "y": 56,
+      "size": 15
+    },
+    "t154": {
+      "id": "t154",
+      "text": "?",
+      "x": 278.51986096041713,
+      "y": 230.03181993654022,
+      "size": 28,
+      "bold": true
+    }
+  },
+  "brackets": {}
+}
